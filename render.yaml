@@ -22,6 +22,8 @@ services:
         value: "3000"
       - key: HOST  
         value: "0.0.0.0"
+      - key: NEXT_PUBLIC_APP_URL
+        value: "https://ritkart-frontend.onrender.com/"
       # Add your other environment variables here
       # Example:
       # - key: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
