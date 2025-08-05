@@ -3358,6 +3358,386 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Style Code': 'DH4071-001',
         'Origin': 'Vietnam'
       }
+    },
+    'b11': {
+      id: 'b11',
+      title: 'Harry Potter and the Sorcerer\'s Stone by J.K. Rowling - Hardcover Edition',
+      price: 24.99,
+      originalPrice: 29.99,
+      rating: 4.9,
+      reviewCount: 567890,
+      images: [
+        'https://images.unsplash.com/photo-1621351183012-e51df1bdc82f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 134,
+      description: 'The magical tale that started it all! Join Harry Potter as he discovers he\'s a wizard on his 11th birthday and embarks on an incredible journey to Hogwarts School of Witchcraft and Wizardry.',
+      features: [
+        'Original hardcover edition',
+        'Over 500 million copies sold worldwide',
+        'Translated into 80 languages',
+        'Perfect for all ages',
+        'Award-winning fantasy novel',
+        'Cultural phenomenon',
+        'First book in beloved series'
+      ],
+      specifications: {
+        'Author': 'J.K. Rowling',
+        'Publisher': 'Arthur A. Levine Books',
+        'Publication Date': 'September 1, 1998',
+        'Pages': '320 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 1.5 x 8.25 inches',
+        'Weight': '1.4 pounds',
+        'ISBN-13': '978-0439708180'
+      }
+    },
+    'b12': {
+      id: 'b12',
+      title: 'Sapiens: A Brief History of Humankind by Yuval Noah Harari',
+      price: 21.99,
+      originalPrice: 25.99,
+      rating: 4.6,
+      reviewCount: 234567,
+      images: [
+        'https://images.unsplash.com/photo-1526243741027-444d633d7365?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 89,
+      description: 'A provocative and insightful examination of how Homo sapiens conquered the world. Harari challenges everything we thought we knew about human history and our future.',
+      features: [
+        'International bestseller',
+        'Translated into 65 languages',
+        'Over 25 million copies sold',
+        'Bill Gates recommended',
+        'Thought-provoking analysis',
+        'Award-winning non-fiction',
+        'Essential modern reading'
+      ],
+      specifications: {
+        'Author': 'Yuval Noah Harari',
+        'Publisher': 'Harper',
+        'Publication Date': 'February 10, 2015',
+        'Pages': '464 pages',
+        'Language': 'English',
+        'Dimensions': '5.31 x 1.18 x 8 inches',
+        'Weight': '1.1 pounds',
+        'ISBN-13': '978-0062316097'
+      }
+    },
+    'b13': {
+      id: 'b13',
+      title: 'The Subtle Art of Not Giving a F*ck by Mark Manson - Counterintuitive Approach',
+      price: 16.99,
+      originalPrice: 19.99,
+      rating: 4.2,
+      reviewCount: 123456,
+      images: [
+        'https://images.unsplash.com/photo-1616687551818-a9218cddd2dc?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 156,
+      description: 'A counterintuitive approach to living a good life. Manson uses irreverent stories and profanity-laced humor to show us how to stop trying to be positive all the time and instead find the courage to prioritize.',
+      features: [
+        'New York Times bestseller',
+        'Over 10 million copies sold',
+        'Unconventional self-help',
+        'Practical life philosophy',
+        'Humorous writing style',
+        'No-nonsense advice',
+        'Refreshing honesty'
+      ],
+      specifications: {
+        'Author': 'Mark Manson',
+        'Publisher': 'HarperOne',
+        'Publication Date': 'September 13, 2016',
+        'Pages': '224 pages',
+        'Language': 'English',
+        'Dimensions': '5.31 x 0.6 x 8 inches',
+        'Weight': '7.2 ounces',
+        'ISBN-13': '978-0062457714'
+      }
+    },
+    'b14': {
+      id: 'b14',
+      title: 'To Kill a Mockingbird by Harper Lee - Classic American Literature',
+      price: 15.99,
+      originalPrice: 18.99,
+      rating: 4.8,
+      reviewCount: 456789,
+      images: [
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 16,
+      inStock: true,
+      stockCount: 201,
+      description: 'The unforgettable novel of childhood in a sleepy Southern town and the crisis of conscience that rocked it. A gripping tale of racial injustice and loss of innocence in the American South.',
+      features: [
+        'Pulitzer Prize winner',
+        'Modern Library\'s Best Novel',
+        'Required reading in schools',
+        'American classic',
+        'Coming-of-age story',
+        'Social justice themes',
+        'Timeless relevance'
+      ],
+      specifications: {
+        'Author': 'Harper Lee',
+        'Publisher': 'Harper Perennial Modern Classics',
+        'Publication Date': 'May 23, 2006',
+        'Pages': '376 pages',
+        'Language': 'English',
+        'Dimensions': '5.31 x 0.84 x 8 inches',
+        'Weight': '10.4 ounces',
+        'ISBN-13': '978-0061120084'
+      }
+    },
+    'b15': {
+      id: 'b15',
+      title: 'Think and Grow Rich by Napoleon Hill - Personal Development Classic',
+      price: 17.99,
+      originalPrice: 22.99,
+      rating: 4.5,
+      reviewCount: 87654,
+      images: [
+        'https://images.unsplash.com/photo-1592496431122-2349e0fbc666?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 22,
+      inStock: true,
+      stockCount: 78,
+      description: 'The legendary bestseller that has guided millions to success. Hill reveals the money-making secrets of hundreds of America\'s most affluent people.',
+      features: [
+        'Classic self-help bestseller',
+        'Over 100 million copies sold',
+        '13 principles of success',
+        'Based on 20 years of research',
+        'Timeless wisdom',
+        'Wealth-building strategies',
+        'Motivational classic'
+      ],
+      specifications: {
+        'Author': 'Napoleon Hill',
+        'Publisher': 'TarcherPerigee',
+        'Publication Date': 'August 18, 2005',
+        'Pages': '320 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 0.8 x 8.2 inches',
+        'Weight': '11.2 ounces',
+        'ISBN-13': '978-1585424337'
+      }
+    },
+    'b16': {
+      id: 'b16',
+      title: 'The Great Gatsby by F. Scott Fitzgerald - American Classic',
+      price: 13.99,
+      originalPrice: 16.99,
+      rating: 4.4,
+      reviewCount: 298765,
+      images: [
+        'https://images.unsplash.com/photo-1511108690759-009324a90311?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 18,
+      inStock: true,
+      stockCount: 165,
+      description: 'The story of the mysteriously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan. A masterpiece of American literature set in the Jazz Age.',
+      features: [
+        'American literature classic',
+        'Jazz Age masterpiece',
+        'Required reading in schools',
+        'Cultural icon',
+        'Beautiful prose',
+        'Timeless themes',
+        'Multiple film adaptations'
+      ],
+      specifications: {
+        'Author': 'F. Scott Fitzgerald',
+        'Publisher': 'Scribner',
+        'Publication Date': 'May 10, 2004',
+        'Pages': '208 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 0.5 x 8.4 inches',
+        'Weight': '7.2 ounces',
+        'ISBN-13': '978-0743273565'
+      }
+    },
+    'b17': {
+      id: 'b17',
+      title: 'Zero to One by Peter Thiel - Notes on Startups and Building the Future',
+      price: 19.99,
+      originalPrice: 24.99,
+      rating: 4.3,
+      reviewCount: 76543,
+      images: [
+        'https://images.unsplash.com/photo-1619872553215-8ac017d003f4?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 20,
+      inStock: true,
+      stockCount: 92,
+      description: 'The co-founder of PayPal shares his contrarian thinking about innovation and entrepreneurship. Essential reading for anyone interested in building the future.',
+      features: [
+        'Business bestseller',
+        'Startup essential reading',
+        'Contrarian thinking',
+        'PayPal co-founder insights',
+        'Innovation strategies',
+        'Entrepreneurship guide',
+        'Silicon Valley wisdom'
+      ],
+      specifications: {
+        'Author': 'Peter Thiel with Blake Masters',
+        'Publisher': 'Crown Business',
+        'Publication Date': 'September 16, 2014',
+        'Pages': '224 pages',
+        'Language': 'English',
+        'Dimensions': '5.2 x 0.6 x 8 inches',
+        'Weight': '8.8 ounces',
+        'ISBN-13': '978-0804139298'
+      }
+    },
+    'b18': {
+      id: 'b18',
+      title: 'The Catcher in the Rye by J.D. Salinger - Coming-of-Age Classic',
+      price: 14.99,
+      originalPrice: 17.99,
+      rating: 4.1,
+      reviewCount: 345678,
+      images: [
+        'https://images.unsplash.com/photo-1556695725-3cc4a29d4ef7?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 187,
+      description: 'The story of teenage Holden Caulfield\'s few days in New York City. A controversial and influential coming-of-age novel that captures adolescent alienation and rebellion.',
+      features: [
+        'American literature classic',
+        'Coming-of-age story',
+        'Banned books list regular',
+        'Cultural phenomenon',
+        'Distinctive narrative voice',
+        'Required reading',
+        'Timeless teenage angst'
+      ],
+      specifications: {
+        'Author': 'J.D. Salinger',
+        'Publisher': 'Little, Brown and Company',
+        'Publication Date': 'May 1, 2001',
+        'Pages': '288 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 0.6 x 8.2 inches',
+        'Weight': '9.6 ounces',
+        'ISBN-13': '978-0316769488'
+      }
+    },
+    'b19': {
+      id: 'b19',
+      title: 'How to Win Friends and Influence People by Dale Carnegie',
+      price: 16.99,
+      originalPrice: 19.99,
+      rating: 4.7,
+      reviewCount: 156789,
+      images: [
+        'https://images.unsplash.com/photo-1589828994425-cee7c6e8dbf8?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1592496431122-2349e0fbc666?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 143,
+      description: 'The ultimate book on human relations and social skills. Carnegie\'s timeless advice has helped millions of people achieve their maximum potential in their personal and professional lives.',
+      features: [
+        'Self-help classic',
+        'Over 30 million copies sold',
+        'Timeless people skills',
+        'Business communication',
+        'Relationship building',
+        'Leadership development',
+        'Practical techniques'
+      ],
+      specifications: {
+        'Author': 'Dale Carnegie',
+        'Publisher': 'Gallery Books',
+        'Publication Date': 'February 15, 1998',
+        'Pages': '320 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 0.75 x 8.4 inches',
+        'Weight': '11.2 ounces',
+        'ISBN-13': '978-0671027032'
+      }
+    },
+    'b20': {
+      id: 'b20',
+      title: 'The Lord of the Rings: The Fellowship of the Ring by J.R.R. Tolkien',
+      price: 18.99,
+      originalPrice: 22.99,
+      rating: 4.8,
+      reviewCount: 234567,
+      images: [
+        'https://images.pexels.com/photos/33305547/pexels-photo-33305547.jpeg?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1621351183012-e51df1bdc82f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 17,
+      inStock: true,
+      stockCount: 67,
+      description: 'The first volume of the epic fantasy trilogy that has captivated readers for generations. Follow Frodo Baggins as he begins his quest to destroy the One Ring.',
+      features: [
+        'Fantasy literature masterpiece',
+        'First in beloved trilogy',
+        'World-building excellence',
+        'Multiple film adaptations',
+        'Cultural phenomenon',
+        'Award-winning fantasy',
+        'Timeless adventure'
+      ],
+      specifications: {
+        'Author': 'J.R.R. Tolkien',
+        'Publisher': 'Mariner Books',
+        'Publication Date': 'September 18, 2012',
+        'Pages': '480 pages',
+        'Language': 'English',
+        'Dimensions': '5.31 x 1.07 x 8 inches',
+        'Weight': '15.2 ounces',
+        'ISBN-13': '978-0547928210'
+      }
     }
   };
 
