@@ -964,6 +964,424 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Weight': '1.24 lbs',
         'IPD Range': '58-71mm'
       }
+    },
+    'e26': {
+      id: 'e26',
+      title: 'DJI Mini 3 Pro Drone with 4K HDR Video Camera',
+      price: 759,
+      originalPrice: 899,
+      rating: 4.8,
+      reviewCount: 2345,
+      images: [
+        'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1551808525-51a94da548ce?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 16,
+      inStock: true,
+      stockCount: 9,
+      description: 'Ultra-lightweight drone with 4K HDR video, intelligent flight modes, and obstacle sensing. Perfect for aerial photography.',
+      features: [
+        '4K/60fps HDR video recording',
+        '48MP photos with multiple modes',
+        'Tri-directional obstacle sensing',
+        '34-minute max flight time',
+        'Intelligent flight modes',
+        'Under 249g lightweight design',
+        'DJI RC remote controller'
+      ],
+      specifications: {
+        'Camera': '1/1.3" CMOS, 48MP',
+        'Video': '4K/60fps HDR',
+        'Flight Time': 'Up to 34 minutes',
+        'Max Speed': '16 m/s (Sport mode)',
+        'Transmission Range': 'Up to 12km',
+        'Weight': '< 249g',
+        'Dimensions': '145×90×62 mm (folded)',
+        'Storage': 'microSD (up to 256GB)'
+      }
+    },
+    'e27': {
+      id: 'e27',
+      title: 'Garmin Fenix 7 Solar GPS Smartwatch - Slate Gray',
+      price: 699,
+      originalPrice: 799,
+      rating: 4.7,
+      reviewCount: 3456,
+      images: [
+        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 13,
+      inStock: true,
+      stockCount: 14,
+      description: 'Advanced GPS smartwatch with solar charging, multi-sport tracking, and rugged design for outdoor adventures.',
+      features: [
+        'Solar charging capability',
+        'Multi-GNSS satellite support',
+        '30+ built-in sports apps',
+        'Health and wellness monitoring',
+        'Smart notifications',
+        'Up to 22 days battery life',
+        'Military-grade durability'
+      ],
+      specifications: {
+        'Display': '1.3" sunlight-visible',
+        'Battery': 'Up to 22 days smartwatch mode',
+        'Water Rating': '10 ATM',
+        'Memory': '16GB',
+        'Connectivity': 'Bluetooth, ANT+, Wi-Fi',
+        'GPS': 'Multi-GNSS support',
+        'Weight': '2.2 oz',
+        'Dimensions': '1.85 x 1.85 x 0.57 inches'
+      }
+    },
+    'e28': {
+      id: 'e28',
+      title: 'Sonos One SL Wireless Smart Speaker - Black',
+      price: 179,
+      originalPrice: 199,
+      rating: 4.5,
+      reviewCount: 7890,
+      images: [
+        'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 10,
+      inStock: true,
+      stockCount: 29,
+      description: 'Compact wireless speaker with rich, room-filling sound. Stream from any device and create a multi-room audio system.',
+      features: [
+        'Rich, room-filling sound',
+        'Humidity resistant design',
+        'Easy setup and control',
+        'Multi-room audio capability',
+        'Stream from any device',
+        'Compact design fits anywhere',
+        'Trueplay tuning technology'
+      ],
+      specifications: {
+        'Drivers': 'Two Class-D amplifiers',
+        'Woofer': 'One mid-woofer',
+        'Tweeter': 'One tweeter',
+        'Connectivity': 'Wi-Fi, AirPlay 2',
+        'Dimensions': '6.36 x 4.69 x 4.69 inches',
+        'Weight': '4.08 lbs',
+        'Power': 'Auto-switching 100-240V',
+        'Supported Services': '100+ streaming services'
+      }
+    },
+    'e29': {
+      id: 'e29',
+      title: 'Tesla Model S Plaid Wireless Charging Pad',
+      price: 125,
+      originalPrice: 150,
+      rating: 4.3,
+      reviewCount: 1234,
+      images: [
+        'https://images.unsplash.com/photo-1609592806965-50a4bb9e2c41?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 18,
+      description: 'Premium wireless charging pad inspired by Tesla\'s sleek design. Fast wireless charging for Qi-enabled devices.',
+      features: [
+        '15W fast wireless charging',
+        'Qi-certified compatibility',
+        'LED charging indicator',
+        'Non-slip charging surface',
+        'Overcharge protection',
+        'Tesla-inspired design',
+        'Case-friendly charging'
+      ],
+      specifications: {
+        'Output': '15W, 10W, 7.5W, 5W',
+        'Input': '9V/2A, 5V/3A',
+        'Compatibility': 'Qi-enabled devices',
+        'Efficiency': '≥75%',
+        'Operating Temperature': '0°C to 40°C',
+        'Dimensions': '4.3 x 4.3 x 0.4 inches',
+        'Weight': '0.66 lbs',
+        'Cable': '4ft USB-C cable included'
+      }
+    },
+    'e30': {
+      id: 'e30',
+      title: 'Elgato Stream Deck MK.2 - 15 Customizable LCD Keys',
+      price: 149,
+      originalPrice: 179,
+      rating: 4.6,
+      reviewCount: 4567,
+      images: [
+        'https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1588508065123-287b28e013da?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 23,
+      description: 'Studio controller with 15 customizable LCD keys for streamers, content creators, and productivity enthusiasts.',
+      features: [
+        '15 customizable LCD keys',
+        'Tap to switch scenes, launch media',
+        'Fully customizable with icons',
+        'Unlimited control with folders',
+        'Direct integration with popular tools',
+        'Plugin ecosystem',
+        'Drag and drop setup'
+      ],
+      specifications: {
+        'Keys': '15 LCD keys (72x72 pixels each)',
+        'Connectivity': 'USB 2.0',
+        'Key Life': '> 1 million actuations',
+        'Software': 'Stream Deck Software',
+        'Compatibility': 'Windows 10+, macOS 10.14+',
+        'Dimensions': '4.6 x 3.3 x 0.8 inches',
+        'Weight': '0.46 lbs',
+        'Cable': '5ft USB cable'
+      }
+    },
+    'e31': {
+      id: 'e31',
+      title: 'Philips Hue White and Color Ambiance Smart Bulb Starter Kit',
+      price: 199,
+      originalPrice: 229,
+      rating: 4.4,
+      reviewCount: 8901,
+      images: [
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 13,
+      inStock: true,
+      stockCount: 34,
+      description: 'Smart lighting starter kit with 4 color-changing bulbs and Hue Bridge. Control with voice, app, or smart home systems.',
+      features: [
+        '4 A19 color bulbs included',
+        'Hue Bridge included',
+        '16 million colors available',
+        'Voice control compatibility',
+        'Sync with music and movies',
+        'Geofencing automation',
+        'Works with 1000+ apps'
+      ],
+      specifications: {
+        'Bulb Type': 'A19 LED',
+        'Wattage': '9W (60W equivalent)',
+        'Brightness': '800 lumens',
+        'Color Temperature': '2000K-6500K',
+        'Lifespan': '25,000 hours',
+        'Connectivity': 'Zigbee 3.0',
+        'Compatibility': 'Alexa, Google, Apple HomeKit',
+        'App': 'Philips Hue app'
+      }
+    },
+    'e32': {
+      id: 'e32',
+      title: 'Ring Video Doorbell Pro 2 - 1536p HD Video with 3D Motion Detection',
+      price: 249,
+      originalPrice: 279,
+      rating: 4.2,
+      reviewCount: 6789,
+      images: [
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 11,
+      inStock: true,
+      stockCount: 16,
+      description: 'Advanced video doorbell with 1536p HD video, 3D Motion Detection, and Alexa integration for enhanced home security.',
+      features: [
+        '1536p HD head-to-toe video',
+        '3D Motion Detection',
+        'Advanced Pre-Roll technology',
+        'Bird\'s Eye View aerial perspective',
+        'Works with Alexa',
+        'Dual-band Wi-Fi connectivity',
+        'Professional installation required'
+      ],
+      specifications: {
+        'Video Quality': '1536p HD',
+        'Field of View': '150° horizontal, 90° vertical',
+        '3D Motion Detection': 'Yes',
+        'Pre-Roll': '4 seconds color, 8 seconds B&W',
+        'Power': 'Hardwired (16-24 VAC)',
+        'Connectivity': 'Dual-band Wi-Fi',
+        'Operating Temperature': '-20°F to 120°F',
+        'Dimensions': '5.1 x 2.4 x 1.1 inches'
+      }
+    },
+    'e33': {
+      id: 'e33',
+      title: 'Nest Learning Thermostat 3rd Generation - Stainless Steel',
+      price: 249,
+      originalPrice: 279,
+      rating: 4.5,
+      reviewCount: 5432,
+      images: [
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 11,
+      inStock: true,
+      stockCount: 12,
+      description: 'Smart thermostat that learns your schedule and programs itself. Helps save energy with proven energy-saving features.',
+      features: [
+        'Auto-learns your schedule',
+        'Remote control via smartphone',
+        'Energy-saving features',
+        'Works with 95% of systems',
+        'Farsight technology',
+        'Professional installation available',
+        'Proven energy savings'
+      ],
+      specifications: {
+        'Display': '2.08" 480x480 LCD',
+        'Connectivity': 'Wi-Fi 802.11 b/g/n',
+        'Sensors': 'Temperature, humidity, light, motion',
+        'Compatibility': '95% of heating/cooling systems',
+        'Power': 'Rechargeable lithium-ion battery',
+        'Dimensions': '3.3 x 3.3 x 1.21 inches',
+        'Weight': '7.3 oz',
+        'Operating Temperature': '32°F to 95°F'
+      }
+    },
+    'e34': {
+      id: 'e34',
+      title: 'Arlo Pro 4 Wireless Security Camera System - 2K HDR',
+      price: 199,
+      originalPrice: 249,
+      rating: 4.3,
+      reviewCount: 3456,
+      images: [
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 20,
+      inStock: true,
+      stockCount: 8,
+      description: 'Wire-free security camera with 2K HDR video, color night vision, and advanced AI detection for comprehensive home security.',
+      features: [
+        '2K HDR video quality',
+        'Color night vision',
+        'Integrated spotlight',
+        'Advanced AI detection',
+        'Wire-free design',
+        '6-month battery life',
+        'Weather-resistant'
+      ],
+      specifications: {
+        'Video Quality': '2K (2560x1440) HDR',
+        'Field of View': '160° diagonal',
+        'Night Vision': 'Color and infrared',
+        'Audio': 'Two-way with noise cancellation',
+        'Storage': 'Cloud and local (hub required)',
+        'Battery': 'Rechargeable, 3-6 months',
+        'Weather Rating': 'IP65',
+        'Dimensions': '3.1 x 1.9 x 2.8 inches'
+      }
+    },
+    'e35': {
+      id: 'e35',
+      title: 'Tile Mate Bluetooth Tracker 4-Pack - Find Your Keys & More',
+      price: 59,
+      originalPrice: 79,
+      rating: 4.1,
+      reviewCount: 12345,
+      images: [
+        'https://images.unsplash.com/photo-1609592806965-50a4bb9e2c41?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 25,
+      inStock: true,
+      stockCount: 67,
+      description: 'Bluetooth tracking devices to find your keys, wallet, and other important items. 4-pack for comprehensive tracking.',
+      features: [
+        '200 ft Bluetooth range',
+        'Loud 58dB ring',
+        '1-year replaceable battery',
+        'Water-resistant design',
+        'Anonymous finding network',
+        'Works with Alexa and Google',
+        '4 trackers included'
+      ],
+      specifications: {
+        'Range': '200 ft',
+        'Volume': '58dB',
+        'Battery': 'CR1632 (1 year)',
+        'Water Resistance': 'IP55',
+        'Connectivity': 'Bluetooth 5.0',
+        'Dimensions': '1.5 x 1.5 x 0.24 inches',
+        'Weight': '0.35 oz',
+        'App': 'Tile app (iOS/Android)'
+      }
+    },
+    'e36': {
+      id: 'e36',
+      title: 'Belkin 3-in-1 Wireless Charger for iPhone, Apple Watch & AirPods',
+      price: 149,
+      originalPrice: 179,
+      rating: 4.4,
+      reviewCount: 7890,
+      images: [
+        'https://images.unsplash.com/photo-1609592806965-50a4bb9e2c41?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 31,
+      description: 'All-in-one wireless charging station for iPhone, Apple Watch, and AirPods. MagSafe compatible with sleek design.',
+      features: [
+        'MagSafe compatible iPhone charging',
+        'Apple Watch charging puck',
+        'AirPods wireless charging pad',
+        'Simultaneous 3-device charging',
+        'LED charging indicators',
+        'Premium materials and design',
+        'Power adapter included'
+      ],
+      specifications: {
+        'iPhone Output': '15W MagSafe',
+        'Apple Watch Output': '5W',
+        'AirPods Output': '5W',
+        'Input': '36W power adapter',
+        'Compatibility': 'iPhone 12+, Apple Watch, AirPods Pro/3/2',
+        'Dimensions': '7.56 x 6.73 x 4.73 inches',
+        'Weight': '1.95 lbs',
+        'Certification': 'Qi-certified, MFi'
+      }
     }
   };
 
