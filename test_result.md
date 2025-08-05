@@ -24,7 +24,7 @@ Each category has 36 products total:
 | Category | Products Range | Status |
 |----------|----------------|--------|
 | Electronics | 1-12, e13-e36 | ✅ **COMPLETED** (36/36) |
-| Fashion | f1-f36 | 🟡 **IN PROGRESS** (10/36) |
+| Fashion | f1-f36 | 🟡 **IN PROGRESS** (15/36) |
 | Books | b1-b36 | ⏳ **PENDING** (0/36) |
 | Home & Garden | h1-h36 | ⏳ **PENDING** (0/36) |
 | Sports & Outdoors | s1-s36 | ⏳ **PENDING** (0/36) |
