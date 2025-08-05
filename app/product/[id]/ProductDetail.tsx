@@ -2522,6 +2522,234 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Origin': 'Made in Italy',
         'Design': 'Scandinavian minimalism'
       }
+    },
+    'f31': {
+      id: 'f31',
+      title: 'Mansur Gavriel Bucket Bag - Italian Leather Tan',
+      price: 395,
+      originalPrice: 445,
+      rating: 4.5,
+      reviewCount: 2345,
+      images: [
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1624681689597-ec3e6c58a27a?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 11,
+      inStock: true,
+      stockCount: 12,
+      description: 'Iconic bucket bag in supple Italian leather with drawstring closure. Minimalist design with luxurious craftsmanship.',
+      features: [
+        'Italian vegetable-tanned leather',
+        'Drawstring closure',
+        'Interior pouch included',
+        'Minimalist design',
+        'Handcrafted construction',
+        'Signature color contrast',
+        'Luxury leather goods'
+      ],
+      specifications: {
+        'Material': 'Italian Vegetable-Tanned Leather',
+        'Closure': 'Drawstring',
+        'Interior': 'Contrasting leather pouch',
+        'Dimensions': '10" x 11" x 10"',
+        'Handle Drop': '7 inches',
+        'Origin': 'Made in Italy',
+        'Care': 'Professional leather care',
+        'Hardware': 'Minimal metal hardware'
+      }
+    },
+    'f32': {
+      id: 'f32',
+      title: 'Stone Island Compass Logo Sweatshirt - Navy Cotton',
+      price: 285,
+      originalPrice: 325,
+      rating: 4.4,
+      reviewCount: 3456,
+      images: [
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 12,
+      inStock: true,
+      stockCount: 16,
+      description: 'Premium sweatshirt with iconic compass logo badge. Italian technical wear meets contemporary streetwear styling.',
+      features: [
+        'Premium cotton construction',
+        'Iconic compass logo badge',
+        'Crew neck design',
+        'Ribbed cuffs and hem',
+        'Italian technical wear',
+        'Contemporary fit',
+        'Luxury streetwear'
+      ],
+      specifications: {
+        'Material': '100% Cotton',
+        'Weight': 'Heavyweight (340gsm)',
+        'Fit': 'Regular contemporary',
+        'Logo': 'Compass badge on sleeve',
+        'Neckline': 'Crew neck',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in Portugal',
+        'Category': 'Technical wear'
+      }
+    },
+    'f33': {
+      id: 'f33',
+      title: 'Bottega Veneta Intrecciato Card Holder - Woven Leather Black',
+      price: 350,
+      originalPrice: 390,
+      rating: 4.6,
+      reviewCount: 1234,
+      images: [
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 10,
+      inStock: true,
+      stockCount: 7,
+      description: 'Signature Intrecciato woven leather card holder. Luxurious Italian craftsmanship with iconic basket-weave technique.',
+      features: [
+        'Signature Intrecciato weave',
+        'Premium Italian leather',
+        '4 card slots',
+        'Slim profile design',
+        'Handwoven construction',
+        'No logo branding',
+        'Luxury leather goods'
+      ],
+      specifications: {
+        'Material': 'Intrecciato Woven Leather',
+        'Card Slots': '4',
+        'Dimensions': '4.3" x 2.8" x 0.2"',
+        'Construction': 'Handwoven',
+        'Origin': 'Made in Italy',
+        'Technique': 'Traditional Intrecciato weave',
+        'Care': 'Professional leather care',
+        'Design': 'No visible logo'
+      }
+    },
+    'f34': {
+      id: 'f34',
+      title: 'Fear of God Essentials Hoodie - Cream Oversized Fit',
+      price: 90,
+      originalPrice: 110,
+      rating: 4.5,
+      reviewCount: 6789,
+      images: [
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 18,
+      inStock: true,
+      stockCount: 44,
+      description: 'Oversized pullover hoodie from Fear of God Essentials line. Contemporary streetwear with luxury comfort and fit.',
+      features: [
+        'Oversized contemporary fit',
+        'Premium cotton blend',
+        'Pullover hoodie design',
+        'Kangaroo pocket',
+        'Drawstring hood',
+        'Ribbed cuffs and hem',
+        'Minimalist branding'
+      ],
+      specifications: {
+        'Material': '80% Cotton, 20% Polyester',
+        'Fit': 'Oversized',
+        'Hood': 'Drawstring adjustable',
+        'Pocket': 'Front kangaroo pocket',
+        'Branding': 'Reflective logo',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in China',
+        'Line': 'Fear of God Essentials'
+      }
+    },
+    'f35': {
+      id: 'f35',
+      title: 'Maison Margiela Tabi Boots - Black Leather Split-Toe',
+      price: 1190,
+      originalPrice: 1350,
+      rating: 4.3,
+      reviewCount: 567,
+      images: [
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1605348532760-da0ec9d70304?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 12,
+      inStock: true,
+      stockCount: 4,
+      description: 'Iconic Tabi boots with signature split-toe design. Avant-garde Japanese-inspired footwear with Italian craftsmanship.',
+      features: [
+        'Signature split-toe design',
+        'Premium leather construction',
+        'Mid-calf height',
+        'Side zip closure',
+        'Leather sole',
+        'Japanese-inspired design',
+        'Avant-garde fashion'
+      ],
+      specifications: {
+        'Upper': 'Premium leather',
+        'Sole': 'Leather',
+        'Height': 'Mid-calf',
+        'Closure': 'Side zip',
+        'Toe': 'Split-toe (Tabi)',
+        'Heel': '1.5 inches',
+        'Origin': 'Made in Italy',
+        'Design': 'Japanese-inspired'
+      }
+    },
+    'f36': {
+      id: 'f36',
+      title: 'Jacquemus Le Chiquito Mini Bag - Leather Yellow',
+      price: 495,
+      originalPrice: 545,
+      rating: 4.2,
+      reviewCount: 2345,
+      images: [
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1624681689597-ec3e6c58a27a?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 9,
+      inStock: true,
+      stockCount: 6,
+      description: 'Iconic micro bag in vibrant yellow leather. Statement piece from French designer with playful proportions.',
+      features: [
+        'Micro bag proportions',
+        'Premium leather construction',
+        'Vibrant yellow color',
+        'Top handle',
+        'Magnetic closure',
+        'French luxury design',
+        'Statement accessory'
+      ],
+      specifications: {
+        'Material': 'Premium Leather',
+        'Color': 'Vibrant Yellow',
+        'Closure': 'Magnetic snap',
+        'Handle': 'Top handle, 2.5" drop',
+        'Dimensions': '5.5" x 4.3" x 2"',
+        'Interior': 'Leather lined',
+        'Origin': 'Made in Italy',
+        'Designer': 'Jacquemus'
+      }
     }
   };
 
