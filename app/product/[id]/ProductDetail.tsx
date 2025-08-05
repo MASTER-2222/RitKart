@@ -3131,8 +3131,8 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'ISBN-13': '978-0062315007'
       }
     },
-    'b11': {
-      id: 'b11',
+    'b11a': {
+      id: 'b11a',
       title: 'The Four Agreements by Don Miguel Ruiz - Practical Guide to Personal Freedom',
       price: 12.99,
       originalPrice: 15.95,
