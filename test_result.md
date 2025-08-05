@@ -331,14 +331,14 @@ Each product entry includes comprehensive details:
 ## Next Steps 🚀
 
 ### Immediate (Next Session):
-1. **Complete Fashion Category**: Add products f11-f36 (26 products)  
-2. **Test Fashion Products**: Verify all f1-f36 products work correctly
-3. **Start Books Category**: Begin adding b1-b12 products
+1. **Complete Home & Garden Category**: Add products h1-h36 (36 products)  
+2. **Test Books Products**: Verify all b1-b36 products work correctly
+3. **Complete remaining Sports products**: Add s3-s36 (34 products)
 
 ### Short Term (2-3 Sessions):
-1. **Complete Books Category**: All b1-b36 products
-2. **Complete Home & Garden**: All h1-h36 products
-3. **Begin Sports & Outdoors**: Start s1-s36 products
+1. **Complete Sports & Outdoors**: All s3-s36 products
+2. **Complete Grocery Category**: All g1-g36 products
+3. **Begin Appliances**: Start a1-a36 products
 
 ### Medium Term (5-10 Sessions):
 1. **Complete all remaining categories**
