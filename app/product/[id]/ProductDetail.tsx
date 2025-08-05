@@ -2142,6 +2142,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Water Resistance': '3ATM',
         'Compatibility': 'Android 6.0+, iOS 12.0+'
       }
+    },
+    'f21': {
+      id: 'f21',
+      title: 'Allbirds Tree Runners - Sustainable Sneakers Natural White',
+      price: 98,
+      originalPrice: 118,
+      rating: 4.4,
+      reviewCount: 9876,
+      images: [
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1605348532760-da0ec9d70304?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 48,
+      description: 'Sustainable sneakers made from eucalyptus tree fiber. Lightweight, breathable, and naturally odor-resistant.',
+      features: [
+        'Eucalyptus tree fiber upper',
+        'Naturally moisture-wicking',
+        'Odor-resistant properties',
+        'Machine washable',
+        'Carbon negative footprint',
+        'Minimalist design',
+        'All-day comfort'
+      ],
+      specifications: {
+        'Upper': 'Eucalyptus Tree Fiber',
+        'Sole': 'SweetFoam (sugarcane-based)',
+        'Laces': 'Recycled plastic bottles',
+        'Insole': 'Castor bean oil foam',
+        'Weight': '7.6 oz per shoe',
+        'Care': 'Machine wash cold',
+        'Certification': 'Carbon negative',
+        'Origin': 'Made in South Korea'
+      }
+    },
+    'f22': {
+      id: 'f22',
+      title: 'Madewell The Perfect Vintage Jean - High-Rise Skinny',
+      price: 128,
+      originalPrice: 148,
+      rating: 4.5,
+      reviewCount: 7654,
+      images: [
+        'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1541099649105-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 14,
+      inStock: true,
+      stockCount: 35,
+      description: 'Premium vintage-inspired jeans with perfect fit and authentic details. High-rise skinny silhouette in premium denim.',
+      features: [
+        'High-rise waist (10" rise)',
+        'Skinny fit through leg',
+        'Premium vintage-wash denim',
+        'Button fly closure',
+        'Classic 5-pocket styling',
+        'Signature leather patch',
+        'Comfortable stretch'
+      ],
+      specifications: {
+        'Material': '99% Cotton, 1% Elastane',
+        'Fit': 'High-Rise Skinny',
+        'Rise': '10 inches',
+        'Inseam': '28 inches',
+        'Leg Opening': '10 inches',
+        'Closure': 'Button fly',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in Turkey'
+      }
+    },
+    'f23': {
+      id: 'f23',
+      title: 'Everlane The Cashmere Crew Sweater - Women\'s Camel',
+      price: 100,
+      originalPrice: 130,
+      rating: 4.6,
+      reviewCount: 4321,
+      images: [
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 23,
+      inStock: true,
+      stockCount: 27,
+      description: 'Luxurious 2-ply cashmere sweater with classic crew neck design. Grade-A cashmere for ultimate softness and warmth.',
+      features: [
+        'Grade-A 2-ply cashmere',
+        'Classic crew neck',
+        'Relaxed fit',
+        'Ribbed cuffs and hem',
+        'Long sleeves',
+        'Ethically sourced',
+        'Hand wash recommended'
+      ],
+      specifications: {
+        'Material': '100% Grade-A Cashmere',
+        'Ply': '2-ply construction',
+        'Fit': 'Relaxed',
+        'Neckline': 'Crew neck',
+        'Sleeves': 'Long sleeves',
+        'Care': 'Hand wash or dry clean',
+        'Origin': 'Made in China',
+        'Certification': 'Ethically sourced'
+      }
+    },
+    'f24': {
+      id: 'f24',
+      title: 'Warby Parker Percey Glasses - Tortoise Acetate Frames',
+      price: 95,
+      originalPrice: 115,
+      rating: 4.7,
+      reviewCount: 8901,
+      images: [
+        'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1556306553-6f6e4b9c2cd9?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 43,
+      description: 'Classic round glasses in premium acetate with anti-reflective lenses. Timeless design meets modern functionality.',
+      features: [
+        'Italian acetate frames',
+        'Round lens shape',
+        'Anti-reflective lenses',
+        'UV protection included',
+        'Spring hinges',
+        'Includes case and cloth',
+        'Free prescription lenses'
+      ],
+      specifications: {
+        'Frame Material': 'Italian Acetate',
+        'Frame Color': 'Tortoise',
+        'Lens Shape': 'Round',
+        'Lens Width': '47mm',
+        'Bridge Width': '20mm',
+        'Temple Length': '145mm',
+        'UV Protection': 'UV400',
+        'Features': 'Anti-reflective coating'
+      }
+    },
+    'f25': {
+      id: 'f25',
+      title: 'Reformation Midi Wrap Dress - Floral Print Sustainable Fabric',
+      price: 178,
+      originalPrice: 218,
+      rating: 4.5,
+      reviewCount: 3456,
+      images: [
+        'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 18,
+      inStock: true,
+      stockCount: 19,
+      description: 'Sustainable midi wrap dress in vintage-inspired floral print. Made from deadstock fabric with feminine silhouette.',
+      features: [
+        'Sustainable deadstock fabric',
+        'Midi length wrap design',
+        'Vintage floral print',
+        'Three-quarter sleeves',
+        'Self-tie waist belt',
+        'V-neckline',
+        'Carbon neutral shipping'
+      ],
+      specifications: {
+        'Material': 'Deadstock Rayon (sustainable)',
+        'Length': 'Midi (48 inches)',
+        'Sleeves': 'Three-quarter sleeves',
+        'Closure': 'Wrap tie',
+        'Neckline': 'V-neck',
+        'Fit': 'True to size',
+        'Care': 'Dry clean only',
+        'Sustainability': 'Made from deadstock fabric'
+      }
     }
   };
 
