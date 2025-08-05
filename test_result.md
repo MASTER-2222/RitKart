@@ -35,8 +35,8 @@ Each category has 36 products total:
 | Pharmacy | p1-p36 | ⏳ **PENDING** (0/36) |
 
 **Total Products**: 360 products across 10 categories
-**Completed**: 51 products (Electronics: 36 + Fashion: 15)
-**Remaining**: 309 products
+**Completed**: 72 products (Electronics: 36 + Fashion: 36)
+**Remaining**: 288 products
 
 ---
 
