@@ -1382,6 +1382,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Weight': '1.95 lbs',
         'Certification': 'Qi-certified, MFi'
       }
+    },
+    'f1': {
+      id: 'f1',
+      title: "Levi's Women's 501 High Rise Straight Jeans - Medium Wash",
+      price: 89.50,
+      originalPrice: 98.00,
+      rating: 4.6,
+      reviewCount: 12847,
+      images: [
+        'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1541099649105-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 9,
+      inStock: true,
+      stockCount: 43,
+      description: 'Classic high-rise straight jeans with vintage-inspired fit. Made from premium denim with authentic details and timeless style.',
+      features: [
+        'High-rise waist for flattering fit',
+        'Straight leg silhouette',
+        'Medium wash with authentic aging',
+        '100% cotton denim construction',
+        'Classic 5-pocket styling',
+        'Button fly closure',
+        'Iconic Levi\'s red tab'
+      ],
+      specifications: {
+        'Material': '100% Cotton',
+        'Fit': 'High Rise Straight',
+        'Rise': '11.75 inches',
+        'Inseam': '30 inches',
+        'Leg Opening': '16.5 inches',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in Turkey',
+        'Style': '501 Original'
+      }
+    },
+    'f2': {
+      id: 'f2',
+      title: 'Nike Air Force 1 \'07 White Leather Sneakers - Unisex',
+      price: 110,
+      originalPrice: 130,
+      rating: 4.8,
+      reviewCount: 28934,
+      images: [
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1605348532760-da0ec9d70304?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 62,
+      description: 'Iconic basketball-inspired sneakers with premium leather upper and classic design. The perfect blend of style and comfort.',
+      features: [
+        'Premium leather upper',
+        'Air-Sole unit for cushioning',
+        'Rubber outsole with pivot points',
+        'Classic basketball silhouette',
+        'Perforated toe box for breathability',
+        'Padded collar and tongue',
+        'Unisex sizing available'
+      ],
+      specifications: {
+        'Upper': 'Premium leather',
+        'Midsole': 'Foam with Air-Sole unit',
+        'Outsole': 'Solid rubber',
+        'Closure': 'Lace-up',
+        'Heel Height': '1.25 inches',
+        'Weight': '1.2 lbs (size 9)',
+        'Origin': 'Vietnam',
+        'Style Code': '315122-111'
+      }
+    },
+    'f3': {
+      id: 'f3',
+      title: 'Zara Women\'s Oversized Blazer - Black Premium Wool Blend',
+      price: 149,
+      originalPrice: 199,
+      rating: 4.4,
+      reviewCount: 5672,
+      images: [
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 25,
+      inStock: true,
+      stockCount: 18,
+      description: 'Contemporary oversized blazer crafted from premium wool blend. Perfect for professional settings or elevated casual looks.',
+      features: [
+        'Oversized contemporary fit',
+        'Premium wool blend fabric',
+        'Structured shoulders',
+        'Double-breasted design',
+        'Side pockets',
+        'Full lining',
+        'Professional finish'
+      ],
+      specifications: {
+        'Material': '70% Wool, 25% Polyester, 5% Elastane',
+        'Lining': '100% Polyester',
+        'Fit': 'Oversized',
+        'Length': '29 inches',
+        'Closure': 'Double-breasted buttons',
+        'Care': 'Dry clean only',
+        'Origin': 'Made in Turkey',
+        'Color': 'Black'
+      }
+    },
+    'f4': {
+      id: 'f4',
+      title: 'Adidas Originals Three Stripes Track Jacket - Vintage Style',
+      price: 85,
+      originalPrice: 100,
+      rating: 4.7,
+      reviewCount: 15234,
+      images: [
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 37,
+      description: 'Classic track jacket with iconic three stripes design. Vintage-inspired style with modern comfort and fit.',
+      features: [
+        'Iconic three stripes design',
+        'Full zip front closure',
+        'Ribbed cuffs and hem',
+        'Side pockets',
+        'Vintage-inspired styling',
+        'Regular fit',
+        'Trefoil logo badge'
+      ],
+      specifications: {
+        'Material': '70% Cotton, 30% Polyester',
+        'Fit': 'Regular',
+        'Closure': 'Full zip',
+        'Pockets': '2 side zip pockets',
+        'Care': 'Machine wash cold',
+        'Size Range': 'XS-XXL',
+        'Origin': 'Made in Cambodia',
+        'Collection': 'Originals'
+      }
+    },
+    'f5': {
+      id: 'f5',
+      title: 'H&M Women\'s Floral Summer Dress - Midi Length Cotton Blend',
+      price: 39.99,
+      originalPrice: 49.99,
+      rating: 4.3,
+      reviewCount: 8765,
+      images: [
+        'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 20,
+      inStock: true,
+      stockCount: 28,
+      description: 'Feminine floral dress in midi length with comfortable cotton blend fabric. Perfect for casual outings and summer events.',
+      features: [
+        'Romantic floral print',
+        'Midi length design',
+        'Short sleeves',
+        'Fit-and-flare silhouette',
+        'Side zipper closure',
+        'Breathable cotton blend',
+        'Machine washable'
+      ],
+      specifications: {
+        'Material': '60% Cotton, 40% Polyester',
+        'Length': 'Midi (46 inches)',
+        'Sleeves': 'Short sleeves',
+        'Closure': 'Side zipper',
+        'Fit': 'Fit-and-flare',
+        'Care': 'Machine wash warm',
+        'Size Range': 'XS-XL',
+        'Print': 'Floral'
+      }
     }
   };
 
