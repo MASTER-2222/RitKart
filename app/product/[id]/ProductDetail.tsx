@@ -394,6 +394,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Weight': '1.96 pounds',
         'Ports': '2 USB-C, Surface Connect'
       }
+    },
+    '11': {
+      id: '11',
+      title: 'AMD Ryzen 9 5900X 12-Core Desktop Processor',
+      price: 399,
+      originalPrice: 549,
+      rating: 4.7,
+      reviewCount: 8765,
+      images: [
+        'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1580746644971-d2c1e9cb7739?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 27,
+      inStock: true,
+      stockCount: 19,
+      description: 'High-performance desktop processor with 12 cores and 24 threads. Perfect for gaming, content creation, and demanding applications.',
+      features: [
+        '12 cores and 24 threads',
+        'Base clock: 3.7GHz, Max boost: 4.8GHz',
+        '64MB L3 cache',
+        'AM4 socket compatibility',
+        'PCIe 4.0 support',
+        'Zen 3 architecture',
+        'Unlocked for overclocking'
+      ],
+      specifications: {
+        'Cores': '12',
+        'Threads': '24',
+        'Base Clock': '3.7GHz',
+        'Max Boost Clock': '4.8GHz',
+        'Cache': '64MB L3',
+        'Socket': 'AM4',
+        'TDP': '105W',
+        'Architecture': 'Zen 3'
+      }
+    },
+    '12': {
+      id: '12',
+      title: 'NVIDIA GeForce RTX 4080 Graphics Card',
+      price: 1199,
+      originalPrice: 1299,
+      rating: 4.5,
+      reviewCount: 2345,
+      images: [
+        'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1580746644971-d2c1e9cb7739?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 8,
+      inStock: true,
+      stockCount: 7,
+      description: 'Next-generation graphics card powered by Ada Lovelace architecture. Delivers exceptional performance for 4K gaming and ray tracing.',
+      features: [
+        'Ada Lovelace architecture',
+        '16GB GDDR6X memory',
+        'Ray tracing and DLSS 3',
+        'AV1 encoding support',
+        '4K gaming performance',
+        'PCIe 4.0 interface',
+        '3rd Gen RT cores'
+      ],
+      specifications: {
+        'GPU': 'Ada Lovelace',
+        'CUDA Cores': '9728',
+        'Memory': '16GB GDDR6X',
+        'Memory Bus': '256-bit',
+        'Base Clock': '2205 MHz',
+        'Boost Clock': '2505 MHz',
+        'TGP': '320W',
+        'Outputs': '3x DisplayPort 1.4a, 1x HDMI 2.1'
+      }
+    },
+    'e13': {
+      id: 'e13',
+      title: 'Apple iPad Air 5th Generation with M1 Chip - 64GB WiFi',
+      price: 549,
+      originalPrice: 599,
+      rating: 4.7,
+      reviewCount: 6789,
+      images: [
+        'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 8,
+      inStock: true,
+      stockCount: 25,
+      description: 'Powerful tablet with M1 chip performance and all-day battery life. Perfect for creativity, productivity, and entertainment.',
+      features: [
+        'M1 chip with 8-core CPU',
+        '10.9-inch Liquid Retina display',
+        'All-day battery life',
+        '12MP Ultra Wide front camera',
+        'USB-C connector',
+        'Apple Pencil (2nd gen) compatible',
+        'Smart Keyboard compatible'
+      ],
+      specifications: {
+        'Display': '10.9" Liquid Retina',
+        'Chip': 'Apple M1',
+        'Storage': '64GB',
+        'Camera': '12MP Wide, 12MP Ultra Wide',
+        'Battery': 'Up to 10 hours',
+        'Connectivity': 'Wi-Fi 6',
+        'Weight': '1.02 pounds',
+        'Colors': 'Space Gray, Starlight, Pink, Purple, Blue'
+      }
+    },
+    'e14': {
+      id: 'e14',
+      title: 'Google Pixel 8 Pro 128GB - Obsidian Black',
+      price: 899,
+      originalPrice: 999,
+      rating: 4.5,
+      reviewCount: 4567,
+      images: [
+        'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 10,
+      inStock: true,
+      stockCount: 16,
+      description: 'Advanced smartphone with Google Tensor G3 chip, professional-grade camera system, and pure Android experience.',
+      features: [
+        'Google Tensor G3 chip',
+        '6.7" Super Actua display',
+        'Pro camera with 5x telephoto',
+        'Magic Eraser and Best Take',
+        '24-hour battery with fast charging',
+        '7 years of security updates',
+        'Pure Android experience'
+      ],
+      specifications: {
+        'Display': '6.7" Super Actua OLED',
+        'Processor': 'Google Tensor G3',
+        'Storage': '128GB',
+        'RAM': '12GB',
+        'Camera': '50MP main, 48MP ultra-wide, 48MP telephoto',
+        'Battery': '5050 mAh',
+        'OS': 'Android 14',
+        'Weight': '7.5 oz'
+      }
+    },
+    'e15': {
+      id: 'e15',
+      title: 'HP Envy x360 2-in-1 Laptop - AMD Ryzen 7, 16GB RAM',
+      price: 799,
+      originalPrice: 949,
+      rating: 4.3,
+      reviewCount: 3456,
+      images: [
+        'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 16,
+      inStock: true,
+      stockCount: 13,
+      description: 'Versatile 2-in-1 laptop with 360-degree hinge, touchscreen display, and powerful AMD Ryzen processor for productivity and creativity.',
+      features: [
+        '15.6" FHD touchscreen display',
+        'AMD Ryzen 7 5825U processor',
+        '16GB DDR4 RAM',
+        '512GB PCIe NVMe SSD',
+        '360-degree hinge design',
+        'HP Pen included',
+        'Windows 11 Home'
+      ],
+      specifications: {
+        'Display': '15.6" FHD touchscreen',
+        'Processor': 'AMD Ryzen 7 5825U',
+        'Memory': '16GB DDR4',
+        'Storage': '512GB NVMe SSD',
+        'Graphics': 'AMD Radeon',
+        'Battery': 'Up to 8 hours',
+        'Weight': '4.53 pounds',
+        'OS': 'Windows 11 Home'
+      }
     }
   };
 
