@@ -3282,6 +3282,82 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Color': 'Empire Red',
         'Warranty': '1 Year Hassle-Free Replacement'
       }
+    },
+    's1': {
+      id: 's1',
+      title: 'Fitbit Charge 5 Advanced Fitness & Health Tracker with GPS',
+      price: 149,
+      originalPrice: 179,
+      rating: 4.2,
+      reviewCount: 34567,
+      images: [
+        'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 15,
+      description: 'Advanced fitness and health tracker with built-in GPS, stress management tools, and up to 7-day battery life. Track your workouts, monitor your health, and stay connected.',
+      features: [
+        'Built-in GPS for pace and distance',
+        '6+ day battery life',
+        '24/7 heart rate monitoring',
+        'Stress management score',
+        'Sleep score and smart wake',
+        '20+ exercise modes',
+        'Smartphone notifications and apps'
+      ],
+      specifications: {
+        'Display': 'Color AMOLED',
+        'Battery Life': 'Up to 7 days',
+        'Water Resistance': '50 meters',
+        'Compatibility': 'Android & iOS',
+        'Sensors': 'GPS, Heart Rate, SpO2',
+        'Dimensions': '1.46 x 0.87 x 0.44 inches',
+        'Weight': '1.1 oz',
+        'Connectivity': 'Bluetooth 5.0'
+      }
+    },
+    's2': {
+      id: 's2',
+      title: 'Nike Men\'s Air Zoom Pegasus 39 Running Shoes - Black/White',
+      price: 129.99,
+      originalPrice: 149.99,
+      rating: 4.6,
+      reviewCount: 23456,
+      images: [
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1605348532760-da0ec9d70304?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 13,
+      inStock: true,
+      stockCount: 22,
+      description: 'Trusted companion for daily runs with responsive cushioning and reliable traction. Features Nike Air Zoom technology for a smooth, comfortable ride mile after mile.',
+      features: [
+        'Nike Air Zoom unit for responsive cushioning',
+        'Engineered mesh upper for breathability',
+        'Waffle-pattern outsole for traction',
+        'Flywire cables for secure midfoot lockdown',
+        'Heel collar padding for comfort',
+        'Reflective elements for low-light visibility',
+        'Classic Pegasus DNA with modern updates'
+      ],
+      specifications: {
+        'Upper Material': 'Engineered Mesh',
+        'Midsole': 'Full-Length Nike Air Zoom',
+        'Outsole': 'Rubber with Waffle Pattern',
+        'Drop': '10mm',
+        'Weight': '10.6 oz (size 10)',
+        'Intended Use': 'Road Running',
+        'Style Code': 'DH4071-001',
+        'Origin': 'Vietnam'
+      }
     }
   };
 
