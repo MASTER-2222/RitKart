@@ -2940,6 +2940,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Weight': '9.6 ounces',
         'ISBN-13': '978-0399590504'
       }
+    },
+    'b6': {
+      id: 'b6',
+      title: 'The Silent Patient by Alex Michaelides - Psychological Thriller',
+      price: 14.99,
+      originalPrice: 17.99,
+      rating: 4.4,
+      reviewCount: 98765,
+      images: [
+        'https://images.unsplash.com/photo-1551029506-0807df4e2031?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 44,
+      description: 'A woman\'s act of violence against her husband and her refusal to speak sends shockwaves through London. A psychotherapist becomes obsessed with treating her.',
+      features: [
+        '#1 New York Times bestseller',
+        'International bestseller',
+        'Psychological thriller',
+        'Twist ending',
+        'Page-turner',
+        'Debut novel',
+        'Perfect for thriller fans'
+      ],
+      specifications: {
+        'Author': 'Alex Michaelides',
+        'Publisher': 'Celadon Books',
+        'Publication Date': 'February 5, 2019',
+        'Pages': '336 pages',
+        'Language': 'English',
+        'Dimensions': '5.4 x 1 x 8.2 inches',
+        'Weight': '10.4 ounces',
+        'ISBN-13': '978-1250205681'
+      }
+    },
+    'b7': {
+      id: 'b7',
+      title: 'Becoming by Michelle Obama - Intimate, Powerful, and Inspiring Memoir',
+      price: 19.99,
+      originalPrice: 24.99,
+      rating: 4.8,
+      reviewCount: 189234,
+      images: [
+        'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 20,
+      inStock: true,
+      stockCount: 29,
+      description: 'The deeply personal memoir of former First Lady Michelle Obama. A work of deep reflection and mesmerizing storytelling about her experiences from childhood to the White House.',
+      features: [
+        'Instant #1 bestseller',
+        'Over 10 million copies sold',
+        'Grammy Award winner',
+        'Oprah\'s Book Club selection',
+        'Inspiring memoir',
+        'Behind-the-scenes White House stories',
+        'Personal and political insights'
+      ],
+      specifications: {
+        'Author': 'Michelle Obama',
+        'Publisher': 'Crown',
+        'Publication Date': 'November 13, 2018',
+        'Pages': '448 pages',
+        'Language': 'English',
+        'Dimensions': '6.1 x 1.4 x 9.2 inches',
+        'Weight': '1.4 pounds',
+        'ISBN-13': '978-1524763138'
+      }
+    },
+    'b8': {
+      id: 'b8',
+      title: 'The Midnight Library by Matt Haig - Philosophy and Fiction Combined',
+      price: 15.99,
+      originalPrice: 18.99,
+      rating: 4.3,
+      reviewCount: 67890,
+      images: [
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 16,
+      inStock: true,
+      stockCount: 56,
+      description: 'Between life and death there is a library, and within that library, the shelves go on forever. A magical and philosophical novel about all the choices that go into a life lived.',
+      features: [
+        'International bestseller',
+        'Philosophical fiction',
+        'Life-affirming story',
+        'Magical realism',
+        'Thought-provoking themes',
+        'Perfect for book clubs',
+        'Award-winning author'
+      ],
+      specifications: {
+        'Author': 'Matt Haig',
+        'Publisher': 'Viking',
+        'Publication Date': 'August 13, 2020',
+        'Pages': '288 pages',
+        'Language': 'English',
+        'Dimensions': '5.7 x 1 x 8.5 inches',
+        'Weight': '11.2 ounces',
+        'ISBN-13': '978-0525559474'
+      }
+    },
+    'b9': {
+      id: 'b9',
+      title: '1984 by George Orwell - Classic Dystopian Social Science Fiction',
+      price: 13.99,
+      originalPrice: 15.99,
+      rating: 4.7,
+      reviewCount: 345678,
+      images: [
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 13,
+      inStock: true,
+      stockCount: 78,
+      description: 'George Orwell\'s masterpiece of dystopian fiction. A chilling prophecy about the future that has become one of the most influential novels of the 20th century.',
+      features: [
+        'Classic dystopian literature',
+        'Required reading in schools',
+        'Political allegory',
+        'Timeless themes',
+        'Cultural phenomenon',
+        'Literary masterpiece',
+        'Influential work'
+      ],
+      specifications: {
+        'Author': 'George Orwell',
+        'Publisher': 'Signet Classics',
+        'Publication Date': 'May 1, 1961',
+        'Pages': '368 pages',
+        'Language': 'English',
+        'Dimensions': '4.2 x 0.8 x 6.8 inches',
+        'Weight': '6.4 ounces',
+        'ISBN-13': '978-0451524935'
+      }
+    },
+    'b10': {
+      id: 'b10',
+      title: 'The Alchemist by Paulo Coelho - International Bestselling Novel',
+      price: 14.95,
+      originalPrice: 17.00,
+      rating: 4.6,
+      reviewCount: 234567,
+      images: [
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 12,
+      inStock: true,
+      stockCount: 91,
+      description: 'A magical story about Santiago, an Andalusian shepherd boy who yearns to travel in search of treasure. A fable about following your dream and listening to your heart.',
+      features: [
+        'International bestseller',
+        'Over 65 million copies sold',
+        'Translated into 80+ languages',
+        'Philosophical adventure',
+        'Inspiring journey',
+        'Universal themes',
+        'Life-changing read'
+      ],
+      specifications: {
+        'Author': 'Paulo Coelho',
+        'Publisher': 'HarperOne',
+        'Publication Date': 'April 15, 2014',
+        'Pages': '208 pages',
+        'Language': 'English',
+        'Dimensions': '5.3 x 0.5 x 8 inches',
+        'Weight': '6.4 ounces',
+        'ISBN-13': '978-0062315007'
+      }
     }
   };
 
