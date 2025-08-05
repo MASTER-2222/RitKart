@@ -204,6 +204,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Weight': '2.64 pounds',
         'Battery': 'Up to 12 hours'
       }
+    },
+    '6': {
+      id: '6',
+      title: 'Bose QuietComfort 45 Wireless Bluetooth Noise Cancelling Headphones',
+      price: 279,
+      originalPrice: 329,
+      rating: 4.5,
+      reviewCount: 7892,
+      images: [
+        'https://images.unsplash.com/photo-1484704849700-da0ec9d70304?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 15,
+      inStock: true,
+      stockCount: 18,
+      description: 'World-class noise cancelling headphones with TriPort acoustic architecture for deep, clear sound. Comfortable design for all-day listening.',
+      features: [
+        'Advanced noise cancelling technology',
+        '24-hour battery life',
+        'TriPort acoustic architecture',
+        'Comfortable around-ear fit',
+        'Voice assistant access',
+        'Dual connectivity with SimpleSync',
+        'Quick charge: 15 minutes = 3 hours'
+      ],
+      specifications: {
+        'Type': 'Over-ear wireless headphones',
+        'Battery Life': '24 hours',
+        'Charging': 'USB-C',
+        'Weight': '8.5 oz',
+        'Connectivity': 'Bluetooth 5.1',
+        'Noise Cancelling': 'Yes',
+        'Voice Assistant': 'Alexa, Google Assistant',
+        'Warranty': '1 year limited'
+      }
+    },
+    '7': {
+      id: '7',
+      title: 'Canon EOS R6 Mark II Mirrorless Camera Body',
+      price: 2499,
+      originalPrice: 2699,
+      rating: 4.8,
+      reviewCount: 1234,
+      images: [
+        'https://images.unsplash.com/photo-1606983340126-acd977736f90?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1581591524425-c7e0978865fc?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 7,
+      inStock: true,
+      stockCount: 6,
+      description: 'Professional mirrorless camera with 24.2MP full-frame sensor, advanced autofocus, and 4K video recording capabilities.',
+      features: [
+        '24.2MP full-frame CMOS sensor',
+        'DIGIC X image processor',
+        '40fps electronic shutter',
+        '4K 60p video recording',
+        'Dual Pixel CMOS AF II',
+        'In-body image stabilization',
+        'Weather-sealed construction'
+      ],
+      specifications: {
+        'Sensor': '24.2MP Full-Frame CMOS',
+        'Processor': 'DIGIC X',
+        'ISO Range': '100-102400',
+        'Video': '4K 60p',
+        'Autofocus': '1053 AF points',
+        'Display': '3.0" vari-angle touchscreen',
+        'Battery': 'LP-E6NH',
+        'Weight': '1.4 lbs'
+      }
+    },
+    '8': {
+      id: '8',
+      title: 'Nintendo Switch OLED Model with Neon Red and Neon Blue Joy-Con',
+      price: 329,
+      originalPrice: 349,
+      rating: 4.8,
+      reviewCount: 12743,
+      images: [
+        'https://images.unsplash.com/photo-1606143407151-7111542de6e8?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1585504198199-20277593b94f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 6,
+      inStock: true,
+      stockCount: 28,
+      description: 'Gaming console with vibrant 7-inch OLED screen, enhanced audio, and versatile play modes. Play at home or on the go.',
+      features: [
+        '7-inch OLED screen with vivid colors',
+        'Enhanced audio for handheld mode',
+        'Wide adjustable stand',
+        '64GB internal storage',
+        'Dock with wired LAN port',
+        'Joy-Con controllers included',
+        'Compatible with all Nintendo Switch games'
+      ],
+      specifications: {
+        'Display': '7.0" OLED touchscreen',
+        'Resolution': '1280 x 720 (handheld)',
+        'Storage': '64GB internal',
+        'Battery': '4.5-9 hours',
+        'Connectivity': 'Wi-Fi, Bluetooth',
+        'Dimensions': '4.02 x 9.53 x 0.55 inches',
+        'Weight': '0.93 lbs',
+        'Controllers': 'Joy-Con (L/R)'
+      }
+    },
+    '9': {
+      id: '9',
+      title: 'LG 27" UltraGear Gaming Monitor 4K UHD with G-SYNC',
+      price: 399,
+      originalPrice: 499,
+      rating: 4.6,
+      reviewCount: 5678,
+      images: [
+        'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1571901493467-117f180235ec?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 20,
+      inStock: true,
+      stockCount: 14,
+      description: 'High-performance gaming monitor with 4K UHD resolution, NVIDIA G-SYNC compatibility, and ultra-fast response time.',
+      features: [
+        '27-inch 4K UHD (3840x2160) display',
+        'NVIDIA G-SYNC compatible',
+        '1ms response time',
+        '144Hz refresh rate',
+        'HDR10 support',
+        'Gaming-focused design',
+        'Height adjustable stand'
+      ],
+      specifications: {
+        'Screen Size': '27 inches',
+        'Resolution': '4K UHD (3840 x 2160)',
+        'Refresh Rate': '144Hz',
+        'Response Time': '1ms',
+        'Panel Type': 'IPS',
+        'Connectivity': 'HDMI, DisplayPort, USB',
+        'HDR': 'HDR10',
+        'Stand': 'Height/Tilt adjustable'
+      }
+    },
+    '10': {
+      id: '10', 
+      title: 'Microsoft Surface Pro 9 Tablet - Intel Core i5, 8GB RAM',
+      price: 899,
+      originalPrice: 999,
+      rating: 4.3,
+      reviewCount: 4321,
+      images: [
+        'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 10,
+      inStock: true,
+      stockCount: 11,
+      description: 'Versatile 2-in-1 tablet that transforms into a laptop. Perfect for work, creativity, and entertainment with all-day battery life.',
+      features: [
+        '13-inch PixelSense touchscreen',
+        '12th Gen Intel Core i5 processor',
+        '8GB LPDDR5 RAM',
+        '256GB SSD storage',
+        'All-day battery life',
+        'Windows 11 Home',
+        'Surface Pen compatible'
+      ],
+      specifications: {
+        'Display': '13" PixelSense touchscreen',
+        'Processor': '12th Gen Intel Core i5',
+        'Memory': '8GB LPDDR5',
+        'Storage': '256GB SSD',
+        'Operating System': 'Windows 11 Home',
+        'Battery': 'Up to 15.5 hours',
+        'Weight': '1.96 pounds',
+        'Ports': '2 USB-C, Surface Connect'
+      }
     }
   };
 
