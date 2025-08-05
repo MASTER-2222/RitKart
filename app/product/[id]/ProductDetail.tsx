@@ -1572,6 +1572,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Size Range': 'XS-XL',
         'Print': 'Floral'
       }
+    },
+    'f6': {
+      id: 'f6',
+      title: 'Ray-Ban Classic Aviator Sunglasses - Gold Frame Green Lens',
+      price: 154,
+      originalPrice: 179,
+      rating: 4.6,
+      reviewCount: 23456,
+      images: [
+        'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1556306553-6f6e4b9c2cd9?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 14,
+      inStock: true,
+      stockCount: 52,
+      description: 'Iconic aviator sunglasses with gold-tone frame and classic green lenses. Timeless style with superior UV protection.',
+      features: [
+        'Classic aviator design',
+        'Gold-tone metal frame',
+        'G-15 green crystal lenses',
+        '100% UV protection',
+        'Adjustable nose pads',
+        'Spring hinges',
+        'Includes carrying case'
+      ],
+      specifications: {
+        'Frame Material': 'Metal (Gold-tone)',
+        'Lens Material': 'Glass',
+        'Lens Color': 'G-15 Green',
+        'UV Protection': '100% UV400',
+        'Frame Width': '5.6 inches',
+        'Lens Width': '58mm',
+        'Bridge Width': '14mm',
+        'Temple Length': '135mm'
+      }
+    },
+    'f7': {
+      id: 'f7',
+      title: 'Guess Men\'s Classic Leather Wallet - Brown Genuine Leather',
+      price: 65,
+      originalPrice: 85,
+      rating: 4.5,
+      reviewCount: 6789,
+      images: [
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 24,
+      inStock: true,
+      stockCount: 41,
+      description: 'Premium leather bifold wallet with classic design and ample storage. Crafted from genuine leather with embossed logo.',
+      features: [
+        'Genuine leather construction',
+        'Bifold design',
+        '6 card slots',
+        'ID window',
+        '2 bill compartments',
+        'Coin pocket',
+        'Embossed Guess logo'
+      ],
+      specifications: {
+        'Material': '100% Genuine Leather',
+        'Style': 'Bifold',
+        'Card Slots': '6',
+        'Bill Compartments': '2',
+        'ID Window': 'Yes',
+        'Dimensions': '4.5 x 3.5 x 0.75 inches',
+        'Color': 'Brown',
+        'Hardware': 'Gunmetal'
+      }
+    },
+    'f8': {
+      id: 'f8',
+      title: 'Calvin Klein Women\'s High Waist Skinny Jeans - Dark Blue Denim',
+      price: 79,
+      originalPrice: 98,
+      rating: 4.4,
+      reviewCount: 11234,
+      images: [
+        'https://images.unsplash.com/photo-1541099649105-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 19,
+      inStock: true,
+      stockCount: 29,
+      description: 'Contemporary high-waist skinny jeans in premium stretch denim. Flattering fit with modern styling and comfortable wear.',
+      features: [
+        'High-waist design',
+        'Skinny fit through leg',
+        'Premium stretch denim',
+        'Dark blue wash',
+        '5-pocket styling',
+        'Zip fly with button closure',
+        'Calvin Klein logo hardware'
+      ],
+      specifications: {
+        'Material': '79% Cotton, 20% Polyester, 1% Elastane',
+        'Fit': 'High Waist Skinny',
+        'Rise': '10 inches',
+        'Inseam': '29 inches',
+        'Leg Opening': '10.5 inches',
+        'Stretch': 'Moderate stretch',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in Mexico'
+      }
+    },
+    'f9': {
+      id: 'f9',
+      title: 'Converse Chuck Taylor All Star High Top Sneakers - Classic Black',
+      price: 65,
+      originalPrice: 70,
+      rating: 4.7,
+      reviewCount: 45678,
+      images: [
+        'https://images.unsplash.com/photo-1605348532760-da0ec9d70304?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 7,
+      inStock: true,
+      stockCount: 78,
+      description: 'Timeless high-top sneakers with iconic design. Classic canvas construction with signature rubber toe cap and sole.',
+      features: [
+        'Classic canvas upper',
+        'High-top silhouette',
+        'Signature rubber toe cap',
+        'Vulcanized rubber sole',
+        'Metal eyelets',
+        'All Star ankle patch',
+        'Unisex sizing'
+      ],
+      specifications: {
+        'Upper': 'Canvas',
+        'Sole': 'Vulcanized rubber',
+        'Closure': 'Lace-up',
+        'Toe Cap': 'Rubber',
+        'Height': 'High-top',
+        'Care': 'Spot clean',
+        'Origin': 'Vietnam',
+        'Style': 'Chuck Taylor All Star'
+      }
+    },
+    'f10': {
+      id: 'f10',
+      title: 'Coach Women\'s Signature Canvas Handbag - Brown Leather Trim',
+      price: 295,
+      originalPrice: 350,
+      rating: 4.8,
+      reviewCount: 3456,
+      images: [
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1624681689597-ec3e6c58a27a?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 16,
+      inStock: true,
+      stockCount: 14,
+      description: 'Luxury handbag featuring Coach\'s signature canvas with refined leather trim. Timeless design with practical functionality.',
+      features: [
+        'Signature canvas construction',
+        'Refined leather trim',
+        'Double handles',
+        'Interior zip pocket',
+        'Cell phone pocket',
+        'Fabric lining',
+        'Coach hang tag'
+      ],
+      specifications: {
+        'Material': 'Signature Canvas with Leather',
+        'Lining': 'Fabric',
+        'Closure': 'Zip top',
+        'Handle Drop': '8 inches',
+        'Dimensions': '13 x 9 x 5 inches',
+        'Interior': 'Zip pocket, cell phone pocket',
+        'Hardware': 'Silver-tone',
+        'Origin': 'Made in Philippines'
+      }
     }
   };
 
