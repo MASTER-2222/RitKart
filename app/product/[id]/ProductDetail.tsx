@@ -2332,6 +2332,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Care': 'Dry clean only',
         'Sustainability': 'Made from deadstock fabric'
       }
+    },
+    'f26': {
+      id: 'f26',
+      title: 'Outdoor Voices CloudKnit Sweatshirt - Unisex Sage Green',
+      price: 75,
+      originalPrice: 95,
+      rating: 4.3,
+      reviewCount: 6789,
+      images: [
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 21,
+      inStock: true,
+      stockCount: 52,
+      description: 'Ultra-soft CloudKnit sweatshirt with cozy feel and relaxed fit. Perfect for recreation and everyday comfort.',
+      features: [
+        'CloudKnit fabric technology',
+        'Ultra-soft and cozy feel',
+        'Relaxed unisex fit',
+        'Crew neck design',
+        'Long sleeves',
+        'Machine washable',
+        'Perfect for doing things'
+      ],
+      specifications: {
+        'Material': '50% Cotton, 50% Polyester (CloudKnit)',
+        'Fit': 'Relaxed unisex',
+        'Neckline': 'Crew neck',
+        'Sleeves': 'Long sleeves',
+        'Features': 'Ultra-soft CloudKnit fabric',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in Peru',
+        'Philosophy': 'Doing things'
+      }
+    },
+    'f27': {
+      id: 'f27',
+      title: 'Ganni Printed Mesh Midi Dress - Leopard Pattern',
+      price: 295,
+      originalPrice: 345,
+      rating: 4.4,
+      reviewCount: 2345,
+      images: [
+        'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 14,
+      inStock: true,
+      stockCount: 13,
+      description: 'Statement midi dress in printed mesh with bold leopard pattern. Contemporary Scandinavian design with playful aesthetics.',
+      features: [
+        'Printed mesh fabric',
+        'Bold leopard pattern',
+        'Midi length',
+        'Long sleeves',
+        'Crew neckline',
+        'Scandinavian design',
+        'Statement piece'
+      ],
+      specifications: {
+        'Material': '100% Polyester Mesh',
+        'Print': 'Leopard pattern',
+        'Length': 'Midi',
+        'Sleeves': 'Long sleeves',
+        'Neckline': 'Crew neck',
+        'Fit': 'Regular',
+        'Care': 'Hand wash',
+        'Origin': 'Made in Portugal'
+      }
+    },
+    'f28': {
+      id: 'f28',
+      title: 'Stussy 8 Ball Fleece Hoodie - Black Streetwear Classic',
+      price: 110,
+      originalPrice: 130,
+      rating: 4.6,
+      reviewCount: 8765,
+      images: [
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 38,
+      description: 'Iconic streetwear hoodie with classic 8 Ball graphic. Premium fleece construction with authentic Stussy styling.',
+      features: [
+        'Classic 8 Ball graphic',
+        'Premium fleece construction',
+        'Pullover hoodie design',
+        'Kangaroo pocket',
+        'Drawstring hood',
+        'Ribbed cuffs and hem',
+        'Authentic streetwear style'
+      ],
+      specifications: {
+        'Material': '80% Cotton, 20% Polyester',
+        'Weight': 'Heavyweight fleece',
+        'Fit': 'Regular streetwear fit',
+        'Hood': 'Drawstring adjustable',
+        'Pocket': 'Front kangaroo pocket',
+        'Graphics': 'Screen printed 8 Ball logo',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in Canada'
+      }
+    },
+    'f29': {
+      id: 'f29',
+      title: 'Golden Goose Superstar Sneakers - White Leather Distressed',
+      price: 495,
+      originalPrice: 565,
+      rating: 4.2,
+      reviewCount: 1234,
+      images: [
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1605348532760-da0ec9d70304?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 12,
+      inStock: true,
+      stockCount: 8,
+      description: 'Luxury Italian sneakers with signature distressed finish. Handcrafted with vintage-inspired aesthetic and premium materials.',
+      features: [
+        'Italian craftsmanship',
+        'Signature distressed finish',
+        'Premium leather upper',
+        'Star logo patch',
+        'Vintage-inspired design',
+        'Handcrafted details',
+        'Luxury streetwear'
+      ],
+      specifications: {
+        'Upper': 'Premium leather',
+        'Sole': 'Rubber',
+        'Origin': 'Made in Italy',
+        'Craftsmanship': 'Handcrafted',
+        'Logo': 'Signature star patch',
+        'Finish': 'Distressed/vintage',
+        'Care': 'Professional cleaning recommended',
+        'Fit': 'True to size'
+      }
+    },
+    'f30': {
+      id: 'f30',
+      title: 'Acne Studios Face Beanie - Wool Knit Pink',
+      price: 120,
+      originalPrice: 140,
+      rating: 4.3,
+      reviewCount: 5432,
+      images: [
+        'https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 14,
+      inStock: true,
+      stockCount: 31,
+      description: 'Minimalist wool beanie with signature Acne Studios face patch. Scandinavian design meets contemporary luxury.',
+      features: [
+        'Premium wool knit construction',
+        'Signature face patch logo',
+        'Minimalist Scandinavian design',
+        'Ribbed texture',
+        'Unisex styling',
+        'Contemporary luxury',
+        'One size fits most'
+      ],
+      specifications: {
+        'Material': '100% Wool',
+        'Construction': 'Ribbed knit',
+        'Logo': 'Embroidered face patch',
+        'Fit': 'One size',
+        'Style': 'Unisex',
+        'Care': 'Hand wash cold',
+        'Origin': 'Made in Italy',
+        'Design': 'Scandinavian minimalism'
+      }
     }
   };
 
