@@ -3738,6 +3738,614 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Weight': '15.2 ounces',
         'ISBN-13': '978-0547928210'
       }
+    },
+    'b21': {
+      id: 'b21',
+      title: 'The Handmaid\'s Tale by Margaret Atwood - Dystopian Masterpiece',
+      price: 16.99,
+      originalPrice: 19.99,
+      rating: 4.5,
+      reviewCount: 187654,
+      images: [
+        'https://images.unsplash.com/photo-1603058817990-2b9a9abbce86?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 112,
+      description: 'A chilling tale of a society where women have lost all their rights. Atwood\'s prophetic vision of authoritarian control over women\'s bodies has never been more relevant.',
+      features: [
+        'Dystopian literature classic',
+        'Multiple award winner',
+        'Hulu TV adaptation',
+        'Feminist literature',
+        'Social commentary',
+        'Required reading in schools',
+        'Contemporary relevance'
+      ],
+      specifications: {
+        'Author': 'Margaret Atwood',
+        'Publisher': 'Anchor Books',
+        'Publication Date': 'March 16, 1998',
+        'Pages': '384 pages',
+        'Language': 'English',
+        'Dimensions': '5.2 x 0.8 x 8 inches',
+        'Weight': '11.2 ounces',
+        'ISBN-13': '978-0385490818'
+      }
+    },
+    'b22': {
+      id: 'b22',
+      title: 'Rich Dad Poor Dad by Robert T. Kiyosaki - Financial Education',
+      price: 18.99,
+      originalPrice: 22.99,
+      rating: 4.6,
+      reviewCount: 143267,
+      images: [
+        'https://images.unsplash.com/photo-1592496431122-2349e0fbc666?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 95,
+      description: 'The #1 personal finance book that challenges conventional wisdom about money and investing. Kiyosaki shares the financial lessons he learned from his two fathers.',
+      features: [
+        'Personal finance bestseller',
+        'Over 40 million copies sold',
+        'Financial literacy education',
+        'Investment mindset',
+        'Real estate insights',
+        'Entrepreneurship principles',
+        'Money management basics'
+      ],
+      specifications: {
+        'Author': 'Robert T. Kiyosaki',
+        'Publisher': 'Plata Publishing',
+        'Publication Date': 'April 11, 2017',
+        'Pages': '336 pages',
+        'Language': 'English',
+        'Dimensions': '5.25 x 0.75 x 8 inches',
+        'Weight': '12.8 ounces',
+        'ISBN-13': '978-1612680194'
+      }
+    },
+    'b23': {
+      id: 'b23',
+      title: 'Pride and Prejudice by Jane Austen - Romance Classic',
+      price: 12.99,
+      originalPrice: 15.99,
+      rating: 4.7,
+      reviewCount: 298765,
+      images: [
+        'https://images.unsplash.com/photo-1597149305811-97fb60e49e6f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1511108690759-009324a90311?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 19,
+      inStock: true,
+      stockCount: 178,
+      description: 'The timeless story of Elizabeth Bennet and Mr. Darcy. Austen\'s wit and social commentary make this romance a literary masterpiece that continues to enchant readers.',
+      features: [
+        'Classic English literature',
+        'Romance novel masterpiece',
+        'Multiple film adaptations',
+        'Social satire',
+        'Character development excellence',
+        'Regency period setting',
+        'Timeless love story'
+      ],
+      specifications: {
+        'Author': 'Jane Austen',
+        'Publisher': 'Penguin Classics',
+        'Publication Date': 'December 31, 2002',
+        'Pages': '480 pages',
+        'Language': 'English',
+        'Dimensions': '5.1 x 1.1 x 7.8 inches',
+        'Weight': '12.6 ounces',
+        'ISBN-13': '978-0141439518'
+      }
+    },
+    'b24': {
+      id: 'b24',
+      title: 'The 7 Habits of Highly Effective People by Stephen R. Covey',
+      price: 19.99,
+      originalPrice: 24.99,
+      rating: 4.6,
+      reviewCount: 98765,
+      images: [
+        'https://images.unsplash.com/photo-1645363167490-0d3337a3f477?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1592496431122-2349e0fbc666?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 20,
+      inStock: true,
+      stockCount: 134,
+      description: 'A powerful lesson in personal change that has inspired millions. Covey presents a principle-centered approach to solving personal and professional problems.',
+      features: [
+        'Self-help bestseller',
+        'Over 25 million copies sold',
+        'Character ethics approach',
+        'Leadership development',
+        'Personal effectiveness',
+        'Principle-centered living',
+        'Timeless wisdom'
+      ],
+      specifications: {
+        'Author': 'Stephen R. Covey',
+        'Publisher': 'Free Press',
+        'Publication Date': 'August 15, 2004',
+        'Pages': '432 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 1 x 8.4 inches',
+        'Weight': '1.1 pounds',
+        'ISBN-13': '978-0743269513'
+      }
+    },
+    'b25': {
+      id: 'b25',
+      title: 'Dune by Frank Herbert - Science Fiction Epic',
+      price: 17.99,
+      originalPrice: 21.99,
+      rating: 4.5,
+      reviewCount: 156789,
+      images: [
+        'https://images.unsplash.com/photo-1742274317501-57e147afc0c4?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1621351183012-e51df1bdc82f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 18,
+      inStock: true,
+      stockCount: 89,
+      description: 'Set on the desert planet Arrakis, this is the story of Paul Atreides and his destiny as the leader of a rebellion to restore his family\'s dynasty. A masterpiece of science fiction.',
+      features: [
+        'Science fiction masterpiece',
+        'Hugo and Nebula Award winner',
+        'Complex world-building',
+        'Multiple film adaptations',
+        'Cultural phenomenon',
+        'Political intrigue',
+        'Environmental themes'
+      ],
+      specifications: {
+        'Author': 'Frank Herbert',
+        'Publisher': 'Ace Books',
+        'Publication Date': 'August 1, 2019',
+        'Pages': '704 pages',
+        'Language': 'English',
+        'Dimensions': '4.19 x 1.38 x 6.88 inches',
+        'Weight': '11.7 ounces',
+        'ISBN-13': '978-0441172719'
+      }
+    },
+    'b26': {
+      id: 'b26',
+      title: 'The Kite Runner by Khaled Hosseini - Powerful Drama',
+      price: 16.99,
+      originalPrice: 19.99,
+      rating: 4.4,
+      reviewCount: 234567,
+      images: [
+        'https://images.unsplash.com/photo-1511108690759-009324a90311?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1603058817990-2b9a9abbce86?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 67,
+      description: 'A haunting tale of friendship, betrayal, and redemption set against the backdrop of Afghanistan\'s tumultuous recent history. Hosseini\'s debut novel that captivated millions.',
+      features: [
+        'International bestseller',
+        'Over 12 million copies sold',
+        'Film adaptation',
+        'Powerful emotional story',
+        'Cultural insight',
+        'Themes of redemption',
+        'Contemporary literature'
+      ],
+      specifications: {
+        'Author': 'Khaled Hosseini',
+        'Publisher': 'Riverhead Books',
+        'Publication Date': 'May 29, 2007',
+        'Pages': '384 pages',
+        'Language': 'English',
+        'Dimensions': '5.1 x 0.8 x 7.7 inches',
+        'Weight': '11.2 ounces',
+        'ISBN-13': '978-1594631931'
+      }
+    },
+    'b27': {
+      id: 'b27',
+      title: 'The Power of Now by Eckhart Tolle - Spiritual Awakening',
+      price: 15.99,
+      originalPrice: 18.99,
+      rating: 4.5,
+      reviewCount: 87654,
+      images: [
+        'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1592496431122-2349e0fbc666?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 16,
+      inStock: true,
+      stockCount: 145,
+      description: 'A guide to spiritual enlightenment that has the power to transform lives. Tolle shows readers how to recognize themselves as the awareness behind the voice in their head.',
+      features: [
+        'Spiritual bestseller',
+        'Over 6 million copies sold',
+        'Mindfulness and presence',
+        'Spiritual awakening guide',
+        'Present moment awareness',
+        'Consciousness exploration',
+        'Life transformation'
+      ],
+      specifications: {
+        'Author': 'Eckhart Tolle',
+        'Publisher': 'New World Library',
+        'Publication Date': 'October 6, 2004',
+        'Pages': '236 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 0.6 x 8.5 inches',
+        'Weight': '8.8 ounces',
+        'ISBN-13': '978-1577314806'
+      }
+    },
+    'b28': {
+      id: 'b28',
+      title: 'And Then There Were None by Agatha Christie - Mystery Classic',
+      price: 14.99,
+      originalPrice: 17.99,
+      rating: 4.6,
+      reviewCount: 176543,
+      images: [
+        'https://images.unsplash.com/photo-1603058817990-2b9a9abbce86?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1511108690759-009324a90311?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 98,
+      description: 'Christie\'s masterpiece and the world\'s best-selling mystery novel. Ten strangers are invited to an island where they are picked off one by one in accordance with a sinister nursery rhyme.',
+      features: [
+        'Best-selling mystery novel',
+        'Over 100 million copies sold',
+        'Classic whodunit',
+        'Multiple adaptations',
+        'Perfect plot construction',
+        'Agatha Christie masterpiece',
+        'Psychological thriller'
+      ],
+      specifications: {
+        'Author': 'Agatha Christie',
+        'Publisher': 'William Morrow Paperbacks',
+        'Publication Date': 'March 29, 2011',
+        'Pages': '272 pages',
+        'Language': 'English',
+        'Dimensions': '5.31 x 0.61 x 8 inches',
+        'Weight': '8.8 ounces',
+        'ISBN-13': '978-0062073488'
+      }
+    },
+    'b29': {
+      id: 'b29',
+      title: 'The Fault in Our Stars by John Green - Young Adult Romance',
+      price: 12.99,
+      originalPrice: 15.99,
+      rating: 4.3,
+      reviewCount: 345678,
+      images: [
+        'https://images.unsplash.com/photo-1597149305811-97fb60e49e6f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1742274317501-57e147afc0c4?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 19,
+      inStock: true,
+      stockCount: 156,
+      description: 'The story of Hazel and Augustus, two teenagers who meet in a cancer support group and fall in love. A beautiful, heartbreaking tale about life, love, and loss.',
+      features: [
+        'Young adult bestseller',
+        'Over 23 million copies sold',
+        'Major motion picture',
+        'Emotional love story',
+        'Contemporary YA fiction',
+        'Critical acclaim',
+        'Cultural phenomenon'
+      ],
+      specifications: {
+        'Author': 'John Green',
+        'Publisher': 'Dutton Books',
+        'Publication Date': 'April 8, 2014',
+        'Pages': '352 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 0.8 x 8.2 inches',
+        'Weight': '11.2 ounces',
+        'ISBN-13': '978-0142424179'
+      }
+    },
+    'b30': {
+      id: 'b30',
+      title: 'Man\'s Search for Meaning by Viktor E. Frankl - Holocaust Memoir',
+      price: 15.99,
+      originalPrice: 18.99,
+      rating: 4.8,
+      reviewCount: 123456,
+      images: [
+        'https://images.unsplash.com/photo-1645363167490-0d3337a3f477?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1603058817990-2b9a9abbce86?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 16,
+      inStock: true,
+      stockCount: 87,
+      description: 'A psychiatrist\'s memoir of life in Nazi death camps and its lessons for spiritual survival. Frankl argues that we cannot avoid suffering but we can choose how to cope with it.',
+      features: [
+        'Holocaust memoir classic',
+        'Over 16 million copies sold',
+        'Psychological insights',
+        'Survival story',
+        'Life philosophy',
+        'Logotherapy introduction',
+        'Inspirational non-fiction'
+      ],
+      specifications: {
+        'Author': 'Viktor E. Frankl',
+        'Publisher': 'Beacon Press',
+        'Publication Date': 'June 1, 2006',
+        'Pages': '184 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 0.4 x 8.2 inches',
+        'Weight': '6.4 ounces',
+        'ISBN-13': '978-0807014295'
+      }
+    },
+    'b31': {
+      id: 'b31',
+      title: 'The Hobbit by J.R.R. Tolkien - Fantasy Adventure',
+      price: 16.99,
+      originalPrice: 19.99,
+      rating: 4.7,
+      reviewCount: 298765,
+      images: [
+        'https://images.unsplash.com/photo-1742274317501-57e147afc0c4?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1621351183012-e51df1bdc82f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1511108690759-009324a90311?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 123,
+      description: 'The classic tale of Bilbo Baggins, a hobbit who embarks on an unexpected adventure with thirteen dwarves to reclaim their homeland. The beloved prelude to The Lord of the Rings.',
+      features: [
+        'Classic fantasy adventure',
+        'Prelude to Lord of the Rings',
+        'Children\'s and adult appeal',
+        'Multiple film adaptations',
+        'Mythical world-building',
+        'Timeless storytelling',
+        'Award-winning fantasy'
+      ],
+      specifications: {
+        'Author': 'J.R.R. Tolkien',
+        'Publisher': 'Mariner Books',
+        'Publication Date': 'September 18, 2012',
+        'Pages': '366 pages',
+        'Language': 'English',
+        'Dimensions': '5.31 x 0.82 x 8 inches',
+        'Weight': '12.6 ounces',
+        'ISBN-13': '978-0547928227'
+      }
+    },
+    'b32': {
+      id: 'b32',
+      title: 'Born a Crime by Trevor Noah - Memoir',
+      price: 17.99,
+      originalPrice: 21.99,
+      rating: 4.6,
+      reviewCount: 145678,
+      images: [
+        'https://images.unsplash.com/photo-1511108690759-009324a90311?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1597149305811-97fb60e49e6f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 18,
+      inStock: true,
+      stockCount: 76,
+      description: 'The compelling, inspiring, and comically sublime memoir of one of today\'s most beloved entertainers. Noah tells his story growing up in South Africa during apartheid.',
+      features: [
+        'New York Times bestseller',
+        'Apartheid-era memoir',
+        'Humorous storytelling',
+        'Social commentary',
+        'Cultural bridge-building',
+        'Trevor Noah\'s origin story',
+        'Inspiring life journey'
+      ],
+      specifications: {
+        'Author': 'Trevor Noah',
+        'Publisher': 'Spiegel & Grau',
+        'Publication Date': 'November 15, 2016',
+        'Pages': '304 pages',
+        'Language': 'English',
+        'Dimensions': '5.2 x 0.8 x 8 inches',
+        'Weight': '10.9 ounces',
+        'ISBN-13': '978-0399588174'
+      }
+    },
+    'b33': {
+      id: 'b33',
+      title: 'The Girl on the Train by Paula Hawkins - Psychological Thriller',
+      price: 15.99,
+      originalPrice: 18.99,
+      rating: 4.1,
+      reviewCount: 187654,
+      images: [
+        'https://images.unsplash.com/photo-1603058817990-2b9a9abbce86?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1597149305811-97fb60e49e6f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 16,
+      inStock: true,
+      stockCount: 145,
+      description: 'A psychological thriller about Rachel, who takes the same commuter train every morning and becomes entangled in a missing person investigation that turns her life upside down.',
+      features: [
+        'Psychological thriller bestseller',
+        'Over 23 million copies sold',
+        'Major motion picture',
+        'Unreliable narrator',
+        'Domestic noir',
+        'Page-turning suspense',
+        'Contemporary thriller'
+      ],
+      specifications: {
+        'Author': 'Paula Hawkins',
+        'Publisher': 'Riverhead Books',
+        'Publication Date': 'January 6, 2015',
+        'Pages': '336 pages',
+        'Language': 'English',
+        'Dimensions': '5.1 x 0.8 x 7.7 inches',
+        'Weight': '11.2 ounces',
+        'ISBN-13': '978-1594634024'
+      }
+    },
+    'b34': {
+      id: 'b34',
+      title: 'Gone Girl by Gillian Flynn - Dark Psychological Thriller',
+      price: 16.99,
+      originalPrice: 19.99,
+      rating: 4.3,
+      reviewCount: 234567,
+      images: [
+        'https://images.unsplash.com/photo-1645363167490-0d3337a3f477?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1511108690759-009324a90311?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1603058817990-2b9a9abbce86?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 98,
+      description: 'A dark take on marriage and media manipulation. When Amy Dunne disappears on her fifth wedding anniversary, suspicion falls on her husband Nick in this twisted psychological thriller.',
+      features: [
+        'New York Times bestseller',
+        'Over 15 million copies sold',
+        'Academy Award-nominated film',
+        'Dark domestic thriller',
+        'Unreliable narrators',
+        'Marriage critique',
+        'Cultural phenomenon'
+      ],
+      specifications: {
+        'Author': 'Gillian Flynn',
+        'Publisher': 'Crown Publishers',
+        'Publication Date': 'June 5, 2012',
+        'Pages': '432 pages',
+        'Language': 'English',
+        'Dimensions': '5.2 x 0.9 x 8 inches',
+        'Weight': '1.1 pounds',
+        'ISBN-13': '978-0307588364'
+      }
+    },
+    'b35': {
+      id: 'b35',
+      title: 'The Alchemist by Paulo Coelho - Philosophical Fiction',
+      price: 14.95,
+      originalPrice: 17.00,
+      rating: 4.4,
+      reviewCount: 298765,
+      images: [
+        'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1592496431122-2349e0fbc666?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 12,
+      inStock: true,
+      stockCount: 167,
+      description: 'A magical fable about Santiago, a young shepherd who travels from Spain to Egypt in search of treasure. A beautiful meditation on following your dreams and finding your destiny.',
+      features: [
+        'International bestseller',
+        'Translated into 80 languages',
+        'Over 35 million copies sold',
+        'Philosophical allegory',
+        'Inspirational fiction',
+        'Quest narrative',
+        'Universal themes'
+      ],
+      specifications: {
+        'Author': 'Paulo Coelho',
+        'Publisher': 'HarperOne',
+        'Publication Date': 'April 15, 2014',
+        'Pages': '208 pages',
+        'Language': 'English',
+        'Dimensions': '5.31 x 0.47 x 8 inches',
+        'Weight': '7.2 ounces',
+        'ISBN-13': '978-0062315007'
+      }
+    },
+    'b36': {
+      id: 'b36',
+      title: 'Milk and Honey by Rupi Kaur - Contemporary Poetry',
+      price: 13.99,
+      originalPrice: 16.99,
+      rating: 4.2,
+      reviewCount: 156789,
+      images: [
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1597149305811-97fb60e49e6f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1511108690759-009324a90311?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 18,
+      inStock: true,
+      stockCount: 234,
+      description: 'A collection of poetry and prose about survival, femininity, love, loss, and healing. Divided into four chapters, this book takes readers through a journey of pain and healing.',
+      features: [
+        'Instagram poetry phenomenon',
+        'New York Times bestseller',
+        'Over 4 million copies sold',
+        'Contemporary feminist poetry',
+        'Illustrated with drawings',
+        'Trauma and healing themes',
+        'Social media success'
+      ],
+      specifications: {
+        'Author': 'Rupi Kaur',
+        'Publisher': 'Andrews McMeel Publishing',
+        'Publication Date': 'October 6, 2015',
+        'Pages': '204 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 0.6 x 8.5 inches',
+        'Weight': '9.6 ounces',
+        'ISBN-13': '978-1449474256'
+      }
     }
   };
 
