@@ -3130,6 +3130,82 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Weight': '6.4 ounces',
         'ISBN-13': '978-0062315007'
       }
+    },
+    'b11': {
+      id: 'b11',
+      title: 'The Four Agreements by Don Miguel Ruiz - Practical Guide to Personal Freedom',
+      price: 12.99,
+      originalPrice: 15.95,
+      rating: 4.7,
+      reviewCount: 87654,
+      images: [
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 19,
+      inStock: true,
+      stockCount: 73,
+      description: 'A practical guide to personal freedom based on ancient Toltec wisdom. Four simple agreements that can transform your life and lead to personal happiness.',
+      features: [
+        'New York Times bestseller',
+        'Over 8 million copies sold',
+        'Ancient Toltec wisdom',
+        'Personal development guide',
+        'Simple life principles',
+        'Spiritual growth',
+        'Transformative teachings'
+      ],
+      specifications: {
+        'Author': 'Don Miguel Ruiz',
+        'Publisher': 'Amber-Allen Publishing',
+        'Publication Date': 'November 7, 1997',
+        'Pages': '160 pages',
+        'Language': 'English',
+        'Dimensions': '5.3 x 0.4 x 8.4 inches',
+        'Weight': '5.6 ounces',
+        'ISBN-13': '978-1878424310'
+      }
+    },
+    'b12': {
+      id: 'b12',
+      title: 'Think and Grow Rich by Napoleon Hill - Success Philosophy Classic',
+      price: 11.99,
+      originalPrice: 14.99,
+      rating: 4.6,
+      reviewCount: 123456,
+      images: [
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 20,
+      inStock: true,
+      stockCount: 85,
+      description: 'The classic success philosophy that has inspired millions. Hill\'s timeless principles for achieving wealth and success through the power of thought and persistence.',
+      features: [
+        'All-time success classic',
+        'Over 100 million copies sold',
+        'Timeless success principles',
+        'Wealth-building strategies',
+        'Personal development',
+        'Motivational classic',
+        'Business philosophy'
+      ],
+      specifications: {
+        'Author': 'Napoleon Hill',
+        'Publisher': 'TarcherPerigee',
+        'Publication Date': 'August 18, 2005',
+        'Pages': '320 pages',
+        'Language': 'English',
+        'Dimensions': '5.1 x 0.7 x 7.8 inches',
+        'Weight': '8 ounces',
+        'ISBN-13': '978-1585424337'
+      }
     }
   };
 
