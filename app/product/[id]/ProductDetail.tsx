@@ -3206,6 +3206,82 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Weight': '8 ounces',
         'ISBN-13': '978-1585424337'
       }
+    },
+    'h1': {
+      id: 'h1',
+      title: 'Instant Pot Duo 7-in-1 Electric Pressure Cooker, 8 Quart',
+      price: 79,
+      originalPrice: 119,
+      rating: 4.7,
+      reviewCount: 98234,
+      images: [
+        'https://images.unsplash.com/photo-1585515656617-d405f574bfa3?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 34,
+      inStock: true,
+      stockCount: 12,
+      description: 'The ultimate multicooker that combines 7 kitchen appliances in one. Perfect for busy families who want to prepare healthy, delicious meals quickly and efficiently.',
+      features: [
+        '7-in-1 functionality: Pressure Cook, Slow Cook, Rice Cooker, Steamer, Sauté, Yogurt Maker, and Warmer',
+        '8-quart capacity serves up to 8 people',
+        '13 built-in smart programs',
+        '10+ proven safety features',
+        'Stainless steel cooking pot',
+        'Energy efficient and quiet operation',
+        'Includes recipe book and accessories'
+      ],
+      specifications: {
+        'Capacity': '8 Quarts',
+        'Material': 'Stainless Steel Inner Pot',
+        'Power': '1200 Watts',
+        'Pressure': '11.6-11.9 PSI',
+        'Dimensions': '13.43 x 12.2 x 12.99 inches',
+        'Weight': '26 pounds',
+        'Warranty': '1 Year Limited',
+        'Certification': 'UL Listed'
+      }
+    },
+    'h2': {
+      id: 'h2',
+      title: 'KitchenAid Artisan Series 5-Quart Stand Mixer - Empire Red',
+      price: 429,
+      originalPrice: 499,
+      rating: 4.8,
+      reviewCount: 45678,
+      images: [
+        'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1585515656617-d405f574bfa3?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 14,
+      inStock: true,
+      stockCount: 8,
+      description: 'Professional-grade stand mixer that\'s been the gold standard for home bakers for decades. Features powerful motor and versatile attachments for all your baking needs.',
+      features: [
+        '325-watt motor handles heavy mixtures',
+        'Tilt-head design for easy bowl access',
+        '10 speeds for thorough mixing',
+        'Includes wire whip, dough hook, and flat beater',
+        'Hub accepts over 15 optional attachments',
+        'All-metal construction for durability',
+        'Iconic Empire Red finish'
+      ],
+      specifications: {
+        'Bowl Capacity': '5 Quarts',
+        'Motor': '325 Watts',
+        'Speeds': '10 Speeds',
+        'Dimensions': '14.13 x 8.75 x 14 inches',
+        'Weight': '26 pounds',
+        'Material': 'All-Metal Construction',
+        'Color': 'Empire Red',
+        'Warranty': '1 Year Hassle-Free Replacement'
+      }
     }
   };
 
