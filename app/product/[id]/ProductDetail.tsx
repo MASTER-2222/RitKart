@@ -1762,6 +1762,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Hardware': 'Silver-tone',
         'Origin': 'Made in Philippines'
       }
+    },
+    'f11': {
+      id: 'f11',
+      title: 'Tommy Hilfiger Men\'s Classic Polo Shirt - Navy Cotton Pique',
+      price: 49.50,
+      originalPrice: 69.50,
+      rating: 4.5,
+      reviewCount: 9876,
+      images: [
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 29,
+      inStock: true,
+      stockCount: 64,
+      description: 'Classic polo shirt in premium cotton pique with iconic Tommy Hilfiger styling. Perfect for casual and smart-casual occasions.',
+      features: [
+        'Premium cotton pique fabric',
+        'Classic fit',
+        'Two-button placket',
+        'Ribbed collar and cuffs',
+        'Side vents',
+        'Embroidered flag logo',
+        'Machine washable'
+      ],
+      specifications: {
+        'Material': '100% Cotton Pique',
+        'Fit': 'Classic',
+        'Collar': 'Ribbed polo collar',
+        'Placket': 'Two-button',
+        'Logo': 'Embroidered flag logo',
+        'Care': 'Machine wash cold',
+        'Size Range': 'S-XXL',
+        'Origin': 'Made in Peru'
+      }
+    },
+    'f12': {
+      id: 'f12',
+      title: 'Michael Kors Women\'s Smartwatch - Rose Gold Stainless Steel',
+      price: 249,
+      originalPrice: 295,
+      rating: 4.3,
+      reviewCount: 7890,
+      images: [
+        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 16,
+      inStock: true,
+      stockCount: 19,
+      description: 'Luxury smartwatch with rose gold stainless steel case and comprehensive health tracking. Combines fashion with technology.',
+      features: [
+        'Rose gold stainless steel case',
+        'Heart rate and activity tracking',
+        'GPS and swim-proof design',
+        'Customizable watch faces',
+        'Smart notifications',
+        'Google Pay and Google Assistant',
+        'All-day battery life'
+      ],
+      specifications: {
+        'Case Material': 'Stainless Steel',
+        'Case Color': 'Rose Gold',
+        'Display': '1.28" AMOLED',
+        'Battery Life': '24+ hours',
+        'Water Resistance': '3ATM + swim proof',
+        'Connectivity': 'Bluetooth, Wi-Fi, GPS',
+        'Compatibility': 'Android 6.0+',
+        'Sensors': 'Heart rate, accelerometer, gyroscope'
+      }
+    },
+    'f13': {
+      id: 'f13',
+      title: 'Patagonia Better Sweater Fleece Jacket - Women\'s Classic Navy',
+      price: 99,
+      originalPrice: 119,
+      rating: 4.7,
+      reviewCount: 8765,
+      images: [
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 42,
+      description: 'Cozy fleece jacket made from recycled polyester. Perfect for layering with classic styling and sustainable materials.',
+      features: [
+        '100% recycled polyester fleece',
+        'Full-zip front with stand-up collar',
+        'Raglan sleeves for mobility',
+        'Two zippered handwarmer pockets',
+        'Feminine fit',
+        'Fair Trade Certified sewn',
+        'durable water repellent finish'
+      ],
+      specifications: {
+        'Material': '100% Recycled Polyester',
+        'Weight': '9.5 oz (270 g)',
+        'Fit': 'Regular',
+        'Pockets': '2 zippered handwarmer pockets',
+        'Collar': 'Stand-up collar',
+        'Certification': 'Fair Trade Certified',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in Vietnam'
+      }
+    },
+    'f14': {
+      id: 'f14',
+      title: 'Vans Old Skool Classic Skate Shoes - Black/White',
+      price: 65,
+      originalPrice: 75,
+      rating: 4.6,
+      reviewCount: 23456,
+      images: [
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1605348532760-da0ec9d70304?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 13,
+      inStock: true,
+      stockCount: 91,
+      description: 'Iconic skate shoes with signature side stripe and durable construction. The original classic that started it all.',
+      features: [
+        'Iconic side stripe design',
+        'Durable suede and canvas uppers',
+        'Reinforced toe caps',
+        'Signature rubber waffle outsole',
+        'Padded collar for comfort',
+        'Metal eyelets',
+        'Classic low-top silhouette'
+      ],
+      specifications: {
+        'Upper': 'Suede and Canvas',
+        'Sole': 'Vulcanized rubber waffle',
+        'Closure': 'Lace-up',
+        'Style': 'Low-top',
+        'Toe Cap': 'Reinforced',
+        'Origin': 'Made in China',
+        'Care': 'Spot clean',
+        'Colorway': 'Black/True White'
+      }
+    },
+    'f15': {
+      id: 'f15',
+      title: 'Uniqlo Heattech Ultra Warm Crew Neck Long Sleeve T-Shirt',
+      price: 19.90,
+      originalPrice: 24.90,
+      rating: 4.4,
+      reviewCount: 15678,
+      images: [
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 20,
+      inStock: true,
+      stockCount: 87,
+      description: 'Advanced thermal underwear with innovative Heattech technology. Ultra-warm base layer for cold weather comfort.',
+      features: [
+        'Heattech Ultra Warm technology',
+        'Generates heat from body moisture',
+        'Ultra-soft microfiber feel',
+        'Crew neck design',
+        'Long sleeves',
+        'Moisture-wicking properties',
+        'Odor-resistant treatment'
+      ],
+      specifications: {
+        'Material': '52% Acrylic, 25% Polyester, 18% Rayon, 5% Spandex',
+        'Technology': 'Heattech Ultra Warm',
+        'Fit': 'Regular',
+        'Neckline': 'Crew neck',
+        'Sleeves': 'Long sleeves',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in China',
+        'Features': 'Moisture-wicking, Odor-resistant'
+      }
     }
   };
 
