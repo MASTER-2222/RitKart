@@ -2750,6 +2750,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Origin': 'Made in Italy',
         'Designer': 'Jacquemus'
       }
+    },
+    'b1': {
+      id: 'b1',
+      title: 'The Seven Husbands of Evelyn Hugo: A Novel by Taylor Jenkins Reid',
+      price: 16.99,
+      originalPrice: 17.99,
+      rating: 4.6,
+      reviewCount: 147832,
+      images: [
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 6,
+      inStock: true,
+      stockCount: 42,
+      description: 'A captivating novel about a reclusive Hollywood icon who finally decides to tell her story to a young journalist, revealing unexpected secrets about love, ambition, and the price of fame.',
+      features: [
+        'New York Times Bestseller',
+        'Over 1 million copies sold',
+        'Reese\'s Book Club Pick',
+        'Compelling character development',
+        'Explores themes of love and identity',
+        'Perfect for book clubs',
+        'Paperback edition with discussion guide'
+      ],
+      specifications: {
+        'Author': 'Taylor Jenkins Reid',
+        'Publisher': 'Atria Books',
+        'Publication Date': 'June 13, 2017',
+        'Pages': '400 pages',
+        'Language': 'English',
+        'Dimensions': '5.31 x 1 x 8 inches',
+        'Weight': '11.2 ounces',
+        'ISBN-13': '978-1501139239'
+      }
+    },
+    'b2': {
+      id: 'b2',
+      title: 'Atomic Habits by James Clear - An Easy & Proven Way to Build Good Habits',
+      price: 18.00,
+      originalPrice: 21.99,
+      rating: 4.8,
+      reviewCount: 89234,
+      images: [
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 18,
+      inStock: true,
+      stockCount: 35,
+      description: 'A revolutionary guide to building good habits and breaking bad ones. Clear presents practical strategies backed by scientific research to help you master the tiny behaviors that lead to remarkable results.',
+      features: [
+        '#1 New York Times Bestseller',
+        'Over 5 million copies sold worldwide',
+        'Practical habit-building strategies',
+        'Scientific research backed',
+        'Easy-to-implement techniques',
+        'Real-world case studies',
+        'Comprehensive habit framework'
+      ],
+      specifications: {
+        'Author': 'James Clear',
+        'Publisher': 'Avery',
+        'Publication Date': 'October 16, 2018',
+        'Pages': '320 pages',
+        'Language': 'English',
+        'Dimensions': '6 x 1.1 x 9 inches',
+        'Weight': '1.1 pounds',
+        'ISBN-13': '978-0735211292'
+      }
+    },
+    'b3': {
+      id: 'b3',
+      title: 'Where the Crawdads Sing by Delia Owens - Bestselling Novel',
+      price: 15.99,
+      originalPrice: 19.99,
+      rating: 4.7,
+      reviewCount: 256789,
+      images: [
+        'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1551029506-0807df4e2031?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 20,
+      inStock: true,
+      stockCount: 67,
+      description: 'A haunting and beautiful novel about a young girl growing up alone in the marshes of North Carolina. A story of resilience, nature, and the power of human connection.',
+      features: [
+        'Over 12 million copies sold',
+        'Reese\'s Book Club Pick',
+        'Major motion picture adaptation',
+        'Beautiful nature writing',
+        'Coming-of-age story',
+        'Mystery and romance elements',
+        'Award-winning debut novel'
+      ],
+      specifications: {
+        'Author': 'Delia Owens',
+        'Publisher': 'G.P. Putnam\'s Sons',
+        'Publication Date': 'August 14, 2018',
+        'Pages': '384 pages',
+        'Language': 'English',
+        'Dimensions': '5.4 x 1.2 x 8.2 inches',
+        'Weight': '12.8 ounces',
+        'ISBN-13': '978-0735219090'
+      }
+    },
+    'b4': {
+      id: 'b4',
+      title: 'The Psychology of Money by Morgan Housel - Financial Wisdom',
+      price: 17.99,
+      originalPrice: 22.00,
+      rating: 4.6,
+      reviewCount: 45678,
+      images: [
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 18,
+      inStock: true,
+      stockCount: 53,
+      description: 'Timeless lessons on wealth, greed, and happiness. Housel explores how psychology affects our financial decisions and reveals the strange ways people think about money.',
+      features: [
+        'Wall Street Journal bestseller',
+        'Practical financial psychology',
+        'Real-world case studies',
+        'Accessible writing style',
+        'Behavioral finance insights',
+        'Personal finance wisdom',
+        'Investment psychology guide'
+      ],
+      specifications: {
+        'Author': 'Morgan Housel',
+        'Publisher': 'Harriman House',
+        'Publication Date': 'September 8, 2020',
+        'Pages': '256 pages',
+        'Language': 'English',
+        'Dimensions': '5.5 x 0.9 x 8.2 inches',
+        'Weight': '10.4 ounces',
+        'ISBN-13': '978-0857197689'
+      }
+    },
+    'b5': {
+      id: 'b5',
+      title: 'Educated: A Memoir by Tara Westover - New York Times Bestseller',
+      price: 16.99,
+      originalPrice: 19.99,
+      rating: 4.5,
+      reviewCount: 134567,
+      images: [
+        'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 15,
+      inStock: true,
+      stockCount: 38,
+      description: 'A powerful memoir about a young woman who, kept out of school, leaves her survivalist family and goes on to earn a PhD from Cambridge University. A story of education and transformation.',
+      features: [
+        'New York Times #1 Bestseller',
+        'Barack Obama\'s favorite book',
+        'Bill Gates recommended read',
+        'Finalist for National Book Critics Circle Award',
+        'Powerful memoir',
+        'Education and family themes',
+        'Inspiring transformation story'
+      ],
+      specifications: {
+        'Author': 'Tara Westover',
+        'Publisher': 'Random House',
+        'Publication Date': 'February 20, 2018',
+        'Pages': '334 pages',
+        'Language': 'English',
+        'Dimensions': '5.2 x 0.8 x 8 inches',
+        'Weight': '9.6 ounces',
+        'ISBN-13': '978-0399590504'
+      }
     }
   };
 
