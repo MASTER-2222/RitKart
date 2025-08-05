@@ -1952,6 +1952,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Origin': 'Made in China',
         'Features': 'Moisture-wicking, Odor-resistant'
       }
+    },
+    'f16': {
+      id: 'f16',
+      title: 'Lululemon Align High-Rise Pant 28" - Black Yoga Leggings',
+      price: 128,
+      originalPrice: 148,
+      rating: 4.8,
+      reviewCount: 34567,
+      images: [
+        'https://images.unsplash.com/photo-1506629905607-d9b1b2e3d75b?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 14,
+      inStock: true,
+      stockCount: 56,
+      description: 'Ultra-soft yoga leggings with naked sensation fabric. High-rise design with 28-inch inseam for tall women.',
+      features: [
+        'Nulu fabric feels like naked sensation',
+        'High-rise waistband',
+        '28-inch inseam for tall figures',
+        'Four-way stretch',
+        'No side seams',
+        'Hidden waistband pocket',
+        'Sweat-wicking and breathable'
+      ],
+      specifications: {
+        'Material': 'Nulu (81% Nylon, 19% Lycra Elastane)',
+        'Rise': 'High-rise (10 inches)',
+        'Inseam': '28 inches',
+        'Fit': 'Tight',
+        'Waistband': 'High-rise with drawcord',
+        'Pockets': 'Hidden waistband pocket',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in Vietnam'
+      }
+    },
+    'f17': {
+      id: 'f17',
+      title: 'North Face Venture 2 Jacket - Men\'s Waterproof Rain Jacket',
+      price: 99,
+      originalPrice: 119,
+      rating: 4.5,
+      reviewCount: 12345,
+      images: [
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 33,
+      description: 'Reliable waterproof rain jacket with DryVent technology. Lightweight and packable for outdoor adventures.',
+      features: [
+        'DryVent 2.5L waterproof technology',
+        'Fully seam sealed',
+        'Adjustable hood',
+        'Two hand pockets',
+        'Velcro cuff tabs',
+        'Packable into hand pocket',
+        'Standard fit'
+      ],
+      specifications: {
+        'Material': 'DryVent 2.5L (100% Nylon)',
+        'Waterproof Rating': '10,000mm',
+        'Breathability': '1,000g/m²/24hr',
+        'Fit': 'Standard',
+        'Hood': 'Fully adjustable',
+        'Pockets': '2 hand pockets',
+        'Weight': '10.2 oz',
+        'Packable': 'Into hand pocket'
+      }
+    },
+    'f18': {
+      id: 'f18',
+      title: 'Kate Spade New York Cameron Street Small Satchel - Pink',
+      price: 198,
+      originalPrice: 248,
+      rating: 4.6,
+      reviewCount: 5432,
+      images: [
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1624681689597-ec3e6c58a27a?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 20,
+      inStock: true,
+      stockCount: 22,
+      description: 'Chic satchel in signature saffiano leather with sophisticated design. Perfect size for daily essentials.',
+      features: [
+        'Crosshatched saffiano leather',
+        'Top zip closure',
+        'Dual top handles',
+        'Optional crossbody strap',
+        'Interior zip pocket',
+        'Signature Kate Spade lining',
+        'Gold-tone hardware'
+      ],
+      specifications: {
+        'Material': 'Saffiano Leather',
+        'Lining': 'Signature Kate Spade fabric',
+        'Closure': 'Top zip',
+        'Handles': 'Dual handles, 4.5" drop',
+        'Strap': 'Removable crossbody, 22" drop',
+        'Dimensions': '9.5" x 7.5" x 4.5"',
+        'Interior': 'Zip pocket, slip pockets',
+        'Hardware': 'Gold-tone'
+      }
+    },
+    'f19': {
+      id: 'f19',
+      title: 'Champion Powerblend Fleece Hoodie - Men\'s Gray Heather',
+      price: 35,
+      originalPrice: 45,
+      rating: 4.3,
+      reviewCount: 18765,
+      images: [
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 22,
+      inStock: true,
+      stockCount: 74,
+      description: 'Comfortable fleece hoodie with Powerblend technology. Reduced pilling and shrinkage for long-lasting wear.',
+      features: [
+        'Powerblend fleece reduces pilling',
+        'Pullover hoodie with drawstrings',
+        'Kangaroo pocket',
+        'Ribbed cuffs and hem',
+        'Athletic fit',
+        'Champion C logo',
+        'Machine washable'
+      ],
+      specifications: {
+        'Material': '50% Cotton, 50% Polyester',
+        'Technology': 'Powerblend (reduced pilling)',
+        'Fit': 'Athletic',
+        'Hood': 'Drawstring hood',
+        'Pocket': 'Front kangaroo pocket',
+        'Cuffs': 'Ribbed cuffs and hem',
+        'Care': 'Machine wash cold',
+        'Origin': 'Made in Honduras'
+      }
+    },
+    'f20': {
+      id: 'f20',
+      title: 'Fossil Gen 6 Smartwatch - Stainless Steel with Heart Rate',
+      price: 255,
+      originalPrice: 295,
+      rating: 4.2,
+      reviewCount: 6789,
+      images: [
+        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 14,
+      inStock: true,
+      stockCount: 26,
+      description: 'Advanced smartwatch with Wear OS by Google. Comprehensive health tracking with classic watch aesthetics.',
+      features: [
+        'Wear OS by Google',
+        'Snapdragon Wear 4100+ platform',
+        'Heart rate & SpO2 tracking',
+        'GPS and NFC payments',
+        'Customizable watch faces',
+        'Rapid charging',
+        'Water resistant (3ATM)'
+      ],
+      specifications: {
+        'OS': 'Wear OS by Google',
+        'Processor': 'Snapdragon Wear 4100+',
+        'Display': '1.28" AMOLED',
+        'Battery': '24+ hours',
+        'Sensors': 'Heart rate, SpO2, accelerometer',
+        'Connectivity': 'Bluetooth, Wi-Fi, GPS',
+        'Water Resistance': '3ATM',
+        'Compatibility': 'Android 6.0+, iOS 12.0+'
+      }
     }
   };
 
