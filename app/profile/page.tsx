@@ -1,0 +1,57 @@
+'use client';
+import { useState } from 'react';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import UserProfileSidebar from '../../components/profile/UserProfileSidebar';
+import PersonalInfo from '../../components/profile/PersonalInfo';
+import MyOrders from '../../components/profile/MyOrders';
+import Wishlist from '../../components/profile/Wishlist';
+import AddressBook from '../../components/profile/AddressBook';
+import PaymentMethods from '../../components/profile/PaymentMethods';
+import ProfileDashboard from '../../components/profile/ProfileDashboard';
+
+export default function ProfilePage() {
+  const [activeSection, setActiveSection] = useState('dashboard');
+
+  const renderContent = () => {
+    switch (activeSection) {
+      case 'dashboard':
+        return <ProfileDashboard />;
+      case 'personal-info':
+        return <PersonalInfo />;
+      case 'orders':
+        return <MyOrders />;
+      case 'wishlist':
+        return <Wishlist />;
+      case 'addresses':
+        return <AddressBook />;
+      case 'payments':
+        return <PaymentMethods />;
+      default:
+        return <ProfileDashboard />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      
+      <main className="max-w-7xl mx-auto px-6 py-6">
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="lg:w-64 flex-shrink-0">
+            <UserProfileSidebar 
+              activeSection={activeSection} 
+              onSectionChange={setActiveSection}
+            />
+          </div>
+          
+          <div className="flex-1">
+            {renderContent()}
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
