@@ -16,6 +16,7 @@ export async function generateStaticParams() {
   ];
 }
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
-  return <CategoryListing categorySlug={params.slug} />;
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  return <CategoryListing categorySlug={slug} />;
 }
