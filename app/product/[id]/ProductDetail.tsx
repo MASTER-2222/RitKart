@@ -584,6 +584,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Weight': '4.53 pounds',
         'OS': 'Windows 11 Home'
       }
+    },
+    'e16': {
+      id: 'e16',
+      title: 'JBL Charge 5 Portable Bluetooth Speaker - Waterproof',
+      price: 149,
+      originalPrice: 179,
+      rating: 4.6,
+      reviewCount: 8901,
+      images: [
+        'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 32,
+      description: 'Powerful portable speaker with JBL Pro Sound, 20 hours of playtime, and IP67 waterproof rating. Perfect for outdoor adventures.',
+      features: [
+        'JBL Pro Sound with powerful bass',
+        '20 hours of playtime',
+        'IP67 waterproof and dustproof',
+        'Power bank functionality',
+        'JBL PartyBoost compatible',
+        'Durable fabric and rubber housing',
+        'Multiple color options'
+      ],
+      specifications: {
+        'Output Power': '40W RMS',
+        'Frequency Response': '65Hz - 20kHz',
+        'Battery Life': '20 hours',
+        'Charging Time': '4 hours',
+        'Bluetooth': '5.1',
+        'Waterproof': 'IP67',
+        'Weight': '2.11 lbs',
+        'Dimensions': '8.7 x 3.76 x 3.67 inches'
+      }
+    },
+    'e17': {
+      id: 'e17',
+      title: 'Logitech MX Master 3S Wireless Mouse - Graphite',
+      price: 99,
+      originalPrice: 119,
+      rating: 4.8,
+      reviewCount: 12345,
+      images: [
+        'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1588508065123-287b28e013da?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 45,
+      description: 'Advanced wireless mouse with ultra-fast scrolling, cross-computer control, and 70-day battery life. Perfect for professionals.',
+      features: [
+        'Darkfield 4000 DPI sensor',
+        'Ultra-fast MagSpeed scrolling',
+        'Cross-computer control and file sharing',
+        '70-day battery life',
+        'USB-C fast charging',
+        'Comfortable ergonomic design',
+        'Customizable buttons and gestures'
+      ],
+      specifications: {
+        'Sensor': 'Darkfield high precision',
+        'DPI': '200-4000 (adjustable)',
+        'Connectivity': 'Logi Bolt, Bluetooth',
+        'Battery': '70 days on full charge',
+        'Charging': 'USB-C',
+        'Compatibility': 'Windows, macOS, Linux',
+        'Weight': '4.9 oz',
+        'Dimensions': '4.92 x 3.31 x 2.01 inches'
+      }
+    },
+    'e18': {
+      id: 'e18',
+      title: 'Roku Ultra 4K HDR Streaming Device with Voice Remote',
+      price: 79,
+      originalPrice: 99,
+      rating: 4.4,
+      reviewCount: 5678,
+      images: [
+        'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1571901493467-117f180235ec?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 20,
+      inStock: true,
+      stockCount: 38,
+      description: 'Premium streaming device with 4K, HDR, and Dolby Vision support. Includes voice remote with headphone jack for private listening.',
+      features: [
+        '4K/HDR/Dolby Vision streaming',
+        'Voice Remote Pro with headphone jack',
+        'Lost remote finder',
+        'Dolby Atmos audio support',
+        'Ethernet port for stable connection',
+        'MicroSD card slot for storage',
+        'Access to 500,000+ movies and TV episodes'
+      ],
+      specifications: {
+        'Video': '4K UHD, HDR10, HDR10+, Dolby Vision',
+        'Audio': 'Dolby Atmos, DTS Digital Surround',
+        'Connectivity': 'Dual-band Wi-Fi, Ethernet',
+        'Storage': 'MicroSD slot',
+        'Remote': 'Voice Remote Pro',
+        'Channels': '500,000+ movies & TV episodes',
+        'Dimensions': '4.9 x 4.9 x 0.8 inches',
+        'Weight': '1.5 lbs'
+      }
+    },
+    'e19': {
+      id: 'e19',
+      title: 'Anker PowerCore 10000 Portable Charger - Ultra Compact',
+      price: 24,
+      originalPrice: 29,
+      rating: 4.7,
+      reviewCount: 23456,
+      images: [
+        'https://images.unsplash.com/photo-1609592806965-50a4bb9e2c41?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 86,
+      description: 'Ultra-compact 10000mAh portable charger with PowerIQ technology. Charge your devices multiple times with advanced safety features.',
+      features: [
+        '10000mAh high capacity',
+        'Ultra-compact palm-sized design',
+        'PowerIQ and VoltageBoost technology',
+        'MultiProtect safety system',
+        'LED power indicator',
+        'Universal compatibility',
+        'Worry-free 18-month warranty'
+      ],
+      specifications: {
+        'Capacity': '10000mAh / 37Wh',
+        'Input': '5V/2A (Micro USB)',
+        'Output': '5V/2.4A (USB-A)',
+        'Technology': 'PowerIQ, VoltageBoost',
+        'Charging Time': '4-5 hours',
+        'Weight': '6.35 oz',
+        'Dimensions': '3.62 x 2.36 x 0.87 inches',
+        'Safety': 'MultiProtect system'
+      }
+    },
+    'e20': {
+      id: 'e20',
+      title: 'Corsair K95 RGB Platinum XT Mechanical Gaming Keyboard',
+      price: 199,
+      originalPrice: 249,
+      rating: 4.5,
+      reviewCount: 7890,
+      images: [
+        'https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1588508065123-287b28e013da?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 20,
+      inStock: true,
+      stockCount: 12,
+      description: 'Premium mechanical gaming keyboard with Cherry MX switches, RGB lighting, and dedicated macro keys for competitive gaming.',
+      features: [
+        'Cherry MX Speed RGB switches',
+        'Per-key RGB backlighting',
+        '6 dedicated macro keys',
+        'USB pass-through port',
+        'Aircraft-grade aluminum frame',
+        'Detachable wrist rest',
+        'Corsair iCUE software integration'
+      ],
+      specifications: {
+        'Switch Type': 'Cherry MX Speed RGB',
+        'Backlighting': 'Per-key RGB',
+        'Key Layout': 'Full-size (104 keys)',
+        'Connectivity': 'USB 2.0',
+        'Polling Rate': '1000Hz',
+        'Key Rollover': 'Full N-key',
+        'Dimensions': '18.5 x 6.7 x 1.5 inches',
+        'Weight': '2.7 lbs'
+      }
     }
   };
 
