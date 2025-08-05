@@ -83,8 +83,8 @@ Each category has 36 products total:
 - Tile Mate Bluetooth Tracker (e35)
 - Belkin 3-in-1 Wireless Charger (e36)
 
-### 2. Fashion Category (10/36 products) 🟡 IN PROGRESS
-**Product IDs Completed**: f1, f2, f3, f4, f5, f6, f7, f8, f9, f10
+### 2. Fashion Category (15/36 products) 🟡 IN PROGRESS
+**Product IDs Completed**: f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15
 
 **Products Added**:
 - Levi's Women's 501 High Rise Jeans (f1)
@@ -97,6 +97,11 @@ Each category has 36 products total:
 - Calvin Klein Women's High Waist Jeans (f8)
 - Converse Chuck Taylor All Star Sneakers (f9)
 - Coach Women's Signature Canvas Handbag (f10)
+- Tommy Hilfiger Men's Classic Polo Shirt (f11)
+- Michael Kors Women's Smartwatch (f12)
+- Patagonia Better Sweater Fleece Jacket (f13)
+- Vans Old Skool Classic Skate Shoes (f14)
+- Uniqlo Heattech Ultra Warm T-Shirt (f15)
 
 ---
 
