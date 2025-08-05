@@ -774,6 +774,196 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'Dimensions': '18.5 x 6.7 x 1.5 inches',
         'Weight': '2.7 lbs'
       }
+    },
+    'e21': {
+      id: 'e21',
+      title: 'Razer DeathAdder V3 Pro Wireless Gaming Mouse',
+      price: 149,
+      originalPrice: 179,
+      rating: 4.6,
+      reviewCount: 4321,
+      images: [
+        'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1588508065123-287b28e013da?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 27,
+      description: 'Professional wireless gaming mouse with Focus Pro 30K sensor, 90-hour battery life, and Razer HyperSpeed technology.',
+      features: [
+        'Focus Pro 30K sensor',
+        '90-hour battery life',
+        'Razer HyperSpeed wireless',
+        'Gen-3 optical switches',
+        'Ergonomic right-handed design',
+        'DPI On-The-Fly button',
+        'Razer Synapse 3 compatible'
+      ],
+      specifications: {
+        'Sensor': 'Focus Pro 30K optical',
+        'DPI': 'Up to 30,000',
+        'IPS': '750',
+        'Acceleration': '50G',
+        'Battery Life': '90 hours',
+        'Connectivity': '2.4GHz, Bluetooth',
+        'Weight': '2.96 oz',
+        'Dimensions': '5.0 x 2.73 x 1.68 inches'
+      }
+    },
+    'e22': {
+      id: 'e22',
+      title: 'Asus ROG Strix 32" 4K Gaming Monitor with HDR',
+      price: 699,
+      originalPrice: 799,
+      rating: 4.7,
+      reviewCount: 3456,
+      images: [
+        'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1571901493467-117f180235ec?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 13,
+      inStock: true,
+      stockCount: 8,
+      description: 'Large 32-inch 4K gaming monitor with 144Hz refresh rate, HDR support, and ASUS Extreme Low Motion Blur technology.',
+      features: [
+        '32-inch 4K UHD display',
+        '144Hz refresh rate',
+        'HDR-10 support',
+        'ASUS Extreme Low Motion Blur',
+        'AMD FreeSync Premium Pro',
+        'Remote control included',
+        'Multiple connectivity options'
+      ],
+      specifications: {
+        'Screen Size': '32 inches',
+        'Resolution': '4K UHD (3840 x 2160)',
+        'Refresh Rate': '144Hz',
+        'Response Time': '1ms MPRT',
+        'Panel Type': 'IPS',
+        'HDR': 'HDR-10',
+        'Connectivity': 'HDMI 2.1, DisplayPort 1.4',
+        'Stand': 'Tilt, swivel, pivot, height'
+      }
+    },
+    'e23': {
+      id: 'e23',
+      title: 'SteelSeries Arctis 7P Wireless Gaming Headset',
+      price: 149,
+      originalPrice: 179,
+      rating: 4.4,
+      reviewCount: 6789,
+      images: [
+        'https://images.unsplash.com/photo-1484704849700-da0ec9d70304?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 17,
+      inStock: true,
+      stockCount: 21,
+      description: 'Premium wireless gaming headset designed for PlayStation with 2.4GHz wireless, DTS Headphone:X 2.0, and 24-hour battery.',
+      features: [
+        '2.4GHz lossless wireless',
+        'DTS Headphone:X 2.0 surround',
+        '24-hour battery life',
+        'ClearCast noise-cancelling microphone',
+        'Steel-reinforced headband',
+        'PlayStation 5 3D Audio compatible',
+        'SteelSeries Engine support'
+      ],
+      specifications: {
+        'Driver': '40mm neodymium',
+        'Frequency Response': '20Hz - 20kHz',
+        'Battery Life': '24+ hours',
+        'Wireless Range': '40 feet / 12 meters',
+        'Microphone': 'Retractable ClearCast',
+        'Compatibility': 'PlayStation, PC, Mobile',
+        'Weight': '0.73 lbs',
+        'Warranty': '1 year'
+      }
+    },
+    'e24': {
+      id: 'e24',
+      title: 'Western Digital 2TB External Hard Drive - USB 3.0',
+      price: 79,
+      originalPrice: 99,
+      rating: 4.5,
+      reviewCount: 8901,
+      images: [
+        'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1609592806965-50a4bb9e2c41?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: true,
+      discount: 20,
+      inStock: true,
+      stockCount: 54,
+      description: 'Reliable 2TB external hard drive with USB 3.0 connectivity. Perfect for backup, file storage, and expanding your computer\'s capacity.',
+      features: [
+        '2TB storage capacity',
+        'USB 3.0 interface',
+        'Plug-and-play setup',
+        'Compatible with Windows and Mac',
+        'Compact and portable design',
+        'Password protection available',
+        'WD Discovery software included'
+      ],
+      specifications: {
+        'Capacity': '2TB',
+        'Interface': 'USB 3.0',
+        'Compatibility': 'Windows 10+, macOS 10.11+',
+        'Power': 'USB bus powered',
+        'Data Transfer Rate': 'Up to 5 Gb/s',
+        'Dimensions': '4.33 x 3.21 x 0.85 inches',
+        'Weight': '0.51 lbs',
+        'Warranty': '2 years limited'
+      }
+    },
+    'e25': {
+      id: 'e25',
+      title: 'Oculus Quest 3 VR Headset 128GB - All-in-One Virtual Reality',
+      price: 499,
+      originalPrice: 549,
+      rating: 4.6,
+      reviewCount: 5432,
+      images: [
+        'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1623508343615-e5dfa11f4ec6?w=600&h=600&fit=crop&crop=center',
+        'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=600&fit=crop&crop=center'
+      ],
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 9,
+      inStock: true,
+      stockCount: 11,
+      description: 'Next-generation VR headset with mixed reality capabilities, improved optics, and powerful Snapdragon XR2 Gen 2 processor.',
+      features: [
+        'Mixed reality capabilities',
+        '4K+ Infinite Display',
+        'Snapdragon XR2 Gen 2 processor',
+        'Improved Touch Plus controllers',
+        'Hand tracking without controllers',
+        '2+ hour battery life',
+        'Access to Meta Quest Store'
+      ],
+      specifications: {
+        'Display': '4K+ Infinite Display (2064x2208 per eye)',
+        'Processor': 'Snapdragon XR2 Gen 2',
+        'Storage': '128GB',
+        'RAM': '8GB',
+        'Refresh Rate': '90Hz, 120Hz (experimental)',
+        'Battery': '2-3 hours gaming',
+        'Weight': '1.24 lbs',
+        'IPD Range': '58-71mm'
+      }
     }
   };
 
