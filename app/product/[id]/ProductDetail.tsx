@@ -3169,8 +3169,8 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         'ISBN-13': '978-1878424310'
       }
     },
-    'b12': {
-      id: 'b12',
+    'b12a': {
+      id: 'b12a',
       title: 'Think and Grow Rich by Napoleon Hill - Success Philosophy Classic',
       price: 11.99,
       originalPrice: 14.99,
