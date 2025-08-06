@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 RUN groupadd -r ritzone && useradd -r -g ritzone ritzone
 
 # Copy the built JAR from the build stage
-COPY --from=build /app/target/ritzone-backend-*.jar app.jar
+COPY --from=build /app/target/ritzone-backend-1.0.0.jar app.jar
 
 # Change ownership to non-root user
 RUN chown ritzone:ritzone app.jar
