@@ -171,7 +171,7 @@ export default function Home() {
       originalPrice: 2699,
       rating: 4.8,
       reviewCount: 1234,
-      image: 'https://images.unsplash.com/photo-1606983340126-acd977736f90?w=300&h=300&fit=crop&crop=center',
+      image: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=300&h=300&fit=crop&crop=center',
       isPrime: true,
       isDeliveryTomorrow: false,
       discount: 7
@@ -183,7 +183,7 @@ export default function Home() {
       originalPrice: 349,
       rating: 4.8,
       reviewCount: 12743,
-      image: 'https://images.unsplash.com/photo-1606143407151-7111542de6e8?w=300&h=300&fit=crop&crop=center',
+      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop&crop=center',
       isPrime: true,
       isDeliveryTomorrow: true,
       discount: 6
