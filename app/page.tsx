@@ -11,21 +11,55 @@ export default function Home() {
 
   const heroBanners = [
     {
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=400&fit=crop&crop=center',
-      title: 'Holiday Deals are Here',
-      subtitle: 'Save up to 50% on thousands of items'
+      image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&h=400&fit=crop&crop=center',
+      title: 'Fashion & Lifestyle',
+      subtitle: 'Discover trendy styles and accessories for every occasion'
     },
     {
-      image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=1200&h=400&fit=crop&crop=center',
-      title: 'Electronics Sale',
-      subtitle: 'Latest gadgets at unbeatable prices'
+      image: 'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?w=1200&h=400&fit=crop&crop=center',
+      title: 'Premium Shopping Experience',
+      subtitle: 'Quality products delivered straight to your door'
     },
     {
-      image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200&h=400&fit=crop&crop=center',
-      title: 'Fashion Forward',
-      subtitle: 'Trendy styles for every season'
+      image: 'https://images.unsplash.com/photo-1481437156560-3205f6a55735?w=1200&h=400&fit=crop&crop=center',
+      title: 'Shop with Confidence',
+      subtitle: 'Explore our vast selection in our modern retail space'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1573855619003-97b4799dcd8b?w=1200&h=400&fit=crop&crop=center',
+      title: 'Weekend Shopping Spree',
+      subtitle: 'Get amazing deals on all your favorite brands'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1532795986-dbef1643a596?w=1200&h=400&fit=crop&crop=center',
+      title: 'MEGA SALE EVENT',
+      subtitle: 'Up to 70% off on electronics, fashion, and more!'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=1200&h=400&fit=crop&crop=center',
+      title: 'Black Friday Deals',
+      subtitle: 'Massive discounts across all categories - Limited time only'
+    },
+    {
+      image: 'https://images.pexels.com/photos/5868722/pexels-photo-5868722.jpeg?w=1200&h=400&fit=crop&crop=center',
+      title: 'Special Offers',
+      subtitle: 'Exclusive deals and promotional prices just for you'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1586880244406-556ebe35f282?w=1200&h=400&fit=crop&crop=center',
+      title: 'Shop Online Anytime',
+      subtitle: 'Convenient online shopping with fast delivery options'
     }
   ];
+
+  // Auto-advance slider every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentHeroBanner((prev) => (prev + 1) % heroBanners.length);
+    }, 2000); // 2 seconds
+
+    return () => clearInterval(interval);
+  }, [heroBanners.length]);
 
   const categories = [
     {
