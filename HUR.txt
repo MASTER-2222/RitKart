@@ -1,0 +1,696 @@
+2025-08-06T09:55:00.318367976Z #13 34.37 [INFO] Resolved dependency: tomcat-embed-websocket-10.1.17.jar
+2025-08-06T09:55:00.318370086Z #13 34.38 [INFO] Resolved dependency: mongodb-driver-sync-4.11.1.jar
+2025-08-06T09:55:00.318375626Z #13 34.38 [INFO] ------------------------------------------------------------------------
+2025-08-06T09:55:00.318378496Z #13 34.38 [INFO] BUILD SUCCESS
+2025-08-06T09:55:00.318388596Z #13 34.38 [INFO] ------------------------------------------------------------------------
+2025-08-06T09:55:00.318391717Z #13 34.38 [INFO] Total time:  32.948 s
+2025-08-06T09:55:00.318393857Z #13 34.38 [INFO] Finished at: 2025-08-06T09:55:00Z
+2025-08-06T09:55:00.318396017Z #13 34.38 [INFO] ------------------------------------------------------------------------
+2025-08-06T09:55:10.050731753Z #13 DONE 44.3s
+2025-08-06T09:55:10.201378947Z 
+2025-08-06T09:55:10.201405568Z #14 [build 6/8] COPY src ./src
+2025-08-06T09:55:10.35247657Z #14 DONE 0.2s
+2025-08-06T09:55:10.35249559Z 
+2025-08-06T09:55:10.35250086Z #15 [build 7/8] COPY .env* ./
+2025-08-06T09:55:10.35250522Z #15 DONE 0.1s
+2025-08-06T09:55:10.352510021Z 
+2025-08-06T09:55:10.352514581Z #16 [build 8/8] RUN mvn clean package -DskipTests -Dmaven.compiler.source=17 -Dmaven.compiler.target=17
+2025-08-06T09:55:12.066635553Z #16 1.606 [INFO] Scanning for projects...
+2025-08-06T09:55:12.766550678Z #16 2.282 [INFO] 
+2025-08-06T09:55:12.766572699Z #16 2.282 [INFO] --------------------< com.ritzone:ritzone-backend >---------------------
+2025-08-06T09:55:12.766577789Z #16 2.283 [INFO] Building RitZone Backend 1.0.0
+2025-08-06T09:55:12.766582719Z #16 2.284 [INFO] --------------------------------[ jar ]---------------------------------
+2025-08-06T09:55:13.81917198Z #16 3.396 Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.pom
+2025-08-06T09:55:14.096310175Z #16 3.673 Progress (1): 2.8/19 kB
+Progress (1): 5.5/19 kB
+Progress (1): 8.3/19 kB
+Progress (1): 11/19 kB 
+Progress (1): 14/19 kB
+Progress (1): 17/19 kB
+Progress (1): 19 kB   
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.pom (19 kB at 60 kB/s)
+2025-08-06T09:55:14.096343206Z #16 3.714 Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/logging/logging-parent/1.0.1.Final/logging-parent-1.0.1.Final.pom
+2025-08-06T09:55:14.096347166Z #16 3.726 Progress (1): 2.8/6.0 kB
+Progress (1): 5.5/6.0 kB
+Progress (1): 6.0 kB    
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/logging/logging-parent/1.0.1.Final/logging-parent-1.0.1.Final.pom (6.0 kB at 161 kB/s)
+2025-08-06T09:55:14.096350486Z #16 3.767 Downloading from central: https://repo.maven.apache.org/maven2/com/fasterxml/classmate/1.6.0/classmate-1.6.0.pom
+2025-08-06T09:55:14.266902241Z #16 3.797 Progress (1): 2.8/6.6 kB
+Progress (1): 5.5/6.6 kB
+Progress (1): 6.6 kB    
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/com/fasterxml/classmate/1.6.0/classmate-1.6.0.pom (6.6 kB at 135 kB/s)
+2025-08-06T09:55:14.266923541Z #16 3.818 Downloading from central: https://repo.maven.apache.org/maven2/com/fasterxml/oss-parent/55/oss-parent-55.pom
+2025-08-06T09:55:14.266933421Z #16 3.832 Progress (1): 2.8/24 kB
+Progress (1): 5.5/24 kB
+Progress (1): 8.3/24 kB
+Progress (1): 11/24 kB 
+Progress (1): 14/24 kB
+Progress (1): 17/24 kB
+Progress (1): 19/24 kB
+Progress (1): 22/24 kB
+Progress (1): 24 kB   
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/com/fasterxml/oss-parent/55/oss-parent-55.pom (24 kB at 760 kB/s)
+2025-08-06T09:55:14.499146575Z #16 4.168 Downloading from central: https://repo.maven.apache.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.15.3/jackson-dataformat-yaml-2.15.3.pom
+2025-08-06T09:55:14.499273818Z #16 4.185 Progress (1): 2.6 kB
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.15.3/jackson-dataformat-yaml-2.15.3.pom (2.6 kB at 31 kB/s)
+2025-08-06T09:55:14.666529298Z #16 4.200 Downloading from central: https://repo.maven.apache.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformats-text/2.15.3/jackson-dataformats-text-2.15.3.pom
+2025-08-06T09:55:14.666553128Z #16 4.215 Progress (1): 3.5 kB
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformats-text/2.15.3/jackson-dataformats-text-2.15.3.pom (3.5 kB at 129 kB/s)
+2025-08-06T09:55:14.783628694Z #16 4.368 Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.14.10/byte-buddy-1.14.10.pom
+2025-08-06T09:55:14.783653585Z #16 4.394 Progress (1): 4.1/16 kB
+Progress (1): 8.2/16 kB
+Progress (1): 12/16 kB 
+Progress (1): 16 kB   
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.14.10/byte-buddy-1.14.10.pom (16 kB at 160 kB/s)
+2025-08-06T09:55:14.783659205Z #16 4.410 Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-parent/1.14.10/byte-buddy-parent-1.14.10.pom
+2025-08-06T09:55:14.893273524Z #16 4.485 Progress (1): 4.1/62 kB
+Progress (1): 8.2/62 kB
+Progress (1): 12/62 kB 
+Progress (1): 16/62 kB
+Progress (1): 20/62 kB
+Progress (1): 25/62 kB
+Progress (1): 29/62 kB
+Progress (1): 33/62 kB
+Progress (1): 37/62 kB
+Progress (1): 41/62 kB
+Progress (1): 45/62 kB
+Progress (1): 49/62 kB
+Progress (1): 53/62 kB
+Progress (1): 57/62 kB
+Progress (1): 61/62 kB
+Progress (1): 62 kB   
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-parent/1.14.10/byte-buddy-parent-1.14.10.pom (62 kB at 635 kB/s)
+2025-08-06T09:55:14.893296245Z #16 4.578 Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.14.10/byte-buddy-agent-1.14.10.pom
+2025-08-06T09:55:15.066477301Z #16 4.594 Progress (1): 4.1/10 kB
+Progress (1): 8.2/10 kB
+Progress (1): 10 kB    
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.14.10/byte-buddy-agent-1.14.10.pom (10 kB at 349 kB/s)
+2025-08-06T09:55:15.179193801Z #16 4.878 Downloading from central: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar
+2025-08-06T09:55:15.284525837Z #16 4.879 Downloading from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.jar
+2025-08-06T09:55:15.28468342Z #16 4.886 Downloading from central: https://repo.maven.apache.org/maven2/com/fasterxml/classmate/1.6.0/classmate-1.6.0.jar
+2025-08-06T09:55:15.284772092Z #16 4.886 Downloading from central: https://repo.maven.apache.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.15.3/jackson-dataformat-yaml-2.15.3.jar
+2025-08-06T09:55:15.284847863Z #16 4.886 Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.14.10/byte-buddy-1.14.10.jar
+2025-08-06T09:55:15.389171879Z #16 4.894 Progress (1): 4.1/59 kB
+Progress (1): 8.2/59 kB
+Progress (1): 12/59 kB 
+Progress (1): 16/59 kB
+Progress (1): 20/59 kB
+Progress (1): 25/59 kB
+Progress (1): 29/59 kB
+Progress (1): 33/59 kB
+Progress (1): 37/59 kB
+Progress (1): 41/59 kB
+Progress (1): 45/59 kB
+Progress (1): 49/59 kB
+Progress (1): 53/59 kB
+Progress (1): 57/59 kB
+Progress (1): 59 kB   
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.jar (59 kB at 543 kB/s)
+2025-08-06T09:55:15.38921041Z #16 4.986 Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.14.10/byte-buddy-agent-1.14.10.jar
+2025-08-06T09:55:15.667189112Z #16 5.069 Progress (1): 4.1/257 kB
+Progress (2): 4.1/257 kB | 2.8/55 kB
+Progress (2): 4.1/257 kB | 5.5/55 kB
+Progress (3): 4.1/257 kB | 5.5/55 kB | 4.1/69 kB
+Progress (3): 8.2/257 kB | 5.5/55 kB | 4.1/69 kB
+Progress (3): 8.2/257 kB | 8.3/55 kB | 4.1/69 kB
+Progress (3): 8.2/257 kB | 11/55 kB | 4.1/69 kB 
+Progress (4): 8.2/257 kB | 11/55 kB | 4.1/69 kB | 0/4.2 MB
+Progress (4): 8.2/257 kB | 14/55 kB | 4.1/69 kB | 0/4.2 MB
+Progress (4): 8.2/257 kB | 17/55 kB | 4.1/69 kB | 0/4.2 MB
+Progress (4): 12/257 kB | 17/55 kB | 4.1/69 kB | 0/4.2 MB 
+Progress (4): 16/257 kB | 17/55 kB | 4.1/69 kB | 0/4.2 MB
+Progress (5): 16/257 kB | 17/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 20/257 kB | 17/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 20/257 kB | 20/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 25/257 kB | 20/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 29/257 kB | 20/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 29/257 kB | 23/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 29/257 kB | 25/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 29/257 kB | 28/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 33/257 kB | 28/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 33/257 kB | 31/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 37/257 kB | 31/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 37/257 kB | 34/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 41/257 kB | 34/55 kB | 4.1/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 41/257 kB | 34/55 kB | 8.2/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 45/257 kB | 34/55 kB | 8.2/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 45/257 kB | 34/55 kB | 12/69 kB | 0/4.2 MB | 2.8/65 kB 
+Progress (5): 45/257 kB | 36/55 kB | 12/69 kB | 0/4.2 MB | 2.8/65 kB
+Progress (5): 45/257 kB | 36/55 kB | 12/69 kB | 0/4.2 MB | 5.5/65 kB
+Progress (5): 45/257 kB | 39/55 kB | 12/69 kB | 0/4.2 MB | 5.5/65 kB
+Progress (5): 45/257 kB | 39/55 kB | 16/69 kB | 0/4.2 MB | 5.5/65 kB
+Progress (5): 49/257 kB | 39/55 kB | 16/69 kB | 0/4.2 MB | 5.5/65 kB
+Progress (5): 49/257 kB | 39/55 kB | 16/69 kB | 0/4.2 MB | 5.5/65 kB
+Progress (5): 53/257 kB | 39/55 kB | 16/69 kB | 0/4.2 MB | 5.5/65 kB
+Progress (5): 57/257 kB | 39/55 kB | 16/69 kB | 0/4.2 MB | 5.5/65 kB
+Progress (5): 57/257 kB | 39/55 kB | 20/69 kB | 0/4.2 MB | 5.5/65 kB
+Progress (5): 57/257 kB | 42/55 kB | 20/69 kB | 0/4.2 MB | 5.5/65 kB
+Progress (5): 57/257 kB | 45/55 kB | 20/69 kB | 0/4.2 MB | 5.5/65 kB
+Progress (5): 57/257 kB | 45/55 kB | 20/69 kB | 0/4.2 MB | 8.3/65 kB
+Progress (5): 57/257 kB | 48/55 kB | 20/69 kB | 0/4.2 MB | 8.3/65 kB
+Progress (5): 57/257 kB | 48/55 kB | 25/69 kB | 0/4.2 MB | 8.3/65 kB
+Progress (5): 61/257 kB | 48/55 kB | 25/69 kB | 0/4.2 MB | 8.3/65 kB
+Progress (5): 66/257 kB | 48/55 kB | 25/69 kB | 0/4.2 MB | 8.3/65 kB
+Progress (5): 66/257 kB | 48/55 kB | 25/69 kB | 0.1/4.2 MB | 8.3/65 kB
+Progress (5): 66/257 kB | 48/55 kB | 29/69 kB | 0.1/4.2 MB | 8.3/65 kB
+Progress (5): 66/257 kB | 48/55 kB | 33/69 kB | 0.1/4.2 MB | 8.3/65 kB
+Progress (5): 66/257 kB | 50/55 kB | 33/69 kB | 0.1/4.2 MB | 8.3/65 kB
+Progress (5): 66/257 kB | 50/55 kB | 33/69 kB | 0.1/4.2 MB | 11/65 kB 
+Progress (5): 66/257 kB | 53/55 kB | 33/69 kB | 0.1/4.2 MB | 11/65 kB
+Progress (5): 66/257 kB | 53/55 kB | 37/69 kB | 0.1/4.2 MB | 11/65 kB
+Progress (5): 70/257 kB | 53/55 kB | 37/69 kB | 0.1/4.2 MB | 11/65 kB
+Progress (5): 70/257 kB | 53/55 kB | 37/69 kB | 0.1/4.2 MB | 11/65 kB
+Progress (5): 74/257 kB | 53/55 kB | 37/69 kB | 0.1/4.2 MB | 11/65 kB
+Progress (5): 78/257 kB | 53/55 kB | 37/69 kB | 0.1/4.2 MB | 11/65 kB
+Progress (5): 78/257 kB | 53/55 kB | 41/69 kB | 0.1/4.2 MB | 11/65 kB
+Progress (5): 78/257 kB | 53/55 kB | 45/69 kB | 0.1/4.2 MB | 11/65 kB
+Progress (5): 78/257 kB | 55 kB | 45/69 kB | 0.1/4.2 MB | 11/65 kB   
+Progress (5): 78/257 kB | 55 kB | 45/69 kB | 0.1/4.2 MB | 14/65 kB
+Progress (5): 78/257 kB | 55 kB | 49/69 kB | 0.1/4.2 MB | 14/65 kB
+Progress (5): 82/257 kB | 55 kB | 49/69 kB | 0.1/4.2 MB | 14/65 kB
+Progress (5): 82/257 kB | 55 kB | 49/69 kB | 0.1/4.2 MB | 14/65 kB
+Progress (5): 86/257 kB | 55 kB | 49/69 kB | 0.1/4.2 MB | 14/65 kB
+Progress (5): 86/257 kB | 55 kB | 53/69 kB | 0.1/4.2 MB | 14/65 kB
+Progress (5): 86/257 kB | 55 kB | 53/69 kB | 0.1/4.2 MB | 17/65 kB
+Progress (5): 86/257 kB | 55 kB | 57/69 kB | 0.1/4.2 MB | 17/65 kB
+Progress (5): 86/257 kB | 55 kB | 61/69 kB | 0.1/4.2 MB | 17/65 kB
+Progress (5): 90/257 kB | 55 kB | 61/69 kB | 0.1/4.2 MB | 17/65 kB
+Progress (5): 90/257 kB | 55 kB | 61/69 kB | 0.1/4.2 MB | 17/65 kB
+Progress (5): 94/257 kB | 55 kB | 61/69 kB | 0.1/4.2 MB | 17/65 kB
+Progress (5): 94/257 kB | 55 kB | 66/69 kB | 0.1/4.2 MB | 17/65 kB
+Progress (5): 94/257 kB | 55 kB | 66/69 kB | 0.2/4.2 MB | 17/65 kB
+Progress (5): 94/257 kB | 55 kB | 66/69 kB | 0.2/4.2 MB | 19/65 kB
+Progress (5): 94/257 kB | 55 kB | 66/69 kB | 0.2/4.2 MB | 19/65 kB
+Progress (5): 94/257 kB | 55 kB | 66/69 kB | 0.2/4.2 MB | 22/65 kB
+Progress (5): 94/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 22/65 kB   
+Progress (5): 98/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 22/65 kB
+Progress (5): 102/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 22/65 kB
+Progress (5): 106/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 22/65 kB
+Progress (5): 111/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 22/65 kB
+Progress (5): 115/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 22/65 kB
+Progress (5): 115/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 25/65 kB
+Progress (5): 119/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 25/65 kB
+Progress (5): 119/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 28/65 kB
+Progress (5): 123/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 28/65 kB
+Progress (5): 123/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 30/65 kB
+Progress (5): 127/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 30/65 kB
+Progress (5): 127/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 33/65 kB
+Progress (5): 131/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 33/65 kB
+Progress (5): 131/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 36/65 kB
+Progress (5): 135/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 36/65 kB
+Progress (5): 139/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 36/65 kB
+Progress (5): 139/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 39/65 kB
+Progress (5): 143/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 39/65 kB
+Progress (5): 143/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 41/65 kB
+Progress (5): 143/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 41/65 kB
+Progress (5): 143/257 kB | 55 kB | 69 kB | 0.2/4.2 MB | 44/65 kB
+                                                                
+Downloaded from central: https://repo.maven.apache.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.15.3/jackson-dataformat-yaml-2.15.3.jar (55 kB at 136 kB/s)
+2025-08-06T09:55:15.667235993Z #16 5.283 Progress (4): 147/257 kB | 69 kB | 0.2/4.2 MB | 44/65 kB
+Progress (4): 147/257 kB | 69 kB | 0.2/4.2 MB | 47/65 kB
+Progress (4): 152/257 kB | 69 kB | 0.2/4.2 MB | 47/65 kB
+Progress (4): 152/257 kB | 69 kB | 0.2/4.2 MB | 47/65 kB
+Progress (4): 152/257 kB | 69 kB | 0.2/4.2 MB | 50/65 kB
+Progress (4): 156/257 kB | 69 kB | 0.2/4.2 MB | 50/65 kB
+Progress (4): 156/257 kB | 69 kB | 0.2/4.2 MB | 52/65 kB
+Progress (4): 160/257 kB | 69 kB | 0.2/4.2 MB | 52/65 kB
+Progress (4): 160/257 kB | 69 kB | 0.2/4.2 MB | 55/65 kB
+Progress (4): 164/257 kB | 69 kB | 0.2/4.2 MB | 55/65 kB
+Progress (4): 164/257 kB | 69 kB | 0.2/4.2 MB | 58/65 kB
+Progress (4): 168/257 kB | 69 kB | 0.2/4.2 MB | 58/65 kB
+Progress (4): 168/257 kB | 69 kB | 0.2/4.2 MB | 61/65 kB
+                                                        
+Downloaded from central: https://repo.maven.apache.org/maven2/com/fasterxml/classmate/1.6.0/classmate-1.6.0.jar (69 kB at 170 kB/s)
+2025-08-06T09:55:15.767395097Z #16 5.286 Progress (3): 172/257 kB | 0.2/4.2 MB | 61/65 kB
+Progress (3): 172/257 kB | 0.2/4.2 MB | 63/65 kB
+Progress (3): 176/257 kB | 0.2/4.2 MB | 63/65 kB
+Progress (3): 176/257 kB | 0.3/4.2 MB | 63/65 kB
+Progress (3): 180/257 kB | 0.3/4.2 MB | 63/65 kB
+Progress (3): 180/257 kB | 0.3/4.2 MB | 65 kB   
+Progress (3): 184/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 188/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 193/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 193/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 197/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 201/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 205/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 209/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 213/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 217/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 221/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 225/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 229/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 233/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 238/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 238/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 242/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 246/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 250/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 250/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 254/257 kB | 0.3/4.2 MB | 65 kB
+Progress (3): 257 kB | 0.3/4.2 MB | 65 kB    
+                                         
+Downloaded from central: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar (65 kB at 131 kB/s)
+2025-08-06T09:55:15.767427058Z #16 5.369 Progress (2): 257 kB | 0.4/4.2 MB
+Progress (2): 257 kB | 0.4/4.2 MB
+Progress (2): 257 kB | 0.4/4.2 MB
+Progress (2): 257 kB | 0.4/4.2 MB
+Progress (2): 257 kB | 0.5/4.2 MB
+Progress (2): 257 kB | 0.5/4.2 MB
+Progress (2): 257 kB | 0.5/4.2 MB
+Progress (2): 257 kB | 0.5/4.2 MB
+Progress (2): 257 kB | 0.6/4.2 MB
+Progress (2): 257 kB | 0.6/4.2 MB
+Progress (2): 257 kB | 0.6/4.2 MB
+Progress (2): 257 kB | 0.6/4.2 MB
+Progress (2): 257 kB | 0.7/4.2 MB
+Progress (2): 257 kB | 0.7/4.2 MB
+Progress (2): 257 kB | 0.7/4.2 MB
+Progress (2): 257 kB | 0.7/4.2 MB
+Progress (2): 257 kB | 0.8/4.2 MB
+Progress (2): 257 kB | 0.8/4.2 MB
+Progress (2): 257 kB | 0.8/4.2 MB
+Progress (2): 257 kB | 0.8/4.2 MB
+Progress (2): 257 kB | 0.9/4.2 MB
+Progress (2): 257 kB | 0.9/4.2 MB
+                                 
+Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.14.10/byte-buddy-agent-1.14.10.jar (257 kB at 517 kB/s)
+2025-08-06T09:55:15.907395132Z #16 5.380 Progress (1): 0.9/4.2 MB
+Progress (1): 0.9/4.2 MB
+Progress (1): 1.0/4.2 MB
+Progress (1): 1.0/4.2 MB
+Progress (1): 1.0/4.2 MB
+Progress (1): 1.0/4.2 MB
+Progress (1): 1.1/4.2 MB
+Progress (1): 1.1/4.2 MB
+Progress (1): 1.1/4.2 MB
+Progress (1): 1.1/4.2 MB
+Progress (1): 1.2/4.2 MB
+Progress (1): 1.2/4.2 MB
+Progress (1): 1.2/4.2 MB
+Progress (1): 1.2/4.2 MB
+Progress (1): 1.3/4.2 MB
+Progress (1): 1.3/4.2 MB
+Progress (1): 1.3/4.2 MB
+Progress (1): 1.3/4.2 MB
+Progress (1): 1.4/4.2 MB
+Progress (1): 1.4/4.2 MB
+Progress (1): 1.4/4.2 MB
+Progress (1): 1.4/4.2 MB
+Progress (1): 1.5/4.2 MB
+Progress (1): 1.5/4.2 MB
+Progress (1): 1.5/4.2 MB
+Progress (1): 1.5/4.2 MB
+Progress (1): 1.6/4.2 MB
+Progress (1): 1.6/4.2 MB
+Progress (1): 1.6/4.2 MB
+Progress (1): 1.6/4.2 MB
+Progress (1): 1.7/4.2 MB
+Progress (1): 1.7/4.2 MB
+Progress (1): 1.7/4.2 MB
+Progress (1): 1.7/4.2 MB
+Progress (1): 1.8/4.2 MB
+Progress (1): 1.8/4.2 MB
+Progress (1): 1.8/4.2 MB
+Progress (1): 1.8/4.2 MB
+Progress (1): 1.9/4.2 MB
+Progress (1): 1.9/4.2 MB
+Progress (1): 1.9/4.2 MB
+Progress (1): 1.9/4.2 MB
+Progress (1): 2.0/4.2 MB
+Progress (1): 2.0/4.2 MB
+Progress (1): 2.0/4.2 MB
+Progress (1): 2.0/4.2 MB
+Progress (1): 2.0/4.2 MB
+Progress (1): 2.1/4.2 MB
+Progress (1): 2.1/4.2 MB
+Progress (1): 2.1/4.2 MB
+Progress (1): 2.1/4.2 MB
+Progress (1): 2.2/4.2 MB
+Progress (1): 2.2/4.2 MB
+Progress (1): 2.2/4.2 MB
+Progress (1): 2.2/4.2 MB
+Progress (1): 2.3/4.2 MB
+Progress (1): 2.3/4.2 MB
+Progress (1): 2.3/4.2 MB
+Progress (1): 2.3/4.2 MB
+Progress (1): 2.4/4.2 MB
+Progress (1): 2.4/4.2 MB
+Progress (1): 2.4/4.2 MB
+Progress (1): 2.4/4.2 MB
+Progress (1): 2.5/4.2 MB
+Progress (1): 2.5/4.2 MB
+Progress (1): 2.5/4.2 MB
+Progress (1): 2.5/4.2 MB
+Progress (1): 2.6/4.2 MB
+Progress (1): 2.6/4.2 MB
+Progress (1): 2.6/4.2 MB
+Progress (1): 2.6/4.2 MB
+Progress (1): 2.7/4.2 MB
+Progress (1): 2.7/4.2 MB
+Progress (1): 2.7/4.2 MB
+Progress (1): 2.7/4.2 MB
+Progress (1): 2.8/4.2 MB
+Progress (1): 2.8/4.2 MB
+Progress (1): 2.8/4.2 MB
+Progress (1): 2.8/4.2 MB
+Progress (1): 2.9/4.2 MB
+Progress (1): 2.9/4.2 MB
+Progress (1): 2.9/4.2 MB
+Progress (1): 2.9/4.2 MB
+Progress (1): 3.0/4.2 MB
+Progress (1): 3.0/4.2 MB
+Progress (1): 3.0/4.2 MB
+Progress (1): 3.0/4.2 MB
+Progress (1): 3.1/4.2 MB
+Progress (1): 3.1/4.2 MB
+Progress (1): 3.1/4.2 MB
+Progress (1): 3.1/4.2 MB
+Progress (1): 3.2/4.2 MB
+Progress (1): 3.2/4.2 MB
+Progress (1): 3.2/4.2 MB
+Progress (1): 3.2/4.2 MB
+Progress (1): 3.3/4.2 MB
+Progress (1): 3.3/4.2 MB
+Progress (1): 3.3/4.2 MB
+Progress (1): 3.3/4.2 MB
+Progress (1): 3.4/4.2 MB
+Progress (1): 3.4/4.2 MB
+Progress (1): 3.4/4.2 MB
+Progress (1): 3.4/4.2 MB
+Progress (1): 3.5/4.2 MB
+Progress (1): 3.5/4.2 MB
+Progress (1): 3.5/4.2 MB
+Progress (1): 3.5/4.2 MB
+Progress (1): 3.6/4.2 MB
+Progress (1): 3.6/4.2 MB
+Progress (1): 3.6/4.2 MB
+Progress (1): 3.6/4.2 MB
+Progress (1): 3.7/4.2 MB
+Progress (1): 3.7/4.2 MB
+Progress (1): 3.7/4.2 MB
+Progress (1): 3.7/4.2 MB
+Progress (1): 3.8/4.2 MB
+Progress (1): 3.8/4.2 MB
+Progress (1): 3.8/4.2 MB
+Progress (1): 3.8/4.2 MB
+Progress (1): 3.9/4.2 MB
+Progress (1): 3.9/4.2 MB
+Progress (1): 3.9/4.2 MB
+Progress (1): 3.9/4.2 MB
+Progress (1): 4.0/4.2 MB
+Progress (1): 4.0/4.2 MB
+Progress (1): 4.0/4.2 MB
+Progress (1): 4.0/4.2 MB
+Progress (1): 4.0/4.2 MB
+Progress (1): 4.1/4.2 MB
+Progress (1): 4.1/4.2 MB
+Progress (1): 4.1/4.2 MB
+Progress (1): 4.2/4.2 MB
+Progress (1): 4.2/4.2 MB
+Progress (1): 4.2/4.2 MB
+Progress (1): 4.2 MB    
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.14.10/byte-buddy-1.14.10.jar (4.2 MB at 6.9 MB/s)
+2025-08-06T09:55:15.907442633Z #16 5.505 [INFO] 
+2025-08-06T09:55:15.907447383Z #16 5.505 [INFO] --- maven-clean-plugin:3.3.2:clean (default-clean) @ ritzone-backend ---
+2025-08-06T09:55:15.907450293Z #16 5.608 [INFO] 
+2025-08-06T09:55:16.066282438Z #16 5.609 [INFO] --- maven-resources-plugin:3.3.1:resources (default-resources) @ ritzone-backend ---
+2025-08-06T09:55:16.166763749Z #16 5.800 [INFO] Copying 2 resources from src/main/resources to target/classes
+2025-08-06T09:55:16.16679871Z #16 5.868 [INFO] Copying 0 resource from src/main/resources to target/classes
+2025-08-06T09:55:16.16680255Z #16 5.868 [INFO] 
+2025-08-06T09:55:16.16680954Z #16 5.868 [INFO] --- maven-compiler-plugin:3.11.0:compile (default-compile) @ ritzone-backend ---
+2025-08-06T09:55:16.46763429Z #16 6.085 [INFO] Changes detected - recompiling the module! :dependency
+2025-08-06T09:55:16.46765287Z #16 6.088 [INFO] Compiling 44 source files with javac [debug release 17] to target/classes
+2025-08-06T09:55:29.867829027Z #16 19.47 [INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+2025-08-06T09:55:29.867852557Z #16 19.47 [INFO] -------------------------------------------------------------
+2025-08-06T09:55:29.867858488Z #16 19.48 [ERROR] COMPILATION ERROR : 
+2025-08-06T09:55:29.867862608Z #16 19.48 [INFO] -------------------------------------------------------------
+2025-08-06T09:55:29.867868748Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[31,49] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.867873138Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[57,25] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.867876978Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[59,18] cannot find symbol
+2025-08-06T09:55:29.867882528Z #16 19.48   symbol:   method setTrackingNumber(java.lang.String)
+2025-08-06T09:55:29.867888658Z #16 19.48   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:29.867893208Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[64,18] cannot find symbol
+2025-08-06T09:55:29.867897568Z #16 19.48   symbol:   method getStatusHistory()
+2025-08-06T09:55:29.867901898Z #16 19.48   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:29.867906118Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[65,18] cannot find symbol
+2025-08-06T09:55:29.867910978Z #16 19.48   symbol:   method getStatusHistory()
+2025-08-06T09:55:29.867915159Z #16 19.48   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:29.867919479Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[69,18] cannot find symbol
+2025-08-06T09:55:29.867923939Z #16 19.48   symbol:   method setStatusHistory(java.util.Map<java.lang.String,java.time.LocalDateTime>)
+2025-08-06T09:55:29.867928049Z #16 19.48   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:29.867931999Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[89,66] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.867935929Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[90,69] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.867939739Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[91,66] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.867943559Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[92,68] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.867947549Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[93,68] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.867960459Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[97,44] cannot find symbol
+2025-08-06T09:55:29.86796339Z #16 19.48   symbol:   method countByCreatedAtAfter(java.time.LocalDateTime)
+2025-08-06T09:55:29.86796595Z #16 19.48   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:29.86796868Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[101,46] cannot find symbol
+2025-08-06T09:55:29.86797166Z #16 19.48   symbol:   method getTotalRevenue()
+2025-08-06T09:55:29.86797436Z #16 19.48   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:29.86797719Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[111,45] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.86797999Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[119,31] cannot find symbol
+2025-08-06T09:55:29.86798503Z #16 19.48   symbol:   method findByCreatedAtAfter(java.time.LocalDateTime,org.springframework.data.domain.Pageable)
+2025-08-06T09:55:29.86798763Z #16 19.48   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:29.8679895Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[132,25] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.86799119Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[137,18] cannot find symbol
+2025-08-06T09:55:29.86799287Z #16 19.48   symbol:   method getStatusHistory()
+2025-08-06T09:55:29.86801152Z #16 19.48   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:29.868015121Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[138,18] cannot find symbol
+2025-08-06T09:55:29.868017931Z #16 19.48   symbol:   method getStatusHistory()
+2025-08-06T09:55:29.868020531Z #16 19.48   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:29.868023371Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[142,18] cannot find symbol
+2025-08-06T09:55:29.868026091Z #16 19.48   symbol:   method setStatusHistory(java.util.Map<java.lang.String,java.time.LocalDateTime>)
+2025-08-06T09:55:29.868028781Z #16 19.48   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:29.868031661Z #16 19.48 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[45,58] cannot find symbol
+2025-08-06T09:55:29.868034321Z #16 19.49   symbol:   method countByCreatedAtAfter(java.time.LocalDateTime)
+2025-08-06T09:55:29.868036101Z #16 19.49   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:29.868037851Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[46,56] cannot find symbol
+2025-08-06T09:55:29.868039511Z #16 19.49   symbol:   method countByCreatedAtAfter(java.time.LocalDateTime)
+2025-08-06T09:55:29.868041261Z #16 19.49   location: variable userRepository of type com.ritzone.repository.UserRepository
+2025-08-06T09:55:29.868042911Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[49,46] cannot find symbol
+2025-08-06T09:55:29.868044651Z #16 19.49   symbol:   method getTotalRevenue()
+2025-08-06T09:55:29.868046381Z #16 19.49   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:29.868048201Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[54,69] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.868054981Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[55,72] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.868057172Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[56,69] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.868058892Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[57,71] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.868060621Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[58,71] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:29.868062301Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[62,64] cannot find symbol
+2025-08-06T09:55:29.868064101Z #16 19.49   symbol:   method countByStockCountLessThan(int)
+2025-08-06T09:55:29.868073052Z #16 19.49   location: variable productRepository of type com.ritzone.repository.ProductRepository
+2025-08-06T09:55:29.868076082Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[63,66] cannot find symbol
+2025-08-06T09:55:29.868079022Z #16 19.49   symbol:   method countByStockCount(int)
+2025-08-06T09:55:29.868082152Z #16 19.49   location: variable productRepository of type com.ritzone.repository.ProductRepository
+2025-08-06T09:55:29.868085132Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[64,64] cannot find symbol
+2025-08-06T09:55:29.868109142Z #16 19.49   symbol:   method countByIsFeaturedTrue()
+2025-08-06T09:55:29.868118643Z #16 19.49   location: variable productRepository of type com.ritzone.repository.ProductRepository
+2025-08-06T09:55:29.868121913Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[105,43] cannot find symbol
+2025-08-06T09:55:29.868124383Z #16 19.49   symbol:   method countByCreatedAtBetween(java.time.LocalDateTime,java.time.LocalDateTime)
+2025-08-06T09:55:29.868126143Z #16 19.49   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:29.868127923Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[109,46] cannot find symbol
+2025-08-06T09:55:29.868129613Z #16 19.49   symbol:   method getTotalRevenueByDateRange(java.time.LocalDateTime,java.time.LocalDateTime)
+2025-08-06T09:55:29.868131433Z #16 19.49   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:29.868133273Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[113,39] cannot find symbol
+2025-08-06T09:55:29.868134933Z #16 19.49   symbol:   method countByCreatedAtBetween(java.time.LocalDateTime,java.time.LocalDateTime)
+2025-08-06T09:55:29.868136703Z #16 19.49   location: variable userRepository of type com.ritzone.repository.UserRepository
+2025-08-06T09:55:29.868138363Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[118,56] cannot find symbol
+2025-08-06T09:55:29.868140313Z #16 19.49   symbol:   method countByStockCountLessThan(int)
+2025-08-06T09:55:29.868142003Z #16 19.49   location: variable productRepository of type com.ritzone.repository.ProductRepository
+2025-08-06T09:55:29.868143693Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[119,58] cannot find symbol
+2025-08-06T09:55:29.868149243Z #16 19.49   symbol:   method countByStockCount(int)
+2025-08-06T09:55:29.868150983Z #16 19.49   location: variable productRepository of type com.ritzone.repository.ProductRepository
+2025-08-06T09:55:29.868152653Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[95,52] cannot find symbol
+2025-08-06T09:55:29.868154313Z #16 19.49   symbol:   method getAllProductsForAdmin(org.springframework.data.domain.Pageable)
+2025-08-06T09:55:29.868155983Z #16 19.49   location: variable productService of type com.ritzone.service.ProductService
+2025-08-06T09:55:29.868159843Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[111,59] incompatible types: com.ritzone.dto.ProductDTO cannot be converted to com.ritzone.model.Product
+2025-08-06T09:55:29.868161703Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[128,59] incompatible types: com.ritzone.dto.ProductDTO cannot be converted to com.ritzone.model.Product
+2025-08-06T09:55:29.868163443Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[478,59] cannot find symbol
+2025-08-06T09:55:29.868165203Z #16 19.49   symbol:   method getInventoryOverview()
+2025-08-06T09:55:29.868166954Z #16 19.49   location: variable productService of type com.ritzone.service.ProductService
+2025-08-06T09:55:29.868168704Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[494,60] cannot find symbol
+2025-08-06T09:55:29.868170424Z #16 19.49   symbol:   method getLowStockProducts(int)
+2025-08-06T09:55:29.868172074Z #16 19.49   location: variable productService of type com.ritzone.service.ProductService
+2025-08-06T09:55:29.868173804Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[511,45] cannot find symbol
+2025-08-06T09:55:29.868175544Z #16 19.49   symbol:   method updateProductStock(java.lang.String,java.lang.Integer)
+2025-08-06T09:55:29.868177364Z #16 19.49   location: variable productService of type com.ritzone.service.ProductService
+2025-08-06T09:55:29.868179034Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[82,21] cannot find symbol
+2025-08-06T09:55:29.868180734Z #16 19.49   symbol:   method setPhone(java.lang.String)
+2025-08-06T09:55:29.868182534Z #16 19.49   location: variable existingUser of type com.ritzone.model.User
+2025-08-06T09:55:29.868184224Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[83,21] cannot find symbol
+2025-08-06T09:55:29.868186084Z #16 19.49   symbol:   method setDateOfBirth(java.lang.String)
+2025-08-06T09:55:29.868197604Z #16 19.49   location: variable existingUser of type com.ritzone.model.User
+2025-08-06T09:55:29.868200784Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[84,21] cannot find symbol
+2025-08-06T09:55:29.868203864Z #16 19.49   symbol:   method setGender(java.lang.String)
+2025-08-06T09:55:29.868206654Z #16 19.49   location: variable existingUser of type com.ritzone.model.User
+2025-08-06T09:55:29.868209715Z #16 19.49 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[87,21] cannot find symbol
+2025-08-06T09:55:29.868212515Z #16 19.57   symbol:   method setEmailVerified(java.lang.Boolean)
+2025-08-06T09:55:29.868215304Z #16 19.57   location: variable existingUser of type com.ritzone.model.User
+2025-08-06T09:55:29.868217945Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[88,21] cannot find symbol
+2025-08-06T09:55:29.868220525Z #16 19.57   symbol:   method setPhoneVerified(java.lang.Boolean)
+2025-08-06T09:55:29.868222355Z #16 19.57   location: variable existingUser of type com.ritzone.model.User
+2025-08-06T09:55:29.868227515Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[135,30] cannot find symbol
+2025-08-06T09:55:29.868230125Z #16 19.57   symbol:   method findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCase(java.lang.String,java.lang.String,java.lang.String,org.springframework.data.domain.Pageable)
+2025-08-06T09:55:29.868231955Z #16 19.57   location: variable userRepository of type com.ritzone.repository.UserRepository
+2025-08-06T09:55:29.868233675Z #16 19.57 [INFO] 47 errors 
+2025-08-06T09:55:29.868235415Z #16 19.57 [INFO] -------------------------------------------------------------
+2025-08-06T09:55:29.868237125Z #16 19.57 [INFO] ------------------------------------------------------------------------
+2025-08-06T09:55:29.868238835Z #16 19.57 [INFO] BUILD FAILURE
+2025-08-06T09:55:29.868240685Z #16 19.57 [INFO] ------------------------------------------------------------------------
+2025-08-06T09:55:29.868242395Z #16 19.57 [INFO] Total time:  17.902 s
+2025-08-06T09:55:29.868244145Z #16 19.57 [INFO] Finished at: 2025-08-06T09:55:29Z
+2025-08-06T09:55:29.868245855Z #16 19.57 [INFO] ------------------------------------------------------------------------
+2025-08-06T09:55:30.01836004Z #16 19.57 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project ritzone-backend: Compilation failure: Compilation failure: 
+2025-08-06T09:55:30.01838371Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[31,49] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018388441Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[57,25] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018393391Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[59,18] cannot find symbol
+2025-08-06T09:55:30.018397141Z #16 19.57 [ERROR]   symbol:   method setTrackingNumber(java.lang.String)
+2025-08-06T09:55:30.018399761Z #16 19.57 [ERROR]   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:30.018402161Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[64,18] cannot find symbol
+2025-08-06T09:55:30.018404991Z #16 19.57 [ERROR]   symbol:   method getStatusHistory()
+2025-08-06T09:55:30.018407621Z #16 19.57 [ERROR]   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:30.018409971Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[65,18] cannot find symbol
+2025-08-06T09:55:30.018412371Z #16 19.57 [ERROR]   symbol:   method getStatusHistory()
+2025-08-06T09:55:30.018414651Z #16 19.57 [ERROR]   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:30.018416961Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[69,18] cannot find symbol
+2025-08-06T09:55:30.018419941Z #16 19.57 [ERROR]   symbol:   method setStatusHistory(java.util.Map<java.lang.String,java.time.LocalDateTime>)
+2025-08-06T09:55:30.018422221Z #16 19.57 [ERROR]   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:30.018424591Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[89,66] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018438411Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[90,69] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018440762Z #16 19.57 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[91,66] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018443112Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[92,68] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018445452Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[93,68] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018447872Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[97,44] cannot find symbol
+2025-08-06T09:55:30.018450162Z #16 19.58 [ERROR]   symbol:   method countByCreatedAtAfter(java.time.LocalDateTime)
+2025-08-06T09:55:30.018452422Z #16 19.58 [ERROR]   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:30.018454742Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[101,46] cannot find symbol
+2025-08-06T09:55:30.018457552Z #16 19.58 [ERROR]   symbol:   method getTotalRevenue()
+2025-08-06T09:55:30.018459822Z #16 19.58 [ERROR]   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:30.018462082Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[111,45] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018464432Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[119,31] cannot find symbol
+2025-08-06T09:55:30.018468522Z #16 19.58 [ERROR]   symbol:   method findByCreatedAtAfter(java.time.LocalDateTime,org.springframework.data.domain.Pageable)
+2025-08-06T09:55:30.018470922Z #16 19.58 [ERROR]   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:30.018473172Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[132,25] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018490332Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[137,18] cannot find symbol
+2025-08-06T09:55:30.018492973Z #16 19.58 [ERROR]   symbol:   method getStatusHistory()
+2025-08-06T09:55:30.018495203Z #16 19.58 [ERROR]   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:30.018497563Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[138,18] cannot find symbol
+2025-08-06T09:55:30.018499833Z #16 19.58 [ERROR]   symbol:   method getStatusHistory()
+2025-08-06T09:55:30.018502183Z #16 19.58 [ERROR]   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:30.018504483Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/OrderService.java:[142,18] cannot find symbol
+2025-08-06T09:55:30.018506723Z #16 19.58 [ERROR]   symbol:   method setStatusHistory(java.util.Map<java.lang.String,java.time.LocalDateTime>)
+2025-08-06T09:55:30.018510123Z #16 19.58 [ERROR]   location: variable order of type com.ritzone.model.Order
+2025-08-06T09:55:30.018512613Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[45,58] cannot find symbol
+2025-08-06T09:55:30.018518503Z #16 19.58 [ERROR]   symbol:   method countByCreatedAtAfter(java.time.LocalDateTime)
+2025-08-06T09:55:30.018520763Z #16 19.58 [ERROR]   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:30.018522953Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[46,56] cannot find symbol
+2025-08-06T09:55:30.018525123Z #16 19.58 [ERROR]   symbol:   method countByCreatedAtAfter(java.time.LocalDateTime)
+2025-08-06T09:55:30.018527263Z #16 19.58 [ERROR]   location: variable userRepository of type com.ritzone.repository.UserRepository
+2025-08-06T09:55:30.018529433Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[49,46] cannot find symbol
+2025-08-06T09:55:30.018531513Z #16 19.58 [ERROR]   symbol:   method getTotalRevenue()
+2025-08-06T09:55:30.018533584Z #16 19.58 [ERROR]   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:30.018535684Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[54,69] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018538213Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[55,72] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018540473Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[56,69] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018542744Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[57,71] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018544824Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[58,71] incompatible types: java.lang.String cannot be converted to com.ritzone.model.Order.OrderStatus
+2025-08-06T09:55:30.018546924Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[62,64] cannot find symbol
+2025-08-06T09:55:30.018549114Z #16 19.58 [ERROR]   symbol:   method countByStockCountLessThan(int)
+2025-08-06T09:55:30.018551244Z #16 19.58 [ERROR]   location: variable productRepository of type com.ritzone.repository.ProductRepository
+2025-08-06T09:55:30.018553384Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[63,66] cannot find symbol
+2025-08-06T09:55:30.018555584Z #16 19.58 [ERROR]   symbol:   method countByStockCount(int)
+2025-08-06T09:55:30.018557854Z #16 19.58 [ERROR]   location: variable productRepository of type com.ritzone.repository.ProductRepository
+2025-08-06T09:55:30.018559954Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[64,64] cannot find symbol
+2025-08-06T09:55:30.018562104Z #16 19.58 [ERROR]   symbol:   method countByIsFeaturedTrue()
+2025-08-06T09:55:30.018564174Z #16 19.58 [ERROR]   location: variable productRepository of type com.ritzone.repository.ProductRepository
+2025-08-06T09:55:30.018566244Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[105,43] cannot find symbol
+2025-08-06T09:55:30.018568344Z #16 19.58 [ERROR]   symbol:   method countByCreatedAtBetween(java.time.LocalDateTime,java.time.LocalDateTime)
+2025-08-06T09:55:30.018570614Z #16 19.58 [ERROR]   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:30.018572704Z #16 19.58 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[109,46] cannot find symbol
+2025-08-06T09:55:30.018579154Z #16 19.58 [ERROR]   symbol:   method getTotalRevenueByDateRange(java.time.LocalDateTime,java.time.LocalDateTime)
+2025-08-06T09:55:30.018582154Z #16 19.58 [ERROR]   location: variable orderRepository of type com.ritzone.repository.OrderRepository
+2025-08-06T09:55:30.018584965Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[113,39] cannot find symbol
+2025-08-06T09:55:30.018587645Z #16 19.59 [ERROR]   symbol:   method countByCreatedAtBetween(java.time.LocalDateTime,java.time.LocalDateTime)
+2025-08-06T09:55:30.018589945Z #16 19.59 [ERROR]   location: variable userRepository of type com.ritzone.repository.UserRepository
+2025-08-06T09:55:30.018592285Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[118,56] cannot find symbol
+2025-08-06T09:55:30.018602355Z #16 19.59 [ERROR]   symbol:   method countByStockCountLessThan(int)
+2025-08-06T09:55:30.018604805Z #16 19.59 [ERROR]   location: variable productRepository of type com.ritzone.repository.ProductRepository
+2025-08-06T09:55:30.018607035Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/service/AnalyticsService.java:[119,58] cannot find symbol
+2025-08-06T09:55:30.018609375Z #16 19.59 [ERROR]   symbol:   method countByStockCount(int)
+2025-08-06T09:55:30.018611565Z #16 19.59 [ERROR]   location: variable productRepository of type com.ritzone.repository.ProductRepository
+2025-08-06T09:55:30.018613815Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[95,52] cannot find symbol
+2025-08-06T09:55:30.018616015Z #16 19.59 [ERROR]   symbol:   method getAllProductsForAdmin(org.springframework.data.domain.Pageable)
+2025-08-06T09:55:30.018618285Z #16 19.59 [ERROR]   location: variable productService of type com.ritzone.service.ProductService
+2025-08-06T09:55:30.018622195Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[111,59] incompatible types: com.ritzone.dto.ProductDTO cannot be converted to com.ritzone.model.Product
+2025-08-06T09:55:30.018624575Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[128,59] incompatible types: com.ritzone.dto.ProductDTO cannot be converted to com.ritzone.model.Product
+2025-08-06T09:55:30.018626865Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[478,59] cannot find symbol
+2025-08-06T09:55:30.018629185Z #16 19.59 [ERROR]   symbol:   method getInventoryOverview()
+2025-08-06T09:55:30.018631375Z #16 19.59 [ERROR]   location: variable productService of type com.ritzone.service.ProductService
+2025-08-06T09:55:30.018633675Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[494,60] cannot find symbol
+2025-08-06T09:55:30.018635975Z #16 19.59 [ERROR]   symbol:   method getLowStockProducts(int)
+2025-08-06T09:55:30.018638266Z #16 19.59 [ERROR]   location: variable productService of type com.ritzone.service.ProductService
+2025-08-06T09:55:30.018640475Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/controller/AdminController.java:[511,45] cannot find symbol
+2025-08-06T09:55:30.018642695Z #16 19.59 [ERROR]   symbol:   method updateProductStock(java.lang.String,java.lang.Integer)
+2025-08-06T09:55:30.018644916Z #16 19.59 [ERROR]   location: variable productService of type com.ritzone.service.ProductService
+2025-08-06T09:55:30.018647366Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[82,21] cannot find symbol
+2025-08-06T09:55:30.018653596Z #16 19.59 [ERROR]   symbol:   method setPhone(java.lang.String)
+2025-08-06T09:55:30.018655946Z #16 19.59 [ERROR]   location: variable existingUser of type com.ritzone.model.User
+2025-08-06T09:55:30.018658256Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[83,21] cannot find symbol
+2025-08-06T09:55:30.018668226Z #16 19.59 [ERROR]   symbol:   method setDateOfBirth(java.lang.String)
+2025-08-06T09:55:30.018670696Z #16 19.59 [ERROR]   location: variable existingUser of type com.ritzone.model.User
+2025-08-06T09:55:30.018672996Z #16 19.59 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[84,21] cannot find symbol
+2025-08-06T09:55:30.018675326Z #16 19.67 [ERROR]   symbol:   method setGender(java.lang.String)
+2025-08-06T09:55:30.018677556Z #16 19.67 [ERROR]   location: variable existingUser of type com.ritzone.model.User
+2025-08-06T09:55:30.018679796Z #16 19.67 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[87,21] cannot find symbol
+2025-08-06T09:55:30.018682006Z #16 19.67 [ERROR]   symbol:   method setEmailVerified(java.lang.Boolean)
+2025-08-06T09:55:30.018684316Z #16 19.67 [ERROR]   location: variable existingUser of type com.ritzone.model.User
+2025-08-06T09:55:30.018686676Z #16 19.67 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[88,21] cannot find symbol
+2025-08-06T09:55:30.018688996Z #16 19.67 [ERROR]   symbol:   method setPhoneVerified(java.lang.Boolean)
+2025-08-06T09:55:30.018691236Z #16 19.67 [ERROR]   location: variable existingUser of type com.ritzone.model.User
+2025-08-06T09:55:30.018693676Z #16 19.67 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[135,30] cannot find symbol
+2025-08-06T09:55:30.018696147Z #16 19.67 [ERROR]   symbol:   method findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCase(java.lang.String,java.lang.String,java.lang.String,org.springframework.data.domain.Pageable)
+2025-08-06T09:55:30.018698757Z #16 19.67 [ERROR]   location: variable userRepository of type com.ritzone.repository.UserRepository
+2025-08-06T09:55:30.018701967Z #16 19.67 [ERROR] -> [Help 1]
+2025-08-06T09:55:30.018704957Z #16 19.67 [ERROR] 
+2025-08-06T09:55:30.018707407Z #16 19.67 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+2025-08-06T09:55:30.018709717Z #16 19.67 [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+2025-08-06T09:55:30.018711907Z #16 19.67 [ERROR] 
+2025-08-06T09:55:30.018714307Z #16 19.67 [ERROR] For more information about the errors and possible solutions, please read the following articles:
+2025-08-06T09:55:30.018716947Z #16 19.67 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+2025-08-06T09:55:51.324463312Z #16 ERROR: process "/bin/sh -c mvn clean package -DskipTests -Dmaven.compiler.source=17 -Dmaven.compiler.target=17" did not complete successfully: exit code: 1
+2025-08-06T09:55:51.324480383Z ------
+2025-08-06T09:55:51.324485193Z  > [build 8/8] RUN mvn clean package -DskipTests -Dmaven.compiler.source=17 -Dmaven.compiler.target=17:
+2025-08-06T09:55:51.324488953Z 19.67 [ERROR] /app/src/main/java/com/ritzone/service/UserService.java:[135,30] cannot find symbol
+2025-08-06T09:55:51.324494163Z 19.67 [ERROR]   symbol:   method findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEmailContainingIgnoreCase(java.lang.String,java.lang.String,java.lang.String,org.springframework.data.domain.Pageable)
+2025-08-06T09:55:51.324507013Z 19.67 [ERROR]   location: variable userRepository of type com.ritzone.repository.UserRepository
+2025-08-06T09:55:51.324509823Z 19.67 [ERROR] -> [Help 1]
+2025-08-06T09:55:51.324512393Z 19.67 [ERROR] 
+2025-08-06T09:55:51.324514573Z 19.67 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+2025-08-06T09:55:51.324517373Z 19.67 [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+2025-08-06T09:55:51.324519473Z 19.67 [ERROR] 
+2025-08-06T09:55:51.324523213Z 19.67 [ERROR] For more information about the errors and possible solutions, please read the following articles:
+2025-08-06T09:55:51.324525473Z 19.67 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+2025-08-06T09:55:51.324527564Z ------
+2025-08-06T09:55:51.325586274Z Dockerfile:20
+2025-08-06T09:55:51.325595615Z --------------------
+2025-08-06T09:55:51.325598755Z   18 |     COPY src ./src
+2025-08-06T09:55:51.325600885Z   19 |     COPY .env* ./
+2025-08-06T09:55:51.325603175Z   20 | >>> RUN mvn clean package -DskipTests -Dmaven.compiler.source=17 -Dmaven.compiler.target=17
+2025-08-06T09:55:51.325605405Z   21 |     
+2025-08-06T09:55:51.325607515Z   22 |     # Stage 2: Create the runtime image
+2025-08-06T09:55:51.325609655Z --------------------
+2025-08-06T09:55:51.325612265Z error: failed to solve: process "/bin/sh -c mvn clean package -DskipTests -Dmaven.compiler.source=17 -Dmaven.compiler.target=17" did not complete successfully: exit code: 1
+2025-08-06T09:55:51.344330772Z error: exit status 1

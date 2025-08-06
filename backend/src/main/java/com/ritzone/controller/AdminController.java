@@ -108,7 +108,7 @@ public class AdminController {
             @Valid @RequestBody ProductDTO productDTO) {
         try {
             adminService.verifyAdminToken(token);
-            Product product = productService.createProduct(productDTO);
+            ProductDTO product = productService.createProduct(productDTO);
             return ResponseEntity.ok(product);
         } catch (Exception e) {
             log.error("Failed to create product", e);
@@ -125,7 +125,7 @@ public class AdminController {
             @Valid @RequestBody ProductDTO productDTO) {
         try {
             adminService.verifyAdminToken(token);
-            Product product = productService.updateProduct(id, productDTO);
+            ProductDTO product = productService.updateProduct(id, productDTO);
             return ResponseEntity.ok(product);
         } catch (Exception e) {
             log.error("Failed to update product with id: {}", id, e);
