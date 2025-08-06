@@ -1,0 +1,162 @@
+# RitZone Backend .gitignore
+
+# ================================
+# ENVIRONMENT VARIABLES
+# ================================
+.env
+.env.local
+.env.production
+.env.staging
+*.env
+
+# ================================
+# MAVEN
+# ================================
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ================================
+# JAVA
+# ================================
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+# ================================
+# IDE
+# ================================
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+# ================================
+# SPRING BOOT
+# ================================
+.spring-boot-devtools.properties
+application-*.properties
+application-*.yml
+!application.yml
+!application.properties
+
+# ================================
+# LOGS
+# ================================
+logs/
+*.log
+log/
+*.log.*
+
+# ================================
+# TEMPORARY FILES
+# ================================
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# ================================
+# UPLOADS
+# ================================
+uploads/
+files/
+images/
+
+# ================================
+# DATABASE
+# ================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ================================
+# DOCKER
+# ================================
+.dockerignore
+docker-compose.override.yml
+
+# ================================
+# SYSTEM FILES
+# ================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ================================
+# BACKUP FILES
+# ================================
+*.bak
+*.backup
+*.old
+
+# ================================
+# CERTIFICATES & KEYS
+# ================================
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+keystore.*
+
+# ================================
+# COVERAGE REPORTS
+# ================================
+coverage/
+*.lcov
+jacoco.exec
+jacoco-it.exec
+
+# ================================
+# NODE MODULES (if any)
+# ================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
