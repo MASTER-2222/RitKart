@@ -1,0 +1,70 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+*.md
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file (keep .env.example)
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Build artifacts that shouldn't be in Docker context
+target/classes/
+target/generated-sources/
+target/maven-archiver/
+target/maven-status/
+target/surefire-reports/
+
+# Keep only the final JAR
+target/*
+!target/*.jar
+
+# Temporary files
+*.tmp
+*.temp
