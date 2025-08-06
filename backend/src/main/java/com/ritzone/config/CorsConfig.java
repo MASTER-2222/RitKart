@@ -1,6 +1,7 @@
 package com.ritzone.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @Configuration
 @ConfigurationProperties(prefix = "app.cors")
+@EnableConfigurationProperties
 public class CorsConfig {
     
     private List<String> allowedOrigins;
