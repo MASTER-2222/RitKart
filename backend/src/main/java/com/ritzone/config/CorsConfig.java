@@ -1,6 +1,6 @@
 package com.ritzone.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -13,18 +13,12 @@ import java.util.List;
  * CORS configuration for the application
  */
 @Configuration
+@ConfigurationProperties(prefix = "app.cors")
 public class CorsConfig {
     
-    @Value("${app.cors.allowed-origins}")
     private List<String> allowedOrigins;
-    
-    @Value("${app.cors.allowed-methods}")
     private List<String> allowedMethods;
-    
-    @Value("${app.cors.allowed-headers}")
     private String allowedHeaders;
-    
-    @Value("${app.cors.allow-credentials}")
     private boolean allowCredentials;
     
     @Bean
@@ -40,5 +34,38 @@ public class CorsConfig {
         source.registerCorsConfiguration("/**", configuration);
         
         return source;
+    }
+    
+    // Getters and setters for @ConfigurationProperties
+    public List<String> getAllowedOrigins() {
+        return allowedOrigins;
+    }
+    
+    public void setAllowedOrigins(List<String> allowedOrigins) {
+        this.allowedOrigins = allowedOrigins;
+    }
+    
+    public List<String> getAllowedMethods() {
+        return allowedMethods;
+    }
+    
+    public void setAllowedMethods(List<String> allowedMethods) {
+        this.allowedMethods = allowedMethods;
+    }
+    
+    public String getAllowedHeaders() {
+        return allowedHeaders;
+    }
+    
+    public void setAllowedHeaders(String allowedHeaders) {
+        this.allowedHeaders = allowedHeaders;
+    }
+    
+    public boolean isAllowCredentials() {
+        return allowCredentials;
+    }
+    
+    public void setAllowCredentials(boolean allowCredentials) {
+        this.allowCredentials = allowCredentials;
     }
 }
