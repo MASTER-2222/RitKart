@@ -1,0 +1,2 @@
+# This file ensures the target directory is tracked by Git
+# The target directory is used by Maven for compiled classes and build artifacts
