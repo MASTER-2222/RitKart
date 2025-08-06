@@ -166,69 +166,75 @@ export default function Home() {
   const bestsellerProducts = [
     {
       id: '7',
-      title: 'The Seven Husbands of Evelyn Hugo: A Novel',
-      price: 16.99,
-      originalPrice: 17.99,
-      rating: 4.6,
-      reviewCount: 147832,
-      image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=300&fit=crop&crop=center',
+      title: 'Canon EOS R6 Mark II Mirrorless Camera Body',
+      price: 2499,
+      originalPrice: 2699,
+      rating: 4.8,
+      reviewCount: 1234,
+      image: 'https://images.unsplash.com/photo-1606983340126-acd977736f90?w=300&h=300&fit=crop&crop=center',
       isPrime: true,
-      isDeliveryTomorrow: true
+      isDeliveryTomorrow: false,
+      discount: 7
     },
     {
       id: '8',
-      title: 'Instant Pot Duo 7-in-1 Electric Pressure Cooker, 8 Quart',
-      price: 79,
-      originalPrice: 119,
-      rating: 4.7,
-      reviewCount: 98234,
-      image: 'https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?w=300&h=300&fit=crop&crop=center',
+      title: 'Nintendo Switch OLED Model with Neon Red and Neon Blue Joy-Con',
+      price: 329,
+      originalPrice: 349,
+      rating: 4.8,
+      reviewCount: 12743,
+      image: 'https://images.unsplash.com/photo-1606143407151-7111542de6e8?w=300&h=300&fit=crop&crop=center',
       isPrime: true,
-      discount: 34
+      isDeliveryTomorrow: true,
+      discount: 6
     },
     {
       id: '9',
-      title: 'Levi\'s Men\'s 501 Original Fit Jeans',
-      price: 59.50,
-      originalPrice: 69.50,
-      rating: 4.3,
-      reviewCount: 23456,
-      image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=300&h=300&fit=crop&crop=center',
-      isPrime: true
+      title: 'LG 27" UltraGear Gaming Monitor 4K UHD Nano IPS',
+      price: 449,
+      originalPrice: 599,
+      rating: 4.7,
+      reviewCount: 3456,
+      image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&h=300&fit=crop&crop=center',
+      isPrime: true,
+      isDeliveryTomorrow: false,
+      discount: 25
     },
     {
       id: '10',
-      title: 'Fitbit Charge 5 Advanced Fitness & Health Tracker',
-      price: 149,
-      originalPrice: 179,
-      rating: 4.2,
-      reviewCount: 34567,
-      image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=300&h=300&fit=crop&crop=center',
+      title: 'Microsoft Surface Pro 9 - 13" Touch Screen, Intel i7',
+      price: 1399,
+      originalPrice: 1599,
+      rating: 4.5,
+      reviewCount: 2345,
+      image: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=300&h=300&fit=crop&crop=center',
       isPrime: true,
-      discount: 17
+      isDeliveryTomorrow: false,
+      discount: 13
     },
     {
       id: '11',
-      title: 'Keurig K-Classic Coffee Maker, Single Serve K-Cup Pod',
-      price: 89,
-      originalPrice: 109,
-      rating: 4.5,
-      reviewCount: 67890,
-      image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300&h=300&fit=crop&crop=center',
+      title: 'AMD Ryzen 9 5900X 12-core 24-thread Desktop Processor',
+      price: 429,
+      originalPrice: 549,
+      rating: 4.8,
+      reviewCount: 5678,
+      image: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=300&h=300&fit=crop&crop=center',
       isPrime: true,
-      discount: 18
+      isDeliveryTomorrow: false,
+      discount: 22
     },
     {
       id: '12',
-      title: 'Anker Portable Charger, PowerCore Slim 10000mAh',
-      price: 22.99,
-      originalPrice: 29.99,
-      rating: 4.6,
-      reviewCount: 45123,
-      image: 'https://images.unsplash.com/photo-1609592806965-50a4bb9e2c41?w=300&h=300&fit=crop&crop=center',
+      title: 'NVIDIA GeForce RTX 4080 Gaming Graphics Card',
+      price: 999,
+      originalPrice: 1199,
+      rating: 4.9,
+      reviewCount: 1876,
+      image: 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=300&h=300&fit=crop&crop=center',
       isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 23
+      isDeliveryTomorrow: false,
+      discount: 17
     }
   ];
 
