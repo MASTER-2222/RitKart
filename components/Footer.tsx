@@ -53,6 +53,7 @@ export default function Footer() {
                 <Link href="/shipping" className="block text-gray-300 hover:underline">Shipping Rates & Policies</Link>
                 <Link href="/returns" className="block text-gray-300 hover:underline">Returns & Replacements</Link>
                 <Link href="/content" className="block text-gray-300 hover:underline">Manage Your Content and Devices</Link>
+                <Link href="/contact" className="block text-gray-300 hover:underline">Contact Us</Link>
                 <Link href="/help" className="block text-gray-300 hover:underline">Help</Link>
               </div>
             </div>

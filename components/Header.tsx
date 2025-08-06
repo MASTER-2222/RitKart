@@ -142,6 +142,7 @@ export default function Header() {
           <Link href="/category/pharmacy" className="hover:border border-white p-1 cursor-pointer whitespace-nowrap">Pharmacy</Link>
           <Link href="/deals" className="hover:border border-white p-1 cursor-pointer whitespace-nowrap">Today's Deals</Link>
           <Link href="/prime" className="hover:border border-white p-1 cursor-pointer whitespace-nowrap">Prime</Link>
+          <Link href="/contact" className="hover:border border-white p-1 cursor-pointer whitespace-nowrap">Contact Us</Link>
         </div>
       </div>
     </header>
