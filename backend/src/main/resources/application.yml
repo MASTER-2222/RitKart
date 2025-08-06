@@ -1,0 +1,148 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: ritzone-backend
+  
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb+srv://ritkart-admin:RakAJVBURLCJ0uHy@ritkart-cluster.yopyqig.mongodb.net/ritkart?retryWrites=true&w=majority&appName=ritkart-cluster}
+      database: ${MONGODB_DATABASE8“Ùitkart}
+  
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:your-google-client-id}
+            client-secret: ${GOOGLE_CLIENT_SECRET:your-google-client-secret}
+            scope:
+              - email
+              - profile
+  
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME:your-email@gmail.com}
+    password: ${EMAIL_PASSWORD:your-app-password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  
+  cache:
+    type: simple
+  
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:mySecretKey123456789012345678901234567890}
+  expiration: 86400000 # 24 hours in milliseconds
+  refresh-expiration: 604800000 # 7 days in milliseconds
+
+# Application Configuration
+app:
+  name: RitZone
+  version: 1.0.0
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+  admin:
+    default-email: admin@ritzone.com
+    default-password: admin123
+  
+  file:
+    upload-dir: uploads/
+    max-file-size: 10MB
+    max-request-size: 10MB
+  
+  cors:
+    allowed-origins: 
+      - http://localhost:3000
+      - https://ritkart-frontend.onrender.com
+    allowed-methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+      - OPTIONS
+    allowed-headers: "*"
+    allow-credentials: true
+
+# Logging Configuration
+logging:
+  level:
+    com.ritzone: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/ritzone-backend.log
+
+# Management/Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  info:
+    env:
+      enabled: true
+
+# Swagger/OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+  info:
+    title: RitZone API
+    description: REST API for RitZone E-commerce Platform
+    version: 1.0.0
+    contact:
+      name: RitZone Development Team
+      email: dev@ritzone.com
+
+# Custom Application Properties
+ritzone:
+  pagination:
+    default-page-size: 20
+    max-page-size: 100
+  
+  product:
+    default-image: https://via.placeholder.com/300x300?text=Ng+Image
+    max-images: 10
+  
+  order:
+    auto-cancel-hours: 24
+    shipping:
+      free-threshold: 35.00
+      standard-cost: 5.99
+      express-cost: 12.99
+  
+  payment:
+    stripe:
+      public-key: ${STRIPE_PUBLIC_KEY:pk_test_your_stripe_public_key}
+      secret-key: ${STRIPE_SECRET_KEY:sk_test_your_stripe_secret_key}
+  
+  notification:
+    email:
+      enabled: true
+      from: noreply@ritzone.com
+    sms:
+      enabled: false
