@@ -182,7 +182,7 @@ export default function Home() {
       originalPrice: 119,
       rating: 4.7,
       reviewCount: 98234,
-      image: 'https://images.unsplash.com/photo-1585515656617-d405f574bfa3?w=300&h=300&fit=crop&crop=center',
+      image: 'https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?w=300&h=300&fit=crop&crop=center',
       isPrime: true,
       discount: 34
     },
