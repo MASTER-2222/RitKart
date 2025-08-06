@@ -55,3 +55,4 @@ logs
 # temporary files
 .tmp/
 temp/
+.env
