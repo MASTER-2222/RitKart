@@ -124,6 +124,8 @@ public interface ProductRepository extends MongoRepository<Product, String> {
     
     long countByIsActiveTrue();
     
+    long countByIsActiveFalse();
+    
     long countByCategoryAndIsActiveTrue(String category);
     
     // Aggregation queries for statistics

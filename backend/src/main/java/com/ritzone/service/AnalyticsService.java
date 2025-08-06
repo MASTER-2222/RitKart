@@ -1,6 +1,7 @@
 package com.ritzone.service;
 
 import com.ritzone.model.Analytics;
+import com.ritzone.model.Order;
 import com.ritzone.repository.AnalyticsRepository;
 import com.ritzone.repository.OrderRepository;
 import com.ritzone.repository.ProductRepository;

@@ -75,6 +75,14 @@ public class ProductService {
     }
     
     /**
+     * Get product entity by ID (for internal use)
+     */
+    public Product getProductEntityById(String id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with ID: " + id));
+    }
+    
+    /**
      * Get product by SKU
      */
     public ProductDTO getProductBySku(String sku) {
@@ -352,7 +360,7 @@ public class ProductService {
     /**
      * Get inventory overview
      */
-    public Object getInventoryOverview() {
+    public Map<String, Object> getInventoryOverview() {
         // Simplified inventory overview
         return Map.of(
             "totalProducts", productRepository.count(),
@@ -375,7 +383,7 @@ public class ProductService {
      * Update product stock
      */
     public Product updateProductStock(String productId, Integer newStock) {
-        Product product = getProductById(productId);
+        Product product = getProductEntityById(productId);
         product.setStockCount(newStock);
         return productRepository.save(product);
     }
