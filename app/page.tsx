@@ -78,7 +78,7 @@ export default function Home() {
     },
     {
       title: 'Pharmacy',
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=300&h=200&fit=crop&crop=center',
+      image: 'https://images.unsplash.com/photo-1580281657527-47f249e8f4df?w=300&h=200&fit=crop&crop=center',
       href: '/category/pharmacy',
       subtitle: 'Health & wellness'
     },
