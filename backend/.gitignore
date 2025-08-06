@@ -3,16 +3,18 @@
 # ================================
 # ENVIRONMENT VARIABLES
 # ================================
-.env
+# Keep .env files for security, but allow .env.example
 .env.local
 .env.production
 .env.staging
-*.env
+# Allow .env.example to be committed
+!.env.example
 
 # ================================
 # MAVEN
 # ================================
-target/
+# Allow target folder to be committed for deployment
+# target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
