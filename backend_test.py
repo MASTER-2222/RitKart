@@ -138,7 +138,7 @@ class RitZoneAPITester:
         user_data = {
             "email": test_email,
             "password": "Test123!",
-            "full_name": f"Test User {timestamp}",
+            "fullName": f"Test User {timestamp}",
             "phone": "+1234567890"
         }
         
