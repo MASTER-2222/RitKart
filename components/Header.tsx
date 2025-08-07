@@ -104,34 +104,53 @@ export default function Header() {
             onMouseEnter={() => setShowAccountMenu(true)}
             onMouseLeave={() => setShowAccountMenu(false)}
           >
-            <div className="text-xs">Hello, Sign in</div>
+            <div className="text-xs">
+              {loading ? 'Loading...' : user ? `Hello, ${user.user_metadata?.full_name || 'User'}` : 'Hello, Sign in'}
+            </div>
             <div className="font-bold flex items-center">
               Account & Lists
               <i className="ri-arrow-down-s-line w-4 h-4 flex items-center justify-center ml-1"></i>
             </div>
             {showAccountMenu && (
               <div className="absolute top-full right-0 mt-1 bg-white text-black rounded shadow-lg w-64 z-50">
-                <div className="p-4">
-                  <Link href="/auth" className="bg-[#febd69] hover:bg-[#f3a847] text-black px-4 py-2 rounded block text-center mb-3 whitespace-nowrap">
-                    Sign In
-                  </Link>
-                  <div className="text-sm">
-                    New customer? <Link href="/auth" className="text-blue-600 hover:underline">Start here.</Link>
+                {!user ? (
+                  <div className="p-4">
+                    <Link 
+                      href="/auth/login" 
+                      className="bg-[#febd69] hover:bg-[#f3a847] text-black px-4 py-2 rounded block text-center mb-3 whitespace-nowrap"
+                      onClick={() => setShowAccountMenu(false)}
+                    >
+                      Sign In
+                    </Link>
+                    <div className="text-sm">
+                      New customer? <Link href="/auth/register" className="text-blue-600 hover:underline" onClick={() => setShowAccountMenu(false)}>Start here.</Link>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="p-4">
+                    <div className="font-semibold mb-2">Welcome back!</div>
+                    <div className="text-sm text-gray-600 mb-3">{user.email}</div>
+                    <button
+                      onClick={handleSignOut}
+                      className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded block text-center w-full whitespace-nowrap"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
                 <div className="border-t">
                   <div className="p-2">
                     <div className="font-bold text-sm mb-2">Your Lists</div>
-                    <Link href="/wishlist" className="block py-1 text-sm hover:underline">Create a List</Link>
-                    <Link href="/wishlist" className="block py-1 text-sm hover:underline">Find a List or Registry</Link>
+                    <Link href="/wishlist" className="block py-1 text-sm hover:underline" onClick={() => setShowAccountMenu(false)}>Create a List</Link>
+                    <Link href="/wishlist" className="block py-1 text-sm hover:underline" onClick={() => setShowAccountMenu(false)}>Find a List or Registry</Link>
                   </div>
                 </div>
                 <div className="border-t">
                   <div className="p-2">
                     <div className="font-bold text-sm mb-2">Your Account</div>
-                    <Link href="/orders" className="block py-1 text-sm hover:underline">Your Orders</Link>
-                    <Link href="/account" className="block py-1 text-sm hover:underline">Your Account</Link>
-                    <Link href="/wishlist" className="block py-1 text-sm hover:underline">Your Wish List</Link>
+                    <Link href="/orders" className="block py-1 text-sm hover:underline" onClick={() => setShowAccountMenu(false)}>Your Orders</Link>
+                    <Link href="/profile" className="block py-1 text-sm hover:underline" onClick={() => setShowAccountMenu(false)}>Your Account</Link>
+                    <Link href="/wishlist" className="block py-1 text-sm hover:underline" onClick={() => setShowAccountMenu(false)}>Your Wish List</Link>
                   </div>
                 </div>
               </div>
