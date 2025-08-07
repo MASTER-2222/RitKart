@@ -78,16 +78,20 @@ The complete database schema has been created but needs to be executed in Supaba
 ## Files Created/Modified 📁
 
 ### New Supabase Integration Files:
-- `/app/.env.local` - Environment configuration
+- `/app/.env.local` - Frontend environment configuration
+- `/app/backend/.env` - Backend environment configuration (with your credentials)
+- `/app/backend/.env.example` - Backend environment template
 - `/app/utils/supabase/client.ts` - Browser client
 - `/app/utils/supabase/server.ts` - Server client  
 - `/app/utils/supabase/middleware.ts` - Auth middleware
 - `/app/middleware.ts` - Route protection
 - `/app/types/database.ts` - Complete TypeScript definitions
+- `/app/services/database-config.ts` - Centralized environment-based configuration
+- `/app/services/supabase-backend.ts` - Backend operations with environment variables
 - `/app/database-schema.sql` - Complete database schema
-- `/app/services/database.ts` - Database operations
-- `/app/app/api/setup/route.ts` - Setup API endpoints
+- `/app/app/api/setup/route.ts` - Setup API endpoints (environment-aware)
 - `/app/app/setup/page.tsx` - Database setup interface
+- `/app/scripts/setup-database-env.js` - Environment-based database setup script
 
 ## Technical Architecture ⚙️
 
