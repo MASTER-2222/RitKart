@@ -8,50 +8,55 @@ echo
 echo "Loading environment variables from .env file..."
 if [ -f .env ]; then
     echo ".env file found, loading variables..."
-    export $(grep -v '^#' .env | xargs)
+    set -a
+    source .env
+    set +a
 else
-    echo ".env file not found, using default values..."
-    export MONGODB_URI="mongodb+srv://ritkart-admin:RakAJVBURLCJ0uHy@ritkart-cluster.yopyqig.mongodb.net/ritkart?retryWrites=true&w=majority&appName=ritkart-cluster"
-    export MONGODB_DATABASE="ritkart"
-    export JWT_SECRET="mySecretKey123456789012345678901234567890"
-    export FRONTEND_URL="http://localhost:3000"
+    echo ".env file not found, please create one using .env.example"
+    echo "Using fallback environment variables..."
+    export NODE_ENV="development"
+    export BACKEND_PORT="8001"
 fi
 
 echo
-echo "Checking Java version..."
-if ! command -v java &> /dev/null; then
-    echo "ERROR: Java is not installed or not in PATH"
-    echo "Please install Java 17 or higher"
+echo "Checking Node.js version..."
+if ! command -v node &> /dev/null; then
+    echo "ERROR: Node.js is not installed or not in PATH"
+    echo "Please install Node.js 18 or higher"
     exit 1
 fi
-java -version
+node --version
 
 echo
-echo "Checking Maven..."
-if ! command -v mvn &> /dev/null; then
-    echo "ERROR: Maven is not installed or not in PATH"
-    echo "Please install Maven 3.6 or higher"
+echo "Checking npm..."
+if ! command -v npm &> /dev/null; then
+    echo "ERROR: npm is not installed or not in PATH"
+    echo "Please install npm"
     exit 1
 fi
-mvn -version
+npm --version
 
 echo
-echo "Building the project..."
-mvn clean compile
+echo "Installing dependencies..."
+npm install
 if [ $? -ne 0 ]; then
-    echo "ERROR: Build failed"
+    echo "ERROR: npm install failed"
     exit 1
 fi
+
+echo
+echo "Validating environment variables..."
+node -e "require('./config/environment').validateEnvironment()" 2>/dev/null || echo "Warning: Environment validation failed, but continuing..."
 
 echo
 echo "Starting RitZone Backend..."
-echo "MongoDB URI: $MONGODB_URI"
-echo "Database: $MONGODB_DATABASE"
-echo "Frontend URL: $FRONTEND_URL"
+echo "Supabase URL: ${SUPABASE_URL:-'Not set'}"
+echo "Backend Port: ${BACKEND_PORT:-8001}"
+echo "Environment: ${NODE_ENV:-development}"
+echo "Frontend URL: ${FRONTEND_URL:-'Not set'}"
 echo
-echo "The API will be available at: http://localhost:8080/api"
-echo "Swagger UI: http://localhost:8080/api/swagger-ui.html"
-echo "Health Check: http://localhost:8080/api/actuator/health"
+echo "The API will be available at: http://localhost:${BACKEND_PORT:-8001}/api"
+echo "Health Check: http://localhost:${BACKEND_PORT:-8001}/api/health"
 echo
 
-mvn spring-boot:run
+node server.js
