@@ -129,217 +129,6 @@ export default function Home() {
     }));
   };
 
-  const categories = [
-    {
-      title: 'Electronics',
-      image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=300&h=200&fit=crop&crop=center',
-      href: '/category/electronics',
-      subtitle: 'Latest tech gadgets'
-    },
-    {
-      title: 'Fashion',
-      image: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=300&h=200&fit=crop&crop=center',
-      href: '/category/fashion',
-      subtitle: 'Trending styles'
-    },
-    {
-      title: 'Books',
-      image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=200&fit=crop&crop=center',
-      href: '/category/books',
-      subtitle: 'Bestsellers & more'
-    },
-    {
-      title: 'Home & Garden',
-      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&h=200&fit=crop&crop=center',
-      href: '/category/home',
-      subtitle: 'Decor & essentials'
-    },
-    {
-      title: 'Sports & Outdoors',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=200&fit=crop&crop=center',
-      href: '/category/sports',
-      subtitle: 'Gear for adventures'
-    },
-    {
-      title: 'Grocery',
-      image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=300&h=200&fit=crop&crop=center',
-      href: '/category/grocery',
-      subtitle: 'Fresh & pantry staples'
-    },
-    {
-      title: 'Appliances',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&h=200&fit=crop&crop=center',
-      href: '/category/appliances',
-      subtitle: 'Kitchen & home'
-    },
-    {
-      title: 'Solar',
-      image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=300&h=200&fit=crop&crop=center',
-      href: '/category/solar',
-      subtitle: 'Renewable energy'
-    },
-    {
-      title: 'Pharmacy',
-      image: 'https://images.unsplash.com/photo-1580281657527-47f249e8f4df?w=300&h=200&fit=crop&crop=center',
-      href: '/category/pharmacy',
-      subtitle: 'Health & wellness'
-    },
-    {
-      title: 'Beauty & Personal Care',
-      image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&h=200&fit=crop&crop=center',
-      href: '/category/beauty',
-      subtitle: 'Self-care essentials'
-    }
-  ];
-
-  const dealProducts = [
-    {
-      id: '1',
-      title: 'Apple MacBook Pro 14-inch M3 Chip with 8-Core CPU and 10-Core GPU',
-      price: 1599,
-      originalPrice: 1999,
-      rating: 4.8,
-      reviewCount: 2847,
-      image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 20
-    },
-    {
-      id: '2',
-      title: 'Sony WH-1000XM4 Wireless Premium Noise Canceling Overhead Headphones',
-      price: 248,
-      originalPrice: 349,
-      rating: 4.6,
-      reviewCount: 15432,
-      image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 29
-    },
-    {
-      id: '3',
-      title: 'Samsung 65" Class 4K UHD Smart LED TV with HDR',
-      price: 547,
-      originalPrice: 799,
-      rating: 4.5,
-      reviewCount: 8934,
-      image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      discount: 32
-    },
-    {
-      id: '4',
-      title: 'iPhone 15 Pro Max 256GB - Natural Titanium',
-      price: 1099,
-      originalPrice: 1199,
-      rating: 4.7,
-      reviewCount: 5621,
-      image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 8
-    },
-    {
-      id: '5',
-      title: 'Nintendo Switch OLED Model with Neon Red and Neon Blue Joy-Con',
-      price: 329,
-      originalPrice: 349,
-      rating: 4.8,
-      reviewCount: 12743,
-      image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      discount: 6
-    },
-    {
-      id: '6',
-      title: 'Amazon Echo Dot (5th Gen) with Alexa - Smart Speaker',
-      price: 29,
-      originalPrice: 49,
-      rating: 4.4,
-      reviewCount: 89234,
-      image: 'https://images.unsplash.com/photo-1518444065439-e933c06ce9cd?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 41
-    }
-  ];
-
-  const bestsellerProducts = [
-    {
-      id: '7',
-      title: 'Canon EOS R6 Mark II Mirrorless Camera Body',
-      price: 2499,
-      originalPrice: 2699,
-      rating: 4.8,
-      reviewCount: 1234,
-      image: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: false,
-      discount: 7
-    },
-    {
-      id: '8',
-      title: 'Nintendo Switch OLED Model with Neon Red and Neon Blue Joy-Con',
-      price: 329,
-      originalPrice: 349,
-      rating: 4.8,
-      reviewCount: 12743,
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 6
-    },
-    {
-      id: '9',
-      title: 'LG 27" UltraGear Gaming Monitor 4K UHD Nano IPS',
-      price: 449,
-      originalPrice: 599,
-      rating: 4.7,
-      reviewCount: 3456,
-      image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: false,
-      discount: 25
-    },
-    {
-      id: '10',
-      title: 'Microsoft Surface Pro 9 - 13" Touch Screen, Intel i7',
-      price: 1399,
-      originalPrice: 1599,
-      rating: 4.5,
-      reviewCount: 2345,
-      image: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: false,
-      discount: 13
-    },
-    {
-      id: '11',
-      title: 'AMD Ryzen 9 5900X 12-core 24-thread Desktop Processor',
-      price: 429,
-      originalPrice: 549,
-      rating: 4.8,
-      reviewCount: 5678,
-      image: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: false,
-      discount: 22
-    },
-    {
-      id: '12',
-      title: 'NVIDIA GeForce RTX 4080 Gaming Graphics Card',
-      price: 999,
-      originalPrice: 1199,
-      rating: 4.9,
-      reviewCount: 1876,
-      image: 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: false,
-      discount: 17
-    }
-  ];
-
   const nextHeroBanner = () => {
     setCurrentHeroBanner((prev) => (prev + 1) % heroBanners.length);
   };
@@ -347,6 +136,41 @@ export default function Home() {
   const prevHeroBanner = () => {
     setCurrentHeroBanner((prev) => (prev - 1 + heroBanners.length) % heroBanners.length);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex items-center justify-center min-h-[calc(100vh-160px)]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading amazing products...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex items-center justify-center min-h-[calc(100vh-160px)]">
+          <div className="text-center">
+            <p className="text-red-600 mb-4">{error}</p>
+            <button
+              onClick={fetchData}
+              className="bg-[#febd69] hover:bg-[#f3a847] text-black font-bold py-2 px-4 rounded"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -398,22 +222,32 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <section className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Shop by Category</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {categories.map((category, index) => (
-                <CategoryCard key={index} {...category} />
-              ))}
-            </div>
+            {categories.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                {convertApiCategoriesToCardFormat(categories).map((category, index) => (
+                  <CategoryCard key={index} {...category} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center text-gray-500 py-8">
+                <p>Categories are loading...</p>
+              </div>
+            )}
           </section>
 
-          <ProductCarousel
-            title="Deal of the Day"
-            products={dealProducts}
-          />
+          {featuredProducts.length > 0 && (
+            <ProductCarousel
+              title="Featured Products"
+              products={convertApiProductsToCarouselFormat(featuredProducts)}
+            />
+          )}
 
-          <ProductCarousel
-            title="Bestsellers in Electronics"
-            products={bestsellerProducts}
-          />
+          {electronicsProducts.length > 0 && (
+            <ProductCarousel
+              title="Bestsellers in Electronics"
+              products={convertApiProductsToCarouselFormat(electronicsProducts)}
+            />
+          )}
 
           <section className="mb-8">
             <div className="bg-white rounded-lg shadow-sm border p-6">
