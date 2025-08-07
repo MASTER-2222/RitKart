@@ -222,31 +222,72 @@ railway variables set SUPABASE_URL="your-supabase-url"
 railway variables set JWT_SECRET="your-jwt-secret"
 ```
 
-**Render:**
-Add environment variables in the Render dashboard.
+**Vercel:**
+```bash
+vercel env add SUPABASE_URL
+vercel env add JWT_SECRET
+```
 
 ## 🔍 **Troubleshooting**
 
 ### **Common Issues**
 
-1. **MongoDB Connection Failed**
-   - Check `MONGODB_URI` format
-   - Verify network access to MongoDB Atlas
-   - Ensure database user has proper permissions
+1. **Supabase Connection Failed**
+   - Check `SUPABASE_URL` and `SUPABASE_ANON_KEY`
+   - Verify PostgreSQL connection string format
+   - Ensure Supabase project is active
 
-2. **CORS Errors**
+2. **Database Connection Errors**
+   - Verify `POSTGRES_CONNECTION_STRING` format
+   - Check if Supabase project allows connections
+   - Ensure database schema is properly executed
+
+3. **CORS Errors**
    - Verify `FRONTEND_URL` matches your frontend
    - Check `CORS_ALLOWED_ORIGINS` configuration
+   - Ensure allowed origins include your domain
 
-3. **JWT Errors**
-   - Ensure `JWT_SECRET` is set and secure
+4. **JWT Errors**
+   - Ensure `JWT_SECRET` is set and secure (64+ characters)
    - Check token expiration settings
+   - Verify JWT secret consistency across deployments
+
+5. **Environment Variable Issues**
+   - Check if `.env` file is properly loaded
+   - Verify environment variable names (case-sensitive)
+   - Ensure no trailing spaces in variable values
 
 ### **Validation**
-Run this command to check your environment:
+Run this command to validate your environment:
 ```bash
-mvn spring-boot:run -Dspring-boot.run.arguments="--debug"
+# Check environment loading
+node -e "require('./config/environment').validateEnvironment()"
+
+# Test database connection
+npm run setup-db
+
+# Start with debug logging
+DEBUG=true npm start
 ```
+
+### **Environment Testing**
+```bash
+# Test API health
+curl http://localhost:8001/api/health
+
+# Test environment info
+curl http://localhost:8001/api/health | grep -o "supabaseConfigured.*"
+```
+
+## 📚 **Additional Resources**
+
+- [Supabase Documentation](https://supabase.com/docs)
+- [Environment Variables Best Practices](https://12factor.net/config)
+- [Node.js Environment Configuration](https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs)
+
+---
+
+**Environment configuration complete! Your RitZone backend is ready for deployment.** 🚀
 
 ## 📚 **Additional Resources**
 
