@@ -858,4 +858,5 @@ module.exports = {
   productService,
   cartService,
   categoryService,
+  orderService,
 };
