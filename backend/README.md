@@ -130,69 +130,82 @@ The API will be available at: `http://localhost:8001/api`
 - `GET /api/products/recent` - Get recently added products
 - `GET /api/products/{id}/related` - Get related products
 
-### Users (Coming Soon)
+### Users
 - `POST /api/auth/register` - User registration
 - `POST /api/auth/login` - User login
-- `POST /api/auth/refresh` - Refresh JWT token
-- `GET /api/users/profile` - Get user profile
-- `PUT /api/users/profile` - Update user profile
+- `GET /api/auth/profile` - Get user profile
 
-### Cart (Coming Soon)
+### Cart
 - `GET /api/cart` - Get user's cart
-- `POST /api/cart/items` - Add item to cart
-- `PUT /api/cart/items/{itemId}` - Update cart item
-- `DELETE /api/cart/items/{itemId}` - Remove item from cart
-- `DELETE /api/cart` - Clear cart
+- `POST /api/cart/add` - Add item to cart
 
-### Orders (Coming Soon)
+### Orders
 - `POST /api/orders` - Create new order
 - `GET /api/orders` - Get user's orders
-- `GET /api/orders/{id}` - Get order by ID
-- `PUT /api/orders/{id}/cancel` - Cancel order
 
-## 🗄 Database Schema
+### Categories
+- `GET /api/categories` - Get all categories
 
-### Product Collection
-```javascript
-{
-  "_id": "ObjectId",
-  "title": "String",
-  "description": "String",
-  "price": "Decimal128",
-  "originalPrice": "Decimal128",
-  "category": "String",
-  "brand": "String",
-  "sku": "String",
-  "stockCount": "Number",
-  "inStock": "Boolean",
-  "rating": "Number",
-  "reviewCount": "Number",
-  "images": ["String"],
-  "isPrime": "Boolean",
-  "isDeliveryTomorrow": "Boolean",
-  "discount": "Number",
-  "features": ["String"],
-  "specifications": "Object",
-  "isActive": "Boolean",
-  "isFeatured": "Boolean",
-  "weight": "Number",
-  "dimensions": {
-    "length": "Number",
-    "width": "Number",
-    "height": "Number"
-  },
-  "tags": ["String"],
-  "viewCount": "Number",
-  "salesCount": "Number",
-  "createdAt": "Date",
-  "updatedAt": "Date"
-}
+## 🗄 Database Schema (PostgreSQL)
+
+The application uses PostgreSQL via Supabase with the following main tables:
+
+### Products Table
+```sql
+CREATE TABLE products (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title VARCHAR NOT NULL,
+  description TEXT,
+  price DECIMAL(10,2) NOT NULL,
+  original_price DECIMAL(10,2),
+  category VARCHAR NOT NULL,
+  brand VARCHAR,
+  sku VARCHAR UNIQUE,
+  stock_count INTEGER DEFAULT 0,
+  in_stock BOOLEAN DEFAULT true,
+  rating DECIMAL(3,2),
+  review_count INTEGER DEFAULT 0,
+  images TEXT[],
+  is_prime BOOLEAN DEFAULT false,
+  is_delivery_tomorrow BOOLEAN DEFAULT false,
+  discount INTEGER DEFAULT 0,
+  features TEXT[],
+  specifications JSONB,
+  is_active BOOLEAN DEFAULT true,
+  is_featured BOOLEAN DEFAULT false,
+  weight DECIMAL(8,2),
+  tags TEXT[],
+  view_count INTEGER DEFAULT 0,
+  sales_count INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+### Users Table
+```sql
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email VARCHAR UNIQUE NOT NULL,
+  password_hash VARCHAR NOT NULL,
+  first_name VARCHAR,
+  last_name VARCHAR,
+  phone VARCHAR,
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
 ```
 
 ## 🔧 Configuration
 
-### Application Properties
-Key configuration options in `application.yml`:
+### Environment Variables
+The application uses environment variables for configuration. See `.env.example` for all available options.
+
+### Key Configuration Files
+- `config/environment.js` - Centralized environment configuration
+- `server.js` - Main application server
+- `package.json` - Dependencies and scripts
 
 ```yaml
 server:
