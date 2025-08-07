@@ -5,9 +5,50 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CategoryCard from '../components/CategoryCard';
 import ProductCarousel from '../components/ProductCarousel';
+import { apiClient, Category, Product } from '../utils/api';
 
 export default function Home() {
   const [currentHeroBanner, setCurrentHeroBanner] = useState(0);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [electronicsProducts, setElectronicsProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      
+      // Fetch categories and products in parallel
+      const [categoriesResponse, featuredResponse, electronicsResponse] = await Promise.all([
+        apiClient.getCategories(),
+        apiClient.getFeaturedProducts(),
+        apiClient.getProductsByCategory('electronics', 6)
+      ]);
+
+      if (categoriesResponse.success) {
+        setCategories(categoriesResponse.data);
+      }
+
+      if (featuredResponse.success) {
+        setFeaturedProducts(featuredResponse.data);
+      }
+
+      if (electronicsResponse.success) {
+        setElectronicsProducts(electronicsResponse.data);
+      }
+
+    } catch (err) {
+      console.error('Error fetching data:', err);
+      setError('Failed to load data. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const heroBanners = [
     {
