@@ -4,7 +4,11 @@ const path = require('path')
 
 async function setupDatabase() {
   const client = new Client({
-    connectionString: 'postgresql://postgres:e%UKa?Y@2MdT7DH@db.igzpodmmymbptmwebonh.supabase.co:5432/postgres',
+    host: 'db.igzpodmmymbptmwebonh.supabase.co',
+    port: 5432,
+    database: 'postgres',
+    user: 'postgres',
+    password: 'e%UKa?Y@2MdT7DH',
     ssl: {
       rejectUnauthorized: false
     }
