@@ -62,27 +62,37 @@ npm start
 ### **🗄️ Supabase & Database Configuration**
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `MONGODB_URI` | MongoDB connection string | Your Atlas cluster URI | ✅ Yes |
-| `MONGODB_DATABASE` | Database name | `ritkart` | ✅ Yes |
+| `SUPABASE_URL` | Your Supabase project URL | - | ✅ Yes |
+| `SUPABASE_ANON_KEY` | Supabase anonymous key | - | ✅ Yes |
+| `POSTGRES_CONNECTION_STRING` | PostgreSQL connection string | - | ✅ Yes |
+| `POSTGRES_HOST` | PostgreSQL host | `db.project.supabase.co` | ❌ No |
+| `POSTGRES_PORT` | PostgreSQL port | `5432` | ❌ No |
+| `POSTGRES_DB` | Database name | `postgres` | ❌ No |
+| `POSTGRES_USER` | Database user | `postgres` | ❌ No |
+| `POSTGRES_PASSWORD` | Database password | - | ✅ Yes |
 
-### **🔐 Authentication**
+### **🔐 Security Configuration**
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `JWT_SECRET` | Secret key for JWT tokens | Auto-generated | ✅ Yes |
+| `JWT_SECRET` | Secret key for JWT tokens | - | ✅ Yes |
 | `JWT_EXPIRATION` | Token expiration time (ms) | `86400000` (24h) | ❌ No |
 | `JWT_REFRESH_EXPIRATION` | Refresh token expiration (ms) | `604800000` (7d) | ❌ No |
+| `ENCRYPTION_KEY` | 32-character encryption key | - | ✅ Yes |
+| `SESSION_SECRET` | Session secret key | - | ✅ Yes |
 
-### **🌐 Frontend Integration**
+### **🌐 Server Configuration**
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `BACKEND_PORT` | Server port | `8001` | ❌ No |
+| `BACKEND_HOST` | Server host | `0.0.0.0` | ❌ No |
+| `BACKEND_API_PREFIX` | API base path | `/api` | ❌ No |
+| `NODE_ENV` | Node environment | `development` | ❌ No |
+
+### **🎨 Frontend Integration**
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | `FRONTEND_URL` | Frontend application URL | `http://localhost:3000` | ✅ Yes |
-| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins | Frontend URL + production URL | ❌ No |
-
-### **⚙️ Server Configuration**
-| Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
-| `SERVER_PORT` | Server port | `8080` | ❌ No |
-| `SERVER_CONTEXT_PATH` | API base path | `/api` | ❌ No |
+| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins | Frontend URL | ❌ No |
 
 ### **📧 Email Configuration (Optional)**
 | Variable | Description | Default | Required |
