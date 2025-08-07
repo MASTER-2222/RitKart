@@ -272,9 +272,15 @@ const cartService = {
           cart_items (
             *,
             products (
+              id,
               name,
+              slug,
               price,
-              images
+              original_price,
+              images,
+              brand,
+              stock_quantity,
+              is_active
             )
           )
         `)
@@ -295,7 +301,18 @@ const cartService = {
     try {
       const client = getSupabaseClient();
       
-      // First, get or create cart
+      // First get product details to calculate price
+      const { data: product, error: productError } = await client
+        .from('products')
+        .select('price, stock_quantity, is_active')
+        .eq('id', productId)
+        .single();
+
+      if (productError) throw new Error(`Product not found: ${productError.message}`);
+      if (!product.is_active) throw new Error('Product is not available');
+      if (product.stock_quantity < quantity) throw new Error('Insufficient stock');
+
+      // Get or create cart
       let { data: cart } = await client
         .from('carts')
         .select('*')
@@ -306,7 +323,12 @@ const cartService = {
       if (!cart) {
         const { data: newCart, error: cartError } = await client
           .from('carts')
-          .insert([{ user_id: userId }])
+          .insert([{ 
+            user_id: userId,
+            status: 'active',
+            total_amount: 0,
+            currency: 'USD'
+          }])
           .select()
           .single();
         
@@ -314,22 +336,218 @@ const cartService = {
         cart = newCart;
       }
 
-      // Add item to cart
-      const { data, error } = await client
+      // Check if item already exists in cart
+      const { data: existingItem } = await client
         .from('cart_items')
-        .insert([{
-          cart_id: cart.id,
-          product_id: productId,
-          quantity: quantity
-        }])
-        .select()
+        .select('*')
+        .eq('cart_id', cart.id)
+        .eq('product_id', productId)
         .single();
 
-      if (error) throw error;
-      return { success: true, cartItem: data };
+      let cartItem;
+      
+      if (existingItem) {
+        // Update existing item quantity
+        const newQuantity = existingItem.quantity + quantity;
+        const newTotalPrice = newQuantity * product.price;
+        
+        const { data: updatedItem, error: updateError } = await client
+          .from('cart_items')
+          .update({
+            quantity: newQuantity,
+            total_price: newTotalPrice
+          })
+          .eq('id', existingItem.id)
+          .select()
+          .single();
+        
+        if (updateError) throw updateError;
+        cartItem = updatedItem;
+      } else {
+        // Add new item to cart
+        const totalPrice = quantity * product.price;
+        
+        const { data: newItem, error: insertError } = await client
+          .from('cart_items')
+          .insert([{
+            cart_id: cart.id,
+            product_id: productId,
+            quantity: quantity,
+            unit_price: product.price,
+            total_price: totalPrice
+          }])
+          .select()
+          .single();
+        
+        if (insertError) throw insertError;
+        cartItem = newItem;
+      }
+
+      // Recalculate cart total
+      await this.updateCartTotal(cart.id);
+
+      return { success: true, cartItem: cartItem };
     } catch (error) {
       console.error('❌ Add to cart failed:', error.message);
       return { success: false, error: error.message };
+    }
+  },
+
+  // Update cart item quantity
+  updateCartItem: async (itemId, quantity, userId) => {
+    try {
+      const client = getSupabaseClient();
+
+      // First verify the item belongs to user's cart
+      const { data: cartItem, error: itemError } = await client
+        .from('cart_items')
+        .select(`
+          *,
+          carts!inner (
+            user_id
+          ),
+          products (
+            price,
+            stock_quantity
+          )
+        `)
+        .eq('id', itemId)
+        .single();
+
+      if (itemError) throw new Error('Cart item not found');
+      if (cartItem.carts.user_id !== userId) throw new Error('Unauthorized');
+      if (cartItem.products.stock_quantity < quantity) throw new Error('Insufficient stock');
+
+      // Update item
+      const newTotalPrice = quantity * cartItem.products.price;
+      
+      const { data: updatedItem, error: updateError } = await client
+        .from('cart_items')
+        .update({
+          quantity: quantity,
+          total_price: newTotalPrice
+        })
+        .eq('id', itemId)
+        .select()
+        .single();
+
+      if (updateError) throw updateError;
+
+      // Recalculate cart total
+      await this.updateCartTotal(cartItem.cart_id);
+
+      return { success: true, cartItem: updatedItem };
+    } catch (error) {
+      console.error('❌ Update cart item failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Remove item from cart
+  removeCartItem: async (itemId, userId) => {
+    try {
+      const client = getSupabaseClient();
+
+      // First verify the item belongs to user's cart
+      const { data: cartItem, error: itemError } = await client
+        .from('cart_items')
+        .select(`
+          cart_id,
+          carts!inner (
+            user_id
+          )
+        `)
+        .eq('id', itemId)
+        .single();
+
+      if (itemError) throw new Error('Cart item not found');
+      if (cartItem.carts.user_id !== userId) throw new Error('Unauthorized');
+
+      // Delete the item
+      const { error: deleteError } = await client
+        .from('cart_items')
+        .delete()
+        .eq('id', itemId);
+
+      if (deleteError) throw deleteError;
+
+      // Recalculate cart total
+      await this.updateCartTotal(cartItem.cart_id);
+
+      return { success: true, message: 'Item removed from cart' };
+    } catch (error) {
+      console.error('❌ Remove cart item failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Clear entire cart
+  clearCart: async (userId) => {
+    try {
+      const client = getSupabaseClient();
+
+      // Get user's active cart
+      const { data: cart } = await client
+        .from('carts')
+        .select('id')
+        .eq('user_id', userId)
+        .eq('status', 'active')
+        .single();
+
+      if (!cart) {
+        return { success: true, message: 'Cart is already empty' };
+      }
+
+      // Delete all cart items
+      const { error: deleteError } = await client
+        .from('cart_items')
+        .delete()
+        .eq('cart_id', cart.id);
+
+      if (deleteError) throw deleteError;
+
+      // Update cart total to 0
+      const { error: updateError } = await client
+        .from('carts')
+        .update({ total_amount: 0 })
+        .eq('id', cart.id);
+
+      if (updateError) throw updateError;
+
+      return { success: true, message: 'Cart cleared successfully' };
+    } catch (error) {
+      console.error('❌ Clear cart failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Helper function to update cart total
+  updateCartTotal: async (cartId) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Calculate total from cart items
+      const { data: items, error: itemsError } = await client
+        .from('cart_items')
+        .select('total_price')
+        .eq('cart_id', cartId);
+
+      if (itemsError) throw itemsError;
+
+      const totalAmount = items.reduce((sum, item) => sum + (item.total_price || 0), 0);
+
+      // Update cart total
+      const { error: updateError } = await client
+        .from('carts')
+        .update({ total_amount: totalAmount })
+        .eq('id', cartId);
+
+      if (updateError) throw updateError;
+
+      return totalAmount;
+    } catch (error) {
+      console.error('❌ Update cart total failed:', error.message);
+      throw error;
     }
   }
 };
