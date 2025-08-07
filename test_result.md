@@ -51,9 +51,10 @@
 
 ### 4. Setup Infrastructure ✅ COMPLETED
 - **Setup Page**: `/app/setup` - Database setup interface
-- **Setup API**: `/app/api/setup` - Connection testing
-- **Database Service**: Connection and management utilities
-- **Setup Scripts**: Automated and manual setup options
+- **Setup API**: `/app/api/setup` - Connection testing with environment variables
+- **Backend Services**: `/app/services/supabase-backend.ts` - Environment-based operations
+- **Database Config**: `/app/services/database-config.ts` - Centralized configuration
+- **Setup Scripts**: Environment-aware automated and manual setup options
 
 ## 🚨 IMMEDIATE ACTION REQUIRED
 
