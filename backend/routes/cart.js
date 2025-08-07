@@ -122,6 +122,7 @@ router.put('/items/:itemId', authenticateToken, async (req, res) => {
   try {
     const itemId = req.params.itemId;
     const { quantity } = req.body;
+    const userId = req.user.userId;
 
     // Basic validation
     if (!quantity || quantity <= 0) {
@@ -131,12 +132,19 @@ router.put('/items/:itemId', authenticateToken, async (req, res) => {
       });
     }
 
-    // This would need to be implemented in the cartService
+    const result = await cartService.updateCartItem(itemId, quantity, userId);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
     res.status(200).json({
       success: true,
-      message: 'Update cart item functionality coming soon',
-      itemId: itemId,
-      quantity: quantity
+      message: 'Cart item updated successfully',
+      data: result.cartItem
     });
 
   } catch (error) {
@@ -155,12 +163,20 @@ router.put('/items/:itemId', authenticateToken, async (req, res) => {
 router.delete('/items/:itemId', authenticateToken, async (req, res) => {
   try {
     const itemId = req.params.itemId;
+    const userId = req.user.userId;
 
-    // This would need to be implemented in the cartService
+    const result = await cartService.removeCartItem(itemId, userId);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
     res.status(200).json({
       success: true,
-      message: 'Remove cart item functionality coming soon',
-      itemId: itemId
+      message: result.message
     });
 
   } catch (error) {
@@ -180,11 +196,18 @@ router.delete('/', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
 
-    // This would need to be implemented in the cartService
+    const result = await cartService.clearCart(userId);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
     res.status(200).json({
       success: true,
-      message: 'Clear cart functionality coming soon',
-      userId: userId
+      message: result.message
     });
 
   } catch (error) {
