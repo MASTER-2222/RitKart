@@ -161,18 +161,28 @@ DEBUG=true
 ### **Production**
 ```bash
 # .env.production
-MONGODB_URI=mongodb+srv://ritkart-admin:RakAJVBURLCJ0uHy@ritkart-cluster.yopyqig.mongodb.net/ritkart
-FRONTEND_URL=https://ritkart-frontend.onrender.com
-LOG_LEVEL_RITZONE=INFO
+SUPABASE_URL=https://your-prod-project.supabase.co
+SUPABASE_ANON_KEY=your-production-anon-key
+POSTGRES_CONNECTION_STRING=your-production-postgres-connection
+FRONTEND_URL=https://ritzone-frontend.onrender.com
+NODE_ENV=production
+LOG_LEVEL=info
+DEBUG=false
 JWT_SECRET=your-super-secure-production-secret
+ENCRYPTION_KEY=your-production-encryption-key
+SESSION_SECRET=your-production-session-secret
 ```
 
 ### **Testing**
 ```bash
 # .env.test
-MONGODB_URI=mongodb://localhost:27017/ritkart-test
+SUPABASE_URL=https://your-test-project.supabase.co
+SUPABASE_ANON_KEY=your-test-anon-key
+POSTGRES_CONNECTION_STRING=your-test-postgres-connection
 FRONTEND_URL=http://localhost:3000
-LOG_LEVEL_RITZONE=WARN
+NODE_ENV=test
+LOG_LEVEL=warn
+DEBUG=false
 ```
 
 ## 🚀 **Deployment Configuration**
@@ -181,22 +191,34 @@ LOG_LEVEL_RITZONE=WARN
 Environment variables are automatically loaded in Docker:
 ```dockerfile
 # Dockerfile already configured to use environment variables
-ENV MONGODB_URI=${MONGODB_URI}
+ENV SUPABASE_URL=${SUPABASE_URL}
 ENV JWT_SECRET=${JWT_SECRET}
+ENV NODE_ENV=${NODE_ENV}
 ```
 
-### **Cloud Deployment**
-Set environment variables in your cloud platform:
+### **Render.com**
+Set environment variables in Render Dashboard:
+```bash
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+POSTGRES_CONNECTION_STRING=your-postgres-connection
+JWT_SECRET=your-jwt-secret
+ENCRYPTION_KEY=your-encryption-key
+SESSION_SECRET=your-session-secret
+FRONTEND_URL=https://your-frontend.onrender.com
+```
+
+### **Other Cloud Platforms**
 
 **Heroku:**
 ```bash
-heroku config:set MONGODB_URI="your-mongodb-uri"
+heroku config:set SUPABASE_URL="your-supabase-url"
 heroku config:set JWT_SECRET="your-jwt-secret"
 ```
 
 **Railway:**
 ```bash
-railway variables set MONGODB_URI="your-mongodb-uri"
+railway variables set SUPABASE_URL="your-supabase-url"
 railway variables set JWT_SECRET="your-jwt-secret"
 ```
 
