@@ -146,11 +146,9 @@ class RitZoneAPITester:
         
         if success and data.get('success'):
             # Store user info for later tests
-            if 'user' in data.get('data', {}):
-                self.user_id = data['data']['user'].get('id')
-            if 'token' in data.get('data', {}):
-                self.token = data['data']['token']
-                
+            if 'user' in data:
+                self.user_id = data['user'].get('id')
+            # Note: Registration might not return token immediately due to email verification
             return self.log_test(
                 "User Registration", 
                 True, 
