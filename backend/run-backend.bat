@@ -11,53 +11,56 @@ if exist .env (
         if not "%%a"=="" if not "%%a:~0,1%"=="#" set %%a=%%b
     )
 ) else (
-    echo .env file not found, using default values...
-    set MONGODB_URI=mongodb+srv://ritkart-admin:RakAJVBURLCJ0uHy@ritkart-cluster.yopyqig.mongodb.net/ritkart?retryWrites=true^&w=majority^&appName=ritkart-cluster
-    set MONGODB_DATABASE=ritkart
-    set JWT_SECRET=mySecretKey123456789012345678901234567890
-    set FRONTEND_URL=http://localhost:3000
+    echo .env file not found, please create one using .env.example
+    echo Using fallback environment variables...
+    set NODE_ENV=development
+    set BACKEND_PORT=8001
 )
 
 echo.
-echo Checking Java version...
-java -version
+echo Checking Node.js version...
+node --version
 if %ERRORLEVEL% NEQ 0 (
-    echo ERROR: Java is not installed or not in PATH
-    echo Please install Java 17 or higher
+    echo ERROR: Node.js is not installed or not in PATH
+    echo Please install Node.js 18 or higher
     pause
     exit /b 1
 )
 
 echo.
-echo Checking Maven...
-mvn -version
+echo Checking npm...
+npm --version
 if %ERRORLEVEL% NEQ 0 (
-    echo ERROR: Maven is not installed or not in PATH
-    echo Please install Maven 3.6 or higher
+    echo ERROR: npm is not installed or not in PATH
+    echo Please install npm
     pause
     exit /b 1
 )
 
 echo.
-echo Building the project...
-mvn clean compile
+echo Installing dependencies...
+npm install
 if %ERRORLEVEL% NEQ 0 (
-    echo ERROR: Build failed
+    echo ERROR: npm install failed
     pause
     exit /b 1
 )
+
+echo.
+echo Validating environment variables...
+node -e "require('./config/environment').validateEnvironment()" 2>nul || echo Warning: Environment validation failed, but continuing...
 
 echo.
 echo Starting RitZone Backend...
-echo MongoDB URI: %MONGODB_URI%
-echo Database: %MONGODB_DATABASE%
+echo Supabase URL: %SUPABASE_URL%
+echo Backend Port: %BACKEND_PORT%
+echo Environment: %NODE_ENV%
 echo Frontend URL: %FRONTEND_URL%
 echo.
-echo The API will be available at: http://localhost:8080/api
-echo Swagger UI: http://localhost:8080/api/swagger-ui.html
-echo Health Check: http://localhost:8080/api/actuator/health
+echo The API will be available at: http://localhost:%BACKEND_PORT%/api
+echo Health Check: http://localhost:%BACKEND_PORT%/api/health
 echo.
 
-mvn spring-boot:run
+node server.js
 
 pause
