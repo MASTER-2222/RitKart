@@ -337,7 +337,7 @@ CORS_ALLOWED_ORIGINS=https://ritzone-frontend.onrender.com
 **Issue**: `API calls failing`
 ```bash
 # Solution: Verify NEXT_PUBLIC_BACKEND_URL is correct
-NEXT_PUBLIC_BACKEND_URL=https://ritzone-backend.onrender.com/api
+NEXT_PUBLIC_BACKEND_URL=https://ritkart-backend.onrender.com/api
 ```
 
 **Issue**: `Build failures`
