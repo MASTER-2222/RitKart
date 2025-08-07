@@ -284,6 +284,7 @@ curl http://localhost:8001/api/health | grep -o "supabaseConfigured.*"
 - [Supabase Documentation](https://supabase.com/docs)
 - [Environment Variables Best Practices](https://12factor.net/config)
 - [Node.js Environment Configuration](https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs)
+- [Express.js Documentation](https://expressjs.com/)
 
 ---
 
