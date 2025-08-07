@@ -1,6 +1,6 @@
 # RitZone Backend API
 
-A comprehensive Spring Boot backend for the RitZone e-commerce platform, built with Java 17, Spring Boot 3.2.1, and MongoDB.
+A comprehensive Node.js backend for the RitZone e-commerce platform, built with Express.js, TypeScript, and Supabase PostgreSQL.
 
 ## 🚀 Features
 
@@ -14,34 +14,33 @@ A comprehensive Spring Boot backend for the RitZone e-commerce platform, built w
 
 ### Technical Features
 - **RESTful API**: Clean and well-documented REST endpoints
-- **MongoDB Integration**: NoSQL database with Spring Data MongoDB
+- **Supabase Integration**: PostgreSQL database with Supabase backend-as-a-service
 - **JWT Authentication**: Secure token-based authentication
-- **Input Validation**: Comprehensive request validation
+- **Input Validation**: Comprehensive request validation with Joi
 - **Exception Handling**: Global exception handling with meaningful error responses
-- **Caching**: Redis-compatible caching for improved performance
-- **API Documentation**: Swagger/OpenAPI 3.0 documentation
+- **Rate Limiting**: API rate limiting for security and performance
 - **CORS Support**: Cross-origin resource sharing configuration
-- **Logging**: Structured logging with SLF4J and Logback
+- **Logging**: Structured logging with Morgan
+- **Environment Configuration**: Centralized environment variable management
 
 ## 🛠 Technology Stack
 
-- **Java 17**
-- **Spring Boot 3.2.1**
-- **Spring Data MongoDB**
-- **Spring Security**
+- **Node.js 18+**
+- **Express.js 4.19+**
+- **Supabase (PostgreSQL)**
 - **JWT (JSON Web Tokens)**
-- **MongoDB**
-- **Maven**
-- **Swagger/OpenAPI 3.0**
-- **Lombok**
-- **ModelMapper**
+- **Joi (Validation)**
+- **Bcrypt (Password Hashing)**
+- **Morgan (Logging)**
+- **Helmet (Security)**
+- **CORS (Cross-Origin)**
 
 ## 📋 Prerequisites
 
-- Java 17 or higher
-- Maven 3.6+
-- MongoDB 4.4+ (local or MongoDB Atlas)
-- IDE (IntelliJ IDEA, Eclipse, or VS Code)
+- Node.js 18 or higher
+- npm 8+ or Yarn
+- Supabase account and project
+- IDE (VS Code, WebStorm, or similar)
 
 ## 🚀 Quick Start
 
