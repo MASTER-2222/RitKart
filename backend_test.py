@@ -279,21 +279,23 @@ class RitZoneAPITester:
             if success:
                 # Create order
                 order_data = {
-                    "shipping_address": {
-                        "street": "123 Test St",
+                    "shippingAddress": {
+                        "full_name": "Test User",
+                        "address_line1": "123 Test St",
                         "city": "Test City",
                         "state": "TS",
-                        "zip_code": "12345",
+                        "postal_code": "12345",
                         "country": "US"
                     },
-                    "billing_address": {
-                        "street": "123 Test St",
+                    "billingAddress": {
+                        "full_name": "Test User",
+                        "address_line1": "123 Test St",
                         "city": "Test City", 
                         "state": "TS",
-                        "zip_code": "12345",
+                        "postal_code": "12345",
                         "country": "US"
                     },
-                    "payment_method": "credit_card"
+                    "paymentMethod": "credit_card"
                 }
                 
                 success, status, data = self.make_request('POST', '/orders', order_data, 201)
