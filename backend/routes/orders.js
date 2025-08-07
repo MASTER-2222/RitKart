@@ -45,18 +45,25 @@ router.get('/', authenticateToken, async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
 
-    // This would need to be implemented in the orderService
+    const result = await orderService.getUserOrders(userId, page, limit);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
     res.status(200).json({
       success: true,
-      message: 'Get orders functionality coming soon',
-      userId: userId,
+      message: 'Orders retrieved successfully',
+      data: result.orders,
       pagination: {
-        currentPage: page,
-        totalPages: 0,
-        totalCount: 0,
+        currentPage: result.currentPage,
+        totalPages: result.totalPages,
+        totalCount: result.totalCount,
         limit: limit
-      },
-      data: []
+      }
     });
 
   } catch (error) {
@@ -76,21 +83,14 @@ router.post('/', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { 
-      items, 
       shippingAddress, 
       billingAddress, 
       paymentMethod, 
-      notes 
+      notes,
+      discountAmount 
     } = req.body;
 
     // Basic validation
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: 'Order items are required'
-      });
-    }
-
     if (!shippingAddress || !billingAddress) {
       return res.status(400).json({
         success: false,
@@ -98,23 +98,38 @@ router.post('/', authenticateToken, async (req, res) => {
       });
     }
 
-    // Generate order number
-    const orderNumber = `RZ-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+    // Validate required address fields
+    const requiredFields = ['full_name', 'address_line1', 'city', 'state', 'postal_code', 'country'];
+    for (const field of requiredFields) {
+      if (!shippingAddress[field] || !billingAddress[field]) {
+        return res.status(400).json({
+          success: false,
+          message: `Missing required address field: ${field}`
+        });
+      }
+    }
 
-    // This would need to be implemented in the orderService
+    const orderData = {
+      shippingAddress,
+      billingAddress,
+      paymentMethod: paymentMethod || 'card',
+      notes,
+      discountAmount: discountAmount || 0
+    };
+
+    const result = await orderService.createOrder(userId, orderData);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
     res.status(201).json({
       success: true,
-      message: 'Create order functionality coming soon',
-      data: {
-        orderNumber: orderNumber,
-        userId: userId,
-        status: 'pending',
-        items: items,
-        shippingAddress: shippingAddress,
-        billingAddress: billingAddress,
-        paymentMethod: paymentMethod,
-        notes: notes
-      }
+      message: 'Order created successfully',
+      data: result.order
     });
 
   } catch (error) {
@@ -135,13 +150,19 @@ router.get('/:orderId', authenticateToken, async (req, res) => {
     const userId = req.user.userId;
     const orderId = req.params.orderId;
 
-    // This would need to be implemented in the orderService
+    const result = await orderService.getOrderById(orderId, userId);
+
+    if (!result.success) {
+      return res.status(404).json({
+        success: false,
+        message: result.error
+      });
+    }
+
     res.status(200).json({
       success: true,
-      message: 'Get order by ID functionality coming soon',
-      userId: userId,
-      orderId: orderId,
-      data: null
+      message: 'Order retrieved successfully',
+      data: result.order
     });
 
   } catch (error) {
@@ -163,13 +184,18 @@ router.put('/:orderId/cancel', authenticateToken, async (req, res) => {
     const orderId = req.params.orderId;
     const { reason } = req.body;
 
-    // This would need to be implemented in the orderService
+    const result = await orderService.cancelOrder(orderId, userId, reason);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
     res.status(200).json({
       success: true,
-      message: 'Cancel order functionality coming soon',
-      userId: userId,
-      orderId: orderId,
-      reason: reason || 'No reason provided'
+      message: result.message
     });
 
   } catch (error) {
