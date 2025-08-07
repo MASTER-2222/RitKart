@@ -2,7 +2,28 @@
 // ==============================================
 // Centralized API client for frontend-backend communication
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || process.env.NEXT_PUBLIC_API_BASE_URL || 'https://ritkart-backend.onrender.com/api';
+// Environment-based API URL configuration (no hardcoded fallbacks)
+const getApiBaseUrl = (): string => {
+  // Priority 1: NEXT_PUBLIC_BACKEND_URL (recommended)
+  if (process.env.NEXT_PUBLIC_BACKEND_URL) {
+    return process.env.NEXT_PUBLIC_BACKEND_URL;
+  }
+  
+  // Priority 2: Legacy NEXT_PUBLIC_API_BASE_URL
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+    return process.env.NEXT_PUBLIC_API_BASE_URL;
+  }
+  
+  // Priority 3: Dynamic URL based on current origin (for development)
+  if (typeof window !== 'undefined') {
+    return `${window.location.origin}/api`;
+  }
+  
+  // Priority 4: Server-side fallback for development
+  return '/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 class ApiClient {
   private baseURL: string;
