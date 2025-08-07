@@ -207,26 +207,16 @@ The application uses environment variables for configuration. See `.env.example`
 - `server.js` - Main application server
 - `package.json` - Dependencies and scripts
 
-```yaml
-server:
-  port: 8080
-  servlet:
-    context-path: /api
-
-spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/ritzone
-
-jwt:
-  secret: your-secret-key
-  expiration: 86400000 # 24 hours
-
-app:
-  cors:
-    allowed-origins:
-      - http://localhost:3000
-      - https://ritkart-frontend.onrender.com
+### Sample Configuration
+```env
+# Example .env configuration
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+JWT_SECRET=your-secure-jwt-secret
+BACKEND_PORT=8001
+NODE_ENV=development
+FRONTEND_URL=http://localhost:3000
+CORS_ALLOWED_ORIGINS=http://localhost:3000
 ```
 
 ## 🐳 Docker Support
