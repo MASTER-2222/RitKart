@@ -354,8 +354,8 @@ class RitZoneAPITester:
         
         # Authentication Tests
         auth_success = self.test_user_registration()
-        if not auth_success:
-            # Fallback to admin login
+        if not auth_success or not self.token:
+            # Fallback to login test
             self.test_user_login()
         
         # Cart & Order Tests (require authentication)
