@@ -35,23 +35,46 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  // Define public routes that don't require authentication
+  const publicRoutes = [
+    '/',                    // Home page
+    '/search',              // Search page
+    '/category',            // Category pages
+    '/product',             // Product detail pages
+    '/deals',               // Deals page
+    '/prime',               // Prime info page
+    '/contact',             // Contact page
+    '/help',                // Help page
+    '/auth',                // Auth pages (login/register)
+    '/api',                 // API routes
+    '/setup',               // Setup routes
+  ]
+  
   // Define routes that require authentication
   const protectedRoutes = [
-    '/profile',
-    '/orders',
-    '/wishlist',
-    '/admin',
-    '/checkout',
-    '/account'
+    '/profile',             // User profile
+    '/orders',              // Order history
+    '/wishlist',            // User wishlist
+    '/admin',               // Admin panel
+    '/checkout',            // Checkout process
+    '/account',             // Account settings
+    '/cart',                // Shopping cart (if you want to protect it)
   ]
+  
+  // Check if current path is public (allow access without authentication)
+  const isPublicRoute = publicRoutes.some(route => 
+    request.nextUrl.pathname === route || 
+    request.nextUrl.pathname.startsWith(route + '/')
+  )
   
   // Check if the current path requires authentication
   const isProtectedRoute = protectedRoutes.some(route => 
-    request.nextUrl.pathname.startsWith(route)
+    request.nextUrl.pathname === route ||
+    request.nextUrl.pathname.startsWith(route + '/')
   )
   
   // Only redirect to login if user is accessing protected routes without authentication
-  if (!user && isProtectedRoute) {
+  if (!user && isProtectedRoute && !isPublicRoute) {
     const url = request.nextUrl.clone()
     url.pathname = '/auth/login'
     // Store the original URL to redirect back after login
