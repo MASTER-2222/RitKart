@@ -131,9 +131,9 @@ class RitZoneAPITester:
         """Test user registration"""
         print("\n👤 Testing User Registration...")
         
-        # Generate unique test user
+        # Generate unique test user with proper email format
         timestamp = datetime.now().strftime('%H%M%S')
-        test_email = f"tester_{timestamp}@example.com"
+        test_email = f"test.user.{timestamp}@gmail.com"
         
         user_data = {
             "email": test_email,
