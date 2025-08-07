@@ -108,7 +108,7 @@ app.get('/api', (req, res) => {
 });
 
 // ==============================================
-# ❌ ERROR HANDLING MIDDLEWARE
+// ❌ ERROR HANDLING MIDDLEWARE
 // ==============================================
 
 // 404 handler
