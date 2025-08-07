@@ -273,8 +273,8 @@ class RitZoneAPITester:
             product_id = product.get('id')
             
             # Add to cart
-            cart_item_data = {"product_id": product_id, "quantity": 1}
-            success, status, data = self.make_request('POST', '/cart/add', cart_item_data, 201)
+            cart_item_data = {"productId": product_id, "quantity": 1}
+            success, status, data = self.make_request('POST', '/cart/add', cart_item_data, 200)
             
             if success:
                 # Create order
