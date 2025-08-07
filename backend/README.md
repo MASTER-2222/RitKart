@@ -50,51 +50,67 @@ git clone https://github.com/MASTER-2222/RitKart.git
 cd RitKart/backend
 ```
 
-### 2. Configure MongoDB
-Update `src/main/resources/application.yml`:
-
-**For Local MongoDB:**
-```yaml
-spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/ritzone
-```
-
-**For MongoDB Atlas:**
-```yaml
-spring:
-  data:
-    mongodb:
-      uri: mongodb+srv://username:password@cluster.mongodb.net/ritzone?retryWrites=true&w=majority
+### 2. Install Dependencies
+```bash
+npm install
 ```
 
 ### 3. Configure Environment Variables
-Create a `.env` file or set environment variables:
+Create a `.env` file using `.env.example` as template:
 ```bash
-JWT_SECRET=your-secret-key-here
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-EMAIL_USERNAME=your-email@gmail.com
-EMAIL_PASSWORD=your-app-password
+cp .env.example .env
+```
+
+Update the `.env` file with your credentials:
+```env
+# Supabase Configuration
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-supabase-anon-key
+
+# PostgreSQL Configuration
+POSTGRES_CONNECTION_STRING=postgresql://postgres:password@host:5432/postgres
+
+# Security Configuration
+JWT_SECRET=your-super-secure-jwt-secret
+ENCRYPTION_KEY=your-32-character-encryption-key
+SESSION_SECRET=your-session-secret
+
+# Server Configuration
+BACKEND_PORT=8001
+NODE_ENV=development
 FRONTEND_URL=http://localhost:3000
+CORS_ALLOWED_ORIGINS=http://localhost:3000
+
+# Admin Configuration
+ADMIN_DEFAULT_EMAIL=admin@ritzone.com
+ADMIN_DEFAULT_PASSWORD=your-secure-password
 ```
 
-### 4. Build and Run
+### 4. Setup Database Schema
+Execute the database schema in your Supabase SQL Editor:
 ```bash
-# Build the project
-mvn clean compile
-
-# Run the application
-mvn spring-boot:run
+# The schema file is located at: /database-schema.sql
+# Copy and execute it in Supabase Dashboard > SQL Editor
 ```
 
-The API will be available at: `http://localhost:8080/api`
+### 5. Run the Application
+```bash
+# Development mode
+npm run dev
 
-### 5. Access API Documentation
-- **Swagger UI**: http://localhost:8080/api/swagger-ui.html
-- **API Docs**: http://localhost:8080/api/api-docs
-- **Health Check**: http://localhost:8080/api/actuator/health
+# Production mode
+npm start
+
+# Or use the startup scripts
+./start-backend.sh    # Linux/Mac
+start-backend.bat     # Windows
+```
+
+The API will be available at: `http://localhost:8001/api`
+
+### 6. Verify Installation
+- **Health Check**: http://localhost:8001/api/health
+- **API Base**: http://localhost:8001/api
 
 ## 📚 API Endpoints
 
