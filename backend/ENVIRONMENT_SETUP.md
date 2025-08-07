@@ -24,12 +24,23 @@ cp .env.example .env
 ```
 
 ### **2. Edit Your Configuration**
-Open `.env` and update the values as needed:
+Open `.env` and update the values with your Supabase credentials:
 ```bash
-# Your actual values
-MONGODB_URI=mongodb+srv://ritkart-admin:RakAJVBURLCJ0uHy@ritkart-cluster.yopyqig.mongodb.net/ritkart?retryWrites=true&w=majority&appName=ritkart-cluster
-MONGODB_DATABASE=ritkart
+# Supabase Configuration
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-supabase-anon-key
+
+# PostgreSQL Configuration
+POSTGRES_CONNECTION_STRING=postgresql://postgres:password@host:5432/postgres
+
+# Security Configuration
 JWT_SECRET=your-secure-jwt-secret-here
+ENCRYPTION_KEY=your-32-character-encryption-key
+SESSION_SECRET=your-session-secret-here
+
+# Server Configuration
+BACKEND_PORT=8001
+NODE_ENV=development
 FRONTEND_URL=http://localhost:3000
 ```
 
@@ -37,15 +48,18 @@ FRONTEND_URL=http://localhost:3000
 The startup scripts automatically load environment variables:
 ```bash
 # Windows
-./run-backend.bat
+./start-backend.bat
 
 # Linux/Mac
-./run-backend.sh
+./start-backend.sh
+
+# Or directly with Node.js
+npm start
 ```
 
 ## 📋 **Environment Variables Reference**
 
-### **🗄️ Database Configuration**
+### **🗄️ Supabase & Database Configuration**
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | `MONGODB_URI` | MongoDB connection string | Your Atlas cluster URI | ✅ Yes |
