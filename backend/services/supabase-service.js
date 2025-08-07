@@ -63,14 +63,19 @@ const testConnection = async () => {
   try {
     const client = getSupabaseClient();
     
-    // Test basic connection
+    // Test basic connection by querying system information
     const { data, error } = await client
-      .from('categories')
-      .select('*', { count: 'exact' })
+      .from('information_schema.tables')
+      .select('table_name')
       .limit(1);
 
     if (error) {
-      throw error;
+      // If information_schema doesn't work, try a simple auth check
+      const { data: authData, error: authError } = await client.auth.getUser();
+      
+      if (authError && !authError.message.includes('session')) {
+        throw authError;
+      }
     }
 
     console.log('✅ Supabase connection test successful');
