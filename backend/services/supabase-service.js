@@ -66,7 +66,7 @@ const testConnection = async () => {
     // Test basic connection
     const { data, error } = await client
       .from('categories')
-      .select('count(*)')
+      .select('*', { count: 'exact' })
       .limit(1);
 
     if (error) {
