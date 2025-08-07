@@ -1,61 +1,160 @@
-
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
+import { apiClient } from '../../utils/api';
+import { createClient } from '../../utils/supabase/client';
+
+interface CartItem {
+  id: string;
+  product_id: string;
+  quantity: number;
+  unit_price: number;
+  total_price: number;
+  product: {
+    id: string;
+    name: string;
+    slug: string;
+    price: number;
+    original_price?: number;
+    images: string[];
+    brand: string;
+    stock_quantity: number;
+    is_active: boolean;
+  };
+}
+
+interface Cart {
+  id: string;
+  user_id: string;
+  total_amount: number;
+  cart_items: CartItem[];
+}
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: '1',
-      title: 'Apple MacBook Pro 14-inch M3 Chip with 8-Core CPU and 10-Core GPU',
-      price: 1599,
-      originalPrice: 1999,
-      image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=150&h=150&fit=crop&crop=center',
-      quantity: 1,
-      isPrime: true,
-      inStock: true
-    },
-    {
-      id: '2',
-      title: 'Sony WH-1000XM4 Wireless Premium Noise Canceling Overhead Headphones',
-      price: 248,
-      originalPrice: 349,
-      image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=150&h=150&fit=crop&crop=center',
-      quantity: 2,
-      isPrime: true,
-      inStock: true
-    },
-    {
-      id: '3',
-      title: 'Anker Portable Charger, PowerCore Slim 10000mAh',
-      price: 22.99,
-      originalPrice: 29.99,
-      image: 'https://images.unsplash.com/photo-1609592806965-50a4bb9e2c41?w=150&h=150&fit=crop&crop=center',
-      quantity: 1,
-      isPrime: true,
-      inStock: false
-    }
-  ]);
+  const [cart, setCart] = useState<Cart | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [updatingItems, setUpdatingItems] = useState<Set<string>>(new Set());
+  const router = useRouter();
+  const supabase = createClient();
 
-  const updateQuantity = (id: string, newQuantity: number) => {
+  useEffect(() => {
+    checkAuthAndLoadCart();
+  }, []);
+
+  const checkAuthAndLoadCart = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.push('/auth/login?redirect=cart');
+        return;
+      }
+      await loadCart();
+    } catch (err) {
+      console.error('Auth check failed:', err);
+      setError('Failed to check authentication');
+      setLoading(false);
+    }
+  };
+
+  const loadCart = async () => {
+    try {
+      setLoading(true);
+      const response = await apiClient.getCart();
+      if (response.success) {
+        setCart(response.data);
+      } else {
+        // If no cart exists, create empty cart
+        setCart({ id: '', user_id: '', total_amount: 0, cart_items: [] });
+      }
+      setError(null);
+    } catch (err) {
+      console.error('Failed to load cart:', err);
+      setError('Failed to load cart. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateQuantity = async (itemId: string, newQuantity: number) => {
     if (newQuantity === 0) {
-      removeItem(id);
-    } else {
-      setCartItems(prev => 
-        prev.map(item => 
-          item.id === id ? { ...item, quantity: newQuantity } : item
-        )
-      );
+      await removeItem(itemId);
+      return;
+    }
+
+    setUpdatingItems(prev => new Set([...prev, itemId]));
+    try {
+      const response = await apiClient.updateCartItem(itemId, newQuantity);
+      if (response.success) {
+        await loadCart(); // Reload cart to get updated totals
+      } else {
+        throw new Error(response.message || 'Failed to update item');
+      }
+    } catch (err) {
+      console.error('Failed to update quantity:', err);
+      setError('Failed to update quantity. Please try again.');
+    } finally {
+      setUpdatingItems(prev => {
+        const newSet = new Set([...prev]);
+        newSet.delete(itemId);
+        return newSet;
+      });
     }
   };
 
-  const removeItem = (id: string) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
+  const removeItem = async (itemId: string) => {
+    setUpdatingItems(prev => new Set([...prev, itemId]));
+    try {
+      const response = await apiClient.removeFromCart(itemId);
+      if (response.success) {
+        await loadCart(); // Reload cart to get updated totals
+      } else {
+        throw new Error(response.message || 'Failed to remove item');
+      }
+    } catch (err) {
+      console.error('Failed to remove item:', err);
+      setError('Failed to remove item. Please try again.');
+    } finally {
+      setUpdatingItems(prev => {
+        const newSet = new Set([...prev]);
+        newSet.delete(itemId);
+        return newSet;
+      });
+    }
   };
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const proceedToCheckout = () => {
+    if (cart && cart.cart_items && cart.cart_items.length > 0) {
+      // Check if all items are in stock
+      const outOfStockItems = cart.cart_items.filter(item => !item.product.is_active || item.product.stock_quantity < item.quantity);
+      if (outOfStockItems.length > 0) {
+        setError('Some items in your cart are out of stock. Please update your cart.');
+        return;
+      }
+      router.push('/checkout');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex items-center justify-center min-h-[calc(100vh-160px)]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading your cart...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const cartItems = cart?.cart_items || [];
+  const subtotal = cartItems.reduce((sum, item) => sum + item.total_price, 0);
   const shipping = subtotal > 35 ? 0 : 5.99;
   const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
@@ -65,6 +164,19 @@ export default function CartPage() {
       <Header />
       
       <main className="max-w-7xl mx-auto px-6 py-6">
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <strong className="font-bold">Error!</strong>
+            <span className="block sm:inline"> {error}</span>
+            <button 
+              onClick={() => setError(null)}
+              className="float-right text-red-700 hover:text-red-900"
+            >
+              ×
+            </button>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
@@ -83,39 +195,34 @@ export default function CartPage() {
                 <div className="space-y-6">
                   {cartItems.map(item => (
                     <div key={item.id} className="flex space-x-4 border-b border-gray-200 pb-6">
-                      <Link href={`/product/${item.id}`}>
+                      <Link href={`/product/${item.product.slug}`}>
                         <img 
-                          src={item.image}
-                          alt={item.title}
+                          src={item.product.images[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&h=300&fit=crop&crop=center'}
+                          alt={item.product.name}
                           className="w-32 h-32 object-cover rounded cursor-pointer"
                         />
                       </Link>
                       
                       <div className="flex-1 space-y-3">
-                        <Link href={`/product/${item.id}`} className="hover:text-blue-600">
+                        <Link href={`/product/${item.product.slug}`} className="hover:text-blue-600">
                           <h3 className="text-lg font-medium text-gray-900 cursor-pointer">
-                            {item.title}
+                            {item.product.name}
                           </h3>
                         </Link>
+
+                        {item.product.brand && (
+                          <p className="text-sm text-gray-600">Brand: {item.product.brand}</p>
+                        )}
                         
-                        {item.inStock ? (
+                        {item.product.is_active && item.product.stock_quantity >= item.quantity ? (
                           <div className="text-green-600 text-sm font-semibold">
                             <i className="ri-checkbox-circle-line w-4 h-4 inline-flex items-center justify-center mr-1"></i>
-                            In Stock
+                            In Stock ({item.product.stock_quantity} available)
                           </div>
                         ) : (
                           <div className="text-red-600 text-sm font-semibold">
                             <i className="ri-close-circle-line w-4 h-4 inline-flex items-center justify-center mr-1"></i>
-                            Currently unavailable
-                          </div>
-                        )}
-                        
-                        {item.isPrime && (
-                          <div className="text-sm">
-                            <div className="bg-blue-500 text-white px-2 py-1 text-xs font-bold rounded inline-block mr-2">
-                              Prime
-                            </div>
-                            <span className="text-green-600">FREE One-Day Delivery</span>
+                            {!item.product.is_active ? 'Currently unavailable' : 'Insufficient stock'}
                           </div>
                         )}
                         
@@ -125,7 +232,8 @@ export default function CartPage() {
                             <select 
                               value={item.quantity}
                               onChange={(e) => updateQuantity(item.id, Number(e.target.value))}
-                              className="border rounded px-2 py-1 text-sm pr-8"
+                              disabled={updatingItems.has(item.id)}
+                              className="border rounded px-2 py-1 text-sm pr-8 disabled:opacity-50"
                             >
                               {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                                 <option key={num} value={num}>
@@ -133,34 +241,33 @@ export default function CartPage() {
                                 </option>
                               ))}
                             </select>
+                            {updatingItems.has(item.id) && (
+                              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-orange-500"></div>
+                            )}
                           </div>
                           
                           <button 
                             onClick={() => removeItem(item.id)}
-                            className="text-blue-600 hover:underline text-sm"
+                            disabled={updatingItems.has(item.id)}
+                            className="text-blue-600 hover:underline text-sm disabled:opacity-50"
                           >
                             Delete
-                          </button>
-                          
-                          <button className="text-blue-600 hover:underline text-sm">
-                            Save for later
-                          </button>
-                          
-                          <button className="text-blue-600 hover:underline text-sm">
-                            Compare with similar items
                           </button>
                         </div>
                       </div>
                       
                       <div className="text-right">
                         <div className="text-xl font-bold text-gray-900">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ${item.total_price.toFixed(2)}
                         </div>
-                        {item.originalPrice && item.originalPrice > item.price && (
+                        {item.product.original_price && item.product.original_price > item.product.price && (
                           <div className="text-sm text-gray-500 line-through">
-                            ${(item.originalPrice * item.quantity).toFixed(2)}
+                            ${(item.product.original_price * item.quantity).toFixed(2)}
                           </div>
                         )}
+                        <div className="text-sm text-gray-600 mt-1">
+                          ${item.unit_price.toFixed(2)} each
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -170,7 +277,7 @@ export default function CartPage() {
             
             {cartItems.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h2 className="text-lg font-bold text-gray-900 mb-4">Frequently bought together</h2>
+                <h2 className="text-lg font-bold text-gray-900 mb-4">You might also like</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {[
                     {
@@ -248,7 +355,8 @@ export default function CartPage() {
               
               <div className="space-y-3">
                 <button 
-                  disabled={cartItems.length === 0 || cartItems.some(item => !item.inStock)}
+                  onClick={proceedToCheckout}
+                  disabled={cartItems.length === 0 || cartItems.some(item => !item.product.is_active || item.product.stock_quantity < item.quantity)}
                   className="w-full bg-[#febd69] hover:bg-[#f3a847] text-black font-semibold py-3 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                 >
                   Proceed to Checkout
