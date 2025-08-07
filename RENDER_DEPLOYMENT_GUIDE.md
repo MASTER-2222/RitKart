@@ -211,8 +211,8 @@ ADMIN_DEFAULT_PASSWORD=RitZone@Admin2025!
 ### Frontend Environment Variables Summary
 ```env
 # API Integration
-NEXT_PUBLIC_BACKEND_URL=https://ritzone-backend.onrender.com/api
-REACT_APP_BACKEND_URL=https://ritzone-backend.onrender.com/api
+NEXT_PUBLIC_BACKEND_URL=https://ritkart-backend.onrender.com/api
+REACT_APP_BACKEND_URL=https://ritkart-backend.onrender.com/api
 
 # Supabase Frontend
 NEXT_PUBLIC_SUPABASE_URL=https://igzpodmmymbptmwebonh.supabase.co
