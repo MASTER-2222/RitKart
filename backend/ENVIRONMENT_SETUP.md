@@ -289,13 +289,3 @@ curl http://localhost:8001/api/health | grep -o "supabaseConfigured.*"
 ---
 
 **Environment configuration complete! Your RitZone backend is ready for deployment.** 🚀
-
-## 📚 **Additional Resources**
-
-- [Spring Boot External Configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config)
-- [MongoDB Atlas Connection Guide](https://docs.atlas.mongodb.com/connect-to-cluster/)
-- [JWT Best Practices](https://auth0.com/blog/a-look-at-the-latest-draft-for-jwt-bcp/)
-
----
-
-**🔐 Your environment is now securely configured and ready for development!**
