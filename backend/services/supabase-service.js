@@ -575,6 +575,281 @@ const categoryService = {
   }
 };
 
+// ==============================================
+// 📦 ORDER MANAGEMENT SERVICES
+// ==============================================
+const orderService = {
+  // Create new order from cart
+  createOrder: async (userId, orderData) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Get user's active cart with items
+      const { data: cart, error: cartError } = await client
+        .from('carts')
+        .select(`
+          *,
+          cart_items (
+            *,
+            products (
+              id,
+              name,
+              sku,
+              price,
+              stock_quantity,
+              is_active
+            )
+          )
+        `)
+        .eq('user_id', userId)
+        .eq('status', 'active')
+        .single();
+
+      if (cartError || !cart || !cart.cart_items || cart.cart_items.length === 0) {
+        throw new Error('Cart is empty or not found');
+      }
+
+      // Validate stock availability
+      for (const item of cart.cart_items) {
+        if (!item.products.is_active) {
+          throw new Error(`Product ${item.products.name} is no longer available`);
+        }
+        if (item.products.stock_quantity < item.quantity) {
+          throw new Error(`Insufficient stock for ${item.products.name}`);
+        }
+      }
+
+      // Generate order number
+      const orderNumber = `RZ-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+
+      // Calculate totals
+      const subtotalAmount = cart.cart_items.reduce((sum, item) => sum + item.total_price, 0);
+      const taxAmount = subtotalAmount * 0.08; // 8% tax
+      const shippingAmount = subtotalAmount > 50 ? 0 : 9.99; // Free shipping over $50
+      const discountAmount = orderData.discountAmount || 0;
+      const totalAmount = subtotalAmount + taxAmount + shippingAmount - discountAmount;
+
+      // Create order
+      const { data: order, error: orderError } = await client
+        .from('orders')
+        .insert([{
+          order_number: orderNumber,
+          user_id: userId,
+          status: 'pending',
+          total_amount: totalAmount,
+          subtotal_amount: subtotalAmount,
+          tax_amount: taxAmount,
+          shipping_amount: shippingAmount,
+          discount_amount: discountAmount,
+          currency: 'USD',
+          payment_method: orderData.paymentMethod || 'card',
+          billing_address: orderData.billingAddress,
+          shipping_address: orderData.shippingAddress,
+          notes: orderData.notes || null
+        }])
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      // Create order items
+      const orderItems = cart.cart_items.map(item => ({
+        order_id: order.id,
+        product_id: item.product_id,
+        product_name: item.products.name,
+        product_sku: item.products.sku,
+        quantity: item.quantity,
+        unit_price: item.unit_price,
+        total_price: item.total_price
+      }));
+
+      const { error: itemsError } = await client
+        .from('order_items')
+        .insert(orderItems);
+
+      if (itemsError) throw itemsError;
+
+      // Update product stock
+      for (const item of cart.cart_items) {
+        const { error: stockError } = await client
+          .from('products')
+          .update({ 
+            stock_quantity: item.products.stock_quantity - item.quantity 
+          })
+          .eq('id', item.product_id);
+        
+        if (stockError) console.warn(`Warning: Could not update stock for product ${item.product_id}`);
+      }
+
+      // Convert cart to 'converted' status
+      const { error: cartUpdateError } = await client
+        .from('carts')
+        .update({ status: 'converted' })
+        .eq('id', cart.id);
+
+      if (cartUpdateError) console.warn('Warning: Could not update cart status');
+
+      return { success: true, order: order };
+    } catch (error) {
+      console.error('❌ Create order failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Get user's orders
+  getUserOrders: async (userId, page = 1, limit = 10) => {
+    try {
+      const client = getSupabaseClient();
+      const offset = (page - 1) * limit;
+      
+      const { data, error, count } = await client
+        .from('orders')
+        .select(`
+          *,
+          order_items (
+            *,
+            products (
+              name,
+              images
+            )
+          )
+        `, { count: 'exact' })
+        .eq('user_id', userId)
+        .range(offset, offset + limit - 1)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      return { 
+        success: true, 
+        orders: data,
+        totalCount: count,
+        currentPage: page,
+        totalPages: Math.ceil(count / limit)
+      };
+    } catch (error) {
+      console.error('❌ Get user orders failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Get order by ID
+  getOrderById: async (orderId, userId) => {
+    try {
+      const client = getSupabaseClient();
+      
+      const { data, error } = await client
+        .from('orders')
+        .select(`
+          *,
+          order_items (
+            *,
+            products (
+              name,
+              images,
+              slug
+            )
+          )
+        `)
+        .eq('id', orderId)
+        .eq('user_id', userId)
+        .single();
+
+      if (error) throw error;
+      return { success: true, order: data };
+    } catch (error) {
+      console.error('❌ Get order by ID failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Cancel order
+  cancelOrder: async (orderId, userId, reason = 'Customer request') => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Get order details with items
+      const { data: order, error: orderError } = await client
+        .from('orders')
+        .select(`
+          *,
+          order_items (
+            *,
+            products (
+              stock_quantity
+            )
+          )
+        `)
+        .eq('id', orderId)
+        .eq('user_id', userId)
+        .single();
+
+      if (orderError || !order) throw new Error('Order not found');
+
+      // Only allow cancellation of pending or processing orders
+      if (!['pending', 'processing'].includes(order.status)) {
+        throw new Error('Order cannot be cancelled at this stage');
+      }
+
+      // Update order status
+      const { error: updateError } = await client
+        .from('orders')
+        .update({ 
+          status: 'cancelled',
+          notes: (order.notes || '') + `\nCancelled: ${reason}`
+        })
+        .eq('id', orderId);
+
+      if (updateError) throw updateError;
+
+      // Restore product stock
+      for (const item of order.order_items) {
+        const { error: stockError } = await client
+          .from('products')
+          .update({ 
+            stock_quantity: item.products.stock_quantity + item.quantity 
+          })
+          .eq('id', item.product_id);
+        
+        if (stockError) console.warn(`Warning: Could not restore stock for product ${item.product_id}`);
+      }
+
+      return { success: true, message: 'Order cancelled successfully' };
+    } catch (error) {
+      console.error('❌ Cancel order failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Update order status (admin function)
+  updateOrderStatus: async (orderId, status, notes = '') => {
+    try {
+      const client = getSupabaseClient();
+      
+      const allowedStatuses = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
+      if (!allowedStatuses.includes(status)) {
+        throw new Error('Invalid order status');
+      }
+
+      const { data, error } = await client
+        .from('orders')
+        .update({ 
+          status: status,
+          notes: notes
+        })
+        .eq('id', orderId)
+        .select()
+        .single();
+
+      if (error) throw error;
+      return { success: true, order: data };
+    } catch (error) {
+      console.error('❌ Update order status failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  }
+};
+
 module.exports = {
   initializeSupabase,
   getSupabaseClient,
