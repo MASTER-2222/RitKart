@@ -47,6 +47,7 @@ export default function RegisterPage() {
             full_name: fullName,
             phone: phone,
           },
+          emailRedirectTo: `${window.location.origin}/auth/confirm`
         },
       });
 
