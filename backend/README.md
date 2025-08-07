@@ -229,83 +229,81 @@ app:
       - https://ritkart-frontend.onrender.com
 ```
 
+## 🐳 Docker Support
+
+### Docker Compose
+```bash
+# Start the backend with Docker
+docker-compose up -d
+
+# View logs
+docker-compose logs -f backend
+
+# Stop the services
+docker-compose down
+```
+
+### Manual Docker Build
+```bash
+# Build the image
+docker build -t ritzone-backend .
+
+# Run the container
+docker run -d -p 8001:8001 --env-file .env ritzone-backend
+```
+
+## 🚀 Deployment
+
+### Render.com
+The application is configured for easy deployment on Render.com. See the deployment guide for detailed instructions.
+
+### Environment Variables
+Ensure all required environment variables are set in your deployment platform:
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+- `POSTGRES_CONNECTION_STRING`
+- `JWT_SECRET`
+- `ENCRYPTION_KEY`
+- `SESSION_SECRET`
+
 ## 🧪 Testing
 
-### Run Tests
 ```bash
-# Run all tests
-mvn test
+# Run tests (when available)
+npm test
 
-# Run specific test class
-mvn test -Dtest=ProductServiceTest
+# Health check
+curl http://localhost:8001/api/health
 
-# Run tests with coverage
-mvn test jacoco:report
+# API endpoints test
+curl http://localhost:8001/api
 ```
 
-## 📦 Deployment
+## 🔒 Security Features
 
-### Docker Deployment
-```dockerfile
-FROM openjdk:17-jdk-slim
-COPY target/ritzone-backend-1.0.0.jar app.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app.jar"]
-```
+- **JWT Authentication**: Secure token-based authentication
+- **Password Hashing**: Bcrypt for secure password storage
+- **Rate Limiting**: Protection against API abuse
+- **CORS Configuration**: Secure cross-origin requests
+- **Helmet**: Security headers middleware
+- **Environment Variables**: Sensitive data protection
 
-### Build Docker Image
-```bash
-mvn clean package
-docker build -t ritzone-backend .
-docker run -p 8080:8080 ritzone-backend
-```
-
-## 🔒 Security
-
-- JWT-based authentication
-- Password encryption with BCrypt
-- CORS configuration for frontend integration
-- Input validation and sanitization
-- SQL injection prevention (NoSQL injection for MongoDB)
-
-## 📊 Monitoring
-
-- Spring Boot Actuator endpoints
-- Health checks
-- Metrics collection
-- Application logging
-
-## 🤝 Contributing
+## 📝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Support
+## 🤝 Support
 
-For support and questions:
-- Email: dev@ritzone.com
-- GitHub Issues: [Create an issue](https://github.com/MASTER-2222/RitKart/issues)
-
-## 🚧 Roadmap
-
-- [ ] User authentication and authorization
-- [ ] Shopping cart functionality
-- [ ] Order management system
-- [ ] Payment integration (Stripe)
-- [ ] Email notifications
-- [ ] Admin dashboard APIs
-- [ ] Product reviews and ratings
-- [ ] Wishlist functionality
-- [ ] Inventory management
-- [ ] Analytics and reporting
+For support, email support@ritzone.com or join our Slack channel.
 
 ---
 
-**Built with ❤️ by the RitZone Development Team**
+**Built with ❤️ for RitZone E-commerce Platform**
