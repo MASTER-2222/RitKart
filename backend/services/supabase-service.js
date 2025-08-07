@@ -153,7 +153,7 @@ const userService = {
 };
 
 // ==============================================
-# 📦 PRODUCT MANAGEMENT SERVICES
+// 📦 PRODUCT MANAGEMENT SERVICES
 // ==============================================
 const productService = {
   // Get all products
