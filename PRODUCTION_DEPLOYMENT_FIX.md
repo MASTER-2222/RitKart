@@ -75,7 +75,7 @@ NEXT_PUBLIC_SUPABASE_URL=https://igzpodmmymbptmwebonh.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnenBvZG1teW1icHRtd2Vib25oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1NDczNDIsImV4cCI6MjA3MDEyMzM0Mn0.eOy5F_0pE7ki3TXl49bW5c0K1TWGKf2_Vpn1IRKWQRc
 
 # Backend API Connection (CRITICAL)
-NEXT_PUBLIC_BACKEND_URL=https://ritzone-backend.onrender.com/api
+NEXT_PUBLIC_BACKEND_URL=https://ritkart-backend.onrender.com/api
 REACT_APP_BACKEND_URL=https://ritzone-backend.onrender.com/api
 
 # Next.js Configuration
