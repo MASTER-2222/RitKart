@@ -1,14 +1,19 @@
 
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { createClient } from '../utils/supabase/client';
+import { User } from '@supabase/supabase-js';
 
 export default function Header() {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const supabase = createClient();
 
   const categories = ['All', 'Books', 'Electronics', 'Fashion', 'Grocery', 'Sports', 'Home', 'Appliances', 'Solar', 'Pharmacy'];
 
