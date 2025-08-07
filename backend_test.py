@@ -219,7 +219,7 @@ class RitZoneAPITester:
         
         # Test 3: Add item to cart
         cart_item_data = {
-            "product_id": product_id,
+            "productId": product_id,
             "quantity": 2
         }
         
