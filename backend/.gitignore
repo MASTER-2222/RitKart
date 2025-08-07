@@ -1,127 +1,91 @@
 # RitZone Backend .gitignore
+# ==============================================
+# Ignore sensitive and unnecessary files
 
-# ================================
-# ENVIRONMENT VARIABLES
-# ================================
-# Keep .env files for security, but allow .env.example
+# Environment Variables
+.env
 .env.local
+.env.development
+.env.test
 .env.production
 .env.staging
-# Allow .env.example to be committed
-!.env.example
 
-# ================================
-# MAVEN
-# ================================
-# Allow target folder to be committed for deployment
-# target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
-# ================================
-# JAVA
-# ================================
-*.class
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Logs
+logs
 *.log
-*.ctxt
-.mtj.tmp/
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-hs_err_pid*
-replay_pid*
 
-# ================================
-# IDE
-# ================================
-# IntelliJ IDEA
-.idea/
-*.iws
-*.iml
-*.ipr
-out/
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# Eclipse
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-# VS Code
+# IDE files
 .vscode/
-*.code-workspace
-
-# NetBeans
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-
-# ================================
-# SPRING BOOT
-# ================================
-.spring-boot-devtools.properties
-application-*.properties
-application-*.yml
-!application.yml
-!application.properties
-
-# ================================
-# LOGS
-# ================================
-logs/
-*.log
-log/
-*.log.*
-
-# ================================
-# TEMPORARY FILES
-# ================================
-*.tmp
-*.temp
+.idea/
 *.swp
 *.swo
 *~
 
-# ================================
-# UPLOADS
-# ================================
-uploads/
-files/
-images/
-
-# ================================
-# DATABASE
-# ================================
-*.db
-*.sqlite
-*.sqlite3
-
-# ================================
-# DOCKER
-# ================================
-.dockerignore
-docker-compose.override.yml
-
-# ================================
-# SYSTEM FILES
-# ================================
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -130,35 +94,25 @@ docker-compose.override.yml
 ehthumbs.db
 Thumbs.db
 
-# ================================
-# BACKUP FILES
-# ================================
+# Backup files
 *.bak
 *.backup
 *.old
 
-# ================================
-# CERTIFICATES & KEYS
-# ================================
-*.pem
+# Database files (local development)
+*.db
+*.sqlite
+*.sqlite3
+
+# SSL certificates (if stored locally)
 *.key
 *.crt
-*.p12
-*.jks
-keystore.*
+*.pem
 
-# ================================
-# COVERAGE REPORTS
-# ================================
-coverage/
-*.lcov
-jacoco.exec
-jacoco-it.exec
+# JWT secrets (if stored as files)
+jwt-secret.txt
+private-key.txt
 
-# ================================
-# NODE MODULES (if any)
-# ================================
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Deployment files
+docker-compose.override.yml
+.env.deploy
