@@ -6,6 +6,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 const { environment } = require('../config/environment');
+const { orderService } = require('../services/supabase-service');
 
 const router = express.Router();
 
