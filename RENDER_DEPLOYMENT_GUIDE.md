@@ -151,8 +151,8 @@ Add these environment variables for your frontend service:
 
 #### 🔗 API Integration
 ```env
-NEXT_PUBLIC_BACKEND_URL=https://ritzone-backend.onrender.com/api
-REACT_APP_BACKEND_URL=https://ritzone-backend.onrender.com/api
+NEXT_PUBLIC_BACKEND_URL=https://ritkart-backend.onrender.com/api
+REACT_APP_BACKEND_URL=https://ritkart-backend.onrender.com/api
 ```
 
 #### 🗄️ Supabase Frontend Configuration
