@@ -102,6 +102,33 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [heroBanners.length]);
 
+  // Convert API products to format expected by ProductCarousel
+  const convertApiProductsToCarouselFormat = (products: Product[]) => {
+    return products.map(product => ({
+      id: product.id,
+      title: product.name,
+      price: product.price,
+      originalPrice: product.original_price,
+      rating: product.rating_average,
+      reviewCount: product.total_reviews,
+      image: product.images[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&h=300&fit=crop&crop=center',
+      isPrime: true, // You can add this field to your product model
+      isDeliveryTomorrow: product.stock_quantity > 0,
+      discount: product.original_price > product.price ? 
+        Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0
+    }));
+  };
+
+  // Convert API categories to format expected by CategoryCard
+  const convertApiCategoriesToCardFormat = (categories: Category[]) => {
+    return categories.map(category => ({
+      title: category.name,
+      image: category.image_url,
+      href: `/category/${category.slug}`,
+      subtitle: category.description
+    }));
+  };
+
   const categories = [
     {
       title: 'Electronics',
