@@ -99,50 +99,63 @@ npm start
 |----------|-------------|---------|----------|
 | `EMAIL_USERNAME` | SMTP username | - | ❌ No |
 | `EMAIL_PASSWORD` | SMTP password | - | ❌ No |
+| `SMTP_HOST` | SMTP server host | `smtp.gmail.com` | ❌ No |
+| `SMTP_PORT` | SMTP server port | `587` | ❌ No |
 
 ### **💳 Payment Integration (Optional)**
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `STRIPE_PUBLIC_KEY` | Stripe publishable key | - | ❌ No |
+| `STRIPE_PUBLISHABLE_KEY` | Stripe publishable key | - | ❌ No |
 | `STRIPE_SECRET_KEY` | Stripe secret key | - | ❌ No |
 
-### **🔍 Google OAuth (Optional)**
+### **📊 Logging & Debug**
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `GOOGLE_CLIENT_ID` | Google OAuth client ID | - | ❌ No |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret | - | ❌ No |
+| `LOG_LEVEL` | Application log level | `info` | ❌ No |
+| `DEBUG` | Enable debug mode | `false` | ❌ No |
+
+### **🔒 Rate Limiting**
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `RATE_LIMIT_REQUESTS` | Max requests per window | `100` | ❌ No |
+| `RATE_LIMIT_WINDOW` | Rate limit window (seconds) | `900` | ❌ No |
 
 ### **👤 Admin Configuration**
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | `ADMIN_DEFAULT_EMAIL` | Default admin email | `admin@ritzone.com` | ❌ No |
-| `ADMIN_DEFAULT_PASSWORD` | Default admin password | `RitZone@Admin2025` | ❌ No |
+| `ADMIN_DEFAULT_PASSWORD` | Default admin password | - | ✅ Yes |
 
 ## 🔒 **Security Best Practices**
 
-### **1. JWT Secret**
-- Use a strong, random secret key (minimum 32 characters)
-- Never commit JWT secrets to version control
+### **1. JWT & Encryption Secrets**
+- Use strong, random secret keys (minimum 64 characters for JWT)
+- Use exactly 32 bytes (64 hex chars) for encryption keys
+- Never commit secrets to version control
 - Rotate secrets regularly in production
 
 ### **2. Database Credentials**
-- Your MongoDB Atlas credentials are already configured
-- Use connection string with authentication
-- Restrict database access by IP if possible
+- Your Supabase credentials are secure and managed
+- Use connection strings with proper authentication
+- Enable Row Level Security (RLS) in Supabase for additional protection
 
 ### **3. Environment Files**
 - Never commit `.env` files to Git
 - Use different `.env` files for different environments
 - Keep production secrets separate and secure
+- Use `.env.example` as a template
 
 ## 🌍 **Environment-Specific Configuration**
 
 ### **Development**
 ```bash
 # .env.development
-MONGODB_URI=mongodb+srv://ritkart-admin:RakAJVBURLCJ0uHy@ritkart-cluster.yopyqig.mongodb.net/ritkart-dev
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-dev-anon-key
 FRONTEND_URL=http://localhost:3000
-LOG_LEVEL_RITZONE=DEBUG
+NODE_ENV=development
+LOG_LEVEL=debug
+DEBUG=true
 ```
 
 ### **Production**
