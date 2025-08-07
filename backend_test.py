@@ -165,10 +165,10 @@ class RitZoneAPITester:
         """Test user login (fallback if registration fails)"""
         print("\n🔐 Testing User Login...")
         
-        # Try with admin credentials from .env
+        # Try with a simple test user first
         login_data = {
-            "email": "admin@ritzone.com",
-            "password": "RitZone@Admin2025"
+            "email": "test@test.com",
+            "password": "password123"
         }
         
         success, status, data = self.make_request('POST', '/auth/login', login_data)
@@ -183,14 +183,35 @@ class RitZoneAPITester:
             return self.log_test(
                 "User Login", 
                 True, 
-                "Admin login successful"
+                "Test user login successful"
             )
         else:
-            return self.log_test(
-                "User Login", 
-                False, 
-                f"Login failed - Status: {status}, Response: {data}"
-            )
+            # Try with admin credentials from .env as fallback
+            admin_login_data = {
+                "email": "admin@ritzone.com",
+                "password": "RitZone@Admin2025"
+            }
+            
+            success, status, data = self.make_request('POST', '/auth/login', admin_login_data)
+            
+            if success and data.get('success'):
+                # Store auth info
+                if 'user' in data:
+                    self.user_id = data['user'].get('id')
+                if 'token' in data:
+                    self.token = data['token']
+                    
+                return self.log_test(
+                    "User Login", 
+                    True, 
+                    "Admin login successful"
+                )
+            else:
+                return self.log_test(
+                    "User Login", 
+                    False, 
+                    f"Both test and admin login failed - Status: {status}, Response: {data}"
+                )
 
     def test_cart_operations(self):
         """Test cart CRUD operations"""
