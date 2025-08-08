@@ -308,7 +308,7 @@ class RLSProductTester:
             "is_active": True,
             "is_featured": False,
             "images": ["https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500"],
-            "tags": [category_slug, "new", "quality"]
+            "features": [category_slug, "new", "quality"]
         }
 
     def test_existing_product_apis(self):
