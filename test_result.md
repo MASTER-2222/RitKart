@@ -210,9 +210,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Create hero_banners table and API integration"
-    - "Create deals table with expiration dates/timers" 
-    - "Migrate all hardcoded products to database"
+    - "Replace hardcoded hero banners with API calls"
+    - "Replace hardcoded deals with dynamic deal system" 
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
