@@ -952,6 +952,140 @@ const bannerService = {
   }
 };
 
+// ==============================================
+// 🏷️ DEALS SERVICE
+// ==============================================
+const dealsService = {
+  // Get all active deals
+  async getAllDeals() {
+    try {
+      const client = getSupabaseClient();
+      const { data, error } = await client
+        .from('deals')
+        .select(`
+          *,
+          products (
+            id,
+            name,
+            slug,
+            description,
+            images,
+            brand,
+            rating_average,
+            total_reviews,
+            stock_quantity
+          )
+        `)
+        .eq('is_active', true)
+        .gte('end_date', new Date().toISOString())
+        .order('discount_percentage', { ascending: false });
+
+      if (error) {
+        console.error('❌ Supabase deals fetch error:', error);
+        return { success: false, error: error.message };
+      }
+
+      // Transform the data to include product information
+      const transformedDeals = data?.map(deal => ({
+        id: deal.id,
+        title: deal.deal_title || deal.products?.name,
+        price: deal.deal_price,
+        originalPrice: deal.original_price,
+        rating: deal.products?.rating_average || 0,
+        reviewCount: deal.products?.total_reviews || 0,
+        image: deal.products?.images[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&h=300&fit=crop&crop=center',
+        isPrime: true,
+        isDeliveryTomorrow: deal.products?.stock_quantity > 0,
+        discount: deal.discount_percentage,
+        category: deal.category,
+        dealEndTime: deal.end_date,
+        brand: deal.products?.brand,
+        product_id: deal.product_id
+      })) || [];
+
+      return {
+        success: true,
+        deals: transformedDeals
+      };
+    } catch (error) {
+      console.error('❌ Get deals service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Create new deal
+  async createDeal(dealData) {
+    try {
+      const client = getSupabaseClient();
+      const { data, error } = await client
+        .from('deals')
+        .insert([dealData])
+        .select()
+        .single();
+
+      if (error) {
+        console.error('❌ Supabase deal create error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        deal: data
+      };
+    } catch (error) {
+      console.error('❌ Create deal service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Update deal
+  async updateDeal(dealId, dealData) {
+    try {
+      const client = getSupabaseClient();
+      const { data, error } = await client
+        .from('deals')
+        .update(dealData)
+        .eq('id', dealId)
+        .select()
+        .single();
+
+      if (error) {
+        console.error('❌ Supabase deal update error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        deal: data
+      };
+    } catch (error) {
+      console.error('❌ Update deal service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Delete deal
+  async deleteDeal(dealId) {
+    try {
+      const client = getSupabaseClient();
+      const { error } = await client
+        .from('deals')
+        .delete()
+        .eq('id', dealId);
+
+      if (error) {
+        console.error('❌ Supabase deal delete error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return { success: true };
+    } catch (error) {
+      console.error('❌ Delete deal service error:', error);
+      return { success: false, error: error.message };
+    }
+  }
+};
+
 module.exports = {
   initializeSupabase,
   getSupabaseClient,
@@ -962,4 +1096,5 @@ module.exports = {
   categoryService,
   orderService,
   bannerService,
+  dealsService,
 };
