@@ -154,7 +154,7 @@ class RLSProductTester:
                 "power": "Battery/AC Adapter",
                 "storage": "Cloud/SD Card"
             },
-            "tags": ["security", "smart home", "wireless", "hd camera"]
+            "features": ["security", "smart home", "wireless", "hd camera"]
         }
 
         success, status, data = self.make_request('POST', '/products', product_data, 201)
