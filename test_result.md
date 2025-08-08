@@ -166,20 +166,17 @@ backend:
         comment: "✅ FEATURED PRODUCTS API WORKING - Retrieved 13 featured products successfully. API endpoint /api/products?featured=true is fully functional."
 
 frontend:
-  - task: "Replace hardcoded deals with dynamic deal system"
+  - task: "Migrate Fashion category products to database"
     implemented: false
     working: "NA"
-    file: "app/deals/page.tsx"
+    file: "scripts/migrate-fashion-products.js"
     stuck_count: 0
-    priority: "medium"
-    needs_retesting: true
+    priority: "high"
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
-        comment: "Converting hardcoded deals to dynamic API-fetched deals with expiration"
-      - working: "PENDING"
-        agent: "main"
-        comment: "⏳ PENDING: Deals migration depends on resolving RLS authentication issue for product creation. Backend deals API working (1 deal available). Will implement after authentication resolution."
+        comment: "📋 NEXT PHASE: After successful Electronics migration (36 products), Fashion category is next in dependency chain. Will migrate 36+ hardcoded Fashion products from CategoryListing.tsx to database."
   - task: "Replace hardcoded hero banners with API calls"
     implemented: true
     working: "NA"
