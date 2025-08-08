@@ -202,17 +202,17 @@ frontend:
         agent: "main"
         comment: "🚨 MIGRATION BLOCKED: Product creation via API blocked by Row Level Security policy. Requires admin authentication to populate empty categories. Dynamic components working but 7 categories appear empty due to no products in database."
 
-  - task: "Replace hardcoded deals with dynamic deal system"
+  - task: "Resolve RLS authentication for product creation"
     implemented: false
-    working: "NA"
-    file: "app/deals/page.tsx"
+    working: "BLOCKED"
+    file: "backend/routes/products.js, backend RLS policies"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
-      - working: "NA"
+      - working: "BLOCKED"
         agent: "main"
-        comment: "Converting hardcoded deals to dynamic API-fetched deals with expiration"
+        comment: "🚨 NEW ISSUE IDENTIFIED: Product creation API returns 'new row violates row-level security policy for table products'. Empty categories (Home, Sports, Grocery, Appliances, Solar, Pharmacy, Beauty) cannot be populated without proper authentication or RLS policy adjustment."
 
 metadata:
   created_by: "main_agent"
