@@ -128,7 +128,8 @@ async function createProduct(productData, categoryName) {
 
     return data;
   } catch (error) {
-    console.error(`❌ Exception creating product ${productData.title}:`, error.message);
+    console.error(`❌ Exception creating product ${productData.title.slice(0, 30)}:`);
+    console.error('   Exception details:', error);
     return null;
   }
 }
