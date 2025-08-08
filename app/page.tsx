@@ -229,11 +229,14 @@ export default function Home() {
               </button>
 
               <div className="text-center text-white">
-                <h1 className="text-4xl font-bold mb-4">{heroBanners[currentHeroBanner].title}</h1>
-                <p className="text-xl mb-6">{heroBanners[currentHeroBanner].subtitle}</p>
-                <button className="bg-[#febd69] hover:bg-[#f3a847] text-black font-bold py-3 px-8 rounded-lg whitespace-nowrap">
-                  Shop Now
-                </button>
+                <h1 className="text-4xl font-bold mb-4">{heroBanners[currentHeroBanner]?.title || 'RitZone'}</h1>
+                <p className="text-xl mb-6">{heroBanners[currentHeroBanner]?.subtitle || 'Your premium shopping destination'}</p>
+                <a 
+                  href={heroBanners[currentHeroBanner]?.buttonLink || '/'}
+                  className="bg-[#febd69] hover:bg-[#f3a847] text-black font-bold py-3 px-8 rounded-lg whitespace-nowrap inline-block"
+                >
+                  {heroBanners[currentHeroBanner]?.buttonText || 'Shop Now'}
+                </a>
               </div>
 
               <button
