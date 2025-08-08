@@ -248,8 +248,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Replace hardcoded hero banners with API calls"
-    - "Verify all category products are using dynamic API calls"
+    - "Electronics migration verification completed successfully"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
