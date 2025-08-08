@@ -95,6 +95,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/banners', bannerRoutes);
+app.use('/api/deals', dealRoutes);
 
 // ==============================================
 // 🔍 ROOT ENDPOINT
