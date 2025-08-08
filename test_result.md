@@ -212,6 +212,7 @@ test_plan:
   current_focus:
     - "Replace hardcoded hero banners with API calls"
     - "Replace hardcoded deals with dynamic deal system" 
+    - "Verify all category products are using dynamic API calls"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
