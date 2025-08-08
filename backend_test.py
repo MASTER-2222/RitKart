@@ -2,7 +2,7 @@
 """
 RitZone Backend API Testing Suite
 =================================
-Comprehensive testing for Shopping Cart & Order Management system
+Testing for Category Products Migration - Phase 1
 """
 
 import requests
@@ -12,7 +12,7 @@ from datetime import datetime
 import uuid
 
 class RitZoneAPITester:
-    def __init__(self, base_url="http://localhost:8001/api"):
+    def __init__(self, base_url="https://9f7eca74-7a13-468f-a653-6e084ff2eb75.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.token = None
         self.user_id = None
