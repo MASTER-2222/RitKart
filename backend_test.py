@@ -98,10 +98,11 @@ class RitZoneAPITester:
         
         if success and data.get('success'):
             categories = data.get('data', [])
+            category_names = [cat.get('name', 'Unknown') for cat in categories]
             return self.log_test(
                 "Categories API", 
                 True, 
-                f"Retrieved {len(categories)} categories"
+                f"Retrieved {len(categories)} categories: {', '.join(category_names[:5])}"
             )
         else:
             return self.log_test(
