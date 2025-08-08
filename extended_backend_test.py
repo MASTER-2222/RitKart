@@ -11,7 +11,7 @@ import sys
 from datetime import datetime
 
 class ExtendedRitZoneAPITester:
-    def __init__(self, base_url="https://879ee236-c150-4cee-b2fb-07645ca2a32f.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://992f5efe-1325-4178-a812-d9997244a400.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
