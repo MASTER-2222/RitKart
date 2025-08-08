@@ -264,10 +264,25 @@ async function createProduct(product, categoryId) {
                 .trim()
         };
 
+        console.log(`   📋 Product data for ${product.name.slice(0, 20)}:`, {
+            name: productData.name,
+            description: productData.description ? 'Present' : 'Missing',
+            price: productData.price,
+            category_id: productData.category_id,
+            sku: productData.sku
+        });
+
         const response = await axios.post(`${API_BASE_URL}/products`, productData);
         return response.data.success;
     } catch (error) {
-        console.error(`❌ Error creating product ${product.name}:`, error.response?.data || error.message);
+        if (error.response) {
+            console.error(`❌ API Error for ${product.name.slice(0, 30)}:`);
+            console.error(`   Status: ${error.response.status}`);
+            console.error(`   Message: ${error.response.data?.message || 'Unknown error'}`);
+            console.error(`   Missing fields: ${error.response.data?.missing || 'None specified'}`);
+        } else {
+            console.error(`❌ Network Error for ${product.name}:`, error.message);
+        }
         return false;
     }
 }
