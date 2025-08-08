@@ -169,10 +169,12 @@ export default function Home() {
   };
 
   const nextHeroBanner = () => {
+    if (heroBanners.length === 0) return;
     setCurrentHeroBanner((prev) => (prev + 1) % heroBanners.length);
   };
 
   const prevHeroBanner = () => {
+    if (heroBanners.length === 0) return;
     setCurrentHeroBanner((prev) => (prev - 1 + heroBanners.length) % heroBanners.length);
   };
 
