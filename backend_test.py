@@ -77,10 +77,12 @@ class RitZoneAPITester:
         success, status, data = self.make_request('GET', '/health')
         
         if success and data.get('success'):
+            env_info = data.get('environment', {})
+            db_info = data.get('database', {})
             return self.log_test(
                 "Health Check", 
                 True, 
-                f"Backend is running - Environment: {data.get('environment', {}).get('nodeEnv', 'unknown')}"
+                f"Backend is running - Environment: {env_info.get('nodeEnv', 'unknown')}, DB: {db_info.get('success', False)}"
             )
         else:
             return self.log_test(
