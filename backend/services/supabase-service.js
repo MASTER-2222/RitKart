@@ -857,7 +857,8 @@ const bannerService = {
   // Get all active hero banners
   async getAllBanners() {
     try {
-      const { data, error } = await supabase
+      const client = getSupabaseClient();
+      const { data, error } = await client
         .from('hero_banners')
         .select('*')
         .eq('is_active', true)
@@ -881,7 +882,8 @@ const bannerService = {
   // Create new hero banner
   async createBanner(bannerData) {
     try {
-      const { data, error } = await supabase
+      const client = getSupabaseClient();
+      const { data, error } = await client
         .from('hero_banners')
         .insert([bannerData])
         .select()
@@ -905,7 +907,8 @@ const bannerService = {
   // Update hero banner
   async updateBanner(bannerId, bannerData) {
     try {
-      const { data, error } = await supabase
+      const client = getSupabaseClient();
+      const { data, error } = await client
         .from('hero_banners')
         .update(bannerData)
         .eq('id', bannerId)
@@ -930,7 +933,8 @@ const bannerService = {
   // Delete hero banner
   async deleteBanner(bannerId) {
     try {
-      const { error } = await supabase
+      const client = getSupabaseClient();
+      const { error } = await client
         .from('hero_banners')
         .delete()
         .eq('id', bannerId);
