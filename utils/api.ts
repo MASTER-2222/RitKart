@@ -111,6 +111,16 @@ class ApiClient {
     return this.makeRequest(`/products/category/${categorySlug}${limit ? `?limit=${limit}` : ''}`);
   }
 
+  // Banners API
+  async getBanners() {
+    return this.makeRequest('/banners');
+  }
+
+  // Deals API
+  async getDeals() {
+    return this.makeRequest('/deals');
+  }
+
   // Cart API (requires authentication)
   async getCart() {
     return this.makeRequest('/cart');
