@@ -19,6 +19,7 @@ const categoryRoutes = require('./routes/categories');
 const cartRoutes = require('./routes/cart');
 const orderRoutes = require('./routes/orders');
 const bannerRoutes = require('./routes/banners');
+const dealRoutes = require('./routes/deals');
 
 // ==============================================
 // 🚀 APPLICATION INITIALIZATION
