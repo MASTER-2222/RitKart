@@ -167,7 +167,7 @@ backend:
 
 frontend:
   - task: "Replace hardcoded hero banners with API calls"
-    implemented: false
+    implemented: true
     working: "NA"
     file: "app/page.tsx"
     stuck_count: 0
@@ -176,7 +176,7 @@ frontend:
     status_history:
       - working: "NA"
         agent: "main"
-        comment: "Converting 8 hardcoded hero banners to dynamic API-fetched banners"
+        comment: "✅ IMPLEMENTED: Hero banners migration completed. Replaced hardcoded heroBanners array with dynamic API calls to apiClient.getBanners(). Added fallback system and updated banner rendering with proper button links. Timer confirmed at 2 seconds."
 
   - task: "Replace hardcoded category products with database queries"
     implemented: true
