@@ -409,21 +409,21 @@ async function migrateAllCategoryProducts() {
   let totalErrors = 0;
 
   try {
-    // Category 1: ELECTRONICS
+    // Category 1: ELECTRONICS (Test with just first product)
     console.log('\n⚡ Migrating ELECTRONICS Category Products...');
-    for (let i = 0; i < electronicsProducts.length; i++) {
-      const product = electronicsProducts[i];
-      console.log(`   [${i+1}/${electronicsProducts.length}] Creating: ${product.title.slice(0, 50)}...`);
-      
-      const created = await createProduct(product, 'Electronics');
-      if (created) {
-        totalCreated++;
-        console.log(`   ✅ Created: ${product.title.slice(0, 30)}... (${product.brand})`);
-      } else {
-        totalErrors++;
-        console.log(`   ❌ Failed: ${product.title.slice(0, 30)}...`);
-      }
+    const testProduct = electronicsProducts[0];
+    console.log(`   [TEST] Creating: ${testProduct.title.slice(0, 50)}...`);
+    
+    const created = await createProduct(testProduct, 'Electronics');
+    if (created) {
+      totalCreated++;
+      console.log(`   ✅ Created: ${testProduct.title.slice(0, 30)}... (${testProduct.brand})`);
+    } else {
+      totalErrors++;
+      console.log(`   ❌ Failed: ${testProduct.title.slice(0, 30)}...`);
     }
+
+    return; // Exit early for testing
 
     // Category 2: FASHION
     console.log('\n👕 Migrating FASHION Category Products...');
