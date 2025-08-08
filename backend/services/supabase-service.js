@@ -850,6 +850,104 @@ const orderService = {
   }
 };
 
+// ==============================================
+// 🎨 HERO BANNERS SERVICE
+// ==============================================
+const bannerService = {
+  // Get all active hero banners
+  async getAllBanners() {
+    try {
+      const { data, error } = await supabase
+        .from('hero_banners')
+        .select('*')
+        .eq('is_active', true)
+        .order('sort_order', { ascending: true });
+
+      if (error) {
+        console.error('❌ Supabase banners fetch error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        banners: data || []
+      };
+    } catch (error) {
+      console.error('❌ Get banners service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Create new hero banner
+  async createBanner(bannerData) {
+    try {
+      const { data, error } = await supabase
+        .from('hero_banners')
+        .insert([bannerData])
+        .select()
+        .single();
+
+      if (error) {
+        console.error('❌ Supabase banner create error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        banner: data
+      };
+    } catch (error) {
+      console.error('❌ Create banner service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Update hero banner
+  async updateBanner(bannerId, bannerData) {
+    try {
+      const { data, error } = await supabase
+        .from('hero_banners')
+        .update(bannerData)
+        .eq('id', bannerId)
+        .select()
+        .single();
+
+      if (error) {
+        console.error('❌ Supabase banner update error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        banner: data
+      };
+    } catch (error) {
+      console.error('❌ Update banner service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Delete hero banner
+  async deleteBanner(bannerId) {
+    try {
+      const { error } = await supabase
+        .from('hero_banners')
+        .delete()
+        .eq('id', bannerId);
+
+      if (error) {
+        console.error('❌ Supabase banner delete error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return { success: true };
+    } catch (error) {
+      console.error('❌ Delete banner service error:', error);
+      return { success: false, error: error.message };
+    }
+  }
+};
+
 module.exports = {
   initializeSupabase,
   getSupabaseClient,
@@ -859,4 +957,5 @@ module.exports = {
   cartService,
   categoryService,
   orderService,
+  bannerService,
 };
