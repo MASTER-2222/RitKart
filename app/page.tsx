@@ -70,46 +70,63 @@ export default function Home() {
     }
   };
 
-  const heroBanners = [
+  // Fallback hero banners (used if API fails)
+  const fallbackHeroBanners = [
     {
       image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&h=400&fit=crop&crop=center',
       title: 'Fashion & Lifestyle',
-      subtitle: 'Discover trendy styles and accessories for every occasion'
+      subtitle: 'Discover trendy styles and accessories for every occasion',
+      buttonText: 'Shop Now',
+      buttonLink: '/category/fashion'
     },
     {
       image: 'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?w=1200&h=400&fit=crop&crop=center',
       title: 'Premium Shopping Experience',
-      subtitle: 'Quality products delivered straight to your door'
+      subtitle: 'Quality products delivered straight to your door',
+      buttonText: 'Shop Now',
+      buttonLink: '/'
     },
     {
       image: 'https://images.unsplash.com/photo-1481437156560-3205f6a55735?w=1200&h=400&fit=crop&crop=center',
       title: 'Shop with Confidence',
-      subtitle: 'Explore our vast selection in our modern retail space'
+      subtitle: 'Explore our vast selection in our modern retail space',
+      buttonText: 'Shop Now',
+      buttonLink: '/'
     },
     {
       image: 'https://images.unsplash.com/photo-1573855619003-97b4799dcd8b?w=1200&h=400&fit=crop&crop=center',
       title: 'Weekend Shopping Spree',
-      subtitle: 'Get amazing deals on all your favorite brands'
+      subtitle: 'Get amazing deals on all your favorite brands',
+      buttonText: 'Shop Now',
+      buttonLink: '/deals'
     },
     {
       image: 'https://images.unsplash.com/photo-1532795986-dbef1643a596?w=1200&h=400&fit=crop&crop=center',
       title: 'MEGA SALE EVENT',
-      subtitle: 'Up to 70% off on electronics, fashion, and more!'
+      subtitle: 'Up to 70% off on electronics, fashion, and more!',
+      buttonText: 'Shop Now',
+      buttonLink: '/deals'
     },
     {
       image: 'https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=1200&h=400&fit=crop&crop=center',
       title: 'Black Friday Deals',
-      subtitle: 'Massive discounts across all categories - Limited time only'
+      subtitle: 'Massive discounts across all categories - Limited time only',
+      buttonText: 'Shop Now',
+      buttonLink: '/deals'
     },
     {
       image: 'https://images.pexels.com/photos/5868722/pexels-photo-5868722.jpeg?w=1200&h=400&fit=crop&crop=center',
       title: 'Special Offers',
-      subtitle: 'Exclusive deals and promotional prices just for you'
+      subtitle: 'Exclusive deals and promotional prices just for you',
+      buttonText: 'Shop Now',
+      buttonLink: '/deals'
     },
     {
       image: 'https://images.unsplash.com/photo-1586880244406-556ebe35f282?w=1200&h=400&fit=crop&crop=center',
       title: 'Shop Online Anytime',
-      subtitle: 'Convenient online shopping with fast delivery options'
+      subtitle: 'Convenient online shopping with fast delivery options',
+      buttonText: 'Shop Now',
+      buttonLink: '/'
     }
   ];
 
