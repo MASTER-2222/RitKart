@@ -24,11 +24,12 @@ export default function Home() {
     try {
       setLoading(true);
       
-      // Fetch categories and products in parallel
-      const [categoriesResponse, featuredResponse, electronicsResponse] = await Promise.all([
+      // Fetch all data in parallel
+      const [categoriesResponse, featuredResponse, electronicsResponse, bannersResponse] = await Promise.all([
         apiClient.getCategories(),
         apiClient.getFeaturedProducts(),
-        apiClient.getProductsByCategory('electronics', 6)
+        apiClient.getProductsByCategory('electronics', 6),
+        apiClient.getBanners()
       ]);
 
       if (categoriesResponse.success) {
@@ -43,9 +44,27 @@ export default function Home() {
         setElectronicsProducts(electronicsResponse.data);
       }
 
+      // Handle banners API response
+      if (bannersResponse.success) {
+        const apiHeroBanners = bannersResponse.data.map((banner: any) => ({
+          image: banner.image_url,
+          title: banner.title,
+          subtitle: banner.subtitle || '',
+          buttonText: banner.button_text || 'Shop Now',
+          buttonLink: banner.button_link || '/'
+        }));
+        setHeroBanners(apiHeroBanners);
+      } else {
+        // Fallback to hardcoded banners if API fails
+        console.warn('Banners API failed, using fallback data');
+        setHeroBanners(fallbackHeroBanners);
+      }
+
     } catch (err) {
       console.error('Error fetching data:', err);
       setError('Failed to load data. Please try again.');
+      // Set fallback banners on error
+      setHeroBanners(fallbackHeroBanners);
     } finally {
       setLoading(false);
     }
