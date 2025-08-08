@@ -101,3 +101,110 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Convert hardcoded hero banners, category products, and deals data to be dynamic and fetched from backend/database. All data should come from Supabase database instead of static arrays."
+
+backend:
+  - task: "Create hero_banners table and API integration"
+    implemented: false
+    working: "NA"
+    file: "backend/database-migration.sql, backend/routes/banners.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main" 
+        comment: "Starting database setup for hero banners dynamic system"
+
+  - task: "Create deals table with expiration dates/timers"
+    implemented: false
+    working: "NA"
+    file: "backend/database-migration.sql, backend/routes/deals.js"
+    stuck_count: 0
+    priority: "high"  
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Creating deals system with expiration functionality"
+
+  - task: "Migrate all hardcoded products to database"
+    implemented: false
+    working: "NA"
+    file: "backend/scripts/migrate-products.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Migrating hundreds of hardcoded products from frontend to database"
+
+  - task: "Enhance products API for featured products"
+    implemented: false
+    working: "NA"
+    file: "backend/routes/products.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Adding featured products functionality to existing products API"
+
+frontend:
+  - task: "Replace hardcoded hero banners with API calls"
+    implemented: false
+    working: "NA"
+    file: "app/page.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Converting 8 hardcoded hero banners to dynamic API-fetched banners"
+
+  - task: "Replace hardcoded category products with database queries"
+    implemented: false
+    working: "NA" 
+    file: "app/category/[slug]/CategoryListing.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Converting hundreds of hardcoded products to API-fetched products"
+
+  - task: "Replace hardcoded deals with dynamic deal system"
+    implemented: false
+    working: "NA"
+    file: "app/deals/page.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Converting hardcoded deals to dynamic API-fetched deals with expiration"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Create hero_banners table and API integration"
+    - "Create deals table with expiration dates/timers" 
+    - "Migrate all hardcoded products to database"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Starting comprehensive migration from hardcoded data to dynamic database-driven system. Phase 1: Database setup and data migration."
