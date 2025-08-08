@@ -244,6 +244,7 @@ class RLSProductTester:
         products_by_category = {
             'home': {
                 "name": f"Smart LED Light Bulb {timestamp}",
+                "slug": f"smart-led-light-bulb-{timestamp}",
                 "description": "Energy-efficient smart LED bulb with app control and color changing features.",
                 "price": 24.99,
                 "brand": "SmartLight",
@@ -251,6 +252,7 @@ class RLSProductTester:
             },
             'sports': {
                 "name": f"Professional Basketball {timestamp}",
+                "slug": f"professional-basketball-{timestamp}",
                 "description": "Official size and weight basketball for indoor and outdoor play.",
                 "price": 39.99,
                 "brand": "SportsPro",
@@ -258,6 +260,7 @@ class RLSProductTester:
             },
             'grocery': {
                 "name": f"Organic Protein Powder {timestamp}",
+                "slug": f"organic-protein-powder-{timestamp}",
                 "description": "Plant-based organic protein powder with vanilla flavor.",
                 "price": 49.99,
                 "brand": "NutriOrg",
@@ -265,6 +268,7 @@ class RLSProductTester:
             },
             'appliances': {
                 "name": f"Compact Air Fryer {timestamp}",
+                "slug": f"compact-air-fryer-{timestamp}",
                 "description": "3.5L capacity air fryer with digital controls and preset cooking modes.",
                 "price": 89.99,
                 "brand": "KitchenPro",
@@ -272,6 +276,7 @@ class RLSProductTester:
             },
             'solar': {
                 "name": f"Solar Panel Kit {timestamp}",
+                "slug": f"solar-panel-kit-{timestamp}",
                 "description": "100W monocrystalline solar panel kit with charge controller.",
                 "price": 199.99,
                 "brand": "SolarTech",
@@ -279,6 +284,7 @@ class RLSProductTester:
             },
             'pharmacy': {
                 "name": f"Digital Thermometer {timestamp}",
+                "slug": f"digital-thermometer-{timestamp}",
                 "description": "Fast and accurate digital thermometer with fever alarm.",
                 "price": 19.99,
                 "brand": "HealthCare",
@@ -286,6 +292,7 @@ class RLSProductTester:
             },
             'beauty': {
                 "name": f"Vitamin C Serum {timestamp}",
+                "slug": f"vitamin-c-serum-{timestamp}",
                 "description": "Anti-aging vitamin C serum with hyaluronic acid for glowing skin.",
                 "price": 34.99,
                 "brand": "GlowBeauty",
@@ -295,6 +302,7 @@ class RLSProductTester:
 
         base_data = products_by_category.get(category_slug, {
             "name": f"Test Product {timestamp}",
+            "slug": f"test-product-{timestamp}",
             "description": "Test product description",
             "price": 29.99,
             "brand": "TestBrand",
