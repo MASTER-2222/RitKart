@@ -166,6 +166,20 @@ backend:
         comment: "✅ FEATURED PRODUCTS API WORKING - Retrieved 13 featured products successfully. API endpoint /api/products?featured=true is fully functional."
 
 frontend:
+  - task: "Replace hardcoded deals with dynamic deal system"
+    implemented: false
+    working: "NA"
+    file: "app/deals/page.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Converting hardcoded deals to dynamic API-fetched deals with expiration"
+      - working: "PENDING"
+        agent: "main"
+        comment: "⏳ PENDING: Deals migration depends on resolving RLS authentication issue for product creation. Backend deals API working (1 deal available). Will implement after authentication resolution."
   - task: "Replace hardcoded hero banners with API calls"
     implemented: true
     working: "NA"
