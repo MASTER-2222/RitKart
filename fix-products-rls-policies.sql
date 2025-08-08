@@ -16,14 +16,14 @@ FOR UPDATE USING (true);
 CREATE POLICY "Allow product deletes" ON public.products 
 FOR DELETE USING (true);
 
--- Also add policies for categories (if not exist)
-CREATE POLICY IF NOT EXISTS "Allow category inserts" ON public.categories 
+-- Also add policies for categories
+CREATE POLICY "Allow category inserts" ON public.categories 
 FOR INSERT WITH CHECK (true);
 
-CREATE POLICY IF NOT EXISTS "Allow category updates" ON public.categories 
+CREATE POLICY "Allow category updates" ON public.categories 
 FOR UPDATE USING (true);
 
-CREATE POLICY IF NOT EXISTS "Allow category deletes" ON public.categories 
+CREATE POLICY "Allow category deletes" ON public.categories 
 FOR DELETE USING (true);
 
 -- Completion message
