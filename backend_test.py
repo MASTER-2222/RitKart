@@ -111,23 +111,98 @@ class RitZoneAPITester:
                 f"Failed to get categories - Status: {status}, Response: {data}"
             )
 
-    def test_products_api(self):
-        """Test products API"""
-        print("\n🛍️ Testing Products API...")
-        success, status, data = self.make_request('GET', '/products?limit=5')
+    def test_products_by_category(self):
+        """Test products by category endpoints"""
+        print("\n🛍️ Testing Products by Category...")
+        
+        categories_to_test = ['electronics', 'fashion', 'books', 'home', 'sports']
+        results = {}
+        
+        for category in categories_to_test:
+            success, status, data = self.make_request('GET', f'/products/category/{category}')
+            
+            if success and data.get('success'):
+                products = data.get('data', [])
+                results[category] = len(products)
+                self.log_test(
+                    f"Products - {category.title()}", 
+                    True, 
+                    f"Retrieved {len(products)} products"
+                )
+            else:
+                results[category] = 0
+                self.log_test(
+                    f"Products - {category.title()}", 
+                    False, 
+                    f"Failed to get {category} products - Status: {status}"
+                )
+        
+        # Summary
+        total_products = sum(results.values())
+        categories_with_data = [cat for cat, count in results.items() if count > 0]
+        
+        print(f"\n📊 Category Products Summary:")
+        for cat, count in results.items():
+            print(f"   {cat.title()}: {count} products")
+        
+        return len(categories_with_data) > 0
+
+    def test_featured_products(self):
+        """Test featured products API"""
+        print("\n⭐ Testing Featured Products...")
+        success, status, data = self.make_request('GET', '/products?featured=true')
         
         if success and data.get('success'):
             products = data.get('data', [])
             return self.log_test(
-                "Products API", 
+                "Featured Products", 
                 True, 
-                f"Retrieved {len(products)} products"
+                f"Retrieved {len(products)} featured products"
             )
         else:
             return self.log_test(
-                "Products API", 
+                "Featured Products", 
                 False, 
-                f"Failed to get products - Status: {status}, Response: {data}"
+                f"Failed to get featured products - Status: {status}, Response: {data}"
+            )
+
+    def test_banners_api(self):
+        """Test banners API"""
+        print("\n🎯 Testing Banners API...")
+        success, status, data = self.make_request('GET', '/banners')
+        
+        if success and data.get('success'):
+            banners = data.get('data', [])
+            return self.log_test(
+                "Banners API", 
+                True, 
+                f"Retrieved {len(banners)} banners"
+            )
+        else:
+            return self.log_test(
+                "Banners API", 
+                False, 
+                f"Failed to get banners - Status: {status}, Response: {data}"
+            )
+
+    def test_deals_api(self):
+        """Test deals API"""
+        print("\n🏷️ Testing Deals API...")
+        success, status, data = self.make_request('GET', '/deals')
+        
+        if success and data.get('success'):
+            deals = data.get('data', [])
+            active_deals = [deal for deal in deals if deal.get('is_active', False)]
+            return self.log_test(
+                "Deals API", 
+                True, 
+                f"Retrieved {len(deals)} deals ({len(active_deals)} active)"
+            )
+        else:
+            return self.log_test(
+                "Deals API", 
+                False, 
+                f"Failed to get deals - Status: {status}, Response: {data}"
             )
 
     def test_user_registration(self):
