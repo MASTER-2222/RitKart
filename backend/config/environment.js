@@ -43,7 +43,7 @@ const environment = {
   // 🌐 SERVER CONFIGURATION
   // ==============================================
   server: {
-    port: parseInt(process.env.BACKEND_PORT || '8001'),
+    port: parseInt(process.env.PORT || process.env.BACKEND_PORT || '8001'),
     host: process.env.BACKEND_HOST || '0.0.0.0',
     apiPrefix: process.env.BACKEND_API_PREFIX || '/api',
     nodeEnv: process.env.NODE_ENV || 'development',
