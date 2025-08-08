@@ -217,7 +217,7 @@ export default function Home() {
         <div className="relative mb-6">
           <div
             className="h-96 bg-cover bg-center relative"
-            style={{ backgroundImage: `url(${heroBanners[currentHeroBanner].image})` }}
+            style={{ backgroundImage: `url(${heroBanners[currentHeroBanner]?.image || 'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?w=1200&h=400&fit=crop&crop=center'})` }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
             <div className="relative z-10 flex items-center justify-between h-full px-8">
