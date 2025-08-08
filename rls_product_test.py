@@ -135,6 +135,7 @@ class RLSProductTester:
         timestamp = datetime.now().strftime('%H%M%S')
         product_data = {
             "name": f"Smart Home Security Camera {timestamp}",
+            "slug": f"smart-home-security-camera-{timestamp}",
             "description": "High-definition wireless security camera with night vision and motion detection. Perfect for home monitoring and security.",
             "price": 149.99,
             "original_price": 199.99,
