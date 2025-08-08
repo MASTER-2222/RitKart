@@ -237,9 +237,10 @@ metadata:
 test_plan:
   current_focus:
     - "Replace hardcoded hero banners with API calls"
-    - "Replace hardcoded deals with dynamic deal system" 
+    - "Resolve RLS authentication for product creation"
     - "Verify all category products are using dynamic API calls"
-  stuck_tasks: []
+  stuck_tasks:
+    - "Resolve RLS authentication for product creation"
   test_all: false
   test_priority: "high_first"
 
