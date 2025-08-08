@@ -1,12 +1,5 @@
 // Simple script to populate hero banners
-const fs = require('fs');
-const path = require('path');
-
-// Load the backend services
-const backendPath = path.join(__dirname, 'backend');
-process.chdir(backendPath);
-
-const { bannerService } = require('./services/supabase-service');
+const { bannerService } = require('./backend/services/supabase-service');
 
 async function populateHeroBanners() {
   console.log('🚀 Populating hero banners...');
