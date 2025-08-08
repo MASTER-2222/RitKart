@@ -1,0 +1,63 @@
+# Render Blueprint for RitZone Deployment
+# This file helps with automated deployment on Render
+
+services:
+  # RitZone Backend API
+  - type: web
+    name: ritkart-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    region: oregon
+    branch: main
+    healthCheckPath: /api/actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://ritkart-admin:RakAJVBURLCJ0uHy@ritkart-cluster.yopyqig.mongodb.net/ritkart?retryWrites=true&w=majority&appName=ritkart-cluster
+      - key: MONGODB_DATABASE
+        value: ritkart
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://ritkart-frontend.onrender.com
+      - key: ADMIN_DEFAULT_EMAIL
+        value: admin@ritzone.com
+      - key: ADMIN_DEFAULT_PASSWORD
+        value: RitZone@Admin2025
+      - key: PORT
+        value: 8080
+
+  # RitZone Frontend
+  - type: web
+    name: ritkart-frontend
+    env: node
+    region: oregon
+    plan: free # Change to starter or standard for production
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_APP_NAME
+        value: RitZone
+      - key: NEXT_PUBLIC_APP_VERSION
+        value: "1.0.0"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: PORT
+        value: "3000"
+      - key: HOST
+        value: "0.0.0.0"
+      - key: NEXT_PUBLIC_APP_URL
+        value: "https://ritkart-frontend.onrender.com/"
+      - key: NEXT_PUBLIC_API_URL
+        value: "https://ritkart-backend.onrender.com/api"
+      # Add your other environment variables here
+      # Example:
+      # - key: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+      #   sync: false # This means you'll set it manually in Render dashboard
+      # - key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+      #   sync: false
