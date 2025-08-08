@@ -1,5 +1,5 @@
 
-import CategoryListing from './CategoryListing';
+import CategoryListingDynamic from './CategoryListingDynamic';
 
 export async function generateStaticParams() {
   return [
@@ -18,5 +18,5 @@ export async function generateStaticParams() {
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return <CategoryListing categorySlug={slug} />;
+  return <CategoryListingDynamic categorySlug={slug} />;
 }
