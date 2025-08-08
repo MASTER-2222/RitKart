@@ -425,6 +425,7 @@ async function migrateAllCategoryProducts() {
 
     return; // Exit early for testing
 
+    /*
     // Category 2: FASHION
     console.log('\n👕 Migrating FASHION Category Products...');
     for (let i = 0; i < fashionProducts.length; i++) {
@@ -440,6 +441,7 @@ async function migrateAllCategoryProducts() {
         console.log(`   ❌ Failed: ${product.title.slice(0, 30)}...`);
       }
     }
+    */
 
     // Category 3: BOOKS
     console.log('\n📚 Migrating BOOKS Category Products...');
