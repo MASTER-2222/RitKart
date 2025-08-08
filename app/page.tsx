@@ -132,6 +132,8 @@ export default function Home() {
 
   // Auto-advance slider every 2 seconds
   useEffect(() => {
+    if (heroBanners.length === 0) return; // Don't start interval if no banners
+    
     const interval = setInterval(() => {
       setCurrentHeroBanner((prev) => (prev + 1) % heroBanners.length);
     }, 2000); // 2 seconds
