@@ -120,7 +120,9 @@ async function createProduct(productData, categoryName) {
       .single();
 
     if (error) {
-      console.error(`❌ Error creating product ${productData.title.slice(0, 30)}:`, error.message);
+      console.error(`❌ Error creating product ${productData.title.slice(0, 30)}:`);
+      console.error('   Error details:', error);
+      console.error('   Product data:', JSON.stringify(product, null, 2));
       return null;
     }
 
