@@ -417,31 +417,22 @@ class RitZoneAPITester:
         return self.log_test("Order Operations", False, "Could not complete order tests - no products available")
 
     def run_all_tests(self):
-        """Run complete test suite"""
+        """Run complete test suite for RitZone Category Products Migration"""
         print("=" * 60)
         print("🚀 RitZone Backend API Testing Suite")
+        print("📋 Phase 1: Category Products Migration Testing")
         print("=" * 60)
         print(f"📅 Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"🌐 Testing endpoint: {self.base_url}")
         print("=" * 60)
 
-        # Core API Tests
+        # Core API Tests for Migration
         self.test_health_check()
         self.test_categories_api()
-        self.test_products_api()
-        
-        # Authentication Tests
-        auth_success = self.test_user_registration()
-        if not auth_success or not self.token:
-            # Fallback to login test
-            self.test_user_login()
-        
-        # Cart & Order Tests (require authentication)
-        if self.token:
-            self.test_cart_operations()
-            self.test_order_operations()
-        else:
-            self.log_test("Cart & Order Tests", False, "Skipped - No authentication token")
+        self.test_products_by_category()
+        self.test_featured_products()
+        self.test_banners_api()
+        self.test_deals_api()
 
         # Print Results Summary
         print("\n" + "=" * 60)
