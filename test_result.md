@@ -277,9 +277,14 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Books category products migration (36 products)"
-  stuck_tasks:
-    - "Migrate Fashion category products to database"
+    - "Home & Garden category products migration (~34 products)"
+    - "Sports & Outdoors category products migration (~35 products)"
+    - "Grocery category products migration (~35 products)"
+    - "Appliances category products migration (~35 products)"
+    - "Solar category products migration (~35 products)"
+    - "Pharmacy category products migration (~35 products)" 
+    - "Beauty & Personal Care category products migration (~35 products)"
+  stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
