@@ -11,7 +11,7 @@ import sys
 from datetime import datetime
 
 class DetailedFashionAnalyzer:
-    def __init__(self, base_url="https://ritkart-backend.onrender.com/api"):
+    def __init__(self, base_url="https://9f780522-c635-49f1-a5a3-a56d4599401f.preview.emergentagent.com/api"):
         self.base_url = base_url
 
     def make_request(self, method, endpoint, data=None, expected_status=200):
