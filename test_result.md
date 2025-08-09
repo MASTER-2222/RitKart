@@ -311,13 +311,12 @@ metadata:
       - working: true
         agent: "main"
         comment: "🎉 GROCERY MIGRATION COMPLETE: Successfully migrated all 36 hardcoded Grocery products to database with 100% success rate! Category now has 37 products total (1 original + 36 migrated). Products include premium grocery brands like Organic, Whole Foods, General Mills, Butterball, Fage, Wild Planet, Lundberg, Justin's, Vital Farms, Driscoll's, and more. All products have proper data structure with ratings, prices, brands, images. API verified working perfectly."
-    - "Home & Garden category products migration (~34 products)"
-    - "Sports & Outdoors category products migration (~35 products)"
-    - "Grocery category products migration (~35 products)"
-    - "Appliances category products migration (~35 products)"
-    - "Solar category products migration (~35 products)"
-    - "Pharmacy category products migration (~35 products)" 
-    - "Beauty & Personal Care category products migration (~35 products)"
+test_plan:
+  current_focus:
+    - "Appliances category products migration (36 products)"
+    - "Solar category products migration (24 products)"
+    - "Pharmacy category products migration (36 products)"
+    - "Beauty & Personal Care category products migration (12 products)"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
