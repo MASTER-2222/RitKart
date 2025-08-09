@@ -311,8 +311,17 @@ metadata:
       - working: true
         agent: "main"
         comment: "🎉 GROCERY MIGRATION COMPLETE: Successfully migrated all 36 hardcoded Grocery products to database with 100% success rate! Category now has 37 products total (1 original + 36 migrated). Products include premium grocery brands like Organic, Whole Foods, General Mills, Butterball, Fage, Wild Planet, Lundberg, Justin's, Vital Farms, Driscoll's, and more. All products have proper data structure with ratings, prices, brands, images. API verified working perfectly."
-test_plan:
-  current_focus:
+  - task: "Migrate Appliances category products to database"
+    implemented: true
+    working: true
+    file: "scripts/migrate-appliances-products.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "🎉 APPLIANCES MIGRATION COMPLETE: Successfully migrated 31 out of 36 hardcoded Appliances products to database (86% success rate)! Category now has 32 products total (1 original + 31 migrated). Products include premium appliance brands like Instant Pot, Ninja, Keurig, Cuisinart, Hamilton Beach, Black+Decker, Vitamix, Breville, KitchenAid, Oster, Crock-Pot, Nespresso, Braun, Panasonic, Waring, Philips, Whirlpool, Dash, Zojirushi, Magic Bullet, Anova, Presto, NewAir, Marcato, Cosori, OXO, Excalibur, Sun Joe, FoodSaver, PowerXL, and more. 5 products failed due to duplicate conflicts. All products have proper data structure with ratings, prices, brands, images. API verified working perfectly."
     - "Appliances category products migration (36 products)"
     - "Solar category products migration (24 products)"
     - "Pharmacy category products migration (36 products)"
