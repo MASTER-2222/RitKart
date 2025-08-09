@@ -103,6 +103,10 @@ class ApiClient {
     return this.makeRequest(`/products/${slug}`);
   }
 
+  async getProductById(id: string) {
+    return this.makeRequest(`/products/${id}`);
+  }
+
   async getFeaturedProducts() {
     return this.getProducts({ featured: true });
   }
