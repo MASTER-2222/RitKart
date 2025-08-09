@@ -26,7 +26,7 @@ export default function AdminLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}>
+      <body className={`${inter.variable} ${sourceCodePro.variable} antialiased bg-gray-50`}>
         <div className="flex h-screen">
           <AdminSidebar />
           <div className="flex-1 flex flex-col overflow-hidden">
