@@ -268,7 +268,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Fashion migration verification and completion"
+    - "Books category products migration (36 products)"
   stuck_tasks:
     - "Migrate Fashion category products to database"
   test_all: false
