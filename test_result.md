@@ -166,6 +166,17 @@ backend:
         comment: "✅ FEATURED PRODUCTS API WORKING - Retrieved 13 featured products successfully. API endpoint /api/products?featured=true is fully functional."
 
 frontend:
+  - task: "Migrate Books category products to database"
+    implemented: false
+    working: "NA"
+    file: "scripts/migrate-books-products.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "📋 NEXT IN DEPENDENCY CHAIN: After successful Fashion migration (36 products), Books category is next. Currently has 1 product, needs migration of 36+ hardcoded Books products from CategoryListing.tsx to database."
   - task: "Migrate Fashion category products to database"
     implemented: true
     working: false
