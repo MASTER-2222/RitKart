@@ -183,6 +183,20 @@ frontend:
       - working: true
         agent: "main"
         comment: "🎉 BOOKS MIGRATION COMPLETE: Successfully migrated all 36 hardcoded Books products to database with 100% success rate! Books category now has 37 products total (1 existing + 36 migrated). Includes popular titles like Harry Potter, 1984, Atomic Habits. API verified working. Ready for next category."
+  - task: "Migrate Home & Garden category products to database"
+    implemented: true
+    working: true
+    file: "scripts/migrate-home-products.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "📋 STARTING HOME MIGRATION: Home & Garden category currently has 2 products, needs migration of 36 hardcoded products (h1-h36) from CategoryListing.tsx to database."
+      - working: true
+        agent: "main"
+        comment: "🎉 HOME & GARDEN MIGRATION COMPLETE: Successfully migrated all 36 hardcoded Home & Garden products to database with 100% success rate! Category now has 38 products total (2 original + 36 migrated). Products include premium brands like Instant Pot, KitchenAid, Ninja, Shark, Dyson, Cuisinart, Weber, Traeger, and more. All products have proper data structure with ratings, prices, brands, images. API verified working perfectly."
   - task: "Migrate Fashion category products to database"
     implemented: true
     working: true
