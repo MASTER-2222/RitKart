@@ -257,8 +257,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Fashion migration verification and testing"
-  stuck_tasks: []
+    - "Fashion migration verification and completion"
+  stuck_tasks:
+    - "Migrate Fashion category products to database"
   test_all: false
   test_priority: "high_first"
 
