@@ -3,19 +3,14 @@
 // This script adds detailed descriptions, features, and specifications 
 // to existing products to support comprehensive individual product pages
 
+const { environment } = require('../config/environment');
 const { createClient } = require('@supabase/supabase-js');
-require('dotenv').config();
 
-// Supabase configuration
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-if (!supabaseUrl || !supabaseServiceKey) {
-  console.error('❌ Missing Supabase environment variables');
-  process.exit(1);
-}
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+// Initialize Supabase client
+const supabase = createClient(
+  environment.supabase.url,
+  environment.supabase.anonKey
+);
 
 // Enhanced product details by category and product type
 const productEnhancements = {
