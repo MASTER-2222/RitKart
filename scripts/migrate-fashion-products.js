@@ -176,7 +176,7 @@ const fashionProducts = [
     rating: 4.6,
     reviewCount: 23456,
     image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=300&fit=crop&crop=center',
-    iPrime: true,
+    isPrime: true,
     discount: 13,
     brand: 'Vans'
   },
