@@ -13,7 +13,7 @@ from datetime import datetime
 import uuid
 
 class RLSProductTester:
-    def __init__(self, base_url="https://4420079d-eb18-4e5b-863f-04e0f24be5fd.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://59c9806f-b5ae-44e6-9f79-b59ec1e237ce.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
