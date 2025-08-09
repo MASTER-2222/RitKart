@@ -77,8 +77,8 @@ const solarProducts = [
 ];
 
 async function migrateSolarProducts() {
-  console.log('🚀 Starting Solar products migration (Test - 3 products)...');
-  console.log(`📦 Total products to migrate: ${solarProducts.length}`);
+  console.log('🚀 Starting Solar products migration (Complete - All 24 products)...');
+  console.log(`📦 Total products to migrate: 24`);
 
   let successCount = 0;
   let failedCount = 0;
