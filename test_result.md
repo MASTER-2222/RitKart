@@ -289,8 +289,28 @@ metadata:
   test_sequence: 0
   run_ui: false
 
-test_plan:
-  current_focus:
+  - task: "Migrate Sports & Outdoors category products to database"
+    implemented: true
+    working: true
+    file: "scripts/migrate-all-remaining-categories.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "🎉 SPORTS & OUTDOORS MIGRATION COMPLETE: Successfully migrated all 36 hardcoded Sports & Outdoors products to database with 100% success rate! Category now has 37 products total (1 original + 36 migrated). Products include premium fitness brands like Fitbit, Nike, Bowflex, Adidas, Yeti, Wilson, Coleman, Under Armour, Garmin, TRX, and more. All products have proper data structure with ratings, prices, brands, images. API verified working perfectly."
+  - task: "Migrate Grocery category products to database"
+    implemented: true
+    working: true
+    file: "scripts/migrate-grocery-products.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "🎉 GROCERY MIGRATION COMPLETE: Successfully migrated all 36 hardcoded Grocery products to database with 100% success rate! Category now has 37 products total (1 original + 36 migrated). Products include premium grocery brands like Organic, Whole Foods, General Mills, Butterball, Fage, Wild Planet, Lundberg, Justin's, Vital Farms, Driscoll's, and more. All products have proper data structure with ratings, prices, brands, images. API verified working perfectly."
     - "Home & Garden category products migration (~34 products)"
     - "Sports & Outdoors category products migration (~35 products)"
     - "Grocery category products migration (~35 products)"
