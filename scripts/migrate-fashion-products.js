@@ -485,7 +485,7 @@ async function migrateFashionProducts() {
     const productData = {
       name: product.title,
       slug: slug,
-      description: `${product.title} - Premium quality fashion item from ${product.brand}`,
+      description: `${product.title} - Premium quality fashion item from ${product.brand}. Rating: ${product.rating}/5 stars with ${product.reviewCount} reviews. ${product.isPrime ? 'Prime eligible.' : ''} ${product.discount ? `Save ${product.discount}%!` : ''}`,
       short_description: `High-quality ${product.brand} fashion item with ${product.rating}-star rating`,
       sku: `${product.brand.replace(/\s+/g, '').toUpperCase()}-${product.id.toUpperCase()}-001`,
       price: product.price,
@@ -496,13 +496,10 @@ async function migrateFashionProducts() {
       low_stock_threshold: 5,
       is_active: true,
       is_featured: Math.random() > 0.7, // 30% chance of being featured
-      rating: product.rating,
-      review_count: product.reviewCount,
-      images: [product.image],
-      tags: ['fashion', product.brand.toLowerCase()],
-      discount_percentage: product.discount,
-      is_prime: product.isPrime,
-      is_delivery_tomorrow: product.isDeliveryTomorrow || false
+      rating_average: product.rating,
+      rating_count: Math.floor(product.reviewCount / 10), // Approximation
+      total_reviews: product.reviewCount,
+      images: [product.image]
     };
 
     try {
