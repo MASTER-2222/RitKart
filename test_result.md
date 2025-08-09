@@ -322,6 +322,42 @@ metadata:
       - working: true
         agent: "main"
         comment: "🎉 APPLIANCES MIGRATION COMPLETE: Successfully migrated 31 out of 36 hardcoded Appliances products to database (86% success rate)! Category now has 32 products total (1 original + 31 migrated). Products include premium appliance brands like Instant Pot, Ninja, Keurig, Cuisinart, Hamilton Beach, Black+Decker, Vitamix, Breville, KitchenAid, Oster, Crock-Pot, Nespresso, Braun, Panasonic, Waring, Philips, Whirlpool, Dash, Zojirushi, Magic Bullet, Anova, Presto, NewAir, Marcato, Cosori, OXO, Excalibur, Sun Joe, FoodSaver, PowerXL, and more. 5 products failed due to duplicate conflicts. All products have proper data structure with ratings, prices, brands, images. API verified working perfectly."
+
+  - task: "Migrate Solar category products to database"
+    implemented: false
+    working: "NA"
+    file: "scripts/migrate-solar-products.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "📋 STARTING SOLAR MIGRATION: Solar category has 1 existing product, needs migration of 24 hardcoded Solar products from CategoryListing.tsx to database. Solar products include panels, inverters, batteries, charge controllers."
+
+  - task: "Migrate Pharmacy category products to database"
+    implemented: false
+    working: "NA"
+    file: "scripts/migrate-pharmacy-products.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "📋 PENDING: Pharmacy category has 1 existing product, needs migration of 36 hardcoded Pharmacy products from CategoryListing.tsx to database."
+
+  - task: "Migrate Beauty & Personal Care category products to database"
+    implemented: false
+    working: "NA"
+    file: "scripts/migrate-beauty-products.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "📋 PENDING: Beauty category has 1 existing product, needs migration of 12 hardcoded Beauty products from CategoryListing.tsx to database."
     - "Appliances category products migration (36 products)"
     - "Solar category products migration (24 products)"
     - "Pharmacy category products migration (36 products)"
