@@ -368,9 +368,35 @@ metadata:
         agent: "main"
         comment: "🎉 BEAUTY MIGRATION COMPLETE: Successfully migrated all 12 hardcoded Beauty products to database with 100% success rate! Beauty category now has 13 products total (1 original + 12 migrated). Products include premium beauty brands like CeraVe, The Ordinary, Maybelline, Neutrogena, L'Oreal Paris, Fenty Beauty, Olaplex, Rare Beauty, Drunk Elephant, Urban Decay, Glossier, Sunday Riley. All products have proper data structure with ratings, prices, brands, images. API verified working perfectly."
 
+  - task: "Fix Individual Product Pages - Make them dynamic instead of hardcoded"
+    implemented: false
+    working: false
+    file: "app/product/[id]/ProductDetail.tsx, backend/services/supabase-service.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🔍 ANALYSIS COMPLETE - Found the root issue: ProductDetail.tsx uses hardcoded product data instead of fetching from database. Need to convert to dynamic API calls using existing getProductById endpoint."
+
+  - task: "Enhance Database Products with Individual Product Data"
+    implemented: false
+    working: false
+    file: "backend/scripts/enhance-products-details.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "📋 READY TO START - Database products have basic info but missing detailed descriptions, features, specifications, and reviews needed for comprehensive individual product pages."
+
 agent_communication:
   - agent: "main"
-    message: "🎊 PHASE 1 COMPLETE - CATEGORY PRODUCTS MIGRATION 100% SUCCESSFUL! All 10 categories now have comprehensive product databases: ✅ Electronics (46 products), ✅ Fashion (38 products), ✅ Books (37 products), ✅ Home & Garden (38 products), ✅ Sports & Outdoors (37 products), ✅ Grocery (37 products), ✅ Appliances (32 products), ✅ Solar (29 products), ✅ Pharmacy (37 products), ✅ Beauty (13 products). Total: 344+ products migrated across all categories. Database migration from hardcoded arrays to dynamic API-driven system COMPLETE. Ready for Phase 2: Deals Page Migration."
+    message: "🎊 PHASE 1 COMPLETE - CATEGORY PRODUCTS MIGRATION 100% SUCCESSFUL! All 10 categories now have comprehensive product databases: ✅ Electronics (46 products), ✅ Fashion (38 products), ✅ Books (37 products), ✅ Home & Garden (38 products), ✅ Sports & Outdoors (37 products), ✅ Grocery (37 products), ✅ Appliances (32 products), ✅ Solar (29 products), ✅ Pharmacy (37 products), ✅ Beauty (13 products). Total: 344+ products migrated across all categories. Database migration from hardcoded arrays to dynamic API-driven system COMPLETE. Ready for Phase 2: Individual Product Pages."
+  - agent: "main"
+    message: "🔍 PHASE 2 ANALYSIS COMPLETE - Individual Product Pages Issue Identified: ProductDetail.tsx contains hardcoded data for only ~20 products, but database has 344+ products. Need to: 1) Make ProductDetail.tsx dynamic with API calls, 2) Enhance database products with detailed info (descriptions, features, specifications), 3) Add reviews functionality. Starting implementation now."
     - "Appliances category products migration (36 products)"
     - "Solar category products migration (24 products)"
     - "Pharmacy category products migration (36 products)"
