@@ -12,19 +12,28 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+const solarCategoryId = '1a2683d9-5a1b-4488-a92e-1562a816ad8e'; // Solar category UUID
+
 const solarProducts = [
   {
-    id: 'so1',
     name: 'Renogy 100 Watt 12 Volt Monocrystalline Solar Panel - High Efficiency',
+    slug: 'renogy-100w-monocrystalline-solar-panel',
+    description: 'High-efficiency monocrystalline solar panel designed for off-grid and grid-tie applications. Features advanced cell technology for maximum power output.',
+    short_description: 'High-efficiency 100W monocrystalline solar panel',
+    sku: 'SO1-RENOGY-100W-MONO',
     price: 109,
     original_price: 149,
-    discount_percentage: 27,
-    rating: 4.7,
-    review_count: 12456,
-    image_url: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
+    category_id: solarCategoryId,
     brand: 'Renogy',
-    category: 'Solar'
+    stock_quantity: 50,
+    is_active: true,
+    is_featured: false,
+    images: ['https://images.unsplash.com/photo-1509391366360-2e959784a276?w=300&h=300&fit=crop&crop=center'],
+    features: ['100W Power Output', '12V System Compatible', 'Monocrystalline Technology', 'Weather Resistant'],
+    specifications: { "power": "100W", "voltage": "12V", "efficiency": "High", "type": "Monocrystalline" },
+    rating_average: 4.7,
+    rating_count: 12456,
+    total_reviews: 12456
   },
   {
     id: 'so2',
