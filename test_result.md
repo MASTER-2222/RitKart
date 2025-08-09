@@ -175,6 +175,21 @@ backend:
         agent: "testing"
         comment: "✅ FEATURED PRODUCTS API WORKING - Retrieved 13 featured products successfully. API endpoint /api/products?featured=true is fully functional."
 
+  - task: "Fix Render.com Deployment Configuration Issue"
+    implemented: true
+    working: true
+    file: "next.config.js, app/layout.tsx, app/admin/layout.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🚨 DEPLOYMENT ERROR: Render.com frontend deployment failing with 'Configuring Next.js via next.config.ts is not supported' - TypeScript config files not supported by Render platform."
+      - working: true
+        agent: "main"
+        comment: "✅ RENDER.COM DEPLOYMENT FIX COMPLETE: Converted next.config.ts to next.config.js (JavaScript), removed TypeScript imports/types, replaced Geist fonts with Inter/Source_Code_Pro for better compatibility, fixed both layouts. Build test successful with 35 pages compiled. Deployment configuration error resolved."
+
 frontend:
   - task: "Migrate Books category products to database"
     implemented: true
