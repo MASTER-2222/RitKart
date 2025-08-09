@@ -1,7 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 
-// Get environment variables
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
@@ -36,308 +35,49 @@ const solarProducts = [
     total_reviews: 12456
   },
   {
-    id: 'so2',
     name: 'Goal Zero Yeti 1500X Portable Power Station - Solar Generator',
+    slug: 'goal-zero-yeti-1500x-power-station',
+    description: 'High-capacity portable power station with solar charging capability. Perfect for outdoor adventures and emergency backup power.',
+    short_description: 'Portable 1500Wh solar power station',
+    sku: 'SO2-GOALZERO-YETI1500X',
     price: 1999,
     original_price: 2299,
-    discount_percentage: 13,
-    rating: 4.6,
-    review_count: 8934,
-    image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
+    category_id: solarCategoryId,
     brand: 'Goal Zero',
-    category: 'Solar'
+    stock_quantity: 15,
+    is_active: true,
+    is_featured: true,
+    images: ['https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=300&fit=crop&crop=center'],
+    features: ['1500Wh Capacity', 'Solar Charging', 'Multiple Outputs', 'LCD Display'],
+    specifications: { "capacity": "1500Wh", "weight": "45.6 lbs", "charging": "Solar/AC/12V", "outputs": "AC/DC/USB" },
+    rating_average: 4.6,
+    rating_count: 8934,
+    total_reviews: 8934
   },
   {
-    id: 'so3',
     name: 'AIMS Power 1500W Pure Sine Wave Inverter - 12V DC to AC Converter',
+    slug: 'aims-power-1500w-sine-wave-inverter',
+    description: 'Pure sine wave power inverter converts 12V DC to 110V AC power. Ideal for solar systems and RV applications.',
+    short_description: 'Pure sine wave 1500W power inverter',
+    sku: 'SO3-AIMS-1500W-INVERTER',
     price: 299,
     original_price: 399,
-    discount_percentage: 25,
-    rating: 4.4,
-    review_count: 5672,
-    image_url: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
+    category_id: solarCategoryId,
     brand: 'AIMS Power',
-    category: 'Solar'
-  },
-  {
-    id: 'so4',
-    name: 'Battle Born 100Ah 12V LiFePO4 Deep Cycle Battery - Solar Ready',
-    price: 949,
-    original_price: 1099,
-    discount_percentage: 14,
-    rating: 4.8,
-    review_count: 3456,
-    image_url: 'https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'Battle Born',
-    category: 'Solar'
-  },
-  {
-    id: 'so5',
-    name: 'Victron Energy SmartSolar MPPT 100/20 Solar Charge Controller',
-    price: 159,
-    original_price: 199,
-    discount_percentage: 20,
-    rating: 4.7,
-    review_count: 7890,
-    image_url: 'https://images.unsplash.com/photo-1624970622108-b4d7ab11b8d0?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'Victron Energy',
-    category: 'Solar'
-  },
-  {
-    id: 'so6',
-    name: 'ECO-WORTHY 400W Solar Panel Kit Complete Off Grid System',
-    price: 449,
-    original_price: 599,
-    discount_percentage: 25,
-    rating: 4.5,
-    review_count: 9876,
-    image_url: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'ECO-WORTHY',
-    category: 'Solar'
-  },
-  {
-    id: 'so7',
-    name: 'Jackery SolarSaga 100W Portable Solar Panel for Power Station',
-    price: 199,
-    original_price: 249,
-    discount_percentage: 20,
-    rating: 4.6,
-    review_count: 15678,
-    image_url: 'https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'Jackery',
-    category: 'Solar'
-  },
-  {
-    id: 'so8',
-    name: 'WindyNation 200W Solar Panel Kit with PWM Charge Controller',
-    price: 249,
-    original_price: 329,
-    discount_percentage: 24,
-    rating: 4.3,
-    review_count: 6789,
-    image_url: 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'WindyNation',
-    category: 'Solar'
-  },
-  {
-    id: 'so9',
-    name: 'Grape Solar 300W Monocrystalline Solar Panel - Residential Grade',
-    price: 319,
-    original_price: 399,
-    discount_percentage: 20,
-    rating: 4.5,
-    review_count: 4321,
-    image_url: 'https://images.unsplash.com/photo-1562583489-bf23ec64651c?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'Grape Solar',
-    category: 'Solar'
-  },
-  {
-    id: 'so10',
-    name: 'SUNER POWER 12V Solar Car Battery Charger & Maintainer',
-    price: 39.99,
-    original_price: 59.99,
-    discount_percentage: 33,
-    rating: 4.4,
-    review_count: 12345,
-    image_url: 'https://images.unsplash.com/photo-1541123603104-512919d6a96c?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'SUNER POWER',
-    category: 'Solar'
-  },
-  {
-    id: 'so11',
-    name: 'ALLPOWERS 100W Flexible Solar Panel for RV Boat Marine',
-    price: 129,
-    original_price: 179,
-    discount_percentage: 28,
-    rating: 4.2,
-    review_count: 8765,
-    image_url: 'https://images.unsplash.com/photo-1475224937481-993c881e3c05?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'ALLPOWERS',
-    category: 'Solar'
-  },
-  {
-    id: 'so12',
-    name: 'Nature Power 180W Monocrystalline Solar Panel with Aluminum Frame',
-    price: 189,
-    original_price: 239,
-    discount_percentage: 21,
-    rating: 4.6,
-    review_count: 5432,
-    image_url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'Nature Power',
-    category: 'Solar'
-  },
-  {
-    id: 'so13',
-    name: 'BLUETTI AC200P 2000Wh Portable Power Station Solar Generator',
-    price: 1699,
-    original_price: 1999,
-    discount_percentage: 15,
-    rating: 4.7,
-    review_count: 6789,
-    image_url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'BLUETTI',
-    category: 'Solar'
-  },
-  {
-    id: 'so14',
-    name: 'Renogy Wanderer 30A 12V/24V PWM Solar Charge Controller',
-    price: 49.99,
-    original_price: 69.99,
-    discount_percentage: 29,
-    rating: 4.5,
-    review_count: 9876,
-    image_url: 'https://images.unsplash.com/photo-1624970622108-b4d7ab11b8d0?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'Renogy',
-    category: 'Solar'
-  },
-  {
-    id: 'so15',
-    name: 'EF ECOFLOW River 2 Pro Portable Power Station 768Wh Solar Compatible',
-    price: 649,
-    original_price: 799,
-    discount_percentage: 19,
-    rating: 4.6,
-    review_count: 11234,
-    image_url: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'EF ECOFLOW',
-    category: 'Solar'
-  },
-  {
-    id: 'so16',
-    name: 'AIMS 600W Peak 300W RMS Pure Sine Wave Power Inverter',
-    price: 159,
-    original_price: 199,
-    discount_percentage: 20,
-    rating: 4.3,
-    review_count: 7654,
-    image_url: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'AIMS',
-    category: 'Solar'
-  },
-  {
-    id: 'so17',
-    name: 'BougeRV 170W 12V Monocrystalline Solar Panel for Off Grid',
-    price: 149,
-    original_price: 199,
-    discount_percentage: 25,
-    rating: 4.4,
-    review_count: 4567,
-    image_url: 'https://images.unsplash.com/photo-1559733337-edf0ac062749?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'BougeRV',
-    category: 'Solar'
-  },
-  {
-    id: 'so18',
-    name: 'Mighty Max Battery 12V 100Ah LiFePO4 Deep Cycle Solar Battery',
-    price: 469,
-    original_price: 599,
-    discount_percentage: 22,
-    rating: 4.5,
-    review_count: 8901,
-    image_url: 'https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'Mighty Max Battery',
-    category: 'Solar'
-  },
-  {
-    id: 'so19',
-    name: 'DOKIO 100W Foldable Solar Panel Kit with Solar Controller',
-    price: 179,
-    original_price: 229,
-    discount_percentage: 22,
-    rating: 4.2,
-    review_count: 6543,
-    image_url: 'https://images.unsplash.com/photo-1475224937481-993c881e3c05?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'DOKIO',
-    category: 'Solar'
-  },
-  {
-    id: 'so20',
-    name: 'WEIZE 12V 100AH Deep Cycle AGM SLA VRLA Battery for Solar',
-    price: 199,
-    original_price: 249,
-    discount_percentage: 20,
-    rating: 4.6,
-    review_count: 12678,
-    image_url: 'https://images.unsplash.com/photo-1604077198496-8da17768c0d9?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'WEIZE',
-    category: 'Solar'
-  },
-  {
-    id: 'so21',
-    name: 'Newpowa 200W Monocrystalline Solar Panel 200 Watt 12V',
-    price: 199,
-    original_price: 259,
-    discount_percentage: 23,
-    rating: 4.4,
-    review_count: 7890,
-    image_url: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'Newpowa',
-    category: 'Solar'
-  },
-  {
-    id: 'so22',
-    name: 'EPEVER 60A MPPT Solar Charge Controller 12V/24V Auto',
-    price: 129,
-    original_price: 169,
-    discount_percentage: 24,
-    rating: 4.7,
-    review_count: 9432,
-    image_url: 'https://images.unsplash.com/photo-1624970622108-b4d7ab11b8d0?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'EPEVER',
-    category: 'Solar'
-  },
-  {
-    id: 'so23',
-    name: 'Portable Solar Panel 120W Foldable Solar Charger for Camping',
-    price: 229,
-    original_price: 299,
-    discount_percentage: 23,
-    rating: 4.3,
-    review_count: 5678,
-    image_url: 'https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'Portable Solar',
-    category: 'Solar'
-  },
-  {
-    id: 'so24',
-    name: 'Topsolar 100W Solar Panel Kit Complete 12V Solar System',
-    price: 159,
-    original_price: 219,
-    discount_percentage: 27,
-    rating: 4.5,
-    review_count: 8765,
-    image_url: 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=300&h=300&fit=crop&crop=center',
-    is_prime: true,
-    brand: 'Topsolar',
-    category: 'Solar'
+    stock_quantity: 25,
+    is_active: true,
+    is_featured: false,
+    images: ['https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=300&h=300&fit=crop&crop=center'],
+    features: ['Pure Sine Wave', '1500W Continuous', '3000W Peak', 'Low THD'],
+    specifications: { "continuous_power": "1500W", "peak_power": "3000W", "input": "12V DC", "output": "110V AC" },
+    rating_average: 4.4,
+    rating_count: 5672,
+    total_reviews: 5672
   }
 ];
 
 async function migrateSolarProducts() {
-  console.log('🚀 Starting Solar products migration...');
+  console.log('🚀 Starting Solar products migration (Test - 3 products)...');
   console.log(`📦 Total products to migrate: ${solarProducts.length}`);
 
   let successCount = 0;
@@ -351,17 +91,17 @@ async function migrateSolarProducts() {
         .insert([product]);
 
       if (error) {
-        console.error(`❌ Failed to migrate product ${product.id}:`, error.message);
+        console.error(`❌ Failed to migrate product ${product.sku}:`, error.message);
         failedCount++;
-        errors.push({ id: product.id, error: error.message });
+        errors.push({ sku: product.sku, error: error.message });
       } else {
         console.log(`✅ Successfully migrated: ${product.name}`);
         successCount++;
       }
     } catch (error) {
-      console.error(`❌ Exception while migrating product ${product.id}:`, error.message);
+      console.error(`❌ Exception while migrating product ${product.sku}:`, error.message);
       failedCount++;
-      errors.push({ id: product.id, error: error.message });
+      errors.push({ sku: product.sku, error: error.message });
     }
   }
 
@@ -372,8 +112,8 @@ async function migrateSolarProducts() {
   
   if (errors.length > 0) {
     console.log('\n🔍 FAILED PRODUCTS:');
-    errors.forEach(({ id, error }) => {
-      console.log(`  • ${id}: ${error}`);
+    errors.forEach(({ sku, error }) => {
+      console.log(`  • ${sku}: ${error}`);
     });
   }
 
@@ -382,7 +122,7 @@ async function migrateSolarProducts() {
   const { data: solarCount, error: countError } = await supabase
     .from('products')
     .select('id', { count: 'exact' })
-    .eq('category', 'Solar');
+    .eq('category_id', solarCategoryId);
 
   if (!countError) {
     console.log(`✅ Solar category now has ${solarCount?.length || 0} products total`);
