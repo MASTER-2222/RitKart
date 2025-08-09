@@ -12,7 +12,7 @@ from datetime import datetime
 import uuid
 
 class RitZoneAPITester:
-    def __init__(self, base_url="https://6930ffda-09a7-4f46-b89f-72f4585afa7b.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://47782c58-842c-4880-99f7-b5ffecdeaa77.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.token = None
         self.user_id = None
