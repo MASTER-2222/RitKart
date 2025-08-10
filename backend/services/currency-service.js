@@ -1,6 +1,8 @@
 // Currency Service
 // ==============================================
-// Handles currency conversion rates and operations
+// Handles REAL-TIME currency conversion rates and operations
+
+const axios = require('axios');
 
 // ==============================================
 // 💰 SUPPORTED CURRENCIES
@@ -58,19 +60,35 @@ const SUPPORTED_CURRENCIES = {
 };
 
 // ==============================================
-// 💱 EXCHANGE RATES (Base: INR)
+// 🌐 REAL-TIME EXCHANGE RATE APIs
 // ==============================================
-// In production, these should be fetched from a real-time currency API
-// For now, using static rates with INR as base currency
-const EXCHANGE_RATES = {
-  INR: 1.0,        // Base currency
-  USD: 0.012,      // 1 INR = 0.012 USD (1 USD = ~83 INR)
-  EUR: 0.011,      // 1 INR = 0.011 EUR (1 EUR = ~90 INR)
-  GBP: 0.0095,     // 1 INR = 0.0095 GBP (1 GBP = ~105 INR)
-  CAD: 0.016,      // 1 INR = 0.016 CAD (1 CAD = ~62 INR)
-  JPY: 1.78,       // 1 INR = 1.78 JPY (1 JPY = ~0.56 INR)
-  AUD: 0.018       // 1 INR = 0.018 AUD (1 AUD = ~55 INR)
-};
+const EXCHANGE_RATE_APIs = [
+  {
+    name: 'ExchangeRate-API',
+    baseUrl: 'https://api.exchangerate-api.com/v4/latest',
+    free: true,
+    rateLimit: '1500 requests/month'
+  },
+  {
+    name: 'Fixer.io',
+    baseUrl: 'http://data.fixer.io/api/latest',
+    free: true,
+    rateLimit: '100 requests/month'
+  },
+  {
+    name: 'Open Exchange Rates',
+    baseUrl: 'https://openexchangerates.org/api/latest.json',
+    free: true,
+    rateLimit: '1000 requests/month'
+  }
+];
+
+// ==============================================
+// 💾 CACHE FOR EXCHANGE RATES
+// ==============================================
+let CACHED_RATES = null;
+let CACHE_TIMESTAMP = null;
+const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes in milliseconds
 
 // ==============================================
 // 🌍 GET SUPPORTED CURRENCIES
@@ -80,35 +98,143 @@ function getCurrencies() {
 }
 
 // ==============================================
-// 📊 GET EXCHANGE RATES
+// 🔄 FETCH LIVE EXCHANGE RATES FROM INTERNET
 // ==============================================
-async function getCurrencyRates(baseCurrency = 'INR') {
+async function fetchLiveExchangeRates(baseCurrency = 'INR') {
   try {
-    // If base currency is INR, return direct rates
-    if (baseCurrency === 'INR') {
-      return EXCHANGE_RATES;
+    console.log(`📡 Fetching live exchange rates for base currency: ${baseCurrency}`);
+    
+    // Try multiple APIs for redundancy
+    const apis = [
+      `https://api.exchangerate-api.com/v4/latest/${baseCurrency}`,
+      `https://api.freeforexapi.com/api/live?pairs=${baseCurrency}USD,${baseCurrency}EUR,${baseCurrency}GBP,${baseCurrency}CAD,${baseCurrency}JPY,${baseCurrency}AUD`
+    ];
+    
+    for (const apiUrl of apis) {
+      try {
+        console.log(`🌐 Trying API: ${apiUrl}`);
+        const response = await axios.get(apiUrl, { timeout: 10000 });
+        
+        if (response.data && response.data.rates) {
+          console.log(`✅ Successfully fetched live rates from ${apiUrl}`);
+          return response.data.rates;
+        }
+      } catch (apiError) {
+        console.warn(`⚠️ API ${apiUrl} failed:`, apiError.message);
+        continue;
+      }
     }
     
-    // Convert rates to different base currency
-    const baseRate = EXCHANGE_RATES[baseCurrency];
-    if (!baseRate) {
-      throw new Error(`Unsupported base currency: ${baseCurrency}`);
-    }
+    // If all APIs fail, try a backup approach
+    console.log('🔄 Trying backup method...');
+    return await fetchBackupExchangeRates(baseCurrency);
     
-    const convertedRates = {};
-    for (const [currency, rate] of Object.entries(EXCHANGE_RATES)) {
-      convertedRates[currency] = rate / baseRate;
-    }
-    
-    return convertedRates;
   } catch (error) {
-    console.error('❌ Error getting currency rates:', error);
+    console.error('❌ All APIs failed, using fallback rates:', error.message);
+    throw new Error('Unable to fetch live exchange rates');
+  }
+}
+
+// ==============================================
+// 🛡️ BACKUP EXCHANGE RATE FETCH
+// ==============================================
+async function fetchBackupExchangeRates(baseCurrency = 'INR') {
+  try {
+    // Use a different approach - fetch USD rates and convert
+    const response = await axios.get('https://api.exchangerate-api.com/v4/latest/USD', { timeout: 10000 });
+    
+    if (response.data && response.data.rates) {
+      const usdRates = response.data.rates;
+      
+      // Convert to INR base if needed
+      if (baseCurrency === 'INR') {
+        const inrRate = usdRates.INR;
+        const convertedRates = {};
+        
+        // Convert all rates to INR base
+        for (const [currency, rate] of Object.entries(usdRates)) {
+          if (currency === 'INR') {
+            convertedRates[currency] = 1.0;
+          } else {
+            convertedRates[currency] = rate / inrRate;
+          }
+        }
+        
+        console.log(`✅ Backup method successful, INR rate: 1 USD = ${inrRate} INR`);
+        return convertedRates;
+      }
+      
+      return usdRates;
+    }
+    
+    throw new Error('Backup API also failed');
+  } catch (error) {
+    console.error('❌ Backup exchange rate fetch failed:', error.message);
     throw error;
   }
 }
 
 // ==============================================
-// 🔄 CONVERT PRICE
+// 📊 GET CACHED OR FRESH EXCHANGE RATES
+// ==============================================
+async function getCurrencyRates(baseCurrency = 'INR') {
+  try {
+    const now = Date.now();
+    
+    // Check if cache is valid
+    if (CACHED_RATES && CACHE_TIMESTAMP && (now - CACHE_TIMESTAMP) < CACHE_DURATION) {
+      console.log('✅ Using cached exchange rates');
+      return CACHED_RATES;
+    }
+    
+    console.log('🔄 Cache expired or empty, fetching fresh rates...');
+    
+    // Fetch fresh rates
+    const freshRates = await fetchLiveExchangeRates(baseCurrency);
+    
+    // Update cache
+    CACHED_RATES = freshRates;
+    CACHE_TIMESTAMP = now;
+    
+    console.log('✅ Exchange rates updated and cached');
+    console.log(`💱 Current rates (${baseCurrency} base):`, freshRates);
+    
+    return freshRates;
+  } catch (error) {
+    console.error('❌ Error getting currency rates:', error);
+    
+    // If we have cached rates, use them even if expired
+    if (CACHED_RATES) {
+      console.warn('⚠️ Using expired cached rates due to API failure');
+      return CACHED_RATES;
+    }
+    
+    // Last resort - use emergency fallback rates
+    console.warn('⚠️ Using emergency fallback rates');
+    return getEmergencyFallbackRates();
+  }
+}
+
+// ==============================================
+// 🚨 EMERGENCY FALLBACK RATES (LAST RESORT)
+// ==============================================
+function getEmergencyFallbackRates() {
+  // These are only used when ALL APIs fail and no cache exists
+  // Updated to more current rates as of 2024
+  console.warn('🚨 Using emergency fallback rates - these may be outdated');
+  return {
+    INR: 1.0,        // Base currency
+    USD: 0.0114,     // 1 INR = 0.0114 USD (1 USD = ~87.7 INR)
+    EUR: 0.0104,     // 1 INR = 0.0104 EUR (1 EUR = ~96 INR)
+    GBP: 0.0089,     // 1 INR = 0.0089 GBP (1 GBP = ~112 INR)
+    CAD: 0.0156,     // 1 INR = 0.0156 CAD (1 CAD = ~64 INR)
+    JPY: 1.71,       // 1 INR = 1.71 JPY (1 JPY = ~0.58 INR)
+    AUD: 0.0175      // 1 INR = 0.0175 AUD (1 AUD = ~57 INR)
+  };
+}
+
+// ==============================================
+// 🔄 CONVERT PRICE WITH LIVE RATES
 // ==============================================
 async function convertPrice(amount, fromCurrency, toCurrency) {
   try {
@@ -120,16 +246,22 @@ async function convertPrice(amount, fromCurrency, toCurrency) {
       return amount;
     }
     
-    if (!EXCHANGE_RATES[fromCurrency] || !EXCHANGE_RATES[toCurrency]) {
+    // Get live exchange rates
+    const rates = await getCurrencyRates('INR'); // Always use INR as base
+    
+    if (!rates[fromCurrency] || !rates[toCurrency]) {
       throw new Error(`Unsupported currency: ${fromCurrency} or ${toCurrency}`);
     }
     
     // Convert from source currency to INR, then to target currency
-    const amountInINR = fromCurrency === 'INR' ? amount : amount / EXCHANGE_RATES[fromCurrency];
-    const convertedAmount = toCurrency === 'INR' ? amountInINR : amountInINR * EXCHANGE_RATES[toCurrency];
+    const amountInINR = fromCurrency === 'INR' ? amount : amount / rates[fromCurrency];
+    const convertedAmount = toCurrency === 'INR' ? amountInINR : amountInINR * rates[toCurrency];
     
     // Round to 2 decimal places
-    return Math.round(convertedAmount * 100) / 100;
+    const finalAmount = Math.round(convertedAmount * 100) / 100;
+    
+    console.log(`💱 Converted ${amount} ${fromCurrency} = ${finalAmount} ${toCurrency}`);
+    return finalAmount;
   } catch (error) {
     console.error('❌ Error converting price:', error);
     throw error;
@@ -190,20 +322,45 @@ async function convertPrices(prices, fromCurrency, toCurrency) {
 }
 
 // ==============================================
-// 🔄 UPDATE EXCHANGE RATES (Future Implementation)
+// 🔄 FORCE UPDATE EXCHANGE RATES
 // ==============================================
 async function updateExchangeRates() {
   try {
-    // In production, this would fetch real-time rates from an API like:
-    // - exchangerate-api.com
-    // - currencylayer.com
-    // - fixer.io
-    // - openexchangerates.org
+    console.log('🔄 Force updating exchange rates...');
     
-    console.log('📊 Exchange rates updated successfully');
-    return true;
+    // Clear cache to force fresh fetch
+    CACHED_RATES = null;
+    CACHE_TIMESTAMP = null;
+    
+    // Fetch fresh rates
+    const rates = await getCurrencyRates('INR');
+    
+    console.log('✅ Exchange rates force updated successfully');
+    return rates;
   } catch (error) {
-    console.error('❌ Error updating exchange rates:', error);
+    console.error('❌ Error force updating exchange rates:', error);
+    throw error;
+  }
+}
+
+// ==============================================
+// 📈 GET EXCHANGE RATE INFO
+// ==============================================
+async function getExchangeRateInfo() {
+  try {
+    const rates = await getCurrencyRates('INR');
+    const info = {
+      baseCurrency: 'INR',
+      rates: rates,
+      lastUpdated: CACHE_TIMESTAMP ? new Date(CACHE_TIMESTAMP).toISOString() : null,
+      nextUpdate: CACHE_TIMESTAMP ? new Date(CACHE_TIMESTAMP + CACHE_DURATION).toISOString() : null,
+      source: 'Live Internet APIs',
+      supportedCurrencies: Object.keys(SUPPORTED_CURRENCIES)
+    };
+    
+    return info;
+  } catch (error) {
+    console.error('❌ Error getting exchange rate info:', error);
     throw error;
   }
 }
@@ -216,6 +373,7 @@ module.exports = {
   formatPrice,
   convertPrices,
   updateExchangeRates,
-  SUPPORTED_CURRENCIES,
-  EXCHANGE_RATES
+  getExchangeRateInfo,
+  fetchLiveExchangeRates,
+  SUPPORTED_CURRENCIES
 };
