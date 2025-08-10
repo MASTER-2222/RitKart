@@ -90,13 +90,16 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
       setLoading(true);
       setError(null);
       
-      // Fetch products for this category from API
-      const productsResponse = await apiClient.getProductsByCategory(categorySlug, itemsPerPage);
+      // Fetch products for this category from API with pagination
+      const productsResponse = await apiClient.getProductsByCategory(categorySlug, {
+        limit: itemsPerPage,
+        page: currentPage
+      });
       
       if (productsResponse.success) {
         setProducts(productsResponse.data);
         setTotalCount(productsResponse.pagination?.totalCount || productsResponse.data.length);
-        setTotalPages(productsResponse.pagination?.totalPages || 1);
+        setTotalPages(productsResponse.pagination?.totalPages || Math.ceil(productsResponse.data.length / itemsPerPage));
       } else {
         console.error('Failed to fetch products:', productsResponse.message);
         setError('Failed to load products for this category');
