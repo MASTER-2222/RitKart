@@ -366,6 +366,7 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
                   setPriceRange([0, 2000]);
                   setSelectedBrands([]);
                   setMinRating(0);
+                  closeMobileSidebar();
                 }}
                 className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors"
               >
