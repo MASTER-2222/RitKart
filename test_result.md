@@ -500,7 +500,41 @@ agent_communication:
   test_all: false
   test_priority: "high_first"
 
-  - task: "Move Filters to Left Sidebar and Keep Sort at Top"
+  - task: "Implement Dynamic Currency Conversion System"
+    implemented: false
+    working: false
+    file: "backend/routes/currency.js, backend/services/currency-service.js, contexts/CurrencyContext.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🚀 STARTING PHASE 3 - User requires complete removal of ALL hardcoded prices throughout RitZone application. Need to implement FUNCTIONAL and DYNAMIC currency conversion system with REAL-TIME exchange rates from internet. Current status: ❌ Backend stores prices only in INR in database, ❌ Frontend does client-side currency conversion (WRONG approach), ❌ Uses hardcoded/dummy exchange rates, ❌ Currency selector at bottom is non-functional, ❌ Prices NOT directly fetched from backend with proper currency. GOAL: ✅ Backend handles ALL currency conversion with REAL exchange rates, ✅ Frontend requests prices in specific currency from backend, ✅ NO hardcoded prices anywhere, ✅ FUNCTIONAL currency selector for USD($), GBP(£), EUR(€), INR(₹), CAD, JPY, AUD, ✅ Works for both registered + unregistered users."
+
+  - task: "Backend Currency API Integration"
+    implemented: false
+    working: false
+    file: "backend/services/currency-service.js, backend/routes/currency.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "📋 BACKEND REQUIREMENTS: 1) Integrate real-time currency API (e.g., ExchangeRate-API, Fixer.io), 2) Create currency conversion service with live rates, 3) Add currency endpoints that return current exchange rates, 4) Modify ALL product endpoints to accept ?currency=USD parameter, 5) Store base prices in database and convert dynamically, 6) Cache exchange rates to avoid excessive API calls."
+
+  - task: "Frontend Currency Selector Implementation"
+    implemented: false
+    working: false
+    file: "contexts/CurrencyContext.tsx, components/CurrencySelector.tsx, all product components"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "📋 FRONTEND REQUIREMENTS: 1) Remove ALL hardcoded currency conversion logic, 2) Make currency selector at bottom functional, 3) Update CurrencyContext to fetch prices from backend, 4) Request prices from backend in selected currency, 5) Update ALL components (ProductCard, CategoryListing, ProductDetail, Cart, Deals) to fetch prices dynamically, 6) Support currencies: USD($), GBP(£), EUR(€), INR(₹), CAD, JPY, AUD."
     implemented: true
     working: true
     file: "app/category/[slug]/CategoryListingDynamic.tsx"
