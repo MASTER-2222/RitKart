@@ -429,7 +429,7 @@ metadata:
     file: "app/product/[id]/page.tsx, components/ProductCard.tsx, .env"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: "NA"
         agent: "main"
