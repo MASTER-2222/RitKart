@@ -1,6 +1,7 @@
 // RitZone API Client
 // ==============================================
 // Centralized API client for frontend-backend communication
+// ENHANCED WITH DYNAMIC CURRENCY SUPPORT
 
 // Environment-based API URL configuration (no hardcoded fallbacks)
 const getApiBaseUrl = (): string => {
@@ -14,9 +15,9 @@ const getApiBaseUrl = (): string => {
     return process.env.NEXT_PUBLIC_API_BASE_URL;
   }
   
-  // Priority 3: Dynamic URL based on current origin (for development)
+  // Priority 3: Development fallback
   if (typeof window !== 'undefined') {
-    return `${window.location.origin}/api`;
+    return 'http://localhost:8001/api';
   }
   
   // Priority 4: Server-side fallback for development
@@ -56,6 +57,8 @@ class ApiClient {
     };
 
     try {
+      console.log(`🌐 API Request: ${url}`);
+      
       const response = await fetch(url, config);
       
       if (!response.ok) {
@@ -63,10 +66,23 @@ class ApiClient {
       }
       
       const data = await response.json();
+      
+      // Log currency information if present in response
+      if (data.currency) {
+        console.log(`💰 Response currency: ${data.currency}`);
+      }
+      
       return data;
     } catch (error) {
       console.error('API request failed:', error);
       throw error;
+    }
+  }
+
+  // NEW: Helper function to add currency parameter
+  private addCurrencyToParams(params: URLSearchParams, currency?: string): void {
+    if (currency && currency !== 'INR') {
+      params.set('currency', currency);
     }
   }
 
@@ -79,13 +95,14 @@ class ApiClient {
     return this.makeRequest(`/categories/${slug}`);
   }
 
-  // Products API  
+  // Products API - ENHANCED WITH CURRENCY SUPPORT
   async getProducts(params?: {
     limit?: number;
     page?: number;
     category?: string;
     featured?: boolean;
     search?: string;
+    currency?: string; // NEW: Currency parameter
   }) {
     const searchParams = new URLSearchParams();
     
@@ -94,31 +111,46 @@ class ApiClient {
     if (params?.category) searchParams.set('category', params.category);
     if (params?.featured !== undefined) searchParams.set('featured', params.featured.toString());
     if (params?.search) searchParams.set('search', params.search);
+    
+    // NEW: Add currency parameter
+    this.addCurrencyToParams(searchParams, params?.currency);
 
     const query = searchParams.toString();
     return this.makeRequest(`/products${query ? `?${query}` : ''}`);
   }
 
-  async getProductBySlug(slug: string) {
-    return this.makeRequest(`/products/${slug}`);
+  async getProductBySlug(slug: string, currency?: string) {
+    const searchParams = new URLSearchParams();
+    this.addCurrencyToParams(searchParams, currency);
+    
+    const query = searchParams.toString();
+    return this.makeRequest(`/products/${slug}${query ? `?${query}` : ''}`);
   }
 
-  async getProductById(id: string) {
-    return this.makeRequest(`/products/${id}`);
+  async getProductById(id: string, currency?: string) {
+    const searchParams = new URLSearchParams();
+    this.addCurrencyToParams(searchParams, currency);
+    
+    const query = searchParams.toString();
+    return this.makeRequest(`/products/${id}${query ? `?${query}` : ''}`);
   }
 
-  async getFeaturedProducts() {
-    return this.getProducts({ featured: true });
+  async getFeaturedProducts(currency?: string) {
+    return this.getProducts({ featured: true, currency });
   }
 
   async getProductsByCategory(categorySlug: string, params?: {
     limit?: number;
     page?: number;
+    currency?: string; // NEW: Currency parameter
   }) {
     const searchParams = new URLSearchParams();
     
     if (params?.limit) searchParams.set('limit', params.limit.toString());
     if (params?.page) searchParams.set('page', params.page.toString());
+    
+    // NEW: Add currency parameter
+    this.addCurrencyToParams(searchParams, params?.currency);
 
     const query = searchParams.toString();
     return this.makeRequest(`/products/category/${categorySlug}${query ? `?${query}` : ''}`);
@@ -132,6 +164,26 @@ class ApiClient {
   // Deals API
   async getDeals() {
     return this.makeRequest('/deals');
+  }
+
+  // NEW: Currency API
+  async getCurrencies() {
+    return this.makeRequest('/currency/currencies');
+  }
+
+  async getExchangeRates(baseCurrency = 'INR') {
+    return this.makeRequest(`/currency/rates?base=${baseCurrency}`);
+  }
+
+  async convertPrice(amount: number, fromCurrency: string, toCurrency: string) {
+    return this.makeRequest('/currency/convert', {
+      method: 'POST',
+      body: JSON.stringify({
+        amount,
+        from: fromCurrency,
+        to: toCurrency
+      }),
+    });
   }
 
   // Cart API (requires authentication)
@@ -203,11 +255,61 @@ class ApiClient {
 // Export singleton instance
 export const apiClient = new ApiClient();
 
+// NEW: Currency-aware API helper functions
+export const currencyApiClient = {
+  // Get current currency from localStorage
+  getCurrentCurrency: (): string => {
+    if (typeof window !== 'undefined') {
+      try {
+        const savedCurrency = localStorage.getItem('ritzone_selected_currency');
+        if (savedCurrency) {
+          const parsedCurrency = JSON.parse(savedCurrency);
+          return parsedCurrency.code || 'INR';
+        }
+      } catch (error) {
+        console.error('Error getting current currency:', error);
+      }
+    }
+    return 'INR';
+  },
+
+  // Products with automatic currency
+  async getProducts(params?: {
+    limit?: number;
+    page?: number;
+    category?: string;
+    featured?: boolean;
+    search?: string;
+  }) {
+    const currency = this.getCurrentCurrency();
+    return apiClient.getProducts({ ...params, currency });
+  },
+
+  async getProductById(id: string) {
+    const currency = this.getCurrentCurrency();
+    return apiClient.getProductById(id, currency);
+  },
+
+  async getProductsByCategory(categorySlug: string, params?: {
+    limit?: number;
+    page?: number;
+  }) {
+    const currency = this.getCurrentCurrency();
+    return apiClient.getProductsByCategory(categorySlug, { ...params, currency });
+  },
+
+  async getFeaturedProducts() {
+    const currency = this.getCurrentCurrency();
+    return apiClient.getFeaturedProducts(currency);
+  },
+};
+
 // Export types for API responses
 export interface ApiResponse<T> {
   success: boolean;
   message: string;
   data: T;
+  currency?: string; // NEW: Currency information
   pagination?: {
     currentPage: number;
     totalPages: number;
@@ -247,6 +349,12 @@ export interface Product {
   rating_average: number;
   rating_count: number;
   total_reviews: number;
+  // NEW: Currency fields
+  currency?: string;
+  currency_symbol?: string;
+  formatted_price?: string;
+  base_currency?: string;
+  base_price?: number;
 }
 
 export interface CartItem {
