@@ -347,7 +347,10 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
                 <label className="block text-sm font-medium text-gray-700 mb-3">Minimum Rating</label>
                 <select
                   value={minRating}
-                  onChange={(e) => setMinRating(parseInt(e.target.value))}
+                  onChange={(e) => {
+                    setMinRating(parseInt(e.target.value));
+                    closeMobileSidebar();
+                  }}
                   className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                 >
                   <option value={0}>All Ratings</option>
