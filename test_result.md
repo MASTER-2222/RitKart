@@ -443,6 +443,9 @@ metadata:
       - working: true
         agent: "main"
         comment: "🎊 PRODUCTION ISSUES RESOLVED - Comprehensive fix applied for production deployment: ✅ Downgraded Next.js from 15.3.2 to 14.2.15 and React from 19 to 18.3.1 for stability, ✅ Updated production environment variables (NEXT_PUBLIC_BACKEND_URL=https://ritkart-backend.onrender.com/api), ✅ Verified production backend API working with UUID-based product IDs, ✅ Removed static generation (generateStaticParams) and enabled dynamic rendering for UUID compatibility, ✅ Set force-dynamic for production UUID-based products. All individual product pages now work dynamically with production database (344+ products with UUIDs). Ready for testing."
+      - working: false
+        agent: "user"
+        comment: "❌ USER REPORTS PERSISTENT ISSUE - Individual product pages still not working in production. Error: 'Application error: a client-side exception has occurred (see the browser console for more information)'. Console shows 'TypeError: t is undefined'. Issue occurs when clicking 'Add to Cart' button on category pages across Electronics, Fashion, Books, Home & Gardens, Sports & Outdoors, Grocery, Appliances, Beauty & Personal Care, Solar, and Pharmacy categories. Category pages load correctly but individual product pages fail to load."
 
 agent_communication:
   - agent: "main"
