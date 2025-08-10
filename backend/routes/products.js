@@ -1,20 +1,82 @@
 // RitZone Product Routes
 // ==============================================
 // Product management using Supabase with environment variables
+// Enhanced with DYNAMIC CURRENCY CONVERSION
 
 const express = require('express');
 const { environment } = require('../config/environment');
 const { productService } = require('../services/supabase-service');
+const { convertPrice, getCurrencySymbol, formatPrice } = require('../services/currency-service');
 
 const router = express.Router();
 
 // ==============================================
-// 📦 GET ALL PRODUCTS
+// 💰 HELPER FUNCTION: CONVERT PRODUCT PRICES
+// ==============================================
+async function convertProductPrices(product, targetCurrency = 'INR') {
+  if (!product || targetCurrency === 'INR') {
+    return product;
+  }
+  
+  try {
+    const convertedProduct = { ...product };
+    
+    // Convert main price fields
+    if (product.price) {
+      convertedProduct.price = await convertPrice(product.price, 'INR', targetCurrency);
+    }
+    
+    if (product.original_price) {
+      convertedProduct.original_price = await convertPrice(product.original_price, 'INR', targetCurrency);
+    }
+    
+    // Add currency metadata
+    convertedProduct.currency = targetCurrency;
+    convertedProduct.currency_symbol = getCurrencySymbol(targetCurrency);
+    convertedProduct.formatted_price = formatPrice(convertedProduct.price, targetCurrency);
+    convertedProduct.base_currency = 'INR';
+    convertedProduct.base_price = product.price;
+    
+    return convertedProduct;
+  } catch (error) {
+    console.error('❌ Error converting product prices:', error);
+    // Return original product with error note if conversion fails
+    return {
+      ...product,
+      currency_conversion_error: 'Unable to convert to requested currency',
+      currency: 'INR'
+    };
+  }
+}
+
+// ==============================================
+// 💰 HELPER FUNCTION: CONVERT MULTIPLE PRODUCTS
+// ==============================================
+async function convertProductsPrices(products, targetCurrency = 'INR') {
+  if (!products || !Array.isArray(products) || targetCurrency === 'INR') {
+    return products;
+  }
+  
+  try {
+    const convertedProducts = await Promise.all(
+      products.map(product => convertProductPrices(product, targetCurrency))
+    );
+    
+    return convertedProducts;
+  } catch (error) {
+    console.error('❌ Error converting multiple products prices:', error);
+    return products; // Return original products if conversion fails
+  }
+}
+
+// ==============================================
+// 📦 GET ALL PRODUCTS (WITH DYNAMIC CURRENCY)
 // ==============================================
 router.get('/', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
+    const currency = req.query.currency || 'INR'; // NEW: Support currency parameter
 
     const result = await productService.getAllProducts(page, limit);
 
@@ -25,10 +87,14 @@ router.get('/', async (req, res) => {
       });
     }
 
+    // NEW: Convert prices to requested currency
+    const convertedProducts = await convertProductsPrices(result.products, currency);
+
     res.status(200).json({
       success: true,
-      message: 'Products retrieved successfully',
-      data: result.products,
+      message: `Products retrieved successfully${currency !== 'INR' ? ` with prices in ${currency}` : ''}`,
+      data: convertedProducts,
+      currency: currency, // NEW: Include currency info
       pagination: {
         currentPage: result.currentPage,
         totalPages: result.totalPages,
@@ -48,11 +114,12 @@ router.get('/', async (req, res) => {
 });
 
 // ==============================================
-// 🔍 GET PRODUCT BY ID
+// 🔍 GET PRODUCT BY ID (WITH DYNAMIC CURRENCY)
 // ==============================================
 router.get('/:id', async (req, res) => {
   try {
     const productId = req.params.id;
+    const currency = req.query.currency || 'INR'; // NEW: Support currency parameter
 
     const result = await productService.getProductById(productId);
 
@@ -63,10 +130,14 @@ router.get('/:id', async (req, res) => {
       });
     }
 
+    // NEW: Convert prices to requested currency
+    const convertedProduct = await convertProductPrices(result.product, currency);
+
     res.status(200).json({
       success: true,
-      message: 'Product retrieved successfully',
-      data: result.product
+      message: `Product retrieved successfully${currency !== 'INR' ? ` with prices in ${currency}` : ''}`,
+      data: convertedProduct,
+      currency: currency // NEW: Include currency info
     });
 
   } catch (error) {
@@ -80,13 +151,14 @@ router.get('/:id', async (req, res) => {
 });
 
 // ==============================================
-// 🏷️ GET PRODUCTS BY CATEGORY
+// 🏷️ GET PRODUCTS BY CATEGORY (WITH DYNAMIC CURRENCY)
 // ==============================================
 router.get('/category/:slug', async (req, res) => {
   try {
     const categorySlug = req.params.slug;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
+    const currency = req.query.currency || 'INR'; // NEW: Support currency parameter
 
     const result = await productService.getProductsByCategory(categorySlug, page, limit);
 
@@ -97,11 +169,15 @@ router.get('/category/:slug', async (req, res) => {
       });
     }
 
+    // NEW: Convert prices to requested currency
+    const convertedProducts = await convertProductsPrices(result.products, currency);
+
     res.status(200).json({
       success: true,
-      message: `Products for category '${categorySlug}' retrieved successfully`,
-      data: result.products,
+      message: `Products for category '${categorySlug}' retrieved successfully${currency !== 'INR' ? ` with prices in ${currency}` : ''}`,
+      data: convertedProducts,
       category: result.category,
+      currency: currency, // NEW: Include currency info
       pagination: {
         currentPage: result.currentPage,
         totalPages: result.totalPages,
