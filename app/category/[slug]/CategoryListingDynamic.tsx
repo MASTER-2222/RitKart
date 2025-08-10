@@ -11,6 +11,7 @@ interface CategoryListingProps {
 }
 
 export default function CategoryListing({ categorySlug }: CategoryListingProps) {
+  const router = useRouter();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState('featured');
   const [priceRange, setPriceRange] = useState([0, 2000]);
