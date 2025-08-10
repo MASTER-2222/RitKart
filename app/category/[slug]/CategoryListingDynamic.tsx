@@ -331,6 +331,7 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
                             } else {
                               setSelectedBrands(selectedBrands.filter(b => b !== brand));
                             }
+                            closeMobileSidebar();
                           }}
                           className="mr-3 rounded accent-orange-500"
                         />
