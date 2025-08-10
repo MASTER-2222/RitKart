@@ -446,14 +446,104 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
             </button>
           </div>
         ) : (
-          <div className={viewMode === 'grid' 
-            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6'
-            : 'space-y-4'
-          }>
-            {paginatedProducts.map(product => (
-              <ProductCard key={product.id} {...product} />
-            ))}
-          </div>
+          viewMode === 'grid' ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+              {paginatedProducts.map(product => (
+                <ProductCard key={product.id} {...product} />
+              ))}
+            </div>
+          ) : (
+            /* List View - Professional Layout */
+            <div className="space-y-4">
+              {paginatedProducts.map(product => (
+                <div 
+                  key={product.id}
+                  className="bg-white rounded-lg shadow-sm border p-4 hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => router.push(`/product/${product.id}`)}
+                >
+                  <div className="flex gap-4">
+                    {/* Product Image */}
+                    <div className="flex-shrink-0 w-32 h-32 relative">
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="w-full h-full object-cover rounded-md"
+                      />
+                      {product.discount > 0 && (
+                        <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                          -{product.discount}%
+                        </div>
+                      )}
+                      {product.isPrime && (
+                        <div className="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
+                          Prime
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Product Details */}
+                    <div className="flex-grow min-w-0">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-lg font-medium text-gray-900 line-clamp-2 hover:text-blue-600 transition-colors">
+                          {product.title}
+                        </h3>
+                      </div>
+                      
+                      {/* Rating */}
+                      <div className="flex items-center mb-2">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <svg
+                              key={i}
+                              className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-yellow-400' : 'text-gray-300'}`}
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                        <span className="ml-2 text-sm text-gray-600">
+                          {product.rating} ({product.reviewCount.toLocaleString()})
+                        </span>
+                      </div>
+                      
+                      {/* Price and Actions Row */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-2xl font-bold text-gray-900">
+                            ${product.price}
+                          </span>
+                          {product.originalPrice && product.originalPrice > product.price && (
+                            <span className="text-sm text-gray-500 line-through">
+                              ${product.originalPrice}
+                            </span>
+                          )}
+                        </div>
+                        
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(`/product/${product.id}`);
+                          }}
+                          className="bg-[#febd69] hover:bg-[#f3a847] text-black font-medium py-2 px-4 rounded transition-colors"
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                      
+                      {/* Delivery Info */}
+                      {product.isDeliveryTomorrow && (
+                        <div className="mt-2 text-sm text-green-600 font-medium">
+                          ✓ FREE delivery tomorrow
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
         )}
 
         {/* Pagination */}
