@@ -12,10 +12,6 @@ export interface Currency {
   flag: string;
 }
 
-export interface ExchangeRates {
-  [key: string]: number;
-}
-
 interface CurrencyContextType {
   // Current selected currency
   selectedCurrency: Currency;
@@ -23,17 +19,15 @@ interface CurrencyContextType {
   // Available currencies
   currencies: Currency[];
   
-  // Exchange rates (base: INR)
-  exchangeRates: ExchangeRates;
-  
   // Functions
   setCurrency: (currency: Currency) => void;
-  convertPrice: (amount: number, fromCurrency?: string) => number;
-  formatPrice: (amount: number, currency?: Currency) => string;
   
   // Loading states
   isLoading: boolean;
   error: string | null;
+  
+  // API Helper - NEW: For backend requests with currency
+  getApiUrl: (endpoint: string) => string;
 }
 
 // ==============================================
@@ -53,7 +47,7 @@ export const useCurrency = (): CurrencyContextType => {
 };
 
 // ==============================================
-// 🏭 CURRENCY PROVIDER
+// 🏭 CURRENCY PROVIDER - COMPLETELY REWRITTEN FOR BACKEND INTEGRATION
 // ==============================================
 interface CurrencyProviderProps {
   children: ReactNode;
@@ -71,53 +65,62 @@ export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) 
 
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(defaultCurrency);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
-  const [exchangeRates, setExchangeRates] = useState<ExchangeRates>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // ==============================================
-  // 🚀 INITIALIZE CURRENCY DATA
+  // 🚀 INITIALIZE CURRENCY DATA FROM BACKEND
   // ==============================================
   useEffect(() => {
     initializeCurrencyData();
     loadUserCurrencyPreference();
   }, []);
 
+  const getBackendUrl = () => {
+    return process.env.NEXT_PUBLIC_BACKEND_URL || 
+           (typeof window !== 'undefined' ? 'http://localhost:8001/api' : '/api');
+  };
+
   const initializeCurrencyData = async () => {
     try {
       setIsLoading(true);
       setError(null);
 
+      console.log('🔄 Loading currencies from backend...');
+      
       // Get API base URL
-      const apiBaseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 
-                        (typeof window !== 'undefined' ? `${window.location.origin}/api` : '/api');
+      const apiBaseUrl = getBackendUrl();
 
-      // Fetch currencies and exchange rates
-      const [currenciesResponse, ratesResponse] = await Promise.all([
-        fetch(`${apiBaseUrl}/currency/currencies`),
-        fetch(`${apiBaseUrl}/currency/rates`)
-      ]);
+      // Fetch available currencies from backend
+      const currenciesResponse = await fetch(`${apiBaseUrl}/currency/currencies`);
 
-      if (!currenciesResponse.ok || !ratesResponse.ok) {
-        throw new Error('Failed to fetch currency data');
+      if (!currenciesResponse.ok) {
+        throw new Error('Failed to fetch currencies from backend');
       }
 
       const currenciesData = await currenciesResponse.json();
-      const ratesData = await ratesResponse.json();
 
-      if (currenciesData.success && ratesData.success) {
+      if (currenciesData.success) {
         setCurrencies(currenciesData.data);
-        setExchangeRates(ratesData.data.rates);
+        console.log(`✅ Loaded ${currenciesData.data.length} currencies from backend`);
       } else {
         throw new Error('Invalid response from currency API');
       }
     } catch (err) {
       console.error('❌ Error initializing currency data:', err);
-      setError('Failed to load currency data');
+      setError('Failed to load currency data from backend');
       
       // Set fallback data
-      setCurrencies([defaultCurrency]);
-      setExchangeRates({ INR: 1 });
+      const fallbackCurrencies = [
+        defaultCurrency,
+        { code: 'USD', symbol: '$', name: 'US Dollar', country: 'United States', flag: '🇺🇸' },
+        { code: 'EUR', symbol: '€', name: 'Euro', country: 'European Union', flag: '🇪🇺' },
+        { code: 'GBP', symbol: '£', name: 'British Pound', country: 'United Kingdom', flag: '🇬🇧' },
+        { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar', country: 'Canada', flag: '🇨🇦' },
+        { code: 'JPY', symbol: '¥', name: 'Japanese Yen', country: 'Japan', flag: '🇯🇵' },
+        { code: 'AUD', symbol: 'A$', name: 'Australian Dollar', country: 'Australia', flag: '🇦🇺' }
+      ];
+      setCurrencies(fallbackCurrencies);
     } finally {
       setIsLoading(false);
     }
@@ -133,6 +136,7 @@ export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) 
         if (savedCurrency) {
           const parsedCurrency = JSON.parse(savedCurrency);
           setSelectedCurrency(parsedCurrency);
+          console.log(`✅ Loaded saved currency: ${parsedCurrency.code}`);
         }
       }
     } catch (err) {
@@ -141,10 +145,12 @@ export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) 
   };
 
   // ==============================================
-  // 💱 SET CURRENCY
+  // 💱 SET CURRENCY - COMPLETELY UPDATED
   // ==============================================
   const setCurrency = (currency: Currency) => {
     try {
+      console.log(`🔄 Switching currency from ${selectedCurrency.code} to ${currency.code}...`);
+      
       setSelectedCurrency(currency);
       
       // Save to localStorage
@@ -153,74 +159,46 @@ export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) 
       }
       
       console.log(`✅ Currency changed to: ${currency.code} (${currency.symbol})`);
+      console.log('📋 NOTE: Prices will be fetched from backend with new currency on next API call');
+      
+      // Trigger a page refresh or re-fetch data to get new prices from backend
+      // This ensures all components get updated prices in the new currency
+      setTimeout(() => {
+        if (typeof window !== 'undefined') {
+          // Dispatch custom event to notify components about currency change
+          window.dispatchEvent(new CustomEvent('currencyChanged', {
+            detail: { newCurrency: currency }
+          }));
+        }
+      }, 100);
+      
     } catch (err) {
       console.error('❌ Error setting currency:', err);
     }
   };
 
   // ==============================================
-  // 🔄 CONVERT PRICE
+  // 🔗 NEW: GET API URL WITH CURRENCY PARAMETER
   // ==============================================
-  const convertPrice = (amount: number, fromCurrency: string = 'INR'): number => {
-    try {
-      if (!amount || typeof amount !== 'number') {
-        return 0;
-      }
-
-      if (fromCurrency === selectedCurrency.code) {
-        return amount;
-      }
-
-      if (!exchangeRates[fromCurrency] || !exchangeRates[selectedCurrency.code]) {
-        console.warn(`❌ Exchange rate not found for ${fromCurrency} or ${selectedCurrency.code}`);
-        return amount;
-      }
-
-      // Convert from source currency to INR, then to target currency
-      const amountInINR = fromCurrency === 'INR' ? amount : amount / exchangeRates[fromCurrency];
-      const convertedAmount = selectedCurrency.code === 'INR' ? amountInINR : amountInINR * exchangeRates[selectedCurrency.code];
-
-      // Round to 2 decimal places
-      return Math.round(convertedAmount * 100) / 100;
-    } catch (err) {
-      console.error('❌ Error converting price:', err);
-      return amount;
-    }
+  const getApiUrl = (endpoint: string): string => {
+    const apiBaseUrl = getBackendUrl();
+    const separator = endpoint.includes('?') ? '&' : '?';
+    const currencyParam = selectedCurrency.code !== 'INR' ? `${separator}currency=${selectedCurrency.code}` : '';
+    
+    const fullUrl = `${apiBaseUrl}${endpoint}${currencyParam}`;
+    console.log(`🔗 API URL with currency: ${fullUrl}`);
+    
+    return fullUrl;
   };
 
   // ==============================================
-  // 🏷️ FORMAT PRICE
-  // ==============================================
-  const formatPrice = (amount: number, currency: Currency = selectedCurrency): string => {
-    try {
-      if (!amount || typeof amount !== 'number') {
-        return `${currency.symbol}0`;
-      }
-
-      // Format number with appropriate decimal places
-      const decimals = currency.code === 'JPY' ? 0 : 2;
-      const formattedAmount = amount.toLocaleString('en-US', {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals
-      });
-
-      return `${currency.symbol}${formattedAmount}`;
-    } catch (err) {
-      console.error('❌ Error formatting price:', err);
-      return `${currency.symbol}${amount}`;
-    }
-  };
-
-  // ==============================================
-  // 🎯 CONTEXT VALUE
+  // 🎯 CONTEXT VALUE - SIMPLIFIED FOR BACKEND INTEGRATION
   // ==============================================
   const contextValue: CurrencyContextType = {
     selectedCurrency,
     currencies,
-    exchangeRates,
     setCurrency,
-    convertPrice,
-    formatPrice,
+    getApiUrl,
     isLoading,
     error
   };
