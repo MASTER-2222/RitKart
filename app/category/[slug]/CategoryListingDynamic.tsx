@@ -407,39 +407,104 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
         )}
 
         {/* Pagination */}
-        {Math.ceil(sortedProducts.length / itemsPerPage) > 1 && (
+        {totalPages > 1 && (
           <div className="mt-8 flex justify-center">
-            <div className="flex space-x-2">
+            <div className="flex items-center space-x-1">
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="px-3 py-2 border rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 border border-gray-300 rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium text-gray-700"
               >
                 Previous
               </button>
               
-              {[...Array(Math.ceil(sortedProducts.length / itemsPerPage))].map((_, i) => (
-                <button
-                  key={i + 1}
-                  onClick={() => handlePageChange(i + 1)}
-                  className={`px-3 py-2 rounded ${
-                    currentPage === i + 1 
-                      ? 'bg-red-500 text-white' 
-                      : 'border hover:bg-gray-50'
-                  }`}
-                >
-                  {i + 1}
-                </button>
-              ))}
+              {/* Generate page numbers */}
+              {(() => {
+                const pages = [];
+                const maxVisiblePages = 5;
+                let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+                let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+                
+                // Adjust startPage if we're near the end
+                if (endPage - startPage + 1 < maxVisiblePages) {
+                  startPage = Math.max(1, endPage - maxVisiblePages + 1);
+                }
+                
+                // Add first page and ellipsis if needed
+                if (startPage > 1) {
+                  pages.push(
+                    <button
+                      key={1}
+                      onClick={() => handlePageChange(1)}
+                      className="px-3 py-2 border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    >
+                      1
+                    </button>
+                  );
+                  if (startPage > 2) {
+                    pages.push(
+                      <span key="ellipsis-start" className="px-3 py-2 text-gray-500">
+                        ...
+                      </span>
+                    );
+                  }
+                }
+                
+                // Add visible page numbers
+                for (let i = startPage; i <= endPage; i++) {
+                  pages.push(
+                    <button
+                      key={i}
+                      onClick={() => handlePageChange(i)}
+                      className={`px-3 py-2 border text-sm font-medium ${
+                        currentPage === i 
+                          ? 'bg-blue-600 border-blue-600 text-white' 
+                          : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      {i}
+                    </button>
+                  );
+                }
+                
+                // Add ellipsis and last page if needed
+                if (endPage < totalPages) {
+                  if (endPage < totalPages - 1) {
+                    pages.push(
+                      <span key="ellipsis-end" className="px-3 py-2 text-gray-500">
+                        ...
+                      </span>
+                    );
+                  }
+                  pages.push(
+                    <button
+                      key={totalPages}
+                      onClick={() => handlePageChange(totalPages)}
+                      className="px-3 py-2 border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    >
+                      {totalPages}
+                    </button>
+                  );
+                }
+                
+                return pages;
+              })()}
               
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === Math.ceil(sortedProducts.length / itemsPerPage)}
-                className="px-3 py-2 border rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 border border-gray-300 rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium text-gray-700"
               >
                 Next
               </button>
             </div>
+          </div>
+        )}
+        
+        {/* Page Info */}
+        {totalPages > 1 && (
+          <div className="mt-4 text-center text-sm text-gray-600">
+            Page {currentPage} of {totalPages} ({totalCount} total products)
           </div>
         )}
       </main>
