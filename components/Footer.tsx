@@ -67,22 +67,45 @@ export default function Footer() {
             <Link href="/" className="flex items-center">
               <span className="text-2xl font-['Pacifico'] text-white">RitZone</span>
             </Link>
-            <div className="flex items-center space-x-4 text-sm">
-              <select className="bg-transparent border border-gray-600 text-white px-3 py-1 rounded pr-8">
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-              </select>
-              <select className="bg-transparent border border-gray-600 text-white px-3 py-1 rounded pr-8">
-                <option value="usd">$ USD - US Dollar</option>
-                <option value="eur">€ EUR - Euro</option>
-                <option value="gbp">£ GBP - British Pound</option>
-              </select>
-              <select className="bg-transparent border border-gray-600 text-white px-3 py-1 rounded pr-8">
-                <option value="us">🇺🇸 United States</option>
-                <option value="ca">🇨🇦 Canada</option>
-                <option value="uk">🇬🇧 United Kingdom</option>
-              </select>
+            <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm">
+              {/* Language Selector */}
+              <div className="flex items-center space-x-2">
+                <i className="ri-global-line w-4 h-4 text-gray-300"></i>
+                <select className="bg-[#37475a] border border-gray-500 text-white px-4 py-2 rounded hover:bg-[#485769] focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer min-w-[120px]">
+                  <option value="en">English</option>
+                  <option value="es">Español</option>
+                  <option value="fr">Français</option>
+                  <option value="de">Deutsch</option>
+                  <option value="it">Italiano</option>
+                </select>
+              </div>
+              
+              {/* Currency Selector */}
+              <div className="flex items-center space-x-2">
+                <i className="ri-money-dollar-circle-line w-4 h-4 text-gray-300"></i>
+                <select className="bg-[#37475a] border border-gray-500 text-white px-4 py-2 rounded hover:bg-[#485769] focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer min-w-[160px]">
+                  <option value="usd">$ USD - US Dollar</option>
+                  <option value="eur">€ EUR - Euro</option>
+                  <option value="gbp">£ GBP - British Pound</option>
+                  <option value="cad">$ CAD - Canadian Dollar</option>
+                  <option value="jpy">¥ JPY - Japanese Yen</option>
+                  <option value="aud">$ AUD - Australian Dollar</option>
+                </select>
+              </div>
+              
+              {/* Country Selector */}
+              <div className="flex items-center space-x-2">
+                <i className="ri-earth-line w-4 h-4 text-gray-300"></i>
+                <select className="bg-[#37475a] border border-gray-500 text-white px-4 py-2 rounded hover:bg-[#485769] focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer min-w-[160px]">
+                  <option value="us">🇺🇸 United States</option>
+                  <option value="ca">🇨🇦 Canada</option>
+                  <option value="uk">🇬🇧 United Kingdom</option>
+                  <option value="de">🇩🇪 Germany</option>
+                  <option value="fr">🇫🇷 France</option>
+                  <option value="au">🇦🇺 Australia</option>
+                  <option value="jp">🇯🇵 Japan</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
