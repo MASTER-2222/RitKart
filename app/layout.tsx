@@ -1,6 +1,7 @@
 
 import type { Metadata } from "next";
 import { Inter, Source_Code_Pro, Pacifico } from "next/font/google";
+import { CurrencyProvider } from "../contexts/CurrencyContext";
 import "./globals.css";
 
 const pacifico = Pacifico({
@@ -35,7 +36,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${sourceCodePro.variable} ${pacifico.variable} antialiased`}
       >
-        {children}
+        <CurrencyProvider>
+          {children}
+        </CurrencyProvider>
       </body>
     </html>
   );
