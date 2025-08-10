@@ -16,6 +16,7 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [minRating, setMinRating] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile sidebar toggle
   const itemsPerPage = 12;
 
   // Dynamic state from API
