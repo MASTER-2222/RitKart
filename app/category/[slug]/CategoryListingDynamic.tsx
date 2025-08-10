@@ -252,55 +252,31 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
       </div>
 
       <main className="max-w-7xl mx-auto px-6 py-6">
-        <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
-          <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">{currentCategory.name}</h2>
-              <p className="text-gray-600">
-                {error ? 'Showing available products' : `${totalCount} products available`}
-              </p>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <label className="text-sm text-gray-600">Sort by:</label>
-                <select 
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="border rounded px-2 py-1 text-sm pr-8"
-                >
-                  <option value="featured">Featured</option>
-                  <option value="newest">Newest</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Customer Rating</option>
-                </select>
-              </div>
-              
-              <div className="flex border rounded">
-                <button
-                  onClick={() => setViewMode('grid')}
-                  className={`p-2 ${viewMode === 'grid' ? 'bg-red-500 text-white' : 'text-gray-600'}`}
-                >
-                  <i className="ri-grid-line w-4 h-4 flex items-center justify-center"></i>
-                </button>
-                <button
-                  onClick={() => setViewMode('list')}
-                  className={`p-2 ${viewMode === 'list' ? 'bg-red-500 text-white' : 'text-gray-600'}`}
-                >
-                  <i className="ri-list-unordered w-4 h-4 flex items-center justify-center"></i>
-                </button>
-              </div>
-            </div>
-          </div>
+        {/* Mobile Filter Toggle */}
+        <div className="lg:hidden mb-4">
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="flex items-center justify-center w-full bg-white border rounded-lg p-3 text-gray-700 hover:bg-gray-50"
+          >
+            <i className="ri-filter-3-line mr-2"></i>
+            Filters
+            <i className={`ri-arrow-${isSidebarOpen ? 'up' : 'down'}-s-line ml-2`}></i>
+          </button>
+        </div>
 
-          {/* Filters */}
-          <div className="border-t pt-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Left Sidebar - Filters */}
+          <div className={`lg:w-64 ${isSidebarOpen ? 'block' : 'hidden lg:block'}`}>
+            <div className="bg-white rounded-lg shadow-sm border p-6 sticky top-4">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                <i className="ri-filter-3-line mr-2"></i>
+                Filters
+              </h3>
+              
               {/* Price Range Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
-                <div className="flex items-center space-x-2">
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-3">Price Range</label>
+                <div className="space-y-2">
                   <input
                     type="range"
                     min="0"
@@ -308,19 +284,31 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
                     step="50"
                     value={priceRange[0]}
                     onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
-                    className="flex-1"
+                    className="w-full accent-orange-500"
                   />
-                  <span className="text-sm text-gray-600">${priceRange[0]} - ${priceRange[1]}</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="2000"
+                    step="50"
+                    value={priceRange[1]}
+                    onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                    className="w-full accent-orange-500"
+                  />
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <span>${priceRange[0]}</span>
+                    <span>${priceRange[1]}</span>
+                  </div>
                 </div>
               </div>
 
               {/* Brand Filter */}
               {availableBrands.length > 0 && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Brands</label>
-                  <div className="max-h-32 overflow-y-auto">
-                    {availableBrands.slice(0, 10).map(brand => (
-                      <label key={brand} className="flex items-center mb-1">
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">Brands</label>
+                  <div className="max-h-48 overflow-y-auto space-y-2">
+                    {availableBrands.slice(0, 15).map(brand => (
+                      <label key={brand} className="flex items-center cursor-pointer">
                         <input
                           type="checkbox"
                           checked={selectedBrands.includes(brand)}
@@ -331,9 +319,9 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
                               setSelectedBrands(selectedBrands.filter(b => b !== brand));
                             }
                           }}
-                          className="mr-2"
+                          className="mr-3 rounded accent-orange-500"
                         />
-                        <span className="text-sm text-gray-600">{brand}</span>
+                        <span className="text-sm text-gray-600 hover:text-gray-900">{brand}</span>
                       </label>
                     ))}
                   </div>
@@ -341,36 +329,79 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
               )}
 
               {/* Rating Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Minimum Rating</label>
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-3">Minimum Rating</label>
                 <select
                   value={minRating}
                   onChange={(e) => setMinRating(parseInt(e.target.value))}
-                  className="w-full border rounded px-2 py-1 text-sm"
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                 >
                   <option value={0}>All Ratings</option>
-                  <option value={4}>4+ Stars</option>
-                  <option value={3}>3+ Stars</option>
-                  <option value={2}>2+ Stars</option>
+                  <option value={4}>4+ Stars ⭐⭐⭐⭐</option>
+                  <option value={3}>3+ Stars ⭐⭐⭐</option>
+                  <option value={2}>2+ Stars ⭐⭐</option>
                 </select>
               </div>
 
               {/* Clear Filters */}
-              <div className="flex items-end">
-                <button
-                  onClick={() => {
-                    setPriceRange([0, 2000]);
-                    setSelectedBrands([]);
-                    setMinRating(0);
-                  }}
-                  className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded text-sm"
-                >
-                  Clear Filters
-                </button>
-              </div>
+              <button
+                onClick={() => {
+                  setPriceRange([0, 2000]);
+                  setSelectedBrands([]);
+                  setMinRating(0);
+                }}
+                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+              >
+                Clear All Filters
+              </button>
             </div>
           </div>
-        </div>
+
+          {/* Main Content */}
+          <div className="flex-1">
+            {/* Header with Sort Options */}
+            <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">{currentCategory.name}</h2>
+                  <p className="text-gray-600">
+                    {error ? 'Showing available products' : `${totalCount} products available`}
+                  </p>
+                </div>
+                
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <label className="text-sm text-gray-600">Sort by:</label>
+                    <select 
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="border rounded-lg px-3 py-2 text-sm pr-8 focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    >
+                      <option value="featured">Featured</option>
+                      <option value="newest">Newest</option>
+                      <option value="price-low">Price: Low to High</option>
+                      <option value="price-high">Price: High to Low</option>
+                      <option value="rating">Customer Rating</option>
+                    </select>
+                  </div>
+                  
+                  <div className="flex border rounded-lg overflow-hidden">
+                    <button
+                      onClick={() => setViewMode('grid')}
+                      className={`p-2 transition-colors ${viewMode === 'grid' ? 'bg-orange-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+                    >
+                      <i className="ri-grid-line w-4 h-4 flex items-center justify-center"></i>
+                    </button>
+                    <button
+                      onClick={() => setViewMode('list')}
+                      className={`p-2 transition-colors ${viewMode === 'list' ? 'bg-orange-500 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+                    >
+                      <i className="ri-list-unordered w-4 h-4 flex items-center justify-center"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
         {/* Products Display */}
         <div className="mb-4">
