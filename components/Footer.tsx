@@ -1,8 +1,19 @@
 
 'use client';
 import Link from 'next/link';
+import { useCurrency, Currency } from '../contexts/CurrencyContext';
 
 export default function Footer() {
+  const { selectedCurrency, currencies, setCurrency, isLoading } = useCurrency();
+
+  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const currencyCode = e.target.value;
+    const selectedCurrency = currencies.find(c => c.code === currencyCode);
+    if (selectedCurrency) {
+      setCurrency(selectedCurrency);
+    }
+  };
+
   return (
     <footer className="bg-[#232f3e] text-white">
       <div className="bg-[#37475a] text-center py-4">
@@ -71,7 +82,10 @@ export default function Footer() {
               {/* Language Selector */}
               <div className="flex items-center space-x-2">
                 <i className="ri-global-line w-4 h-4 text-gray-300"></i>
-                <select className="bg-[#37475a] border border-gray-500 text-white px-4 py-2 rounded hover:bg-[#485769] focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer min-w-[120px]">
+                <select 
+                  className="bg-[#37475a] border border-gray-500 text-white px-4 py-2 rounded hover:bg-[#485769] focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer min-w-[120px]"
+                  defaultValue="en"
+                >
                   <option value="en">English</option>
                   <option value="es">Español</option>
                   <option value="fr">Français</option>
@@ -83,27 +97,32 @@ export default function Footer() {
               {/* Currency Selector */}
               <div className="flex items-center space-x-2">
                 <i className="ri-money-dollar-circle-line w-4 h-4 text-gray-300"></i>
-                <select className="bg-[#37475a] border border-gray-500 text-white px-4 py-2 rounded hover:bg-[#485769] focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer min-w-[160px]">
-                  <option value="usd">$ USD - US Dollar</option>
-                  <option value="eur">€ EUR - Euro</option>
-                  <option value="gbp">£ GBP - British Pound</option>
-                  <option value="cad">$ CAD - Canadian Dollar</option>
-                  <option value="jpy">¥ JPY - Japanese Yen</option>
-                  <option value="aud">$ AUD - Australian Dollar</option>
+                <select 
+                  className="bg-[#37475a] border border-gray-500 text-white px-4 py-2 rounded hover:bg-[#485769] focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer min-w-[160px]"
+                  value={selectedCurrency.code}
+                  onChange={handleCurrencyChange}
+                  disabled={isLoading}
+                >
+                  {currencies.map((currency) => (
+                    <option key={currency.code} value={currency.code}>
+                      {currency.flag} {currency.symbol} {currency.code} - {currency.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               
               {/* Country Selector */}
               <div className="flex items-center space-x-2">
                 <i className="ri-earth-line w-4 h-4 text-gray-300"></i>
-                <select className="bg-[#37475a] border border-gray-500 text-white px-4 py-2 rounded hover:bg-[#485769] focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer min-w-[160px]">
-                  <option value="us">🇺🇸 United States</option>
-                  <option value="ca">🇨🇦 Canada</option>
-                  <option value="uk">🇬🇧 United Kingdom</option>
-                  <option value="de">🇩🇪 Germany</option>
-                  <option value="fr">🇫🇷 France</option>
-                  <option value="au">🇦🇺 Australia</option>
-                  <option value="jp">🇯🇵 Japan</option>
+                <select 
+                  className="bg-[#37475a] border border-gray-500 text-white px-4 py-2 rounded hover:bg-[#485769] focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer min-w-[160px]"
+                  value={selectedCurrency.country.toLowerCase().replace(' ', '')}
+                >
+                  {currencies.map((currency) => (
+                    <option key={currency.code} value={currency.country.toLowerCase().replace(' ', '')}>
+                      {currency.flag} {currency.country}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -135,16 +154,21 @@ export default function Footer() {
               <Link href="/video" className="block hover:underline">RitZone Video</Link>
             </div>
             <div className="space-y-2">
-              <Link href="/fresh" className="block hover:underline">RitZone Fresh</Link>
-              <Link href="/pharmacy" className="block hover:underline">RitZone Pharmacy</Link>
+              <Link href="/fresh" className="block text-gray-300 hover:underline">RitZone Fresh</Link>
+              <Link href="/pharmacy" className="block text-gray-300 hover:underline">RitZone Pharmacy</Link>
             </div>
             <div className="space-y-2">
               <Link href="/whole-foods" className="block hover:underline">Whole Foods Market</Link>
               <Link href="/warehouse" className="block hover:underline">RitZone Warehouse</Link>
             </div>
           </div>
-          <div className="text-center mt-6 text-xs text-gray-500">
-            © 2024, RitZone.com, Inc. or its affiliates
+          
+          <div className="mt-6 pt-6 border-t border-gray-700 text-center">
+            <div className="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-4 text-xs text-gray-400">
+              <span>© 2024, RitZone.com, Inc. or its affiliates</span>
+              <span className="hidden md:inline">|</span>
+              <span>Current Currency: <strong className="text-orange-400">{selectedCurrency.flag} {selectedCurrency.symbol} {selectedCurrency.code}</strong></span>
+            </div>
           </div>
         </div>
       </div>
