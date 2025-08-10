@@ -16,6 +16,11 @@ interface ProductCardProps {
   isPrime?: boolean;
   isDeliveryTomorrow?: boolean;
   discount?: number;
+  // NEW: Backend-provided currency fields
+  currency?: string;
+  currency_symbol?: string;
+  formatted_price?: string;
+  formatted_original_price?: string;
 }
 
 export default function ProductCard({ 
@@ -28,15 +33,21 @@ export default function ProductCard({
   image, 
   isPrime = false,
   isDeliveryTomorrow = false,
-  discount 
+  discount,
+  // NEW: Backend currency fields
+  currency = 'INR',
+  currency_symbol = '₹',
+  formatted_price,
+  formatted_original_price
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const router = useRouter();
-  const { convertPrice, formatPrice } = useCurrency();
+  const { selectedCurrency } = useCurrency();
 
-  // Convert prices from INR (base currency) to selected currency
-  const convertedPrice = convertPrice(price, 'INR');
-  const convertedOriginalPrice = originalPrice ? convertPrice(originalPrice, 'INR') : null;
+  // NEW: Use backend-formatted prices if available, fallback to manual formatting
+  const displayPrice = formatted_price || `${currency_symbol}${price}`;
+  const displayOriginalPrice = formatted_original_price || 
+    (originalPrice ? `${currency_symbol}${originalPrice}` : null);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -52,6 +63,9 @@ export default function ProductCard({
   const handleCardClick = () => {
     router.push(`/product/${id}`);
   };
+
+  // Show currency badge if displaying non-INR currency
+  const showCurrencyBadge = currency !== 'INR' && currency !== selectedCurrency.code;
 
   return (
     <div 
@@ -76,6 +90,12 @@ export default function ProductCard({
             <div className="bg-blue-500 text-white px-2 py-1 text-xs font-bold rounded">
               Prime
             </div>
+          </div>
+        )}
+        {/* NEW: Currency indicator badge */}
+        {showCurrencyBadge && (
+          <div className="absolute bottom-2 left-2 bg-orange-500 text-white px-2 py-1 text-xs font-bold rounded">
+            {currency}
           </div>
         )}
       </div>
@@ -105,11 +125,11 @@ export default function ProductCard({
         
         <div className="flex items-center space-x-2">
           <span className="text-lg font-bold text-gray-900">
-            {formatPrice(convertedPrice)}
+            {displayPrice}
           </span>
-          {convertedOriginalPrice && convertedOriginalPrice > convertedPrice && (
+          {displayOriginalPrice && originalPrice && originalPrice > price && (
             <span className="text-sm text-gray-500 line-through">
-              {formatPrice(convertedOriginalPrice)}
+              {displayOriginalPrice}
             </span>
           )}
         </div>
