@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useCurrency } from '../contexts/CurrencyContext';
 
 interface ProductCardProps {
   id: string;
@@ -31,6 +32,11 @@ export default function ProductCard({
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const router = useRouter();
+  const { convertPrice, formatPrice } = useCurrency();
+
+  // Convert prices from INR (base currency) to selected currency
+  const convertedPrice = convertPrice(price, 'INR');
+  const convertedOriginalPrice = originalPrice ? convertPrice(originalPrice, 'INR') : null;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -98,9 +104,13 @@ export default function ProductCard({
         </div>
         
         <div className="flex items-center space-x-2">
-          <span className="text-lg font-bold text-gray-900">${price}</span>
-          {originalPrice && originalPrice > price && (
-            <span className="text-sm text-gray-500 line-through">${originalPrice}</span>
+          <span className="text-lg font-bold text-gray-900">
+            {formatPrice(convertedPrice)}
+          </span>
+          {convertedOriginalPrice && convertedOriginalPrice > convertedPrice && (
+            <span className="text-sm text-gray-500 line-through">
+              {formatPrice(convertedOriginalPrice)}
+            </span>
           )}
         </div>
         
