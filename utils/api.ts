@@ -111,8 +111,17 @@ class ApiClient {
     return this.getProducts({ featured: true });
   }
 
-  async getProductsByCategory(categorySlug: string, limit?: number) {
-    return this.makeRequest(`/products/category/${categorySlug}${limit ? `?limit=${limit}` : ''}`);
+  async getProductsByCategory(categorySlug: string, params?: {
+    limit?: number;
+    page?: number;
+  }) {
+    const searchParams = new URLSearchParams();
+    
+    if (params?.limit) searchParams.set('limit', params.limit.toString());
+    if (params?.page) searchParams.set('page', params.page.toString());
+
+    const query = searchParams.toString();
+    return this.makeRequest(`/products/category/${categorySlug}${query ? `?${query}` : ''}`);
   }
 
   // Banners API
