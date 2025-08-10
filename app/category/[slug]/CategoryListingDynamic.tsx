@@ -290,7 +290,10 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
                     max="2000"
                     step="50"
                     value={priceRange[0]}
-                    onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
+                    onChange={(e) => {
+                      setPriceRange([parseInt(e.target.value), priceRange[1]]);
+                      closeMobileSidebar();
+                    }}
                     className="w-full accent-orange-500"
                   />
                   <input
@@ -299,7 +302,10 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
                     max="2000"
                     step="50"
                     value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                    onChange={(e) => {
+                      setPriceRange([priceRange[0], parseInt(e.target.value)]);
+                      closeMobileSidebar();
+                    }}
                     className="w-full accent-orange-500"
                   />
                   <div className="flex justify-between text-sm text-gray-600">
