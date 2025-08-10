@@ -231,18 +231,33 @@ router.get('/search/:query', async (req, res) => {
 });
 
 // ==============================================
-// ⭐ GET FEATURED PRODUCTS
+// ⭐ GET FEATURED PRODUCTS (WITH DYNAMIC CURRENCY)
 // ==============================================
 router.get('/featured/list', async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
+    const currency = req.query.currency || 'INR'; // NEW: Support currency parameter
 
-    // This would need to be implemented in the productService
-    // For now, return a placeholder response
+    // Get featured products from service
+    const result = await productService.getFeaturedProducts ? 
+      await productService.getFeaturedProducts(limit) :
+      { success: true, products: [] }; // Fallback for now
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    // NEW: Convert prices to requested currency
+    const convertedProducts = await convertProductsPrices(result.products, currency);
+
     res.status(200).json({
       success: true,
-      message: 'Featured products functionality coming soon',
-      data: [],
+      message: `Featured products retrieved successfully${currency !== 'INR' ? ` with prices in ${currency}` : ''}`,
+      data: convertedProducts,
+      currency: currency, // NEW: Include currency info
       limit: limit
     });
 
