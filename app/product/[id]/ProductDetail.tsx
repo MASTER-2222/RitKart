@@ -307,7 +307,16 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
 
         {/* Related Products */}
         <div className="mt-12">
-          <ProductCarousel title="Related Products" />
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Related Products</h2>
+            <div className="bg-gray-50 p-6 rounded-lg text-center">
+              <div className="text-gray-400 text-4xl mb-2">🛍️</div>
+              <p className="text-gray-600">Related products feature coming soon!</p>
+              <p className="text-sm text-gray-500 mt-2">
+                Discover more products similar to this one.
+              </p>
+            </div>
+          </div>
         </div>
       </main>
 
