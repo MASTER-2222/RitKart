@@ -184,11 +184,11 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
     return [...new Set(brands)].sort();
   }, [convertedProducts]);
 
-  // Pagination
+  // Since we're using server-side pagination, we don't need client-side pagination
+  // All products from API are for the current page
   const paginatedProducts = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    return sortedProducts.slice(startIndex, startIndex + itemsPerPage);
-  }, [sortedProducts, currentPage, itemsPerPage]);
+    return sortedProducts; // Return all sorted products since API already handles pagination
+  }, [sortedProducts]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
