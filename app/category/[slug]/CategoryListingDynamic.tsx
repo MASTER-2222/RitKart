@@ -196,6 +196,13 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Close mobile sidebar when filter is applied
+  const closeMobileSidebar = () => {
+    if (window.innerWidth < 1024) { // lg breakpoint
+      setIsSidebarOpen(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
