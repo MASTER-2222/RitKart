@@ -174,6 +174,19 @@ export default function Home() {
       rating: product.rating_average,
       reviewCount: product.total_reviews,
       image: product.images[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&h=300&fit=crop&crop=center',
+      isPrime: product.is_featured,
+      isDeliveryTomorrow: product.stock_quantity > 0,
+      discount: product.original_price > product.price ? 
+        Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0,
+      brand: product.brand,
+      // NEW: Add currency information
+      currency: selectedCurrency.symbol,
+      currencyCode: selectedCurrency.code
+    }));
+  };
+      rating: product.rating_average,
+      reviewCount: product.total_reviews,
+      image: product.images[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&h=300&fit=crop&crop=center',
       isPrime: true, // You can add this field to your product model
       isDeliveryTomorrow: product.stock_quantity > 0,
       discount: product.original_price > product.price ? 
