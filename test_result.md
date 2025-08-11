@@ -316,6 +316,13 @@ metadata:
   test_sequence: 0
   run_ui: false
 
+test_plan:
+  current_focus:
+    - "Add to Cart functionality testing completed"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
   - task: "Migrate Sports & Outdoors category products to database"
     implemented: true
     working: true
