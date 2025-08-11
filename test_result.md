@@ -504,6 +504,12 @@ metadata:
       - working: false
         agent: "testing"
         comment: "🔍 COMPREHENSIVE ADD TO CART TESTING COMPLETED - Backend Infrastructure: ✅ Backend health check passed (Node.js Express + Supabase running correctly), ✅ Cart API endpoints exist and properly configured (/api/cart, /api/cart/add, /api/cart/items/:id), ✅ Authentication middleware working correctly (rejects invalid/missing tokens), ✅ Product retrieval working (5 products available across categories), ✅ Input validation implemented (rejects missing productId, zero/negative quantities). CRITICAL ISSUE IDENTIFIED: Authentication system requires email verification for new users, preventing comprehensive cart testing. Supabase authentication configured but no verified test users available. Cart API structure is correct and follows proper REST patterns. RECOMMENDATION: Create verified test user in Supabase admin panel or implement test authentication bypass for development environment."
+      - working: false
+        agent: "user"
+        comment: "🚨 USER REPORTS PERSISTENT ADD TO CART ISSUE - User confirms that registered users can successfully navigate to individual product pages across all categories (Electronics, Fashion, Books, Home & Gardens, Sports & Outdoors, Grocery, Appliances, Beauty & Personal Care, Solar, Pharmacy) and see both 'Add to Cart' and 'Buy Now' buttons. However, when registered users click 'Add to Cart' button, it shows error message: '❌ Failed to add product to cart. Please try again'. User requests to make button fully functional with backend integration, persistent cart storage in database linked to user account, and seamless operation across all product categories."
+      - working: "NA"
+        agent: "main"
+        comment: "🔍 STARTING ADD TO CART DEBUG - User reports specific error message '❌ Failed to add product to cart. Please try again' when clicking Add to Cart button on individual product pages. Need to investigate: 1) Current ProductDetail.tsx implementation, 2) Backend cart API status, 3) Frontend-backend integration, 4) Authentication flow, 5) Error handling and user feedback. Will fix the integration to ensure seamless cart functionality for registered users across all categories."
 
 agent_communication:
   - agent: "main"
