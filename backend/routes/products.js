@@ -14,8 +14,20 @@ const router = express.Router();
 // 💰 HELPER FUNCTION: CONVERT PRODUCT PRICES
 // ==============================================
 async function convertProductPrices(product, targetCurrency = 'INR') {
-  if (!product || targetCurrency === 'INR') {
+  if (!product) {
     return product;
+  }
+  
+  // Handle INR currency (base currency) - add metadata without conversion
+  if (targetCurrency === 'INR') {
+    return {
+      ...product,
+      currency: 'INR',
+      currency_symbol: getCurrencySymbol('INR'),
+      formatted_price: formatPrice(product.price, 'INR'),
+      base_currency: 'INR',
+      base_price: product.price
+    };
   }
   
   try {
