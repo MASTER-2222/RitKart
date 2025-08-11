@@ -97,34 +97,41 @@ class AddToCartTester:
         """Test user authentication for cart operations"""
         print("\n🔐 Testing User Authentication...")
         
-        # Try with test user credentials
-        login_data = {
-            "email": "test@test.com",
-            "password": "password123"
+        # First try to register a new user
+        timestamp = datetime.now().strftime('%H%M%S')
+        test_email = f"carttest{timestamp}@gmail.com"
+        
+        register_data = {
+            "email": test_email,
+            "password": "TestPassword123!",
+            "fullName": f"Cart Test User {timestamp}",
+            "phone": "+1234567890"
         }
         
-        success, status, data = self.make_request('POST', '/auth/login', login_data)
+        success, status, data = self.make_request('POST', '/auth/register', register_data, 201)
         
         if success and data.get('success'):
-            # Store auth info
-            if 'user' in data:
-                self.user_id = data['user'].get('id')
-            if 'token' in data:
-                self.token = data['token']
-                
+            self.log_test(
+                "User Registration", 
+                True, 
+                f"User registered successfully - Email: {test_email}"
+            )
+            
+            # Note: In a real scenario, we'd need email verification
+            # For testing, let's try to use Supabase admin API or create a verified user
             return self.log_test(
                 "User Authentication", 
-                True, 
-                f"Test user login successful - User ID: {self.user_id[:8]}..."
+                False, 
+                "User registered but needs email verification - cannot test cart without verified user"
             )
         else:
-            # Try with admin credentials as fallback
-            admin_login_data = {
-                "email": "admin@ritzone.com",
-                "password": "RitZone@Admin2025!"
+            # Try with existing test credentials
+            login_data = {
+                "email": "test@test.com",
+                "password": "password123"
             }
             
-            success, status, data = self.make_request('POST', '/auth/login', admin_login_data)
+            success, status, data = self.make_request('POST', '/auth/login', login_data)
             
             if success and data.get('success'):
                 # Store auth info
@@ -136,13 +143,13 @@ class AddToCartTester:
                 return self.log_test(
                     "User Authentication", 
                     True, 
-                    f"Admin login successful - User ID: {self.user_id[:8]}..."
+                    f"Test user login successful - User ID: {self.user_id[:8]}..."
                 )
             else:
                 return self.log_test(
                     "User Authentication", 
                     False, 
-                    f"Both test and admin login failed - Status: {status}, Response: {data}"
+                    f"Authentication failed - Registration: {register_data}, Login: {data}"
                 )
 
     def test_authentication_middleware(self):
