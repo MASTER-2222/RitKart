@@ -32,7 +32,18 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
   // Fetch product data from API
   useEffect(() => {
     fetchProduct();
+    checkUserAuth();
   }, [productId, selectedCurrency]); // Add currency dependency
+
+  // Check if user is authenticated
+  const checkUserAuth = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    } catch (error) {
+      console.error('Failed to check user authentication:', error);
+    }
+  };
 
   // Listen for currency change events
   useEffect(() => {
