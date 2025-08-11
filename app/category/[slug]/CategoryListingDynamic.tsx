@@ -322,8 +322,8 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
                     className="w-full accent-orange-500"
                   />
                   <div className="flex justify-between text-sm text-gray-600">
-                    <span>${priceRange[0]}</span>
-                    <span>${priceRange[1]}</span>
+                    <span>{selectedCurrency.symbol}{priceRange[0]}</span>
+                    <span>{selectedCurrency.symbol}{priceRange[1]}</span>
                   </div>
                 </div>
               </div>
