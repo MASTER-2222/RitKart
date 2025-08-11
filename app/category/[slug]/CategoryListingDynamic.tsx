@@ -89,23 +89,28 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
   // Fetch products and category data from API
   useEffect(() => {
     fetchCategoryData();
-  }, [categorySlug, currentPage]);
+  }, [categorySlug, currentPage, selectedCurrency]); // Add selectedCurrency dependency
 
   const fetchCategoryData = async () => {
     try {
       setLoading(true);
       setError(null);
       
-      // Fetch products for this category from API with pagination
+      console.log(`🔄 Fetching ${categorySlug} products in ${selectedCurrency.code} currency...`);
+      
+      // Fetch products for this category from API with pagination AND CURRENCY
       const productsResponse = await apiClient.getProductsByCategory(categorySlug, {
         limit: itemsPerPage,
-        page: currentPage
+        page: currentPage,
+        currency: selectedCurrency.code // Add currency parameter
       });
       
       if (productsResponse.success) {
         setProducts(productsResponse.data);
         setTotalCount(productsResponse.pagination?.totalCount || productsResponse.data.length);
         setTotalPages(productsResponse.pagination?.totalPages || Math.ceil(productsResponse.data.length / itemsPerPage));
+        
+        console.log(`✅ Loaded ${productsResponse.data.length} products in ${selectedCurrency.code}`);
       } else {
         console.error('Failed to fetch products:', productsResponse.message);
         setError('Failed to load products for this category');
