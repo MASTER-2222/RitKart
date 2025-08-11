@@ -525,11 +525,11 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
                       <div className="flex items-center justify-between">
                         <div className="flex items-baseline gap-2">
                           <span className="text-2xl font-bold text-gray-900">
-                            ${product.price}
+                            {selectedCurrency.symbol}{product.price}
                           </span>
                           {product.originalPrice && product.originalPrice > product.price && (
                             <span className="text-sm text-gray-500 line-through">
-                              ${product.originalPrice}
+                              {selectedCurrency.symbol}{product.originalPrice}
                             </span>
                           )}
                         </div>
