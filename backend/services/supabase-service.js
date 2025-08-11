@@ -93,6 +93,8 @@ const userService = {
   register: async (userData) => {
     try {
       const client = getSupabaseClient();
+      
+      // First register with Supabase Auth
       const { data, error } = await client.auth.signUp({
         email: userData.email,
         password: userData.password,
@@ -105,6 +107,29 @@ const userService = {
       });
 
       if (error) throw error;
+
+      // Also create user record in custom users table for cart functionality
+      if (data.user) {
+        try {
+          const { error: userTableError } = await client
+            .from('users')
+            .insert([{
+              id: data.user.id,
+              email: data.user.email,
+              full_name: userData.fullName,
+              phone: userData.phone || null,
+              is_active: true
+            }]);
+
+          if (userTableError) {
+            console.warn('⚠️ Failed to create user in users table:', userTableError.message);
+            // Don't fail the registration if this fails, as auth user was created successfully
+          }
+        } catch (userTableErr) {
+          console.warn('⚠️ Error creating user in users table:', userTableErr.message);
+        }
+      }
+
       return { success: true, user: data.user };
     } catch (error) {
       console.error('❌ User registration failed:', error.message);
