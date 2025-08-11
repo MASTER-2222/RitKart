@@ -117,13 +117,14 @@ const userService = {
               id: data.user.id,
               email: data.user.email,
               full_name: userData.fullName,
-              phone: userData.phone || null,
-              is_active: true
+              phone: userData.phone || null
             }]);
 
           if (userTableError) {
             console.warn('⚠️ Failed to create user in users table:', userTableError.message);
             // Don't fail the registration if this fails, as auth user was created successfully
+          } else {
+            console.log('✅ User created in both auth.users and users tables');
           }
         } catch (userTableErr) {
           console.warn('⚠️ Error creating user in users table:', userTableErr.message);
