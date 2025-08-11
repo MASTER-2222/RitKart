@@ -5,12 +5,15 @@ import Footer from '../../../components/Footer';
 import ProductCarousel from '../../../components/ProductCarousel';
 import Link from 'next/link';
 import { apiClient, Product } from '../../../utils/api';
+import { useCurrency } from '../../../contexts/CurrencyContext';
 
 interface ProductDetailProps {
   productId: string;
 }
 
 export default function ProductDetail({ productId }: ProductDetailProps) {
+  const { selectedCurrency } = useCurrency(); // Add currency context
+  
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedTab, setSelectedTab] = useState('description');
@@ -21,6 +24,19 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
   // Fetch product data from API
   useEffect(() => {
     fetchProduct();
+  }, [productId, selectedCurrency]); // Add currency dependency
+
+  // Listen for currency change events
+  useEffect(() => {
+    const handleCurrencyChange = () => {
+      console.log(`🔄 Currency changed, refreshing product ${productId} data...`);
+      fetchProduct();
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('currencyChanged', handleCurrencyChange);
+      return () => window.removeEventListener('currencyChanged', handleCurrencyChange);
+    }
   }, [productId]);
 
   const fetchProduct = async () => {
@@ -28,10 +44,13 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
       setLoading(true);
       setError(null);
       
-      const response = await apiClient.getProductById(productId);
+      console.log(`🔄 Loading product ${productId} in ${selectedCurrency.code} currency...`);
+      
+      const response = await apiClient.getProductById(productId, selectedCurrency.code); // Add currency
       
       if (response.success) {
         setProduct(response.data);
+        console.log(`✅ Loaded product in ${selectedCurrency.code}`);
       } else {
         setError('Product not found');
       }
