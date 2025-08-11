@@ -424,7 +424,7 @@ const cartService = {
       }
 
       // Recalculate cart total
-      await this.updateCartTotal(cart.id);
+      await cartService.updateCartTotal(cart.id);
 
       return { success: true, cartItem: cartItem };
     } catch (error) {
