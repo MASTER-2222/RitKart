@@ -474,7 +474,7 @@ const cartService = {
       if (updateError) throw updateError;
 
       // Recalculate cart total
-      await this.updateCartTotal(cartItem.cart_id);
+      await cartService.updateCartTotal(cartItem.cart_id);
 
       return { success: true, cartItem: updatedItem };
     } catch (error) {
