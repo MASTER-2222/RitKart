@@ -338,6 +338,34 @@ const cartService = {
       if (!product.is_active) throw new Error('Product is not available');
       if (product.stock_quantity < quantity) throw new Error('Insufficient stock');
 
+      // Ensure user exists in users table before creating cart
+      try {
+        const { data: existingUser } = await client
+          .from('users')
+          .select('id')
+          .eq('id', userId)
+          .single();
+
+        if (!existingUser) {
+          // Try to get user info from auth.users and create record
+          const { data: { user }, error: authError } = await client.auth.getUser();
+          if (user && user.id === userId) {
+            // Create user record (ignore RLS errors for now)
+            await client
+              .from('users')
+              .insert([{
+                id: userId,
+                email: user.email,
+                full_name: user.user_metadata?.full_name || 'Unknown User'
+              }])
+              .single();
+          }
+        }
+      } catch (userError) {
+        // Log but don't fail - we'll try to create cart anyway
+        console.warn('⚠️ Could not ensure user exists:', userError.message);
+      }
+
       // Get or create cart
       let { data: cart } = await client
         .from('carts')
