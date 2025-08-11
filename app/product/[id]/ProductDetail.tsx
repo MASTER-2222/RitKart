@@ -1,11 +1,14 @@
 'use client';
+import React from 'react';
 import { useState, useEffect } from 'react';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import ProductCarousel from '../../../components/ProductCarousel';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { apiClient, Product } from '../../../utils/api';
 import { useCurrency } from '../../../contexts/CurrencyContext';
+import { createClient } from '../../../utils/supabase/client';
 
 interface ProductDetailProps {
   productId: string;
