@@ -491,9 +491,9 @@ metadata:
     implemented: true
     working: false
     file: "app/product/[id]/ProductDetail.tsx, backend/routes/cart.js, backend/models/cart.js, utils/api.ts"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: false
         agent: "main"
@@ -510,6 +510,9 @@ metadata:
       - working: "NA"
         agent: "main"
         comment: "🔧 AUTHENTICATION FIX IMPLEMENTED - Root cause identified: Backend cart API expects JWT tokens from backend auth system, but frontend uses Supabase authentication directly. Solution: Enhanced authentication middleware in backend/routes/cart.js to accept both JWT and Supabase tokens. Modified authenticateToken() function to: 1) First try verifying as Supabase token using supabase.auth.getUser(token), 2) If Supabase verification succeeds, set user info and continue, 3) If Supabase fails, fallback to original JWT verification. This allows registered Supabase users to access cart API without changing frontend authentication system. Backend restarted with new middleware. Ready for testing to verify Add to Cart functionality works with Supabase-authenticated users."
+      - working: false
+        agent: "testing"
+        comment: "🔍 ROOT CAUSE IDENTIFIED - COMPREHENSIVE CART TESTING COMPLETED: ✅ Backend Health: Node.js Express + Supabase running correctly on port 8001, ✅ Cart API Endpoints: All routes accessible (/api/cart, /api/cart/add, /api/cart/items/:id), ✅ Enhanced Authentication: Supabase token support working correctly - accepts both JWT and Supabase tokens, ✅ Product Integration: Successfully retrieved 6 products across categories for testing, ✅ Input Validation: Properly rejects invalid productId, zero/negative quantities, ✅ Database Schema: All required tables exist (users, carts, cart_items, products). 🚨 CRITICAL ISSUE FOUND: Row Level Security (RLS) policies on users and carts tables are blocking cart operations. Error: 'new row violates row-level security policy for table users/carts'. SOLUTION REQUIRED: Execute RLS policy fixes in Supabase SQL Editor to allow cart operations. Created fix-cart-rls-policies.sql with required policies. Authentication middleware enhancement successful - issue is database permissions, not authentication."
 
 agent_communication:
   - agent: "main"
