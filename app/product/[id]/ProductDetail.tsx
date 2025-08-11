@@ -170,10 +170,14 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
 
               <div className="space-y-2">
                 <div className="flex items-center space-x-3">
-                  <span className="text-3xl font-bold text-gray-900">${product.price}</span>
+                  <span className="text-3xl font-bold text-gray-900">
+                    {product.formatted_price || `${selectedCurrency.symbol}${product.price}`}
+                  </span>
                   {product.original_price && product.original_price > product.price && (
                     <>
-                      <span className="text-lg text-gray-500 line-through">${product.original_price}</span>
+                      <span className="text-lg text-gray-500 line-through">
+                        {product.formatted_original_price || `${selectedCurrency.symbol}${product.original_price}`}
+                      </span>
                       <span className="bg-red-600 text-white px-2 py-1 text-sm font-bold rounded">
                         -{discount}% Off
                       </span>
