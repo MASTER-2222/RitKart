@@ -5,6 +5,7 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import ProductCard from '../../../components/ProductCard';
 import { apiClient, Product, Category } from '../../../utils/api';
+import { useCurrency } from '../../../contexts/CurrencyContext';
 
 interface CategoryListingProps {
   categorySlug: string;
