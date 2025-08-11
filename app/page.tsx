@@ -6,8 +6,11 @@ import Footer from '../components/Footer';
 import CategoryCard from '../components/CategoryCard';
 import ProductCarousel from '../components/ProductCarousel';
 import { apiClient, Category, Product } from '../utils/api';
+import { useCurrency } from '../contexts/CurrencyContext';
 
 export default function Home() {
+  const { selectedCurrency } = useCurrency(); // Add currency context
+  
   const [currentHeroBanner, setCurrentHeroBanner] = useState(0);
   const [categories, setCategories] = useState<Category[]>([]);
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
@@ -18,17 +21,22 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [selectedCurrency]); // Add currency dependency
 
   const fetchData = async () => {
     try {
       setLoading(true);
       
-      // Fetch all data in parallel
+      console.log(`🔄 Loading homepage data in ${selectedCurrency.code} currency...`);
+      
+      // Fetch all data in parallel WITH CURRENCY SUPPORT
       const [categoriesResponse, featuredResponse, electronicsResponse, bannersResponse] = await Promise.all([
         apiClient.getCategories(),
-        apiClient.getFeaturedProducts(),
-        apiClient.getProductsByCategory('electronics', 6),
+        apiClient.getFeaturedProducts(selectedCurrency.code), // Add currency
+        apiClient.getProductsByCategory('electronics', { 
+          limit: 6,
+          currency: selectedCurrency.code // Add currency
+        }),
         apiClient.getBanners()
       ]);
 
@@ -38,10 +46,12 @@ export default function Home() {
 
       if (featuredResponse.success) {
         setFeaturedProducts(featuredResponse.data);
+        console.log(`✅ Loaded ${featuredResponse.data.length} featured products in ${selectedCurrency.code}`);
       }
 
       if (electronicsResponse.success) {
         setElectronicsProducts(electronicsResponse.data);
+        console.log(`✅ Loaded ${electronicsResponse.data.length} electronics products in ${selectedCurrency.code}`);
       }
 
       // Handle banners API response
