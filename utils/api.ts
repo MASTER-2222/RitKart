@@ -40,11 +40,24 @@ class ApiClient {
       'Content-Type': 'application/json',
     };
 
-    // Add auth token if available
+    // Add auth token if available (from Supabase)
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('supabase.auth.token');
-      if (token) {
-        defaultHeaders['Authorization'] = `Bearer ${token}`;
+      try {
+        // Try to get Supabase session first
+        const { createClient } = await import('../utils/supabase/client');
+        const supabase = createClient();
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session?.access_token) {
+          defaultHeaders['Authorization'] = `Bearer ${session.access_token}`;
+        }
+      } catch (error) {
+        console.warn('Failed to get Supabase session:', error);
+        // Fallback to localStorage token
+        const token = localStorage.getItem('supabase.auth.token');
+        if (token) {
+          defaultHeaders['Authorization'] = `Bearer ${token}`;
+        }
       }
     }
 
