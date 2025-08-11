@@ -23,6 +23,19 @@ export default function Home() {
     fetchData();
   }, [selectedCurrency]); // Add currency dependency
 
+  // Listen for currency change events
+  useEffect(() => {
+    const handleCurrencyChange = () => {
+      console.log(`🔄 Currency changed, refreshing homepage data...`);
+      fetchData();
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('currencyChanged', handleCurrencyChange);
+      return () => window.removeEventListener('currencyChanged', handleCurrencyChange);
+    }
+  }, []);
+
   const fetchData = async () => {
     try {
       setLoading(true);
