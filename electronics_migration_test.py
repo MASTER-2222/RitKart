@@ -11,7 +11,7 @@ import sys
 from datetime import datetime
 
 class ElectronicsMigrationTester:
-    def __init__(self, base_url="https://22a1766f-2182-4954-9e2f-a02b8fa3417d.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://5e1eae6c-fe9a-448f-902a-34ae36c32d34.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
