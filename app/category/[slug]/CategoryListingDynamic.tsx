@@ -169,9 +169,12 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
       discount: product.original_price > product.price ? 
         Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0,
       brand: product.brand,
-      // NEW: Add currency information
-      currency: selectedCurrency.symbol,
-      currencyCode: selectedCurrency.code
+      // NEW: Add currency information for ProductCard
+      currency_symbol: selectedCurrency.symbol,
+      currency: selectedCurrency.code,
+      // Use backend formatted prices if available
+      formatted_price: product.formatted_price,
+      formatted_original_price: product.formatted_original_price
     }));
   }, [products, selectedCurrency]);
 
