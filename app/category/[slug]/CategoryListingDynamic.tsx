@@ -155,9 +155,12 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
       isDeliveryTomorrow: product.stock_quantity > 0,
       discount: product.original_price > product.price ? 
         Math.round(((product.original_price - product.price) / product.original_price) * 100) : 0,
-      brand: product.brand
+      brand: product.brand,
+      // NEW: Add currency information
+      currency: selectedCurrency.symbol,
+      currencyCode: selectedCurrency.code
     }));
-  }, [products]);
+  }, [products, selectedCurrency]);
 
   // Filter products based on user selections
   const filteredProducts = useMemo(() => {
