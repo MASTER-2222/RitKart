@@ -318,10 +318,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Add to Cart functionality testing completed - Backend confirmed working"
+    - "Add to Cart frontend testing - User registration, login, and cart functionality"
   stuck_tasks: []
   test_all: false
-  test_priority: "high_first"
+  test_priority: "frontend_first"
 
   - task: "Migrate Sports & Outdoors category products to database"
     implemented: true
