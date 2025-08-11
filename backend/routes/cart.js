@@ -10,9 +10,10 @@ const { cartService } = require('../services/supabase-service');
 const router = express.Router();
 
 // ==============================================
-// 🔒 AUTHENTICATION MIDDLEWARE
+// 🔒 ENHANCED AUTHENTICATION MIDDLEWARE
+// Supports both JWT and Supabase tokens
 // ==============================================
-function authenticateToken(req, res, next) {
+async function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
@@ -23,16 +24,45 @@ function authenticateToken(req, res, next) {
     });
   }
 
-  jwt.verify(token, environment.security.jwtSecret, (error, user) => {
-    if (error) {
-      return res.status(403).json({
-        success: false,
-        message: 'Invalid or expired token'
-      });
+  try {
+    // First try to verify as Supabase token
+    const { createClient } = require('@supabase/supabase-js');
+    const supabase = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_ANON_KEY
+    );
+
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+    
+    if (user && !error) {
+      // Supabase token is valid
+      req.user = {
+        userId: user.id,
+        email: user.email,
+        fullName: user.user_metadata?.full_name
+      };
+      return next();
     }
-    req.user = user;
-    next();
-  });
+
+    // If Supabase verification fails, try JWT verification
+    jwt.verify(token, environment.security.jwtSecret, (jwtError, jwtUser) => {
+      if (jwtError) {
+        return res.status(403).json({
+          success: false,
+          message: 'Invalid or expired token'
+        });
+      }
+      req.user = jwtUser;
+      next();
+    });
+
+  } catch (error) {
+    console.error('Authentication error:', error);
+    return res.status(403).json({
+      success: false,
+      message: 'Invalid or expired token'
+    });
+  }
 }
 
 // ==============================================
