@@ -115,6 +115,43 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
     );
   }
 
+  // Handle Add to Cart functionality
+  const handleAddToCart = async () => {
+    // Check if user is authenticated
+    if (!user) {
+      // Redirect to login page with return URL
+      router.push(`/auth/login?redirect=product/${productId}`);
+      return;
+    }
+
+    if (!product) {
+      setCartMessage('Product information is not available');
+      return;
+    }
+
+    setAddingToCart(true);
+    setCartMessage(null);
+
+    try {
+      console.log(`🛒 Adding product ${productId} to cart with quantity ${quantity}`);
+      
+      const response = await apiClient.addToCart(productId, quantity);
+      
+      if (response.success) {
+        setCartMessage('✅ Product added to cart successfully!');
+        // Auto-hide success message after 3 seconds
+        setTimeout(() => setCartMessage(null), 3000);
+      } else {
+        setCartMessage('❌ Failed to add product to cart: ' + (response.message || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Add to cart error:', error);
+      setCartMessage('❌ Failed to add product to cart. Please try again.');
+    } finally {
+      setAddingToCart(false);
+    }
+  };
+
   // Calculate discount percentage
   const discount = product.original_price && product.original_price > product.price 
     ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
