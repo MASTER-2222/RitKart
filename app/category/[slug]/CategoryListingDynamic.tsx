@@ -91,6 +91,19 @@ export default function CategoryListing({ categorySlug }: CategoryListingProps) 
     fetchCategoryData();
   }, [categorySlug, currentPage, selectedCurrency]); // Add selectedCurrency dependency
 
+  // Listen for currency change events
+  useEffect(() => {
+    const handleCurrencyChange = () => {
+      console.log(`🔄 Currency changed, refreshing ${categorySlug} products...`);
+      fetchCategoryData();
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('currencyChanged', handleCurrencyChange);
+      return () => window.removeEventListener('currencyChanged', handleCurrencyChange);
+    }
+  }, [categorySlug, currentPage]);
+
   const fetchCategoryData = async () => {
     try {
       setLoading(true);
