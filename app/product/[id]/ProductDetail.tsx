@@ -16,6 +16,8 @@ interface ProductDetailProps {
 
 export default function ProductDetail({ productId }: ProductDetailProps) {
   const { selectedCurrency } = useCurrency(); // Add currency context
+  const router = useRouter();
+  const supabase = createClient();
   
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -23,6 +25,9 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [addingToCart, setAddingToCart] = useState(false);
+  const [cartMessage, setCartMessage] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
 
   // Fetch product data from API
   useEffect(() => {
