@@ -489,11 +489,11 @@ metadata:
 
   - task: "Implement Add to Cart Functionality for Registered Users"
     implemented: true
-    working: true
+    working: false
     file: "app/product/[id]/ProductDetail.tsx, backend/routes/cart.js, backend/models/cart.js, utils/api.ts"
-    stuck_count: 0
+    stuck_count: 2
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: false
         agent: "main"
