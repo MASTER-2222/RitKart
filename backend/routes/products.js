@@ -65,7 +65,7 @@ async function convertProductPrices(product, targetCurrency = 'INR') {
 // 💰 HELPER FUNCTION: CONVERT MULTIPLE PRODUCTS
 // ==============================================
 async function convertProductsPrices(products, targetCurrency = 'INR') {
-  if (!products || !Array.isArray(products) || targetCurrency === 'INR') {
+  if (!products || !Array.isArray(products)) {
     return products;
   }
   
