@@ -512,7 +512,7 @@ const cartService = {
       if (deleteError) throw deleteError;
 
       // Recalculate cart total
-      await this.updateCartTotal(cartItem.cart_id);
+      await cartService.updateCartTotal(cartItem.cart_id);
 
       return { success: true, message: 'Item removed from cart' };
     } catch (error) {
