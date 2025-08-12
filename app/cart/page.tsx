@@ -40,6 +40,7 @@ export default function CartPage() {
   const [updatingItems, setUpdatingItems] = useState<Set<string>>(new Set());
   const router = useRouter();
   const supabase = createClient();
+  const { selectedCurrency } = useCurrency();
 
   useEffect(() => {
     checkAuthAndLoadCart();
