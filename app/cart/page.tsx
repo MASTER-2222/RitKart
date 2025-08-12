@@ -46,6 +46,14 @@ export default function CartPage() {
     checkAuthAndLoadCart();
   }, []);
 
+  // Reload cart when currency changes
+  useEffect(() => {
+    if (cart) { // Only reload if cart is already loaded
+      console.log(`🔄 Currency changed to ${selectedCurrency.code}, reloading cart...`);
+      loadCart();
+    }
+  }, [selectedCurrency.code]);
+
   const checkAuthAndLoadCart = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
