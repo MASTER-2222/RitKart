@@ -200,8 +200,11 @@ class ApiClient {
   }
 
   // Cart API (requires authentication)
-  async getCart() {
-    return this.makeRequest('/cart');
+  async getCart(currency?: string) {
+    const searchParams = new URLSearchParams();
+    this.addCurrencyToParams(searchParams, currency);
+    const query = searchParams.toString();
+    return this.makeRequest(`/cart${query ? `?${query}` : ''}`);
   }
 
   async addToCart(productId: string, quantity: number = 1) {
