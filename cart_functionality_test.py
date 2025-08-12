@@ -19,9 +19,9 @@ import time
 from datetime import datetime
 
 class CartFunctionalityTester:
-    def __init__(self, base_url="https://ritkart-backend.onrender.com/api"):
+    def __init__(self, base_url="http://localhost:8001/api"):
         self.base_url = base_url
-        self.frontend_url = "https://ritzone-frontend.onrender.com"
+        self.frontend_url = "http://localhost:3000"
         self.token = None
         self.supabase_token = None
         self.user_id = None
