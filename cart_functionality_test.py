@@ -90,7 +90,7 @@ class CartFunctionalityTester:
             register_data = {
                 "email": self.test_user_email,
                 "password": test_password,
-                "full_name": f"Cart Test User {timestamp}"
+                "fullName": f"Cart Test User {timestamp}"
             }
             
             response = requests.post(
