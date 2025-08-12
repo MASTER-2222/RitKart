@@ -14,6 +14,11 @@ interface Product {
   isPrime?: boolean;
   isDeliveryTomorrow?: boolean;
   discount?: number;
+  // NEW: Backend-provided currency fields
+  currency?: string;
+  currency_symbol?: string;
+  formatted_price?: string;
+  formatted_original_price?: string;
 }
 
 interface ProductCarouselProps {
