@@ -147,7 +147,7 @@ export default function CartPage() {
   const proceedToCheckout = () => {
     if (cart && cart.cart_items && cart.cart_items.length > 0) {
       // Check if all items are in stock
-      const outOfStockItems = cart.cart_items.filter(item => !item.product.is_active || item.product.stock_quantity < item.quantity);
+      const outOfStockItems = cart.cart_items.filter(item => !item.products.is_active || item.products.stock_quantity < item.quantity);
       if (outOfStockItems.length > 0) {
         setError('Some items in your cart are out of stock. Please update your cart.');
         return;
