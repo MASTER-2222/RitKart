@@ -418,7 +418,7 @@ const cartService = {
                   user_id: userId,
                   status: 'active',
                   total_amount: 0,
-                  currency: 'USD'
+                  currency: 'INR'
                 }])
                 .select()
                 .single();
