@@ -377,7 +377,7 @@ export interface CartItem {
   quantity: number;
   unit_price: number;
   total_price: number;
-  product: Product;
+  products: Product;
 }
 
 export interface Cart {
