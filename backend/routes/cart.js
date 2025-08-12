@@ -11,59 +11,8 @@ const router = express.Router();
 
 // ==============================================
 // 🔒 ENHANCED AUTHENTICATION MIDDLEWARE
-// Supports both JWT and Supabase tokens
+// Remove old middleware - using new enhanced version
 // ==============================================
-async function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({
-      success: false,
-      message: 'Access token is required'
-    });
-  }
-
-  try {
-    // First try to verify as Supabase token
-    const { createClient } = require('@supabase/supabase-js');
-    const supabase = createClient(
-      process.env.SUPABASE_URL,
-      process.env.SUPABASE_ANON_KEY
-    );
-
-    const { data: { user }, error } = await supabase.auth.getUser(token);
-    
-    if (user && !error) {
-      // Supabase token is valid
-      req.user = {
-        userId: user.id,
-        email: user.email,
-        fullName: user.user_metadata?.full_name
-      };
-      return next();
-    }
-
-    // If Supabase verification fails, try JWT verification
-    jwt.verify(token, environment.security.jwtSecret, (jwtError, jwtUser) => {
-      if (jwtError) {
-        return res.status(403).json({
-          success: false,
-          message: 'Invalid or expired token'
-        });
-      }
-      req.user = jwtUser;
-      next();
-    });
-
-  } catch (error) {
-    console.error('Authentication error:', error);
-    return res.status(403).json({
-      success: false,
-      message: 'Invalid or expired token'
-    });
-  }
-}
 
 // ==============================================
 // 🛒 GET USER'S CART
