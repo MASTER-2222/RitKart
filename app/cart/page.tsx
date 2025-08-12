@@ -172,7 +172,13 @@ export default function CartPage() {
   }
 
   const cartItems = cart?.cart_items || [];
-  const subtotal = cartItems.reduce((sum, item) => sum + item.total_price, 0);
+  const subtotal = cartItems.reduce((sum, item) => {
+    // Ensure item and total_price exist before adding
+    if (item && typeof item.total_price === 'number' && !isNaN(item.total_price)) {
+      return sum + item.total_price;
+    }
+    return sum;
+  }, 0);
   const shipping = subtotal > 35 ? 0 : 5.99;
   const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
