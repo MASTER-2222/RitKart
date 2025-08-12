@@ -108,7 +108,7 @@ const userService = {
 
       if (error) throw error;
 
-      // Also create user record in custom users table for cart functionality
+      // CRITICAL: Create user record in custom users table for cart functionality
       if (data.user) {
         try {
           const { error: userTableError } = await client
@@ -117,17 +117,46 @@ const userService = {
               id: data.user.id,
               email: data.user.email,
               full_name: userData.fullName,
-              phone: userData.phone || null
+              phone: userData.phone || null,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
             }]);
 
           if (userTableError) {
-            console.warn('⚠️ Failed to create user in users table:', userTableError.message);
-            // Don't fail the registration if this fails, as auth user was created successfully
+            console.error('❌ CRITICAL: Failed to create user in users table:', userTableError.message);
+            
+            // If users table creation fails, we need to clean up the auth user
+            // to prevent orphaned auth records that can't use cart functionality
+            try {
+              await client.auth.admin.deleteUser(data.user.id);
+              console.log('🧹 Cleaned up orphaned auth user due to users table failure');
+            } catch (cleanupError) {
+              console.error('❌ Failed to cleanup orphaned auth user:', cleanupError.message);
+            }
+            
+            // Return failure since the registration is incomplete
+            return { 
+              success: false, 
+              error: 'Failed to complete user registration. Please try again or contact support if the issue persists.' 
+            };
           } else {
             console.log('✅ User created in both auth.users and users tables');
           }
         } catch (userTableErr) {
-          console.warn('⚠️ Error creating user in users table:', userTableErr.message);
+          console.error('❌ CRITICAL: Error creating user in users table:', userTableErr.message);
+          
+          // Clean up auth user
+          try {
+            await client.auth.admin.deleteUser(data.user.id);
+            console.log('🧹 Cleaned up orphaned auth user due to users table error');
+          } catch (cleanupError) {
+            console.error('❌ Failed to cleanup orphaned auth user:', cleanupError.message);
+          }
+          
+          return { 
+            success: false, 
+            error: 'Failed to complete user registration. Please try again or contact support if the issue persists.' 
+          };
         }
       }
 
@@ -287,10 +316,14 @@ const productService = {
 // 🛒 CART MANAGEMENT SERVICES  
 // ==============================================
 const cartService = {
-  // Get user's cart
+  // Get user's cart with automatic user synchronization
   getUserCart: async (userId) => {
     try {
       const client = getSupabaseClient();
+      
+      // ENHANCED: Ensure user exists in users table before querying cart
+      await cartService.ensureUserExists(userId);
+      
       const { data, error } = await client
         .from('carts')
         .select(`
@@ -322,7 +355,7 @@ const cartService = {
     }
   },
 
-  // Add item to cart
+  // Add item to cart with automatic user synchronization
   addToCart: async (userId, productId, quantity) => {
     try {
       const client = getSupabaseClient();
@@ -337,6 +370,9 @@ const cartService = {
       if (productError) throw new Error(`Product not found: ${productError.message}`);
       if (!product.is_active) throw new Error('Product is not available');
       if (product.stock_quantity < quantity) throw new Error('Insufficient stock');
+
+      // ENHANCED: Ensure user exists in users table before proceeding
+      await cartService.ensureUserExists(userId);
 
       // Get or create cart - handle foreign key constraint gracefully
       let { data: cart } = await client
@@ -360,13 +396,33 @@ const cartService = {
             .single();
           
           if (cartError) {
-            // If foreign key constraint fails, provide helpful error message
+            // If foreign key constraint fails, try to sync user first
             if (cartError.message.includes('violates foreign key constraint')) {
-              throw new Error('User account setup incomplete. Please contact support or try logging out and back in.');
+              console.log('🔄 Foreign key constraint detected, attempting user sync...');
+              await cartService.ensureUserExists(userId);
+              
+              // Retry cart creation
+              const { data: retryCart, error: retryError } = await client
+                .from('carts')
+                .insert([{ 
+                  user_id: userId,
+                  status: 'active',
+                  total_amount: 0,
+                  currency: 'USD'
+                }])
+                .select()
+                .single();
+              
+              if (retryError) {
+                throw new Error('Cart system configuration issue. Please try logging out and back in.');
+              }
+              cart = retryCart;
+            } else {
+              throw cartError;
             }
-            throw cartError;
+          } else {
+            cart = newCart;
           }
-          cart = newCart;
         } catch (fkError) {
           // Re-throw with more context
           if (fkError.message.includes('foreign key constraint')) {
@@ -587,6 +643,58 @@ const cartService = {
       return totalAmount;
     } catch (error) {
       console.error('❌ Update cart total failed:', error.message);
+      throw error;
+    }
+  },
+
+  // NEW: Helper function to ensure user exists in users table
+  ensureUserExists: async (userId) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // First check if user already exists in users table
+      const { data: existingUser, error: checkError } = await client
+        .from('users')
+        .select('id')
+        .eq('id', userId)
+        .single();
+      
+      if (!checkError && existingUser) {
+        // User already exists, no action needed
+        return { success: true, message: 'User already exists in users table' };
+      }
+      
+      // User doesn't exist, get their details from auth and create record
+      console.log(`🔄 User ${userId} not found in users table, attempting to sync from auth...`);
+      
+      const { data: { user }, error: authError } = await client.auth.admin.getUserById(userId);
+      
+      if (authError || !user) {
+        throw new Error('User not found in authentication system');
+      }
+      
+      // Create user record in users table
+      const { error: insertError } = await client
+        .from('users')
+        .insert([{
+          id: user.id,
+          email: user.email,
+          full_name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
+          phone: user.user_metadata?.phone || null,
+          created_at: user.created_at || new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }]);
+      
+      if (insertError) {
+        console.error('❌ Failed to sync user to users table:', insertError.message);
+        throw new Error('Failed to synchronize user account. Please contact support.');
+      }
+      
+      console.log(`✅ Successfully synced user ${userId} to users table`);
+      return { success: true, message: 'User successfully synced to users table' };
+      
+    } catch (error) {
+      console.error('❌ Ensure user exists failed:', error.message);
       throw error;
     }
   }
