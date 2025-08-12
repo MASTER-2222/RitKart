@@ -881,9 +881,9 @@ class CartFunctionalityTester:
 
 def main():
     """Main function to run cart functionality tests"""
-    # Use production URLs as specified in review request
+    # Use local URLs for testing since production backend is not accessible
     tester = CartFunctionalityTester(
-        base_url="https://ritkart-backend.onrender.com/api"
+        base_url="http://localhost:8001/api"
     )
     
     try:
