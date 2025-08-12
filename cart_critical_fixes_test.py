@@ -423,7 +423,7 @@ class CriticalFixesValidator:
                         return self.log_test(
                             "Real Database Data",
                             False,
-                            f"Cart item missing real product data. Expected quantity: 2, actual: {item.get('quantity')}. Product data: {product_data.get('name')}"
+                            f"Cart item missing real product data. Expected quantity: >=2, actual: {item.get('quantity')}. Product data: {product_data.get('name')}"
                         )
             
             if not found_product:
