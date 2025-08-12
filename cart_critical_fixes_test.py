@@ -404,11 +404,13 @@ class CriticalFixesValidator:
             for item in cart_items:
                 if item.get('product_id') == product_id:
                     found_product = True
-                    # Verify it has real product data
+                    # Verify it has real product data (product data is nested under 'products' key)
+                    product_data = item.get('products', {})
                     has_real_data = (
-                        item.get('product_name') == product_name and
+                        product_data.get('name') == product_name and
                         item.get('quantity') == 2 and
-                        item.get('price') is not None
+                        item.get('unit_price') is not None and
+                        item.get('total_price') is not None
                     )
                     
                     if has_real_data:
@@ -421,7 +423,7 @@ class CriticalFixesValidator:
                         return self.log_test(
                             "Real Database Data",
                             False,
-                            f"Cart item missing real product data: {item}"
+                            f"Cart item missing real product data. Expected quantity: 2, actual: {item.get('quantity')}. Product data: {product_data.get('name')}"
                         )
             
             if not found_product:
