@@ -190,15 +190,15 @@ export default function Home() {
     };
   }, [selectedCurrency]); // Add selectedCurrency dependency
 
-  // Convert API categories to format expected by CategoryCard
-  const convertApiCategoriesToCardFormat = (categories: Category[]) => {
+  // Convert API categories to format expected by CategoryCard - WITH MEMOIZATION
+  const convertedCategories = useMemo(() => {
     return categories.map(category => ({
       title: category.name,
       image: category.image_url,
       href: `/category/${category.slug}`,
       subtitle: category.description
     }));
-  };
+  }, [categories]);
 
   const nextHeroBanner = () => {
     if (heroBanners.length === 0) return;
