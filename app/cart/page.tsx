@@ -69,10 +69,10 @@ export default function CartPage() {
         if (cartData && cartData.cart_items && Array.isArray(cartData.cart_items)) {
           // Validate each cart item has required product data
           const validatedCartItems = cartData.cart_items.filter(item => 
-            item.product && 
-            item.product.id && 
-            item.product.name && 
-            Array.isArray(item.product.images)
+            item.products && 
+            item.products.id && 
+            item.products.name && 
+            Array.isArray(item.products.images)
           );
           setCart({
             ...cartData,
