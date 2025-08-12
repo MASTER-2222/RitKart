@@ -196,7 +196,11 @@ export default function Header() {
           <Link href="/cart" className="hover:border border-white p-1 cursor-pointer flex items-center">
             <div className="relative">
               <i className="ri-shopping-cart-line w-8 h-8 flex items-center justify-center text-2xl"></i>
-              <span className="absolute -top-1 -right-1 bg-[#febd69] text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">3</span>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#febd69] text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  {cartCount}
+                </span>
+              )}
             </div>
             <div className="ml-1">
               <div className="text-xs">Cart</div>
