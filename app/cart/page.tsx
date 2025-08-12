@@ -194,7 +194,7 @@ export default function CartPage() {
                 <div className="space-y-6">
                   {cartItems.map(item => (
                     <div key={item.id} className="flex space-x-4 border-b border-gray-200 pb-6">
-                      <Link href={`/product/${item.product.slug}`}>
+                      <Link href={`/product/${item.product.id}`}>
                         <img 
                           src={item.product.images[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&h=300&fit=crop&crop=center'}
                           alt={item.product.name}
@@ -203,7 +203,7 @@ export default function CartPage() {
                       </Link>
                       
                       <div className="flex-1 space-y-3">
-                        <Link href={`/product/${item.product.slug}`} className="hover:text-blue-600">
+                        <Link href={`/product/${item.product.id}`} className="hover:text-blue-600">
                           <h3 className="text-lg font-medium text-gray-900 cursor-pointer">
                             {item.product.name}
                           </h3>
