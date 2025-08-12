@@ -82,13 +82,14 @@ router.get('/', authenticateToken, async (req, res) => {
     }
 
     // Transform cart data to expected format
-    let cartData = { items: [], total: 0 };
+    let cartData = { cart_items: [], total_amount: 0 };
     
     if (result.cart) {
       cartData = {
         id: result.cart.id,
-        items: result.cart.cart_items || [],
-        total: result.cart.total_amount || 0,
+        user_id: result.cart.user_id,
+        cart_items: result.cart.cart_items || [],
+        total_amount: result.cart.total_amount || 0,
         currency: result.cart.currency || 'USD',
         status: result.cart.status
       };
