@@ -338,6 +338,9 @@ const cartService = {
       if (!product.is_active) throw new Error('Product is not available');
       if (product.stock_quantity < quantity) throw new Error('Insufficient stock');
 
+      // Check if user exists in users table, if not create them
+      await cartService.ensureUserExists(userId);
+
       // Get or create cart - handle foreign key constraint gracefully
       let { data: cart } = await client
         .from('carts')
@@ -360,13 +363,33 @@ const cartService = {
             .single();
           
           if (cartError) {
-            // If foreign key constraint fails, provide helpful error message
+            // If foreign key constraint fails, try to ensure user exists and retry
             if (cartError.message.includes('violates foreign key constraint')) {
-              throw new Error('User account setup incomplete. Please contact support or try logging out and back in.');
+              console.log('🔄 Foreign key constraint error, ensuring user exists and retrying...');
+              await cartService.ensureUserExists(userId);
+              
+              // Retry cart creation
+              const { data: retryCart, error: retryError } = await client
+                .from('carts')
+                .insert([{ 
+                  user_id: userId,
+                  status: 'active',
+                  total_amount: 0,
+                  currency: 'USD'
+                }])
+                .select()
+                .single();
+              
+              if (retryError) {
+                throw new Error('Failed to create cart after user sync. Please try again.');
+              }
+              cart = retryCart;
+            } else {
+              throw cartError;
             }
-            throw cartError;
+          } else {
+            cart = newCart;
           }
-          cart = newCart;
         } catch (fkError) {
           // Re-throw with more context
           if (fkError.message.includes('foreign key constraint')) {
