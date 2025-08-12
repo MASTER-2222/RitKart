@@ -392,7 +392,7 @@ export default function CartPage() {
               <div className="space-y-3">
                 <button 
                   onClick={proceedToCheckout}
-                  disabled={cartItems.length === 0 || cartItems.some(item => !item.product.is_active || item.product.stock_quantity < item.quantity)}
+                  disabled={cartItems.length === 0 || cartItems.some(item => !item.products.is_active || item.products.stock_quantity < item.quantity)}
                   className="w-full bg-[#febd69] hover:bg-[#f3a847] text-black font-semibold py-3 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                 >
                   Proceed to Checkout
