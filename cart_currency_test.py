@@ -106,7 +106,7 @@ class CartCurrencyTester:
         success, status, data = self.make_request('POST', '/auth/register', registration_data, expected_status=201)
         
         if not success:
-            return self.log_test("User Registration & Login", False, f"Registration failed - Status: {status}")
+            return self.log_test("User Registration & Login", False, f"Registration failed - Status: {status}, Response: {data}")
         
         # Login user
         login_data = {
@@ -117,13 +117,14 @@ class CartCurrencyTester:
         success, status, data = self.make_request('POST', '/auth/login', login_data)
         
         if success and data.get('success'):
-            self.auth_token = data.get('data', {}).get('token')
+            # Check both possible token locations
+            self.auth_token = data.get('token') or data.get('data', {}).get('token')
             if self.auth_token:
                 return self.log_test("User Registration & Login", True, "Authentication successful")
             else:
-                return self.log_test("User Registration & Login", False, "No token received")
+                return self.log_test("User Registration & Login", False, f"No token received - Response: {data}")
         else:
-            return self.log_test("User Registration & Login", False, f"Login failed - Status: {status}")
+            return self.log_test("User Registration & Login", False, f"Login failed - Status: {status}, Response: {data}")
 
     def test_get_product_for_cart(self):
         """Get a product ID for cart testing"""
