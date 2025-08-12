@@ -31,7 +31,7 @@ router.get('/', authenticateToken, async (req, res) => {
     }
 
     // Transform cart data to expected format
-    let cartData = { cart_items: [], total_amount: 0, currency: 'INR' };
+    let cartData = { cart_items: [], total_amount: 0, currency: 'CAD' };
     
     if (result.cart) {
       cartData = {
@@ -39,7 +39,7 @@ router.get('/', authenticateToken, async (req, res) => {
         user_id: result.cart.user_id,
         cart_items: result.cart.cart_items || [],
         total_amount: result.cart.total_amount || 0,
-        currency: result.cart.currency || 'INR',
+        currency: 'CAD', // Test with CAD instead of INR
         status: result.cart.status
       };
     }
