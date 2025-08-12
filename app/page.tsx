@@ -300,7 +300,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Shop by Category</h2>
             {categories.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                {convertApiCategoriesToCardFormat(categories).map((category, index) => (
+                {convertedCategories.map((category, index) => (
                   <CategoryCard key={index} {...category} />
                 ))}
               </div>
