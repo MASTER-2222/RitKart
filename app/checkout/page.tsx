@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { apiClient } from '../../utils/api';
 import { createClient } from '../../utils/supabase/client';
+import { useCurrency } from '../../contexts/CurrencyContext';
 
 interface CartItem {
   id: string;
