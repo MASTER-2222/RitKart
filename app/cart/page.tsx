@@ -64,7 +64,24 @@ export default function CartPage() {
       setLoading(true);
       const response = await apiClient.getCart();
       if (response.success) {
-        setCart(response.data);
+        // Ensure cart data structure is correct
+        const cartData = response.data;
+        if (cartData && cartData.cart_items && Array.isArray(cartData.cart_items)) {
+          // Validate each cart item has required product data
+          const validatedCartItems = cartData.cart_items.filter(item => 
+            item.product && 
+            item.product.id && 
+            item.product.name && 
+            Array.isArray(item.product.images)
+          );
+          setCart({
+            ...cartData,
+            cart_items: validatedCartItems
+          });
+        } else {
+          // If no valid cart data, create empty cart
+          setCart({ id: '', user_id: '', total_amount: 0, cart_items: [] });
+        }
       } else {
         // If no cart exists, create empty cart
         setCart({ id: '', user_id: '', total_amount: 0, cart_items: [] });
@@ -73,6 +90,8 @@ export default function CartPage() {
     } catch (err) {
       console.error('Failed to load cart:', err);
       setError('Failed to load cart. Please try again.');
+      // Set empty cart on error to prevent crashes
+      setCart({ id: '', user_id: '', total_amount: 0, cart_items: [] });
     } finally {
       setLoading(false);
     }
