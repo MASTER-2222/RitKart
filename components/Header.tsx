@@ -24,6 +24,13 @@ export default function Header() {
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
       setLoading(false);
+      
+      // Load cart count if user is authenticated
+      if (user) {
+        loadCartCount();
+      } else {
+        setCartCount(0);
+      }
     };
 
     getUser();
@@ -32,11 +39,33 @@ export default function Header() {
       (event, session) => {
         setUser(session?.user ?? null);
         setLoading(false);
+        
+        // Load cart count when user state changes
+        if (session?.user) {
+          loadCartCount();
+        } else {
+          setCartCount(0);
+        }
       }
     );
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const loadCartCount = async () => {
+    try {
+      const response = await apiClient.getCart();
+      if (response.success && response.data && response.data.cart_items) {
+        const totalItems = response.data.cart_items.reduce((sum, item) => sum + item.quantity, 0);
+        setCartCount(totalItems);
+      } else {
+        setCartCount(0);
+      }
+    } catch (error) {
+      console.error('Failed to load cart count:', error);
+      setCartCount(0);
+    }
+  };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
