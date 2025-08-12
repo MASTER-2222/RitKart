@@ -44,10 +44,10 @@ export default function ProductCard({
   const router = useRouter();
   const { selectedCurrency } = useCurrency();
 
-  // NEW: Use backend-formatted prices if available, fallback to manual formatting
-  const displayPrice = formatted_price || `${currency_symbol}${price}`;
+  // NEW: Use backend-formatted prices if available, fallback to manual formatting with selected currency
+  const displayPrice = formatted_price || `${selectedCurrency.symbol}${price.toFixed(2)}`;
   const displayOriginalPrice = formatted_original_price || 
-    (originalPrice ? `${currency_symbol}${originalPrice}` : null);
+    (originalPrice ? `${selectedCurrency.symbol}${originalPrice.toFixed(2)}` : null);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
