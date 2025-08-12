@@ -91,11 +91,12 @@ async function convertCartPrices(cartData, targetCurrency = 'INR') {
 // ==============================================
 
 // ==============================================
-// 🛒 GET USER'S CART
+// 🛒 GET USER'S CART (WITH DYNAMIC CURRENCY)
 // ==============================================
 router.get('/', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
+    const currency = req.query.currency || 'INR'; // NEW: Support currency parameter
 
     const result = await cartService.getUserCart(userId);
 
@@ -120,10 +121,13 @@ router.get('/', authenticateToken, async (req, res) => {
       };
     }
 
+    // NEW: Convert prices to requested currency
+    const convertedCartData = await convertCartPrices(cartData, currency);
+
     res.status(200).json({
       success: true,
-      message: 'Cart retrieved successfully',
-      data: cartData
+      message: `Cart retrieved successfully${currency !== 'INR' ? ` with prices in ${currency}` : ''}`,
+      data: convertedCartData
     });
 
   } catch (error) {
