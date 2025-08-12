@@ -747,7 +747,7 @@ const orderService = {
           tax_amount: taxAmount,
           shipping_amount: shippingAmount,
           discount_amount: discountAmount,
-          currency: 'USD',
+          currency: 'INR',
           payment_method: orderData.paymentMethod || 'card',
           billing_address: orderData.billingAddress,
           shipping_address: orderData.shippingAddress,
