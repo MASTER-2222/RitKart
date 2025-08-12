@@ -290,15 +290,15 @@ export default function CartPage() {
                       
                       <div className="text-right">
                         <div className="text-xl font-bold text-gray-900">
-                          ${(item.total_price || 0).toFixed(2)}
+                          {selectedCurrency.symbol}{(item.total_price || 0).toFixed(2)}
                         </div>
                         {item.products.original_price && item.products.original_price > item.products.price && (
                           <div className="text-sm text-gray-500 line-through">
-                            ${((item.products.original_price || 0) * (item.quantity || 1)).toFixed(2)}
+                            {selectedCurrency.symbol}{((item.products.original_price || 0) * (item.quantity || 1)).toFixed(2)}
                           </div>
                         )}
                         <div className="text-sm text-gray-600 mt-1">
-                          ${(item.unit_price || 0).toFixed(2)} each
+                          {selectedCurrency.symbol}{(item.unit_price || 0).toFixed(2)} each
                         </div>
                       </div>
                     </div>
