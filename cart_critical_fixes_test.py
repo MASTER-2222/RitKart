@@ -430,7 +430,7 @@ class CriticalFixesValidator:
                 return self.log_test(
                     "Real Database Data",
                     False,
-                    f"Added product '{product_name}' not found in cart. Cart items: {[item.get('product_name') for item in cart_items]}"
+                    f"Added product '{product_name}' not found in cart. Cart items: {[item.get('products', {}).get('name') for item in cart_items]}"
                 )
                 
         except Exception as e:
