@@ -99,8 +99,8 @@ class CartCurrencyTester:
         registration_data = {
             "email": self.test_user_email,
             "password": self.test_user_password,
-            "firstName": "Cart",
-            "lastName": "Tester"
+            "fullName": "Cart Currency Tester",
+            "phone": "+1234567890"
         }
         
         success, status, data = self.make_request('POST', '/auth/register', registration_data, expected_status=201)
