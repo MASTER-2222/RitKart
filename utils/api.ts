@@ -212,14 +212,14 @@ class ApiClient {
   }
 
   async updateCartItem(itemId: string, quantity: number) {
-    return this.makeRequest(`/cart/item/${itemId}`, {
+    return this.makeRequest(`/cart/items/${itemId}`, {
       method: 'PUT',
       body: JSON.stringify({ quantity }),
     });
   }
 
   async removeFromCart(itemId: string) {
-    return this.makeRequest(`/cart/item/${itemId}`, {
+    return this.makeRequest(`/cart/items/${itemId}`, {
       method: 'DELETE',
     });
   }
