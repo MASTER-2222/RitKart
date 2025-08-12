@@ -79,6 +79,14 @@ export default function CheckoutPage() {
     checkAuthAndLoadCart();
   }, []);
 
+  // Reload cart when currency changes
+  useEffect(() => {
+    if (cart) { // Only reload if cart is already loaded
+      console.log(`🔄 Currency changed to ${selectedCurrency.code}, reloading checkout cart...`);
+      loadCart();
+    }
+  }, [selectedCurrency.code]);
+
   useEffect(() => {
     if (sameAsShipping) {
       setBillingAddress(shippingAddress);
