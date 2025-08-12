@@ -211,12 +211,18 @@ export default function CartPage() {
                 </div>
               ) : (
                 <div className="space-y-6">
-                  {cartItems.map(item => (
+                  {cartItems.map(item => {
+                    // Safety check to ensure item and product exist
+                    if (!item || !item.product) {
+                      return null;
+                    }
+                    
+                    return (
                     <div key={item.id} className="flex space-x-4 border-b border-gray-200 pb-6">
                       <Link href={`/product/${item.product.id}`}>
                         <img 
-                          src={item.product.images[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&h=300&fit=crop&crop=center'}
-                          alt={item.product.name}
+                          src={item.product.images?.[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&h=300&fit=crop&crop=center'}
+                          alt={item.product.name || 'Product'}
                           className="w-32 h-32 object-cover rounded cursor-pointer"
                         />
                       </Link>
@@ -224,7 +230,7 @@ export default function CartPage() {
                       <div className="flex-1 space-y-3">
                         <Link href={`/product/${item.product.id}`} className="hover:text-blue-600">
                           <h3 className="text-lg font-medium text-gray-900 cursor-pointer">
-                            {item.product.name}
+                            {item.product.name || 'Unnamed Product'}
                           </h3>
                         </Link>
 
@@ -248,7 +254,7 @@ export default function CartPage() {
                           <div className="flex items-center space-x-2">
                             <label className="text-sm text-gray-600">Qty:</label>
                             <select 
-                              value={item.quantity}
+                              value={item.quantity || 1}
                               onChange={(e) => updateQuantity(item.id, Number(e.target.value))}
                               disabled={updatingItems.has(item.id)}
                               className="border rounded px-2 py-1 text-sm pr-8 disabled:opacity-50"
@@ -276,19 +282,20 @@ export default function CartPage() {
                       
                       <div className="text-right">
                         <div className="text-xl font-bold text-gray-900">
-                          ${item.total_price.toFixed(2)}
+                          ${(item.total_price || 0).toFixed(2)}
                         </div>
                         {item.product.original_price && item.product.original_price > item.product.price && (
                           <div className="text-sm text-gray-500 line-through">
-                            ${(item.product.original_price * item.quantity).toFixed(2)}
+                            ${((item.product.original_price || 0) * (item.quantity || 1)).toFixed(2)}
                           </div>
                         )}
                         <div className="text-sm text-gray-600 mt-1">
-                          ${item.unit_price.toFixed(2)} each
+                          ${(item.unit_price || 0).toFixed(2)} each
                         </div>
                       </div>
                     </div>
-                  ))}
+                    );
+                  }).filter(Boolean)}
                 </div>
               )}
             </div>
