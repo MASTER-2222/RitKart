@@ -496,7 +496,7 @@ test_plan:
 
   - task: "Implement Add to Cart Functionality for Registered Users"
     implemented: true
-    working: true
+    working: false
     file: "app/product/[id]/ProductDetail.tsx, backend/routes/cart.js, backend/models/cart.js, utils/api.ts"
     stuck_count: 3
     priority: "high"
@@ -562,6 +562,9 @@ test_plan:
       - working: true
         agent: "testing"
         comment: "🎉 COMPREHENSIVE CART FUNCTIONALITY TESTING COMPLETE - AUGUST 2025: ✅ Backend Health: Node.js Express + Supabase running correctly on port 8001, ✅ User Registration & Login: Successfully created and authenticated test users with proper JWT token authentication, ✅ Product Integration: Retrieved 5 real products across multiple categories (Electronics, Fashion, Books, Home, Sports) for comprehensive testing, ✅ Cart API Endpoints: All endpoints working perfectly - GET /api/cart (empty and populated), POST /api/cart/add, PUT /api/cart/items/:itemId, DELETE /api/cart/items/:itemId, ✅ Authentication & Authorization: Proper token validation, rejects unauthenticated requests, accepts valid JWT tokens, ✅ Add to Cart Flow: Successfully added multiple products ('Belkin 3-in-1 Wireless Charger', additional products) with correct quantities and pricing, ✅ Cart Operations: Update item quantities (tested quantity 5), remove items, cart persistence across sessions, ✅ Input Validation: Properly rejects missing productId, zero/negative quantities, non-existent products, invalid tokens, ✅ Data Structure Validation: Backend returns correct format (cart_items, total_amount) not (items, total), ✅ API Endpoint URLs: Correct URLs (/cart/items/:itemId) working, incorrect URLs (/cart/item/:itemId) properly failing, ✅ Dynamic Cart Count: Cart count changes dynamically (1→3 items) not hardcoded, ✅ Real Database Data: Cart displays actual user cart data from database with proper product information, pricing, and quantities. FINAL RESULTS: 13/13 comprehensive cart tests passed (100%), 4/4 critical fixes validated (100%). Cart functionality is FULLY OPERATIONAL for registered users across all categories."
+      - working: false
+        agent: "testing"
+        comment: "🚨 CRITICAL ROOT CAUSE IDENTIFIED - DECEMBER 2025 URGENT CART ISSUE INVESTIGATION: ✅ Backend Health: Both production (https://ritkart-backend.onrender.com/api) and local (http://localhost:8001/api) backends running correctly, ✅ Comprehensive Cart API Testing: All 21/21 tests passed with JWT authentication - cart functionality is 100% operational, ✅ User Registration & Login: Successfully created test users and acquired authentication tokens, ✅ Product Integration: Retrieved 10 real products across multiple categories for testing, ✅ Cart Operations: GET /api/cart, POST /api/cart/add, PUT /api/cart/items/:itemId, DELETE /api/cart/items/:itemId all working perfectly with JWT tokens, ✅ Database Integration: All required tables (users, carts, cart_items, products) exist and functioning, ✅ Cross-Origin Requests: CORS properly configured for frontend domain, 🚨 CRITICAL ISSUE DISCOVERED: Supabase authentication tokens FAIL to add items to cart with HTTP 400 error 'Failed to create cart after user sync. Please try again', while JWT tokens work perfectly. ROOT CAUSE: The backend's ensureUserExists() function fails when trying to sync Supabase Auth users to the local users table. This is the exact issue causing registered users to see 'Your cart is empty' - frontend uses Supabase tokens but backend cannot sync these users properly. SOLUTION REQUIRED: Fix the user synchronization process in backend/services/supabase-service.js ensureUserExists() function to handle Supabase Auth users correctly."
 
 agent_communication:
   - agent: "main"
