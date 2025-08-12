@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '../utils/supabase/client';
+import { apiClient } from '../utils/api';
 import { User } from '@supabase/supabase-js';
 
 export default function Header() {
@@ -11,6 +12,7 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [user, setUser] = useState<User | null>(null);
+  const [cartCount, setCartCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const supabase = createClient();
