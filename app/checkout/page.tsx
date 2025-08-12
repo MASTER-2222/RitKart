@@ -482,7 +482,7 @@ export default function CheckoutPage() {
                     <div className="flex-1">
                       <h4 className="text-sm font-medium">{item.products.name}</h4>
                       <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
-                      <p className="text-sm font-semibold">${item.total_price.toFixed(2)}</p>
+                      <p className="text-sm font-semibold">{selectedCurrency.symbol}{item.total_price.toFixed(2)}</p>
                     </div>
                   </div>
                 ))}
