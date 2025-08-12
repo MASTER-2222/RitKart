@@ -218,8 +218,8 @@ export default function CartPage() {
               ) : (
                 <div className="space-y-6">
                   {cartItems.map(item => {
-                    // Safety check to ensure item and product exist
-                    if (!item || !item.product) {
+                    // Safety check to ensure item and products exist
+                    if (!item || !item.products) {
                       return null;
                     }
                     
