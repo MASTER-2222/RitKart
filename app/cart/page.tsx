@@ -339,7 +339,7 @@ export default function CartPage() {
                         className="w-20 h-20 object-cover rounded mx-auto mb-2"
                       />
                       <h4 className="text-sm font-medium mb-1">{addon.title}</h4>
-                      <div className="text-sm font-bold mb-2">${addon.price}</div>
+                      <div className="text-sm font-bold mb-2">{selectedCurrency.symbol}{addon.price}</div>
                       <button className="bg-[#febd69] hover:bg-[#f3a847] text-black text-xs font-medium py-1 px-3 rounded whitespace-nowrap">
                         Add to Cart
                       </button>
