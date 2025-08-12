@@ -287,6 +287,68 @@ const productService = {
 // 🛒 CART MANAGEMENT SERVICES  
 // ==============================================
 const cartService = {
+  // Ensure user exists in users table (for cart foreign key)
+  ensureUserExists: async (userId) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Check if user exists in users table
+      const { data: existingUser } = await client
+        .from('users')
+        .select('id')
+        .eq('id', userId)
+        .single();
+      
+      if (existingUser) {
+        return { success: true };
+      }
+      
+      // User doesn't exist, get from auth and create in users table
+      const { data: { user }, error: authError } = await client.auth.admin.getUserById(userId);
+      
+      if (authError || !user) {
+        // If admin API fails, try with service role to get user info
+        console.log('🔄 Getting user info for sync...');
+        const { error: userError } = await client
+          .from('users')
+          .insert([{
+            id: userId,
+            email: 'unknown@example.com', // Fallback email
+            full_name: 'User', // Fallback name
+            created_at: new Date().toISOString()
+          }]);
+        
+        if (userError && !userError.message.includes('duplicate key')) {
+          throw userError;
+        }
+        
+        console.log('✅ User synced to users table with fallback data');
+        return { success: true };
+      }
+      
+      // Create user in users table with auth data
+      const { error: insertError } = await client
+        .from('users')
+        .insert([{
+          id: user.id,
+          email: user.email,
+          full_name: user.user_metadata?.full_name || 'User',
+          phone: user.user_metadata?.phone || null,
+          created_at: user.created_at
+        }]);
+      
+      if (insertError && !insertError.message.includes('duplicate key')) {
+        throw insertError;
+      }
+      
+      console.log('✅ User synced to users table successfully');
+      return { success: true };
+    } catch (error) {
+      console.error('❌ Ensure user exists failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
   // Get user's cart
   getUserCart: async (userId) => {
     try {
