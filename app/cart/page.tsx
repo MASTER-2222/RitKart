@@ -64,7 +64,10 @@ export default function CartPage() {
   const loadCart = async () => {
     try {
       setLoading(true);
-      const response = await apiClient.getCart();
+      console.log(`🔄 Loading cart with ${selectedCurrency.code} currency...`);
+      
+      // Pass currency parameter to cart API
+      const response = await apiClient.getCart(selectedCurrency.code);
       if (response.success) {
         // Ensure cart data structure is correct
         const cartData = response.data;
@@ -80,6 +83,8 @@ export default function CartPage() {
             ...cartData,
             cart_items: validatedCartItems
           });
+
+          console.log(`✅ Cart loaded successfully with ${validatedCartItems.length} items in ${selectedCurrency.code}`);
         } else {
           // If no valid cart data, create empty cart
           setCart({ id: '', user_id: '', total_amount: 0, cart_items: [] });
