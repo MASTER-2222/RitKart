@@ -6,8 +6,84 @@ const express = require('express');
 const { environment } = require('../config/environment');
 const { cartService } = require('../services/supabase-service');
 const { authenticateToken } = require('../middleware/enhanced-auth');
+// NEW: Import currency service for dynamic currency conversion
+const { 
+  convertPrice, 
+  getCurrencySymbol, 
+  formatPrice 
+} = require('../services/currency-service');
 
 const router = express.Router();
+
+// ==============================================
+// 💰 HELPER FUNCTION: CONVERT CART PRICES
+// ==============================================
+async function convertCartPrices(cartData, targetCurrency = 'INR') {
+  if (!cartData || targetCurrency === 'INR') {
+    // Return as-is if no conversion needed or target is base currency
+    return {
+      ...cartData,
+      currency: targetCurrency,
+      currency_symbol: getCurrencySymbol(targetCurrency)
+    };
+  }
+  
+  try {
+    console.log(`💱 Converting cart prices to ${targetCurrency}`);
+    
+    // Convert cart items prices
+    const convertedCartItems = await Promise.all(
+      (cartData.cart_items || []).map(async (item) => {
+        const convertedItem = { ...item };
+        
+        // Convert product price
+        if (item.products && item.products.price) {
+          convertedItem.products.price = await convertPrice(item.products.price, 'INR', targetCurrency);
+          convertedItem.products.original_price = item.products.original_price 
+            ? await convertPrice(item.products.original_price, 'INR', targetCurrency)
+            : null;
+          
+          // Add currency metadata to product
+          convertedItem.products.currency = targetCurrency;
+          convertedItem.products.currency_symbol = getCurrencySymbol(targetCurrency);
+          convertedItem.products.formatted_price = formatPrice(convertedItem.products.price, targetCurrency);
+          convertedItem.products.base_currency = 'INR';
+        }
+        
+        // Convert item total_price if exists
+        if (item.total_price) {
+          convertedItem.total_price = await convertPrice(item.total_price, 'INR', targetCurrency);
+        }
+        
+        return convertedItem;
+      })
+    );
+    
+    // Convert total amount
+    const convertedTotalAmount = cartData.total_amount 
+      ? await convertPrice(cartData.total_amount, 'INR', targetCurrency)
+      : 0;
+    
+    return {
+      ...cartData,
+      cart_items: convertedCartItems,
+      total_amount: convertedTotalAmount,
+      currency: targetCurrency,
+      currency_symbol: getCurrencySymbol(targetCurrency),
+      formatted_total: formatPrice(convertedTotalAmount, targetCurrency),
+      base_currency: 'INR',
+      base_total_amount: cartData.total_amount
+    };
+  } catch (error) {
+    console.error('❌ Error converting cart prices:', error);
+    // Return original cart data if conversion fails
+    return {
+      ...cartData,
+      currency: 'INR',
+      currency_symbol: getCurrencySymbol('INR')
+    };
+  }
+}
 
 // ==============================================
 // 🔒 ENHANCED AUTHENTICATION MIDDLEWARE
