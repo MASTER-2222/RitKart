@@ -517,7 +517,7 @@ export default function CheckoutPage() {
                 disabled={submitting}
                 className="w-full bg-[#febd69] hover:bg-[#f3a847] text-black font-semibold py-3 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {submitting ? 'Processing...' : `Place Order ($${total.toFixed(2)})`}
+                {submitting ? 'Processing...' : `Place Order (${selectedCurrency.symbol}${total.toFixed(2)})`}
               </button>
             </div>
           </div>
