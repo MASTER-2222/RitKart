@@ -200,6 +200,67 @@ const userService = {
       console.error('❌ Get user profile failed:', error.message);
       return { success: false, error: error.message };
     }
+  },
+
+  // AUTOSYNC: Verify user exists in users table
+  verifyUserInUsersTable: async (userId) => {
+    try {
+      const client = getSupabaseClient();
+      const { data, error } = await client
+        .from('users')
+        .select('id')
+        .eq('id', userId)
+        .single();
+      
+      if (error && error.code !== 'PGRST116') {
+        throw error;
+      }
+      
+      return { success: true, exists: !!data };
+    } catch (error) {
+      console.error('❌ Verify user in users table failed:', error.message);
+      return { success: false, error: error.message, exists: false };
+    }
+  },
+
+  // AUTOSYNC: Force sync user to users table
+  forceUserSync: async (userId, userData) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Get user details from auth if not provided
+      let authUser = null;
+      if (!userData.email) {
+        const { data: { user }, error: authError } = await client.auth.admin.getUserById(userId);
+        if (authError || !user) {
+          throw new Error('Could not retrieve user from auth system');
+        }
+        authUser = user;
+      }
+      
+      // Create user record in users table
+      const { error: insertError } = await client
+        .from('users')
+        .insert([{
+          id: userId,
+          email: userData.email || authUser.email,
+          full_name: userData.fullName || authUser.user_metadata?.full_name || 'User',
+          phone: userData.phone || authUser.user_metadata?.phone || null,
+          created_at: authUser?.created_at || new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }]);
+      
+      if (insertError) {
+        throw insertError;
+      }
+      
+      console.log(`✅ [AUTOSYNC] Force sync successful for user: ${userId}`);
+      return { success: true, message: 'User successfully synced to users table' };
+      
+    } catch (error) {
+      console.error(`❌ [AUTOSYNC] Force sync failed for user ${userId}:`, error.message);
+      return { success: false, error: error.message };
+    }
   }
 };
 

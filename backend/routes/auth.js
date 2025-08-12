@@ -11,7 +11,7 @@ const { userService } = require('../services/supabase-service');
 const router = express.Router();
 
 // ==============================================
-// 📝 USER REGISTRATION
+// 📝 USER REGISTRATION WITH AUTOSYNC
 // ==============================================
 router.post('/register', async (req, res) => {
   try {
@@ -25,7 +25,9 @@ router.post('/register', async (req, res) => {
       });
     }
 
-    // Register user with Supabase
+    console.log(`🔄 [AUTOSYNC] Starting registration for: ${email}`);
+
+    // Register user with Supabase (enhanced with CRITICAL user table creation)
     const result = await userService.register({
       email,
       password,
@@ -34,15 +36,36 @@ router.post('/register', async (req, res) => {
     });
 
     if (!result.success) {
+      console.error(`❌ [AUTOSYNC] Registration failed for ${email}: ${result.error}`);
       return res.status(400).json({
         success: false,
         message: result.error
       });
     }
 
+    console.log(`✅ [AUTOSYNC] Registration successful for: ${email} (ID: ${result.user.id})`);
+    
+    // AUTOSYNC VERIFICATION: Double-check that user exists in users table
+    try {
+      const verificationResult = await userService.verifyUserInUsersTable(result.user.id);
+      if (!verificationResult.exists) {
+        console.warn(`⚠️ [AUTOSYNC] User not found in users table, forcing sync: ${email}`);
+        const syncResult = await userService.forceUserSync(result.user.id, { email, fullName, phone });
+        if (!syncResult.success) {
+          throw new Error(`Force sync failed: ${syncResult.error}`);
+        }
+        console.log(`✅ [AUTOSYNC] Force sync successful for: ${email}`);
+      } else {
+        console.log(`✅ [AUTOSYNC] User verified in users table: ${email}`);
+      }
+    } catch (verifyError) {
+      console.error(`❌ [AUTOSYNC] Verification/sync failed for ${email}:`, verifyError.message);
+      // Don't fail the registration, but log the issue
+    }
+
     res.status(201).json({
       success: true,
-      message: 'User registered successfully. Please check your email to verify your account.',
+      message: 'User registered successfully with AUTOSYNC verification.',
       user: {
         id: result.user.id,
         email: result.user.email,
@@ -51,7 +74,7 @@ router.post('/register', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('❌ Registration error:', error.message);
+    console.error('❌ [AUTOSYNC] Registration error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Registration failed',

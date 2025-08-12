@@ -22,6 +22,9 @@ const bannerRoutes = require('./routes/banners');
 const dealRoutes = require('./routes/deals');
 const currencyRoutes = require('./routes/currency');
 
+// Import AUTOSYNC middleware
+const { autoSyncMiddleware } = require('./middleware/autosync');
+
 // ==============================================
 // 🚀 APPLICATION INITIALIZATION
 // ==============================================
@@ -62,6 +65,10 @@ const limiter = rateLimit({
 });
 
 app.use('/api', limiter);
+
+// Apply AUTOSYNC middleware to authenticated routes
+app.use('/api/cart', autoSyncMiddleware);
+app.use('/api/orders', autoSyncMiddleware);
 
 // ==============================================
 // 🛣️ ROUTES CONFIGURATION
