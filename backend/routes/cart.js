@@ -3,9 +3,9 @@
 // Shopping cart management using Supabase with environment variables
 
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const { environment } = require('../config/environment');
 const { cartService } = require('../services/supabase-service');
+const { authenticateToken } = require('../middleware/enhanced-auth');
 
 const router = express.Router();
 
