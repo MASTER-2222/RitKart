@@ -1,11 +1,12 @@
 'use client';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
 import { apiClient } from '../../utils/api';
 import { createClient } from '../../utils/supabase/client';
+import { useCurrency } from '../../contexts/CurrencyContext';
 
 interface CartItem {
   id: string;
