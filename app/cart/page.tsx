@@ -409,7 +409,7 @@ export default function CartPage() {
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center text-gray-600">
                       <i className="ri-truck-line w-4 h-4 flex items-center justify-center mr-2"></i>
-                      Free delivery on orders over $35
+                      Free delivery on orders over {selectedCurrency.symbol}35
                     </div>
                     <div className="flex items-center text-gray-600">
                       <i className="ri-arrow-go-back-line w-4 h-4 flex items-center justify-center mr-2"></i>
