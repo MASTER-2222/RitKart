@@ -354,7 +354,12 @@ export default function CartPage() {
               
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
+                  <span className="text-gray-600">Subtotal ({cartItems.reduce((sum, item) => {
+                    if (item && typeof item.quantity === 'number' && !isNaN(item.quantity)) {
+                      return sum + item.quantity;
+                    }
+                    return sum;
+                  }, 0)} items)</span>
                   <span className="font-semibold">${subtotal.toFixed(2)}</span>
                 </div>
                 
