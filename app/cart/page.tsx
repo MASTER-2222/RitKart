@@ -225,34 +225,34 @@ export default function CartPage() {
                     
                     return (
                     <div key={item.id} className="flex space-x-4 border-b border-gray-200 pb-6">
-                      <Link href={`/product/${item.product.id}`}>
+                      <Link href={`/product/${item.products.id}`}>
                         <img 
-                          src={item.product.images?.[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&h=300&fit=crop&crop=center'}
-                          alt={item.product.name || 'Product'}
+                          src={item.products.images?.[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&h=300&fit=crop&crop=center'}
+                          alt={item.products.name || 'Product'}
                           className="w-32 h-32 object-cover rounded cursor-pointer"
                         />
                       </Link>
                       
                       <div className="flex-1 space-y-3">
-                        <Link href={`/product/${item.product.id}`} className="hover:text-blue-600">
+                        <Link href={`/product/${item.products.id}`} className="hover:text-blue-600">
                           <h3 className="text-lg font-medium text-gray-900 cursor-pointer">
-                            {item.product.name || 'Unnamed Product'}
+                            {item.products.name || 'Unnamed Product'}
                           </h3>
                         </Link>
 
-                        {item.product.brand && (
-                          <p className="text-sm text-gray-600">Brand: {item.product.brand}</p>
+                        {item.products.brand && (
+                          <p className="text-sm text-gray-600">Brand: {item.products.brand}</p>
                         )}
                         
-                        {item.product.is_active && item.product.stock_quantity >= item.quantity ? (
+                        {item.products.is_active && item.products.stock_quantity >= item.quantity ? (
                           <div className="text-green-600 text-sm font-semibold">
                             <i className="ri-checkbox-circle-line w-4 h-4 inline-flex items-center justify-center mr-1"></i>
-                            In Stock ({item.product.stock_quantity} available)
+                            In Stock ({item.products.stock_quantity} available)
                           </div>
                         ) : (
                           <div className="text-red-600 text-sm font-semibold">
                             <i className="ri-close-circle-line w-4 h-4 inline-flex items-center justify-center mr-1"></i>
-                            {!item.product.is_active ? 'Currently unavailable' : 'Insufficient stock'}
+                            {!item.products.is_active ? 'Currently unavailable' : 'Insufficient stock'}
                           </div>
                         )}
                         
