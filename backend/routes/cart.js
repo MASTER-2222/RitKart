@@ -31,7 +31,7 @@ router.get('/', authenticateToken, async (req, res) => {
     }
 
     // Transform cart data to expected format
-    let cartData = { cart_items: [], total_amount: 0 };
+    let cartData = { cart_items: [], total_amount: 0, currency: 'INR' };
     
     if (result.cart) {
       cartData = {
