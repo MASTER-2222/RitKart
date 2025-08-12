@@ -290,9 +290,9 @@ export default function CartPage() {
                         <div className="text-xl font-bold text-gray-900">
                           ${(item.total_price || 0).toFixed(2)}
                         </div>
-                        {item.product.original_price && item.product.original_price > item.product.price && (
+                        {item.products.original_price && item.products.original_price > item.products.price && (
                           <div className="text-sm text-gray-500 line-through">
-                            ${((item.product.original_price || 0) * (item.quantity || 1)).toFixed(2)}
+                            ${((item.products.original_price || 0) * (item.quantity || 1)).toFixed(2)}
                           </div>
                         )}
                         <div className="text-sm text-gray-600 mt-1">
