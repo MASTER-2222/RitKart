@@ -362,31 +362,31 @@ export default function CartPage() {
                     }
                     return sum;
                   }, 0)} items)</span>
-                  <span className="font-semibold">${subtotal.toFixed(2)}</span>
+                  <span className="font-semibold">{selectedCurrency.symbol}{subtotal.toFixed(2)}</span>
                 </div>
                 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Shipping</span>
                   <span className="font-semibold">
-                    {shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}
+                    {shipping === 0 ? 'FREE' : `${selectedCurrency.symbol}${shipping.toFixed(2)}`}
                   </span>
                 </div>
                 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Estimated tax</span>
-                  <span className="font-semibold">${tax.toFixed(2)}</span>
+                  <span className="font-semibold">{selectedCurrency.symbol}{tax.toFixed(2)}</span>
                 </div>
                 
                 <hr className="my-4" />
                 
                 <div className="flex justify-between text-lg font-bold">
                   <span>Total</span>
-                  <span className="text-red-600">${total.toFixed(2)}</span>
+                  <span className="text-red-600">{selectedCurrency.symbol}{total.toFixed(2)}</span>
                 </div>
                 
                 {shipping > 0 && (
                   <div className="text-sm text-blue-600 mt-2">
-                    Add ${(35 - subtotal).toFixed(2)} to qualify for FREE Shipping
+                    Add {selectedCurrency.symbol}{(35 - subtotal).toFixed(2)} to qualify for FREE Shipping
                   </div>
                 )}
               </div>
