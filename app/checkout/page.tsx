@@ -103,9 +103,13 @@ export default function CheckoutPage() {
   const loadCart = async () => {
     try {
       setLoading(true);
-      const response = await apiClient.getCart();
+      console.log(`🔄 Loading checkout cart in ${selectedCurrency.code} currency...`);
+      
+      // Pass currency parameter to cart API
+      const response = await apiClient.getCart(selectedCurrency.code);
       if (response.success && response.data?.cart_items?.length > 0) {
         setCart(response.data);
+        console.log(`✅ Checkout cart loaded with ${response.data.cart_items.length} items in ${selectedCurrency.code}`);
       } else {
         router.push('/cart');
         return;
