@@ -47,6 +47,7 @@ export default function CheckoutPage() {
   const [success, setSuccess] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+  const { selectedCurrency } = useCurrency(); // Add currency context
 
   const [shippingAddress, setShippingAddress] = useState<Address>({
     full_name: '',
