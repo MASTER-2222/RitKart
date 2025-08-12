@@ -146,17 +146,20 @@ class CartFunctionalityTester:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and data.get('data', {}).get('session'):
-                    session_data = data['data']['session']
-                    self.supabase_token = session_data.get('access_token')
-                    self.user_id = session_data.get('user', {}).get('id')
+                if data.get('success'):
+                    # Backend returns JWT token directly, not Supabase session
+                    self.token = data.get('token')  # JWT token
+                    self.user_id = data.get('user', {}).get('id')
                     
-                    if self.supabase_token and self.user_id:
+                    if self.token and self.user_id:
+                        # For cart API, we need to use Supabase token, so let's try to get it
+                        # For now, we'll use the JWT token and see if cart API accepts it
+                        self.supabase_token = self.token
                         return self.log_test(
                             "User Login",
                             True,
                             f"Login successful, token acquired for user {self.user_id}",
-                            {"user_id": self.user_id, "has_token": bool(self.supabase_token)}
+                            {"user_id": self.user_id, "has_token": bool(self.token)}
                         )
                     else:
                         return self.log_test(
