@@ -39,7 +39,7 @@ router.get('/', authenticateToken, async (req, res) => {
         user_id: result.cart.user_id,
         cart_items: result.cart.cart_items || [],
         total_amount: result.cart.total_amount || 0,
-        currency: result.cart.currency || 'USD',
+        currency: result.cart.currency || 'INR',
         status: result.cart.status
       };
     }
