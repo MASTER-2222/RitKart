@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useAdminAuth } from '../../contexts/AdminAuthContext';
 import DashboardStats from '../../components/admin/DashboardStats';
 import SalesChart from '../../components/admin/SalesChart';
 import RecentOrders from '../../components/admin/RecentOrders';
@@ -7,6 +8,7 @@ import TopProducts from '../../components/admin/TopProducts';
 
 export default function AdminDashboard() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const { adminUser } = useAdminAuth();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -20,7 +22,9 @@ export default function AdminDashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600">Welcome back, Sir Rit! Here's what's happening with your store.</p>
+          <p className="text-gray-600">
+            Welcome back, {adminUser?.fullName || 'Sir Rit'}! Here's what's happening with your store.
+          </p>
         </div>
         <div className="text-right">
           <div className="text-sm text-gray-500">Current Time</div>
@@ -82,10 +86,10 @@ export default function AdminDashboard() {
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">CDN</span>
-                <span className="flex items-center text-yellow-600">
-                  <div className="w-2 h-2 bg-yellow-500 rounded-full mr-2"></div>
-                  <span className="text-sm font-medium">Slow</span>
+                <span className="text-sm text-gray-600">Admin User</span>
+                <span className="flex items-center text-green-600">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  <span className="text-sm font-medium">{adminUser?.role || 'Active'}</span>
                 </span>
               </div>
             </div>
