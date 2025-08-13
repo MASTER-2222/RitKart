@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
+// Change to backend directory first
+process.chdir('/app/backend');
+
 // Test Admin Login Script
 const bcrypt = require('bcryptjs');
-const { getSupabaseClient } = require('./backend/services/supabase-service');
+const { getSupabaseClient } = require('./services/supabase-service');
 
 async function testAdminLogin() {
   try {
