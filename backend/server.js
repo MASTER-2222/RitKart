@@ -101,6 +101,7 @@ app.use('/api/banners', bannerRoutes);
 app.use('/api/deals', dealRoutes);
 app.use('/api/currency', currencyRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/admin', adminUsersRoutes);
 
 // ==============================================
 // 🔍 ROOT ENDPOINT
