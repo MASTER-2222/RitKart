@@ -271,8 +271,8 @@ export default function AdminUsersPage() {
     try {
       const response = await fetch('/api/admin/users/bulk-update', {
         method: 'POST',
+        credentials: 'include', // This will include cookies
         headers: {
-          'Authorization': `Bearer ${adminUser?.token}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
