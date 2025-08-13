@@ -16,7 +16,7 @@ INSERT INTO admin_users (
   created_at
 ) VALUES (
   'admin@ritzone.com',
-  '$2a$12$rjG8.2FvQrW8E3xKj9BwE.K8QG7B4L5C9A2F6H7I8J3K4L5M6N7O8P', -- Will be replaced with actual hash
+  '$2a$12$Zt8zOGI8iOxIDqLbmXn2h.kxJLkJm07bvkoSx3JG71D2V4TcHhYAK',
   'Rit Mukherjee',
   'super_admin',
   true,
