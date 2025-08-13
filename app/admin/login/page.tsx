@@ -249,20 +249,6 @@ export default function AdminLogin() {
                 </button>
               </form>
 
-              {/* Developer Info */}
-              <div className="mt-8 p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl">
-                <div className="flex items-center mb-2">
-                  <svg className="w-4 h-4 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  <h3 className="text-sm font-medium text-blue-400">Default Credentials</h3>
-                </div>
-                <div className="space-y-1 text-xs text-gray-400 font-mono">
-                  <div>Email: <span className="text-white bg-white/10 px-2 py-1 rounded">admin@ritzone.com</span></div>
-                  <div>Password: <span className="text-white bg-white/10 px-2 py-1 rounded">RitZone@Admin2025!</span></div>
-                </div>
-              </div>
-
               {/* Back to Site */}
               <div className="mt-6 text-center">
                 <Link href="/" className="text-sm text-gray-400 hover:text-white transition-colors duration-300 flex items-center justify-center">
