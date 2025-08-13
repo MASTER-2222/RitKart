@@ -1,3 +1,4 @@
+'use client';
 import type { Metadata } from "next";
 import { Inter, Source_Code_Pro } from "next/font/google";
 import "../globals.css";
@@ -16,11 +17,6 @@ const sourceCodePro = Source_Code_Pro({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-export const metadata: Metadata = {
-  title: "RitZone Admin Panel - Dashboard", 
-  description: "Professional admin panel for RitZone eCommerce platform",
-};
 
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
