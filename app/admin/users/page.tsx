@@ -87,8 +87,8 @@ export default function AdminUsersPage() {
       });
 
       const response = await fetch(`/api/admin/users?${params}`, {
+        credentials: 'include', // This will include cookies
         headers: {
-          'Authorization': `Bearer ${adminUser?.token}`,
           'Content-Type': 'application/json'
         }
       });
