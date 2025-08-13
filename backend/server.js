@@ -99,6 +99,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/banners', bannerRoutes);
 app.use('/api/deals', dealRoutes);
 app.use('/api/currency', currencyRoutes);
+app.use('/api/admin', adminRoutes);
 
 // ==============================================
 // 🔍 ROOT ENDPOINT
