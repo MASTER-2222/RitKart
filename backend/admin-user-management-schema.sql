@@ -67,6 +67,11 @@ CREATE TRIGGER update_user_notifications_updated_at
 -- Update existing users table to ensure all required fields exist
 -- ============================================================================
 
+-- Add missing core columns first (required for indexes and sample data)
+ALTER TABLE users 
+ADD COLUMN IF NOT EXISTS is_active BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN IF NOT EXISTS email_verified BOOLEAN NOT NULL DEFAULT false;
+
 -- Add address fields if they don't exist
 ALTER TABLE users 
 ADD COLUMN IF NOT EXISTS address TEXT,
