@@ -48,6 +48,7 @@ export async function updateSession(request: NextRequest) {
     '/auth',                // Auth pages (login/register)
     '/api',                 // API routes
     '/setup',               // Setup routes
+    '/admin',               // Admin panel (has its own authentication)
   ]
   
   // Define routes that require authentication
@@ -55,7 +56,6 @@ export async function updateSession(request: NextRequest) {
     '/profile',             // User profile
     '/orders',              // Order history
     '/wishlist',            // User wishlist
-    '/admin',               // Admin panel
     '/checkout',            // Checkout process
     '/account',             // Account settings
     '/cart',                // Shopping cart (if you want to protect it)
