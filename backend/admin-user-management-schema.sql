@@ -96,12 +96,12 @@ CREATE INDEX IF NOT EXISTS idx_users_country ON users(country);
 -- ============================================================================
 
 -- Insert sample users for testing (only if they don't exist)
-INSERT INTO users (id, email, password_hash, full_name, phone, address, city, state, country, postal_code, is_active, email_verified, created_at)
+-- Note: Using Supabase auth structure (no password_hash needed)
+INSERT INTO users (id, email, full_name, phone, address, city, state, country, postal_code, is_active, email_verified, created_at)
 SELECT * FROM (
   SELECT 
     gen_random_uuid(),
     'john.doe@example.com',
-    '$2a$12$rQCfBkk7p6FQl6vC0C0tduQlLqHCPvL5D5qXfH0kJyRkTzF1QqU5q', -- password: 'testpass123'
     'John Doe',
     '+1-555-0101',
     '123 Main St',
@@ -116,7 +116,6 @@ SELECT * FROM (
   SELECT 
     gen_random_uuid(),
     'jane.smith@example.com',
-    '$2a$12$rQCfBkk7p6FQl6vC0C0tduQlLqHCPvL5D5qXfH0kJyRkTzF1QqU5q', -- password: 'testpass123'
     'Jane Smith',
     '+1-555-0102',
     '456 Oak Ave',
@@ -131,7 +130,6 @@ SELECT * FROM (
   SELECT 
     gen_random_uuid(),
     'mike.johnson@example.com',
-    '$2a$12$rQCfBkk7p6FQl6vC0C0tduQlLqHCPvL5D5qXfH0kJyRkTzF1QqU5q', -- password: 'testpass123'
     'Mike Johnson',
     '+1-555-0103',
     '789 Pine Rd',
@@ -146,7 +144,6 @@ SELECT * FROM (
   SELECT 
     gen_random_uuid(),
     'sarah.wilson@example.com',
-    '$2a$12$rQCfBkk7p6FQl6vC0C0tduQlLqHCPvL5D5qXfH0kJyRkTzF1QqU5q', -- password: 'testpass123'
     'Sarah Wilson',
     '+1-555-0104',
     '321 Elm St',
@@ -161,7 +158,6 @@ SELECT * FROM (
   SELECT 
     gen_random_uuid(),
     'david.brown@example.com',
-    '$2a$12$rQCfBkk7p6FQl6vC0C0tduQlLqHCPvL5D5qXfH0kJyRkTzF1QqU5q', -- password: 'testpass123'
     'David Brown',
     '+1-555-0105',
     '654 Cedar Ln',
