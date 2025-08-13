@@ -15,6 +15,7 @@ interface AdminUser {
   email: string;
   fullName: string;
   role: string;
+  token?: string;
 }
 
 const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined);
