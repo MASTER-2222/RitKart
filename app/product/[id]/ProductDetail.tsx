@@ -26,6 +26,7 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [addingToCart, setAddingToCart] = useState(false);
+  const [buyingNow, setBuyingNow] = useState(false);
   const [cartMessage, setCartMessage] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
 
