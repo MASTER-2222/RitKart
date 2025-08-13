@@ -318,7 +318,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Add to Cart frontend testing - User registration, login, and cart functionality"
+    - "Buy Now Button Functionality - Test across all product categories"
   stuck_tasks: []
   test_all: false
   test_priority: "frontend_first"
