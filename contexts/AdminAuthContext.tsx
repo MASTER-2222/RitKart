@@ -47,7 +47,8 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
               username: data.user.email,
               email: data.user.email,
               fullName: data.user.fullName,
-              role: data.user.role
+              role: data.user.role,
+              token: data.sessionToken || data.user.token
             });
             setIsAuthenticated(true);
           }
