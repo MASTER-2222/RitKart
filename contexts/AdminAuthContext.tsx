@@ -33,7 +33,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
       try {
         const response = await fetch(`${API_BASE_URL}/admin/auth/validate`, {
           method: 'GET',
-          credentials: 'include',
+          credentials: 'include', // This will include cookies
           headers: {
             'Content-Type': 'application/json',
           },
