@@ -167,7 +167,7 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
       return;
     }
 
-    setAddingToCart(true);
+    setBuyingNow(true);
     setCartMessage(null);
 
     try {
@@ -186,7 +186,7 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
       console.error('Buy now error:', error);
       setCartMessage('❌ Failed to add product to cart. Please try again.');
     } finally {
-      setAddingToCart(false);
+      setBuyingNow(false);
     }
   };
 
