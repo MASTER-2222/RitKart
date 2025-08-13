@@ -572,7 +572,20 @@ test_plan:
         agent: "testing"
         comment: "🎉 CART FUNCTIONALITY COMPLETELY RESOLVED - DECEMBER 2025 FINAL TESTING: ✅ Backend Health: Node.js Express + Supabase running correctly on port 8001, ✅ User Registration & Login: Successfully created and authenticated test users (carttest.113441077@example.com), ✅ Supabase Authentication: Token acquired and working correctly, ✅ Product Integration: Retrieved 5 real products across multiple categories for comprehensive testing, ✅ Cart API Endpoints: All endpoints working perfectly - GET /api/cart, POST /api/cart/add, PUT /api/cart/items/:itemId, DELETE /api/cart/items/:itemId, ✅ Add to Cart Flow: Successfully added 'Belkin 3-in-1 Wireless Charger' ($149) with quantity 2, ✅ Cart Data Structure: Fixed frontend-backend mismatch - backend returns 'products' (plural), frontend now correctly uses 'products' instead of 'product', ✅ Cart Page Display: Cart page now correctly shows product images, names, prices, quantities from database, ✅ Cart Operations: Update quantities, remove items, cart persistence all working correctly, ✅ Input Validation: Properly rejects invalid productId, zero/negative quantities, non-existent products, ✅ Authentication & Authorization: Both JWT and Supabase tokens working correctly. FINAL RESULTS: 16/16 comprehensive cart tests passed (100%). Cart functionality is FULLY OPERATIONAL - both Add to Cart and Cart page display are working correctly for registered users across all 10 categories."
 
-  - task: "Test RitZone Backend Currency Functionality - INR vs USD Focus"
+  - task: "Implement Buy Now Button Functionality"
+    implemented: true
+    working: "NA"
+    file: "app/product/[id]/ProductDetail.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "🚀 STARTING BUY NOW IMPLEMENTATION - User reports 'Buy Now' button is non-functional on individual product pages across all categories. Need to implement functionality that adds product to cart and redirects to /cart page for registered users."
+      - working: "NA"
+        agent: "main" 
+        comment: "✅ BUY NOW FUNCTIONALITY IMPLEMENTED - Successfully added handleBuyNow() function that adds product to cart and redirects to /cart page. Added loading state (buyingNow), proper error handling, authentication check, and disabled state management. Button now shows 'Processing...' during operation. Ready for testing across all 10 categories."
     implemented: true
     working: true
     file: "backend/routes/cart.js, backend/services/supabase-service.js"
