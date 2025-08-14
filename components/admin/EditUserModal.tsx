@@ -87,8 +87,8 @@ export default function EditUserModal({ user, onClose, onSuccess }: EditUserModa
     try {
       const response = await fetch(`/api/admin/users/${user.id}`, {
         method: 'DELETE',
+        credentials: 'include', // Use cookies for authentication instead of Bearer token
         headers: {
-          'Authorization': `Bearer ${adminUser?.token}`,
           'Content-Type': 'application/json'
         }
       });
