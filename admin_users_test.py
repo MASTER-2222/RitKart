@@ -130,7 +130,7 @@ class AdminUsersAPITester:
         
         login_data = {
             "email": "admin@ritzone.com",
-            "password": "Admin@123",
+            "password": "RitZone@Admin2025!",
             "rememberMe": False
         }
         
