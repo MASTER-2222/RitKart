@@ -104,7 +104,7 @@
 
 user_problem_statement: "PHASE 3: Dynamic Currency Conversion System - Complete removal of ALL hardcoded prices throughout RitZone web application. Implement FUNCTIONAL and DYNAMIC currency conversion system that fetches prices directly from BACKEND and DATABASE. Support multiple currencies (USD, GBP, EUR, INR, CAD, JPY, AUD) with REAL-TIME exchange rates from internet. Make currency selector at bottom of pages FUNCTIONAL for both registered and unregistered users. Remove all hardcoded price patterns from every sector of the application - INDEX page, Electronics, Fashion, Books, Home & Gardens, Sports & Outdoors, Grocery, Appliances, Beauty & Personal Care, Solar, Pharmacy, Deal, Cart pages."
 
-current_user_request: "JANUARY 2025 - ADMIN USERS PAGE API ENDPOINT FIX: User reports 'Failed to fetch users' error in Admin Panel at /admin/users. Issue identified: Frontend making API calls to wrong URL (http://localhost:3000/api/admin/users) instead of backend URL (http://localhost:8001/api/admin/users). Need to fix API endpoint configuration in admin users page to use proper backend URL like other admin components."
+current_user_request: "JANUARY 2025 - PERSISTENT ADMIN USERS PAGE ERROR: User reports ongoing 'Failed to fetch users' error in Admin Panel at /admin/users despite previous fixes. Console shows cookie authentication errors: 'Cookie admin_session has been rejected because it is in a cross-site context and its SameSite is Lax or Strict' and 'Error fetching users: Error: Failed to fetch users'. Issue persists in both development and production environments. AUTO SYNCHRONIZATION system implemented but admin users page still not functional."
 
 current_analysis:
   main_agent: "🔍 ADMIN USERS PAGE ISSUE INVESTIGATION COMPLETE:
