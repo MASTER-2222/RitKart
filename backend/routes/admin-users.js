@@ -92,7 +92,7 @@ router.get('/users/:userId', AutoSyncMiddleware.adminAuth, async (req, res) => {
 });
 
 // Create new user
-router.post('/users', authenticateAdmin, requireRole('super_admin', 'admin'), async (req, res) => {
+router.post('/users', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const userData = req.body;
     const adminUserId = req.adminUser.id;
@@ -122,7 +122,7 @@ router.post('/users', authenticateAdmin, requireRole('super_admin', 'admin'), as
 });
 
 // Update user
-router.put('/users/:userId', authenticateAdmin, requireRole('super_admin', 'admin'), async (req, res) => {
+router.put('/users/:userId', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const { userId } = req.params;
     const updateData = req.body;
@@ -153,7 +153,7 @@ router.put('/users/:userId', authenticateAdmin, requireRole('super_admin', 'admi
 });
 
 // Delete single user
-router.delete('/users/:userId', authenticateAdmin, requireRole('super_admin', 'admin'), async (req, res) => {
+router.delete('/users/:userId', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const { userId } = req.params;
     const adminUserId = req.adminUser.id;
@@ -186,7 +186,7 @@ router.delete('/users/:userId', authenticateAdmin, requireRole('super_admin', 'a
 // ==============================================
 
 // Bulk delete users
-router.post('/users/bulk-delete', authenticateAdmin, requireRole('super_admin', 'admin'), async (req, res) => {
+router.post('/users/bulk-delete', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const { userIds } = req.body;
     const adminUserId = req.adminUser.id;
@@ -227,7 +227,7 @@ router.post('/users/bulk-delete', authenticateAdmin, requireRole('super_admin', 
 });
 
 // Bulk update users
-router.post('/users/bulk-update', authenticateAdmin, requireRole('super_admin', 'admin'), async (req, res) => {
+router.post('/users/bulk-update', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const { userIds, updateData } = req.body;
     const adminUserId = req.adminUser.id;
@@ -279,7 +279,7 @@ router.post('/users/bulk-update', authenticateAdmin, requireRole('super_admin', 
 // ==============================================
 
 // Get user's order history
-router.get('/users/:userId/orders', authenticateAdmin, async (req, res) => {
+router.get('/users/:userId/orders', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const { userId } = req.params;
     const {
@@ -326,7 +326,7 @@ router.get('/users/:userId/orders', authenticateAdmin, async (req, res) => {
 });
 
 // Update order status
-router.put('/orders/:orderId/status', authenticateAdmin, requireRole('super_admin', 'admin'), async (req, res) => {
+router.put('/orders/:orderId/status', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const { orderId } = req.params;
     const { status, notes } = req.body;
@@ -361,7 +361,7 @@ router.put('/orders/:orderId/status', authenticateAdmin, requireRole('super_admi
 // ==============================================
 
 // Send notification to user
-router.post('/users/:userId/notify', authenticateAdmin, requireRole('super_admin', 'admin'), async (req, res) => {
+router.post('/users/:userId/notify', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const { userId } = req.params;
     const { type, title, message, orderId } = req.body;
@@ -397,7 +397,7 @@ router.post('/users/:userId/notify', authenticateAdmin, requireRole('super_admin
 });
 
 // Bulk send notifications
-router.post('/users/bulk-notify', authenticateAdmin, requireRole('super_admin', 'admin'), async (req, res) => {
+router.post('/users/bulk-notify', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const { userIds, type, title, message } = req.body;
     const adminUserId = req.adminUser.id;
@@ -446,7 +446,7 @@ router.post('/users/bulk-notify', authenticateAdmin, requireRole('super_admin', 
 // ==============================================
 
 // Get user statistics
-router.get('/users/stats', authenticateAdmin, async (req, res) => {
+router.get('/users/stats', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const result = await adminUsersService.getUserStats();
 
