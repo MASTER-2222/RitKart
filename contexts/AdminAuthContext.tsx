@@ -103,7 +103,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
-      await fetch(`${API_BASE_URL}/admin/auth/logout`, {
+      await fetch(`${API_BASE_URL}/auto-sync/auth/logout`, {
         method: 'POST',
         credentials: 'include',
         headers: {
