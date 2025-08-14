@@ -44,7 +44,7 @@ app.use(helmet());
 app.use(cors({
   origin: environment.frontend.corsOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Admin-Token'],
   credentials: true
 }));
 
