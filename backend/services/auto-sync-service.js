@@ -198,6 +198,7 @@ class AutoSyncService {
   // Validate admin session
   static async validateAdminSession(sessionToken) {
     try {
+      const supabase = getSupabaseClient();
       const { data: session, error } = await supabase
         .from('admin_sessions')
         .select(`
