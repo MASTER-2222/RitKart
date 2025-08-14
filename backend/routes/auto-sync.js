@@ -66,11 +66,12 @@ router.post('/auth/login', async (req, res) => {
 
     if (result.success) {
       // Set secure cookie for session
+      const isProduction = process.env.NODE_ENV === 'production';
       res.cookie('admin_session', result.sessionToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: isProduction,
         maxAge: rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000, // 30 days or 24 hours
-        sameSite: 'strict'
+        sameSite: isProduction ? 'strict' : 'lax'  // Use 'lax' for development, 'strict' for production
       });
 
       return res.json({
