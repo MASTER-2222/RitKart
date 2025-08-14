@@ -628,7 +628,26 @@ test_plan:
       - working: true
         agent: "main"
         comment: "🎉 CROSS-DOMAIN COOKIE AUTHENTICATION FIX IMPLEMENTED - JANUARY 2025: Root cause identified and resolved! Issue was cross-domain cookie policy preventing authentication between different subdomains in production (ritzone-frontend.onrender.com ↔ ritkart-backend.onrender.com). ✅ Cookie Configuration Enhanced: Changed sameSite from 'strict' to 'none' for production cross-domain requests, ✅ Domain Support: Added domain handling for Render.com subdomains, ✅ Security Maintained: Proper secure flag for HTTPS production, ✅ CORS Headers: Added X-Admin-Token support for alternative authentication, ✅ Backend Restarted: Applied new configuration. Cross-domain authentication should now work in production environment."
-    implemented: true
+
+  - task: "Fix Admin Users DELETE Operation - Foreign Key Constraints Issue"
+    implemented: false
+    working: false
+    file: "fix-user-delete-constraints.sql, backend/services/admin-users-service.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "user"
+        comment: "🚨 USER REPORTS DELETE OPERATION NOT FUNCTIONING - DELETE operation in Admin Users section (/admin/users) is not working. User suspects foreign key constraints issue due to associated cart records preventing user deletion despite AUTO SYNCHRONIZATION system being implemented."
+      - working: "NA"
+        agent: "main"
+        comment: "🔍 ROOT CAUSE IDENTIFIED - Comprehensive backend testing confirms exact PostgreSQL error: 'update or delete on table users violates foreign key constraint carts_user_id_fkey on table carts'. The carts table foreign key constraint prevents user deletion when cart records exist. Both single user delete (DELETE /api/admin/users/:userId) and bulk delete (POST /api/admin/users/bulk-delete) operations fail with HTTP 400 errors."
+      - working: "NA"
+        agent: "main"
+        comment: "✅ DATABASE CONSTRAINT FIX PREPARED - Created fix-user-delete-constraints.sql script to modify foreign key constraints: 1) carts.user_id will CASCADE DELETE (delete carts when user deleted), 2) orders.user_id will SET NULL (preserve order history), 3) reviews.user_id will CASCADE DELETE (delete reviews when user deleted). Ready to execute in Supabase SQL Editor to resolve constraint violations."
+
+  - task: "Implement Admin Panel with Authentication System"
     working: "PENDING_DATABASE_SETUP"
     file: "contexts/AdminAuthContext.tsx, app/admin/login/page.tsx, backend/routes/admin.js, backend/services/admin-service.js, backend/scripts/setup-admin.js, backend/database-admin-schema.sql"
     stuck_count: 0
