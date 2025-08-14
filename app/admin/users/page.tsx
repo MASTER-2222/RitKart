@@ -89,7 +89,7 @@ export default function AdminUsersPage() {
         status: statusFilter
       });
 
-      const response = await fetch(`/api/admin/users?${params}`, {
+      const response = await fetch(`${API_BASE_URL}/admin/users?${params}`, {
         credentials: 'include', // This will include cookies
         headers: {
           'Content-Type': 'application/json'
