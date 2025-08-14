@@ -242,6 +242,8 @@ class AutoSyncService {
   // Admin logout
   static async adminLogout(sessionToken) {
     try {
+      const supabase = getSupabaseClient();
+      
       // Deactivate session
       const { error } = await supabase
         .from('admin_sessions')
