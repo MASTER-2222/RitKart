@@ -272,7 +272,7 @@ export default function AdminUsersPage() {
     if (selectedUsers.size === 0) return;
 
     try {
-      const response = await fetch('/api/admin/users/bulk-update', {
+      const response = await fetch(`${API_BASE_URL}/admin/users/bulk-update`, {
         method: 'POST',
         credentials: 'include', // This will include cookies
         headers: {
