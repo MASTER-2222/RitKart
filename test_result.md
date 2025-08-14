@@ -626,7 +626,7 @@ test_plan:
     file: "components/admin/AddUserModal.tsx, components/admin/EditUserModal.tsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "user"
@@ -634,6 +634,9 @@ test_plan:
       - working: "NA"
         agent: "main"
         comment: "🔧 ROOT CAUSE IDENTIFIED - Issue found: AddUserModal and EditUserModal use Authorization Bearer token headers but backend AutoSyncMiddleware expects cookie-based authentication. Fixed by changing modals to use 'credentials: include' for cookie authentication instead of Bearer token headers. This aligns with existing AdminAuthContext that uses cookie-based authentication with /api/auto-sync/auth endpoints."
+      - working: false
+        agent: "testing"
+        comment: "🎯 COMPREHENSIVE ADMIN USERS API TESTING COMPLETED - JANUARY 2025: ✅ JSON PARSING ERRORS RESOLVED: All API endpoints return proper JSON responses, no HTML error pages detected. The original 'JSON.parse: unexpected character at line 1 column 1' errors are NOT occurring. ✅ ADMIN AUTHENTICATION: Cookie-based authentication working perfectly with admin@ritzone.com credentials, session validation functional. ✅ EDIT USER FUNCTIONALITY: PUT /api/admin/users/{id} working correctly - successfully updated user data (name, phone, address, city). ✅ GET OPERATIONS: Both GET /api/admin/users (list) and GET /api/admin/users/{id} (specific) working properly. ❌ ADD USER ISSUE: POST /api/admin/users fails due to database schema mismatch - backend expects 'password_hash' column that doesn't exist in users table. This is a backend service implementation issue, not a JSON parsing error. CONCLUSION: The JSON parsing errors mentioned in the review request have been resolved. EDIT functionality works perfectly. ADD functionality has a backend database schema issue unrelated to JSON parsing."
 
   - task: "Fix Admin Users DELETE Operation - Foreign Key Constraints Issue"
     implemented: false
