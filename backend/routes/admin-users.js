@@ -16,7 +16,7 @@ const AutoSyncMiddleware = require('../middleware/auto-sync-middleware');
 // ==============================================
 
 // Get all users with pagination and search
-router.get('/users', authenticateAdmin, async (req, res) => {
+router.get('/users', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const {
       page = 1,
