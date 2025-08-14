@@ -302,6 +302,8 @@ class AutoSyncService {
   // Get recent orders
   static async getRecentOrders(limit = 10) {
     try {
+      const supabase = getSupabaseClient();
+      
       const { data: orders, error } = await supabase
         .from('orders')
         .select(`
