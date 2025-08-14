@@ -597,7 +597,23 @@ test_plan:
         agent: "testing"
         comment: "🎉 BUY NOW FUNCTIONALITY FULLY OPERATIONAL - AUGUST 2025 COMPREHENSIVE TESTING COMPLETE: ✅ CROSS-CATEGORY TESTING: Tested across all 10 categories (Electronics, Fashion, Books, Home & Garden, Sports & Outdoors, Grocery, Appliances, Beauty & Personal Care, Solar, Pharmacy) - Buy Now button present and functional in 7/10 categories (3 categories had loading issues but button implementation confirmed), ✅ AUTHENTICATION FLOWS: Unauthenticated users correctly redirected to login page (/auth/login?redirect=product/{id}), Authenticated users (tested with test@test.com) successfully processed, ✅ FUNCTIONALITY VERIFICATION: Buy Now button adds product to cart and redirects to /cart page, Loading states working ('Processing...' shown during operation), Quantity selection supported (tested with quantity 2), Button properly disabled for out-of-stock items, Error handling implemented for failed operations, ✅ UI/UX VALIDATION: Button shows proper loading states during processing, Proper error messages displayed for failures, Seamless integration with existing cart system, Professional styling with orange background (#ff9f00), ✅ TECHNICAL IMPLEMENTATION: handleBuyNow() function working correctly in ProductDetail.tsx, Proper authentication checks via Supabase, API integration with backend cart endpoints, Router.push('/cart') redirection working, State management (buyingNow, cartMessage) functional. CONCLUSION: Buy Now functionality is 100% operational across all categories with proper authentication flows, cart integration, and user experience features as requested."
 
-  - task: "Enhance and Connect Admin Panel for RitZone Web Application"
+  - task: "Fix Admin Users Page 'Failed to fetch users' Error"
+    implemented: true
+    working: true
+    file: "backend/routes/auto-sync.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "user"
+        comment: "🚨 USER REPORTS ADMIN USERS PAGE ERROR - Admin panel at /admin/users shows 'Failed to fetch users' error. Backend auto-sync authentication system implemented but frontend unable to fetch users data from /api/admin/users endpoint."
+      - working: "NA"
+        agent: "main"
+        comment: "🔍 ISSUE INVESTIGATION COMPLETE - Root cause identified: Cookie authentication failing in development environment. Backend API /api/admin/users works correctly when authenticated via cookies, but browser cannot send cookies due to Secure flag + SameSite=Strict settings in localhost HTTP environment. Auto-sync system properly implemented and functional."
+      - working: true
+        agent: "main"
+        comment: "✅ ADMIN USERS PAGE FIX IMPLEMENTED - Fixed cookie configuration in auto-sync authentication route to detect development environment. Added smart environment detection: localhost uses SameSite=Lax (no Secure flag), production maintains SameSite=Strict + Secure flag. Frontend browser can now properly send authentication cookies to backend. Admin users page should display user list correctly in development environment."
     implemented: true
     working: "PENDING_DATABASE_SETUP"
     file: "contexts/AdminAuthContext.tsx, app/admin/login/page.tsx, backend/routes/admin.js, backend/services/admin-service.js, backend/scripts/setup-admin.js, backend/database-admin-schema.sql"
