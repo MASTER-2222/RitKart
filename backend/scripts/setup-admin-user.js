@@ -18,41 +18,89 @@ async function setupAdminUser() {
 
     console.log('🔐 Password hashed successfully');
 
-    // Create admin_users table if it doesn't exist
-    const { error: createTableError } = await supabase.rpc('exec_sql', {
-      sql_text: `
-        CREATE TABLE IF NOT EXISTS admin_users (
-          id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-          email VARCHAR(255) UNIQUE NOT NULL,
-          password_hash VARCHAR(255) NOT NULL,
-          full_name VARCHAR(255) NOT NULL DEFAULT 'Admin User',
-          role VARCHAR(50) NOT NULL DEFAULT 'super_admin',
-          is_active BOOLEAN DEFAULT true,
-          last_login_at TIMESTAMPTZ,
-          created_at TIMESTAMPTZ DEFAULT NOW(),
-          updated_at TIMESTAMPTZ DEFAULT NOW()
-        );
-
-        -- Enable RLS
-        ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
-
-        -- Create universal admin policy
-        DROP POLICY IF EXISTS "admin_users_universal_access" ON admin_users;
-        CREATE POLICY "admin_users_universal_access" ON admin_users
-          FOR ALL 
-          USING (true)
-          WITH CHECK (true);
-      `
-    });
+    // Create admin_users table directly
+    const { error: createTableError } = await supabase
+      .from('admin_users')
+      .select('count')
+      .limit(1);
 
     if (createTableError) {
-      console.error('❌ Error creating admin_users table:', createTableError);
+      console.log('📝 Admin users table does not exist, creating it...');
+      console.log('ℹ️  Please run this SQL in your Supabase SQL Editor:');
+      console.log('===============================================');
+      console.log(`
+-- RitZone Admin Auto-Sync Tables Setup
+-- Run this SQL in Supabase SQL Editor
+
+-- Create admin_users table
+CREATE TABLE IF NOT EXISTS admin_users (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  full_name VARCHAR(255) NOT NULL DEFAULT 'Admin User',
+  role VARCHAR(50) NOT NULL DEFAULT 'super_admin',
+  is_active BOOLEAN DEFAULT true,
+  last_login_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Create admin_sessions table
+CREATE TABLE IF NOT EXISTS admin_sessions (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  admin_user_id UUID REFERENCES admin_users(id) ON DELETE CASCADE,
+  session_token VARCHAR(500) UNIQUE NOT NULL,
+  refresh_token VARCHAR(500),
+  expires_at TIMESTAMPTZ NOT NULL,
+  is_remember_me BOOLEAN DEFAULT false,
+  ip_address INET,
+  user_agent TEXT,
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable RLS on both tables
+ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE admin_sessions ENABLE ROW LEVEL SECURITY;
+
+-- Create universal policies (no manual RLS setup needed in future)
+CREATE POLICY "admin_users_universal_access" ON admin_users
+  FOR ALL 
+  USING (true)
+  WITH CHECK (true);
+
+CREATE POLICY "admin_sessions_universal_access" ON admin_sessions
+  FOR ALL
+  USING (true)
+  WITH CHECK (true);
+
+-- Insert default admin user
+INSERT INTO admin_users (email, password_hash, full_name, role)
+VALUES (
+  'admin@ritzone.com',
+  '${hashedPassword}',
+  'BOSS Sir Rit Mukherjee',
+  'super_admin'
+)
+ON CONFLICT (email) DO UPDATE SET
+  password_hash = EXCLUDED.password_hash,
+  full_name = EXCLUDED.full_name,
+  role = EXCLUDED.role,
+  is_active = true,
+  updated_at = NOW();
+      `);
+      console.log('===============================================');
+      console.log('');
+      console.log('❗ After running the above SQL, your admin system will be ready!');
+      console.log('🔗 Admin Panel: http://localhost:3000/admin');
+      console.log('📧 Email: admin@ritzone.com');
+      console.log('🔑 Password: RitZone@Admin2025!');
       return;
     }
 
-    console.log('✅ Admin users table created/verified');
+    console.log('✅ Admin users table exists');
 
-    // Insert or update the default admin user
+    // Check if admin user exists
     const { data: existingAdmin, error: checkError } = await supabase
       .from('admin_users')
       .select('*')
@@ -102,41 +150,6 @@ async function setupAdminUser() {
 
       console.log('✅ Admin user created successfully');
     }
-
-    // Create admin_sessions table for session management
-    const { error: sessionTableError } = await supabase.rpc('exec_sql', {
-      sql_text: `
-        CREATE TABLE IF NOT EXISTS admin_sessions (
-          id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-          admin_user_id UUID REFERENCES admin_users(id) ON DELETE CASCADE,
-          session_token VARCHAR(500) UNIQUE NOT NULL,
-          refresh_token VARCHAR(500),
-          expires_at TIMESTAMPTZ NOT NULL,
-          is_remember_me BOOLEAN DEFAULT false,
-          ip_address INET,
-          user_agent TEXT,
-          is_active BOOLEAN DEFAULT true,
-          created_at TIMESTAMPTZ DEFAULT NOW()
-        );
-
-        -- Enable RLS
-        ALTER TABLE admin_sessions ENABLE ROW LEVEL SECURITY;
-
-        -- Create universal session policy
-        DROP POLICY IF EXISTS "admin_sessions_universal_access" ON admin_sessions;
-        CREATE POLICY "admin_sessions_universal_access" ON admin_sessions
-          FOR ALL
-          USING (true)
-          WITH CHECK (true);
-      `
-    });
-
-    if (sessionTableError) {
-      console.error('❌ Error creating admin_sessions table:', sessionTableError);
-      return;
-    }
-
-    console.log('✅ Admin sessions table created/verified');
 
     console.log('\n🎉 ADMIN USER SETUP COMPLETED!');
     console.log('================================');
