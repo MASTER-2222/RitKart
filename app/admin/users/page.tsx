@@ -119,7 +119,7 @@ export default function AdminUsersPage() {
   // Fetch user statistics
   const fetchUserStats = useCallback(async () => {
     try {
-      const response = await fetch('/api/admin/users/stats', {
+      const response = await fetch(`${API_BASE_URL}/admin/users/stats`, {
         credentials: 'include', // This will include cookies
         headers: {
           'Content-Type': 'application/json'
