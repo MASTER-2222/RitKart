@@ -240,7 +240,7 @@ export default function AdminUsersPage() {
     if (!confirmed) return;
 
     try {
-      const response = await fetch('/api/admin/users/bulk-delete', {
+      const response = await fetch(`${API_BASE_URL}/admin/users/bulk-delete`, {
         method: 'POST',
         credentials: 'include', // This will include cookies
         headers: {
