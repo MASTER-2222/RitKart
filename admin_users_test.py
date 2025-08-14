@@ -291,9 +291,10 @@ class AdminUsersAPITester:
         
         # Update user data
         update_data = {
-            "fullName": "Updated Test User Name",
+            "full_name": "Updated Test User Name",  # Changed from fullName to full_name
             "phone": "+9876543210",
-            "status": "active"
+            "address": "456 Updated Street",
+            "city": "Updated City"
         }
         
         success, status, data = self.make_request('PUT', f'/admin/users/{user_id}', update_data, 200)
