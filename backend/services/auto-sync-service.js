@@ -99,6 +99,8 @@ class AutoSyncService {
   // Admin login with automatic session management
   static async adminLogin(email, password, rememberMe = false, ipAddress = null, userAgent = null) {
     try {
+      const supabase = getSupabaseClient();
+      
       // Find admin user
       const { data: adminUser, error } = await supabase
         .from('admin_users')
