@@ -19,6 +19,8 @@ class AutoSyncService {
     try {
       console.log('🔄 Starting full user synchronization...');
       
+      const supabase = getSupabaseClient();
+      
       // Get all Supabase Auth users (requires service role key)
       const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers();
       
