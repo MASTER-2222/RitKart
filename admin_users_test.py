@@ -233,10 +233,13 @@ class AdminUsersAPITester:
         test_user_data = {
             "email": f"testuser.{timestamp}@ritzone.com",
             "password": "TestUser123!",
-            "fullName": f"Test User {timestamp}",
+            "full_name": f"Test User {timestamp}",  # Changed from fullName to full_name
             "phone": "+1234567890",
-            "role": "customer",
-            "status": "active"
+            "address": "123 Test Street",
+            "city": "Test City",
+            "state": "Test State",
+            "country": "Test Country",
+            "postal_code": "12345"
         }
         
         success, status, data = self.make_request('POST', '/admin/users', test_user_data, 201)
