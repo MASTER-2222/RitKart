@@ -2,7 +2,6 @@
 // ==============================================
 // Service layer for advanced user management and order tracking
 
-const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
 const { getSupabaseClient } = require('./supabase-service');
 const { adminActivityService } = require('./admin-service');
