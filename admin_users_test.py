@@ -346,12 +346,25 @@ class AdminUsersAPITester:
 
     def test_get_specific_user(self):
         """Test getting specific user details"""
-        if not self.admin_session_cookie or not self.created_user_ids:
-            return self.log_test("Get Specific User", False, "No admin auth or test user available")
+        if not self.admin_session_cookie:
+            return self.log_test("Get Specific User", False, "No admin authentication available")
         
         print("\n👤 Testing Get Specific User...")
         
-        user_id = self.created_user_ids[0]
+        # First get a list of existing users
+        success, status, data = self.make_request('GET', '/admin/users?limit=5')
+        
+        if not (success and data.get('success') and data.get('data')):
+            return self.log_test("Get Specific User", False, "Could not retrieve users list for specific user test")
+        
+        users = data.get('data', [])
+        if not users:
+            return self.log_test("Get Specific User", False, "No users available for specific user test")
+        
+        # Use the first user
+        test_user = users[0]
+        user_id = test_user.get('id')
+        
         success, status, data = self.make_request('GET', f'/admin/users/{user_id}')
         
         if success and data.get('success'):
@@ -359,7 +372,7 @@ class AdminUsersAPITester:
             return self.log_test(
                 "Get Specific User", 
                 True, 
-                f"Retrieved user details - Name: {user_data.get('full_name', 'unknown')}"  # Changed from fullName to full_name
+                f"Retrieved user details - Name: {user_data.get('full_name', 'unknown')}, Email: {user_data.get('email', 'unknown')}"
             )
         else:
             if data.get('is_html_error'):
