@@ -9,6 +9,7 @@ const router = express.Router();
 
 // Import admin authentication middleware
 const { authenticateAdmin, requireRole } = require('./admin');
+const AutoSyncMiddleware = require('../middleware/auto-sync-middleware');
 
 // ==============================================
 // 👥 USER MANAGEMENT ROUTES
