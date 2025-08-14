@@ -146,7 +146,7 @@ class AutoSyncService {
           session_token: sessionToken,
           refresh_token: refreshToken,
           expires_at: expiresAt.toISOString(),
-          is_remember_me: rememberMe,
+          remember_me: rememberMe,
           ip_address: ipAddress,
           user_agent: userAgent,
           is_active: true
