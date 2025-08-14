@@ -281,17 +281,34 @@ class AdminUsersAPITester:
         if not self.admin_session_cookie:
             return self.log_test("EDIT User", False, "No admin authentication available")
         
-        if not self.created_user_ids:
-            return self.log_test("EDIT User", False, "No test user available for editing")
-        
         print("\n✏️ Testing EDIT User Functionality...")
         
-        # Use the first created user for editing
-        user_id = self.created_user_ids[0]
+        # First get a list of existing users to edit
+        success, status, data = self.make_request('GET', '/admin/users?limit=5')
+        
+        if not (success and data.get('success') and data.get('data')):
+            return self.log_test("EDIT User", False, "Could not retrieve users list for editing test")
+        
+        users = data.get('data', [])
+        if not users:
+            return self.log_test("EDIT User", False, "No users available for editing test")
+        
+        # Use the first user (but not admin) for editing
+        test_user = None
+        for user in users:
+            if user.get('email') != 'admin@ritzone.com':  # Don't edit admin user
+                test_user = user
+                break
+        
+        if not test_user:
+            return self.log_test("EDIT User", False, "No suitable user found for editing test")
+        
+        user_id = test_user.get('id')
+        original_name = test_user.get('full_name', 'Unknown')
         
         # Update user data
         update_data = {
-            "full_name": "Updated Test User Name",  # Changed from fullName to full_name
+            "full_name": f"Updated Test User Name {datetime.now().strftime('%H%M%S')}",
             "phone": "+9876543210",
             "address": "456 Updated Street",
             "city": "Updated City"
@@ -304,7 +321,7 @@ class AdminUsersAPITester:
             return self.log_test(
                 "EDIT User", 
                 True, 
-                f"Successfully updated user - Name: {updated_user.get('full_name', 'unknown')}, ID: {user_id}"  # Changed from fullName to full_name
+                f"Successfully updated user - Original: '{original_name}' -> Updated: '{updated_user.get('full_name', 'unknown')}', ID: {user_id}"
             )
         else:
             # Check if response is HTML error page (the main issue we're testing for)
