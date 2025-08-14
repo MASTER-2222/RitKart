@@ -367,6 +367,7 @@ class AutoSyncService {
   // Check auto-sync system health
   static async systemHealthCheck() {
     try {
+      const supabase = getSupabaseClient();
       const healthChecks = [];
 
       // Test database connection
