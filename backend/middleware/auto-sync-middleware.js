@@ -222,7 +222,8 @@ class AutoSyncMiddleware {
       req.db = {
         // Generic select with automatic RLS handling
         select: async (table, filters = {}, options = {}) => {
-          let query = supabase.from(table).select(options.select || '*');
+          const client = getSupabaseClient();
+          let query = client.from(table).select(options.select || '*');
           
           Object.entries(filters).forEach(([key, value]) => {
             query = query.eq(key, value);
@@ -236,17 +237,20 @@ class AutoSyncMiddleware {
 
         // Generic insert with automatic RLS handling
         insert: async (table, data) => {
-          return await supabase.from(table).insert(data).select();
+          const client = getSupabaseClient();
+          return await client.from(table).insert(data).select();
         },
 
         // Generic update with automatic RLS handling
         update: async (table, id, data) => {
-          return await supabase.from(table).update(data).eq('id', id).select();
+          const client = getSupabaseClient();
+          return await client.from(table).update(data).eq('id', id).select();
         },
 
         // Generic delete with automatic RLS handling
         delete: async (table, id) => {
-          return await supabase.from(table).delete().eq('id', id);
+          const client = getSupabaseClient();
+          return await client.from(table).delete().eq('id', id);
         }
       };
 
