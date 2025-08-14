@@ -342,7 +342,7 @@ class AdminUsersAPITester:
             return self.log_test(
                 "Get Specific User", 
                 True, 
-                f"Retrieved user details - Name: {user_data.get('fullName', 'unknown')}"
+                f"Retrieved user details - Name: {user_data.get('full_name', 'unknown')}"  # Changed from fullName to full_name
             )
         else:
             if data.get('is_html_error'):
