@@ -73,8 +73,8 @@ router.post('/auth/login', async (req, res) => {
         httpOnly: true,
         secure: isProduction, // Always secure in production
         maxAge: rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000, // 30 days or 24 hours
-        sameSite: isLocalDevelopment ? 'lax' : 'none', // None for cross-domain production, lax for localhost
-        domain: isLocalDevelopment ? undefined : '.render.com' // Set domain for cross-subdomain access on Render
+        sameSite: isLocalDevelopment ? 'lax' : 'none' // None for cross-domain production, lax for localhost
+        // Removed domain setting as it may cause issues with different Render subdomains
       });
 
       return res.json({
