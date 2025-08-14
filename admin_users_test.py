@@ -270,11 +270,19 @@ class AdminUsersAPITester:
                     f"CRITICAL: JSON Parse Error - {data.get('json_parse_error')} - Status: {status}"
                 )
             else:
-                return self.log_test(
-                    "ADD User", 
-                    False, 
-                    f"Failed to create user - Status: {status}, Response: {data.get('message', 'Unknown error')}"
-                )
+                error_message = data.get('message', 'Unknown error')
+                if 'password_hash' in error_message:
+                    return self.log_test(
+                        "ADD User", 
+                        False, 
+                        f"DATABASE SCHEMA ISSUE: {error_message}. The users table doesn't have a password_hash column. This suggests the admin service expects a different database schema than what's deployed."
+                    )
+                else:
+                    return self.log_test(
+                        "ADD User", 
+                        False, 
+                        f"Failed to create user - Status: {status}, Response: {error_message}"
+                    )
 
     def test_edit_user_functionality(self):
         """Test EDIT User functionality via PUT /api/admin/users/{id}"""
