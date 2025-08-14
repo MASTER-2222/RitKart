@@ -215,7 +215,7 @@ const adminUsersService = {
     }
   },
 
-  // Create new user
+  // Create new user using Supabase Auth
   createUser: async (userData, adminUserId) => {
     try {
       const client = getSupabaseClient();
@@ -237,16 +237,33 @@ const adminUsersService = {
         return { success: false, error: 'User with this email already exists' };
       }
 
-      // Hash password
-      const password_hash = await bcrypt.hash(password, 12);
+      // Create user using Supabase Auth API (admin method)
+      const { data: authUser, error: authError } = await client.auth.admin.createUser({
+        email,
+        password,
+        email_confirm: false, // Auto-confirm email for admin-created users
+        user_metadata: {
+          full_name,
+          phone: phone || null,
+          address: address || null,
+          city: city || null,
+          state: state || null,
+          country: country || null,
+          postal_code: postal_code || null
+        }
+      });
 
-      // Create user
+      if (authError) {
+        console.error('❌ Supabase Auth create user failed:', authError);
+        return { success: false, error: `Failed to create user: ${authError.message}` };
+      }
+
+      // Create corresponding record in users table
       const { data: user, error: userError } = await client
         .from('users')
         .insert([{
-          id: uuidv4(),
+          id: authUser.user.id, // Use the Supabase Auth user ID
           email,
-          password_hash,
           full_name,
           phone: phone || null,
           address: address || null,
@@ -255,12 +272,23 @@ const adminUsersService = {
           country: country || null,
           postal_code: postal_code || null,
           is_active: true,
-          email_verified: false
+          email_verified: !authError, // Set based on auth creation success
+          created_at: authUser.user.created_at,
+          updated_at: authUser.user.updated_at
         }])
         .select()
         .single();
 
-      if (userError) throw userError;
+      if (userError) {
+        console.error('❌ User table insert failed:', userError);
+        // Try to delete the auth user if table insert fails
+        try {
+          await client.auth.admin.deleteUser(authUser.user.id);
+        } catch (deleteError) {
+          console.error('❌ Failed to cleanup auth user:', deleteError);
+        }
+        return { success: false, error: `Failed to create user record: ${userError.message}` };
+      }
 
       // Log activity
       await adminActivityService.logActivity(
@@ -271,10 +299,7 @@ const adminUsersService = {
         { email: user.email, full_name: user.full_name }
       );
 
-      // Remove password hash from response
-      const { password_hash: _, ...userResponse } = user;
-
-      return { success: true, user: userResponse };
+      return { success: true, user: user };
 
     } catch (error) {
       console.error('❌ Create user failed:', error.message);
