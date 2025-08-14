@@ -29,8 +29,8 @@ export default function AddUserModal({ onClose, onSuccess }: AddUserModalProps) 
     try {
       const response = await fetch('/api/admin/users', {
         method: 'POST',
+        credentials: 'include', // Use cookies for authentication instead of Bearer token
         headers: {
-          'Authorization': `Bearer ${adminUser?.token}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
