@@ -104,7 +104,7 @@
 
 user_problem_statement: "PHASE 3: Dynamic Currency Conversion System - Complete removal of ALL hardcoded prices throughout RitZone web application. Implement FUNCTIONAL and DYNAMIC currency conversion system that fetches prices directly from BACKEND and DATABASE. Support multiple currencies (USD, GBP, EUR, INR, CAD, JPY, AUD) with REAL-TIME exchange rates from internet. Make currency selector at bottom of pages FUNCTIONAL for both registered and unregistered users. Remove all hardcoded price patterns from every sector of the application - INDEX page, Electronics, Fashion, Books, Home & Gardens, Sports & Outdoors, Grocery, Appliances, Beauty & Personal Care, Solar, Pharmacy, Deal, Cart pages."
 
-current_user_request: "AUGUST 2025 - ADMIN USERS PAGE FIX: User reports 'Failed to fetch users' error in Admin Panel at /admin/users. Need to fix admin authentication system integration between frontend AdminAuthContext and backend auto-sync service to properly display users list in admin panel."
+current_user_request: "JANUARY 2025 - ADMIN USERS PAGE API ENDPOINT FIX: User reports 'Failed to fetch users' error in Admin Panel at /admin/users. Issue identified: Frontend making API calls to wrong URL (http://localhost:3000/api/admin/users) instead of backend URL (http://localhost:8001/api/admin/users). Need to fix API endpoint configuration in admin users page to use proper backend URL like other admin components."
 
 current_analysis:
   main_agent: "🔍 ADMIN USERS PAGE ISSUE INVESTIGATION COMPLETE:
