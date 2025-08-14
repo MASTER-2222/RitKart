@@ -304,7 +304,7 @@ class AdminUsersAPITester:
             return self.log_test(
                 "EDIT User", 
                 True, 
-                f"Successfully updated user - Name: {updated_user.get('fullName', 'unknown')}, ID: {user_id}"
+                f"Successfully updated user - Name: {updated_user.get('full_name', 'unknown')}, ID: {user_id}"  # Changed from fullName to full_name
             )
         else:
             # Check if response is HTML error page (the main issue we're testing for)
