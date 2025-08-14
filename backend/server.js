@@ -55,6 +55,13 @@ app.use(morgan(environment.logging.level));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Cookie parsing middleware
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+// Auto-sync middleware (applied globally for automatic user synchronization)
+app.use(AutoSyncMiddleware.universalDataAccess);
+
 // Rate limiting using environment variables
 const limiter = rateLimit({
   windowMs: environment.rateLimiting.windowMs,
