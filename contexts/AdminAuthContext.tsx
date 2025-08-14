@@ -31,7 +31,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/auto-sync/auth/validate`, {
+        const response = await fetch(`${API_BASE_URL}/admin/auth/validate`, {
           method: 'GET',
           credentials: 'include', // This will include cookies
           headers: {
