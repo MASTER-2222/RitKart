@@ -3,7 +3,7 @@
 // Automatic user synchronization between Supabase Auth and local database
 // This middleware ensures seamless sync without manual intervention
 
-const { supabase } = require('../services/supabase-service');
+const { getSupabaseClient } = require('../services/supabase-service');
 const { v4: uuidv4 } = require('uuid');
 
 class AutoSyncMiddleware {
