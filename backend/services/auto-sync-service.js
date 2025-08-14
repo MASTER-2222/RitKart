@@ -3,7 +3,7 @@
 // Handles automatic synchronization between Frontend, Backend, and Database
 // Eliminates the need for manual RLS policy creation
 
-const { supabase } = require('./supabase-service');
+const { getSupabaseClient } = require('./supabase-service');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
