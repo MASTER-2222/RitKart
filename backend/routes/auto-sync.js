@@ -65,13 +65,15 @@ router.post('/auth/login', async (req, res) => {
     );
 
     if (result.success) {
-      // Set secure cookie for session
+      // Set secure cookie for session with smart environment detection
       const isProduction = process.env.NODE_ENV === 'production';
+      const isLocalDevelopment = req.get('host')?.includes('localhost') || req.get('host')?.includes('127.0.0.1');
+      
       res.cookie('admin_session', result.sessionToken, {
         httpOnly: true,
-        secure: isProduction,
+        secure: isProduction && !isLocalDevelopment, // Only secure in production AND not localhost
         maxAge: rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000, // 30 days or 24 hours
-        sameSite: isProduction ? 'strict' : 'lax'  // Use 'lax' for development, 'strict' for production
+        sameSite: isLocalDevelopment ? 'lax' : 'strict' // Lax for localhost, strict for production
       });
 
       return res.json({
