@@ -336,6 +336,8 @@ class AutoSyncService {
   // Get top products
   static async getTopProducts(limit = 10) {
     try {
+      const supabase = getSupabaseClient();
+      
       const { data: products, error } = await supabase
         .from('products')
         .select('*')
