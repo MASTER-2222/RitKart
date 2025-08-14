@@ -269,6 +269,8 @@ class AutoSyncService {
   // Get dashboard statistics
   static async getDashboardStats() {
     try {
+      const supabase = getSupabaseClient();
+      
       // Get counts from various tables
       const [usersResult, productsResult, ordersResult, categoriesResult] = await Promise.all([
         supabase.from('users').select('count', { count: 'exact' }),
