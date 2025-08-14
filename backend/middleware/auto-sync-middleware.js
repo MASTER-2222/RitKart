@@ -12,6 +12,7 @@ class AutoSyncMiddleware {
   static async syncSupabaseUser(supabaseUserId, email, additionalData = {}) {
     try {
       console.log(`🔄 Auto-syncing user: ${email}`);
+      const supabase = getSupabaseClient();
       
       // Check if user already exists in local database
       const { data: existingUser, error: selectError } = await supabase
@@ -68,6 +69,7 @@ class AutoSyncMiddleware {
 
     } catch (error) {
       console.error('❌ Auto-sync error:', error);
+      const supabase = getSupabaseClient();
       
       // Log failed sync
       await supabase
@@ -94,6 +96,7 @@ class AutoSyncMiddleware {
       }
 
       const token = authHeader.split(' ')[1];
+      const supabase = getSupabaseClient();
       
       // Verify Supabase token
       const { data: { user }, error } = await supabase.auth.getUser(token);
@@ -140,6 +143,8 @@ class AutoSyncMiddleware {
           message: 'Admin authentication required'
         });
       }
+
+      const supabase = getSupabaseClient();
 
       // Check admin session in database
       const { data: session, error } = await supabase
@@ -211,6 +216,7 @@ class AutoSyncMiddleware {
     try {
       // This middleware automatically handles RLS by using the service role key
       // All operations will bypass RLS policies because of our universal policies
+      const supabase = getSupabaseClient();
       
       // Add helper methods to request object for easy database operations
       req.db = {
@@ -255,6 +261,8 @@ class AutoSyncMiddleware {
   // Health check for auto-sync system
   static async healthCheck(req, res) {
     try {
+      const supabase = getSupabaseClient();
+      
       // Test database connection
       const { data: dbTest, error: dbError } = await supabase
         .from('admin_users')
