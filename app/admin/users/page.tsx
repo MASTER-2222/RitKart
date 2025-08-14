@@ -9,6 +9,9 @@ import EditUserModal from '../../../components/admin/EditUserModal';
 import NotificationModal from '../../../components/admin/NotificationModal';
 import UserStatsCards from '../../../components/admin/UserStatsCards';
 
+// Use the same API base URL as AdminAuthContext
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8001/api';
+
 interface User {
   id: string;
   email: string;
