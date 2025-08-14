@@ -64,7 +64,7 @@ router.get('/users', AutoSyncMiddleware.adminAuth, async (req, res) => {
 });
 
 // Get user details with order history
-router.get('/users/:userId', authenticateAdmin, async (req, res) => {
+router.get('/users/:userId', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const { userId } = req.params;
 
