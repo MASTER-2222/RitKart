@@ -400,11 +400,12 @@ class HeroBannersUploadTester:
         try:
             headers = {"Authorization": f"Bearer {self.admin_token}"}
             
-            # Create large image (over 10MB)
-            large_image = self.create_test_image('JPEG', (5000, 5000), 'green')  # Should be > 10MB
+            # Create large file (over 10MB) - just raw data
+            large_data = b"X" * (11 * 1024 * 1024)  # 11MB of data
+            large_file = io.BytesIO(large_data)
             
             files = {
-                'image': ('large_test.jpg', large_image, 'image/jpeg')
+                'image': ('large_test.jpg', large_file, 'image/jpeg')
             }
             
             response = requests.post(
@@ -424,25 +425,12 @@ class HeroBannersUploadTester:
                     data
                 )
             else:
-                # If it didn't reject, check if the image was actually small enough
-                large_image.seek(0, 2)  # Seek to end
-                file_size = large_image.tell()
-                large_image.seek(0)  # Reset
-                
-                if file_size < 10 * 1024 * 1024:  # Less than 10MB
-                    return self.log_test(
-                        "File Size Limit",
-                        True,
-                        f"Test image was actually under 10MB ({file_size} bytes), upload succeeded as expected",
-                        {"file_size": file_size, "status": response.status_code}
-                    )
-                else:
-                    return self.log_test(
-                        "File Size Limit",
-                        False,
-                        f"Should have rejected large file ({file_size} bytes) but got status {response.status_code}",
-                        response.text
-                    )
+                return self.log_test(
+                    "File Size Limit",
+                    False,
+                    f"Should have rejected large file (11MB) but got status {response.status_code}",
+                    response.text
+                )
         except Exception as e:
             return self.log_test(
                 "File Size Limit",
