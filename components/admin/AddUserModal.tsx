@@ -30,7 +30,7 @@ export default function AddUserModal({ onClose, onSuccess }: AddUserModalProps) 
     setLoading(true);
 
     try {
-      const response = await fetch('/api/admin/users', {
+      const response = await fetch(`${API_BASE_URL}/admin/users`, {
         method: 'POST',
         credentials: 'include', // Use cookies for authentication instead of Bearer token
         headers: {
