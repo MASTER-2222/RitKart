@@ -252,6 +252,12 @@ class AdminUsersServiceRoleTester:
                     False, 
                     f"❌ ORIGINAL ERROR STILL PRESENT: 'User not allowed' - Service role key fix not working"
                 )
+            elif "duplicate key" in error_message:
+                return self.log_test(
+                    "Admin User Creation", 
+                    False, 
+                    f"⚠️  Database constraint issue (not service role): {error_message} - Service role key appears to be working"
+                )
             else:
                 return self.log_test(
                     "Admin User Creation", 
