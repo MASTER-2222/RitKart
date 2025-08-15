@@ -5,6 +5,7 @@
 const express = require('express');
 const { environment } = require('../config/environment');
 const { bannerService } = require('../services/supabase-service');
+const AutoSyncMiddleware = require('../middleware/auto-sync-middleware');
 
 const router = express.Router();
 
