@@ -347,12 +347,12 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Fix Homepage Images Database Constraint Issue - Add unique constraint"
-    - "Add Missing API Methods for Admin Panel Integration"
-    - "Test Dynamic Homepage Management from Admin Panel to Live Site"
+    - "Homepage Management API Testing Complete - All systems operational"
+    - "Database constraint fix verified working"
+    - "Admin panel integration ready"
   stuck_tasks: []
   test_all: false
-  test_priority: "frontend_first"
+  test_priority: "backend_first"
 
   - task: "Migrate Sports & Outdoors category products to database"
     implemented: true
