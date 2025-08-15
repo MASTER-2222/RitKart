@@ -25,6 +25,7 @@ export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [electronicsProducts, setElectronicsProducts] = useState<Product[]>([]);
   const [heroBanners, setHeroBanners] = useState<any[]>([]);
+  const [homepageSections, setHomepageSections] = useState<HomepageSection[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
