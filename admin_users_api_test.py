@@ -405,7 +405,7 @@ class AdminUsersAPITester:
                     # Test update
                     update_url = f"{BACKEND_URL}/admin/users/{user_id}"
                     update_data = {
-                        "first_name": "Updated Test Name"
+                        "full_name": "Updated Test Name"
                     }
                     
                     update_response = self.session.put(
