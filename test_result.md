@@ -630,6 +630,7 @@ test_plan:
     stuck_count: 0
     priority: "high"
     needs_retesting: true
+    production_deployment_required: true
     status_history:
       - working: false
         agent: "user"
