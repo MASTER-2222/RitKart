@@ -215,11 +215,12 @@ class AdminUsersServiceRoleTester:
         
         # Generate unique test user data as specified in review request
         timestamp = datetime.now().strftime('%H%M%S%f')[:-3]
+        unique_id = str(uuid.uuid4())[:8]  # Add UUID for extra uniqueness
         test_user_data = {
-            "email": f"testuser{timestamp}@example.com",
+            "email": f"testuser{timestamp}_{unique_id}@example.com",
             "password": "TestPassword123!",
-            "full_name": f"Test User {timestamp}",
-            "phone": "+1234567890",
+            "full_name": f"Test User {timestamp} {unique_id}",
+            "phone": f"+123456{timestamp[-4:]}",
             "address": "123 Test Street",
             "city": "Test City",
             "state": "Test State", 
