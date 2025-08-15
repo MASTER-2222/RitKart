@@ -16,7 +16,7 @@ from datetime import datetime
 BACKEND_URL = "http://localhost:8001/api"
 ADMIN_CREDENTIALS = {
     "email": "admin@ritzone.com",
-    "password": "admin123"
+    "password": "RitZone@Admin2025!"
 }
 
 class AdminUsersAPITester:
