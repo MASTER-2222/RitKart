@@ -86,9 +86,9 @@ router.post('/', async (req, res) => {
 });
 
 // ==============================================
-// 🔄 UPDATE BANNER
+// 🔄 UPDATE BANNER (Admin only)
 // ==============================================
-router.put('/:id', async (req, res) => {
+router.put('/:id', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const bannerId = req.params.id;
     const bannerData = req.body;
