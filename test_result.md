@@ -57,8 +57,8 @@
 ##   test_priority: "high_first"  # or "sequential" or "stuck_first"
 ##
 ## agent_communication:
-##     -agent: "main"  # or "testing" or "user"
-##     -message: "Communication message between agents"
+  - agent: "main"
+    message: "🎉 CRITICAL JSON PARSING ERROR FIXED - JANUARY 2025: Successfully identified and resolved the root cause of 'JSON.parse: unexpected character at line 1 column 1' errors in Admin Users ADD and EDIT operations. Issue was URL mismatch: AddUserModal and EditUserModal used relative URLs (/api/admin/users) targeting frontend server instead of backend. Fixed by adding proper API_BASE_URL configuration using NEXT_PUBLIC_BACKEND_URL environment variable. Both modals now correctly target backend API (http://localhost:8001/api). Frontend restarted to apply changes. Ready for user testing to verify full Add User and Edit User functionality."
 
 # Protocol Guidelines for Main agent
 #
