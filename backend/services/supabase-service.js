@@ -1530,5 +1530,6 @@ module.exports = {
   categoryService,
   orderService,
   bannerService,
+  homepageService,
   dealsService,
 };
