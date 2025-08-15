@@ -22,7 +22,7 @@ interface BannerEditProps {
   uploading: string | null;
 }
 
-const BannerEdit: React.FC<BannerEditProps> = ({ banner, onUpdate, onSave, saving }) => {
+const BannerEdit: React.FC<BannerEditProps> = ({ banner, onUpdate, onSave, onUpload, saving, uploading }) => {
   const [localData, setLocalData] = useState({
     title: banner.title,
     subtitle: banner.subtitle,
@@ -30,6 +30,7 @@ const BannerEdit: React.FC<BannerEditProps> = ({ banner, onUpdate, onSave, savin
     button_text: banner.button_text,
     button_link: banner.button_link
   });
+  const [dragActive, setDragActive] = useState(false);
 
   const handleChange = (field: string, value: string) => {
     setLocalData(prev => ({ ...prev, [field]: value }));
@@ -38,6 +39,35 @@ const BannerEdit: React.FC<BannerEditProps> = ({ banner, onUpdate, onSave, savin
 
   const handleSave = () => {
     onSave(banner.id);
+  };
+
+  const handleFileUpload = (file: File) => {
+    if (file && file.type.startsWith('image/')) {
+      onUpload(banner.id, file);
+    } else {
+      alert('Please select a valid image file (JPEG, PNG, GIF, WebP)');
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length > 0) {
+      handleFileUpload(files[0]);
+    }
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
   };
 
   return (
