@@ -87,19 +87,29 @@ class HeroBannersUploadTester:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and data.get('data', {}).get('token'):
-                    self.admin_token = data['data']['token']
-                    return self.log_test(
-                        "Admin Authentication",
-                        True,
-                        f"Admin authenticated successfully - Token acquired",
-                        {"user": data.get('data', {}).get('user', {})}
-                    )
+                if data.get('success'):
+                    # Check for both 'token' and 'sessionToken' fields
+                    token = data.get('data', {}).get('token') or data.get('sessionToken')
+                    if token:
+                        self.admin_token = token
+                        return self.log_test(
+                            "Admin Authentication",
+                            True,
+                            f"Admin authenticated successfully - Token acquired",
+                            {"user": data.get('user', {})}
+                        )
+                    else:
+                        return self.log_test(
+                            "Admin Authentication",
+                            False,
+                            f"Authentication response missing token: {data}",
+                            data
+                        )
                 else:
                     return self.log_test(
                         "Admin Authentication",
                         False,
-                        f"Authentication response missing token: {data}",
+                        f"Authentication failed: {data.get('message', 'Unknown error')}",
                         data
                     )
             else:
