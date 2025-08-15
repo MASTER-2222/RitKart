@@ -1236,6 +1236,7 @@ const dealsService = {
 module.exports = {
   initializeSupabase,
   getSupabaseClient,
+  getAdminSupabaseClient,
   testConnection,
   userService,
   productService,
