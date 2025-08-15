@@ -170,6 +170,29 @@ export default function Home() {
     }
   ];
 
+  // Helper function to get content value by section and key
+  const getContentValue = (sectionName: string, contentKey: string, defaultValue: string = '') => {
+    const section = homepageSections.find(s => s.section_name === sectionName);
+    if (!section?.content) return defaultValue;
+    
+    const contentItem = section.content.find(item => item.key === contentKey);
+    return contentItem?.value || defaultValue;
+  };
+
+  // Helper function to get image URL by section and key
+  const getImageUrl = (sectionName: string, imageKey: string, defaultUrl: string = '') => {
+    const section = homepageSections.find(s => s.section_name === sectionName);
+    if (!section?.images) return defaultUrl;
+    
+    const imageItem = section.images.find(item => item.key === imageKey);
+    return imageItem?.url || defaultUrl;
+  };
+
+  // Get section data
+  const getSectionData = (sectionName: string) => {
+    return homepageSections.find(s => s.section_name === sectionName);
+  };
+
   // Auto-advance slider every 2 seconds
   useEffect(() => {
     if (heroBanners.length === 0) return; // Don't start interval if no banners
