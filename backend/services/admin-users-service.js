@@ -217,7 +217,10 @@ const adminUsersService = {
   // Create new user using Supabase Auth
   createUser: async (userData, adminUserId) => {
     try {
-      const client = getSupabaseClient();
+      const { getSupabaseClient, getAdminSupabaseClient } = require('./supabase-service');
+      const client = getSupabaseClient(); // For database queries
+      const adminClient = getAdminSupabaseClient(); // For admin auth operations
+      
       const { email, password, full_name, phone, address, city, state, country, postal_code } = userData;
 
       // Validate required fields
@@ -236,8 +239,8 @@ const adminUsersService = {
         return { success: false, error: 'User with this email already exists' };
       }
 
-      // Create user using Supabase Auth API (admin method)
-      const { data: authUser, error: authError } = await client.auth.admin.createUser({
+      // Create user using Supabase Auth API (admin method with service role key)
+      const { data: authUser, error: authError } = await adminClient.auth.admin.createUser({
         email,
         password,
         email_confirm: false, // Auto-confirm email for admin-created users
