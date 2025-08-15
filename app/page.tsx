@@ -353,7 +353,14 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-6">
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Shop by Category</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              {getSectionData('categories')?.section_title || 'Shop by Category'}
+            </h2>
+            {getContentValue('categories', 'section_description') && (
+              <p className="text-gray-600 mb-6">
+                {getContentValue('categories', 'section_description', 'Browse our wide range of product categories')}
+              </p>
+            )}
             {categories.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {convertedCategories.map((category, index) => (
