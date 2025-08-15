@@ -383,6 +383,115 @@ export interface CartItem {
   products: Product;
 }
 
+  // ==============================================
+  // 🏠 HOMEPAGE MANAGEMENT API
+  // ==============================================
+  
+  // Get all homepage sections
+  async getHomepageSections(): Promise<ApiResponse<any[]>> {
+    return this.makeRequest('/homepage/sections');
+  }
+
+  // Get specific homepage section
+  async getHomepageSection(sectionName: string): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/sections/${sectionName}`);
+  }
+
+  // Update section content
+  async updateHomepageContent(sectionName: string, content: Record<string, string>): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/sections/${sectionName}/content`, {
+      method: 'PUT',
+      body: JSON.stringify({ content })
+    });
+  }
+
+  // Update section images
+  async updateHomepageImages(sectionName: string, images: Record<string, any>): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/sections/${sectionName}/images`, {
+      method: 'PUT',
+      body: JSON.stringify({ images })
+    });
+  }
+
+  // Upload image file
+  async uploadHomepageImage(sectionName: string, imageKey: string, file: File, alt?: string, title?: string): Promise<ApiResponse<any>> {
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('imageKey', imageKey);
+    if (alt) formData.append('alt', alt);
+    if (title) formData.append('title', title);
+
+    const url = `${this.baseURL}/homepage/sections/${sectionName}/upload`;
+    
+    const defaultHeaders: Record<string, string> = {};
+
+    // Add auth token if available
+    if (typeof window !== 'undefined') {
+      try {
+        const { createClient } = await import('./supabase/client');
+        const supabase = createClient();
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session?.access_token) {
+          defaultHeaders['Authorization'] = `Bearer ${session.access_token}`;
+        }
+      } catch (error) {
+        console.warn('Could not add auth token to upload request:', error);
+      }
+    }
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: defaultHeaders,
+      body: formData
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ message: 'Upload failed' }));
+      throw new Error(errorData.message || 'Upload failed');
+    }
+
+    return response.json();
+  }
+
+  // Update section settings
+  async updateHomepageSettings(sectionName: string, settings: Record<string, any>): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/sections/${sectionName}/settings`, {
+      method: 'PUT',
+      body: JSON.stringify(settings)
+    });
+  }
+
+  // Bulk update section (content + images + settings)
+  async updateHomepageSection(sectionName: string, data: {
+    content?: Record<string, string>;
+    images?: Record<string, any>;
+    settings?: Record<string, any>;
+  }): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/sections/${sectionName}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+
+  // Get homepage categories
+  async getHomepageCategories(): Promise<ApiResponse<any[]>> {
+    return this.makeRequest('/homepage/categories');
+  }
+
+  // Get homepage featured products
+  async getHomepageProducts(sectionName: string = 'featured_products'): Promise<ApiResponse<any[]>> {
+    return this.makeRequest(`/homepage/products/${sectionName}`);
+  }
+
+  // Update featured products
+  async updateHomepageFeaturedProducts(sectionName: string, products: any[]): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/products/${sectionName}`, {
+      method: 'PUT',
+      body: JSON.stringify({ products })
+    });
+  }
+
 export interface Cart {
   id: string;
   user_id: string;
