@@ -57,6 +57,47 @@ const getSupabaseClient = () => {
 };
 
 // ==============================================
+// 🔧 GET ADMIN SUPABASE CLIENT (with Service Role Key)
+// ==============================================
+let adminSupabaseClient = null;
+
+const getAdminSupabaseClient = () => {
+  try {
+    if (!adminSupabaseClient) {
+      if (!environment.supabase.url || !environment.supabase.serviceRoleKey) {
+        throw new Error('❌ Supabase admin configuration missing from environment variables');
+      }
+
+      adminSupabaseClient = createClient(
+        environment.supabase.url,
+        environment.supabase.serviceRoleKey,
+        {
+          auth: {
+            autoRefreshToken: false,
+            persistSession: false
+          },
+          db: {
+            schema: 'public'
+          },
+          global: {
+            headers: {
+              'X-Client-Info': 'ritzone-backend-admin'
+            }
+          }
+        }
+      );
+
+      console.log('✅ Supabase admin client initialized successfully');
+    }
+    
+    return adminSupabaseClient;
+  } catch (error) {
+    console.error('❌ Failed to initialize Supabase admin client:', error.message);
+    throw error;
+  }
+};
+
+// ==============================================
 // 🧪 CONNECTION TEST
 // ==============================================
 const testConnection = async () => {
