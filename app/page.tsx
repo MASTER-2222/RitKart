@@ -293,7 +293,13 @@ export default function Home() {
         <div className="relative mb-6">
           <div
             className="h-96 bg-cover bg-center relative"
-            style={{ backgroundImage: `url(${heroBanners[currentHeroBanner]?.image || 'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?w=1200&h=400&fit=crop&crop=center'})` }}
+            style={{ 
+              backgroundImage: `url(${
+                getImageUrl('hero', 'hero_background') || 
+                heroBanners[currentHeroBanner]?.image || 
+                'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?w=1200&h=400&fit=crop&crop=center'
+              })` 
+            }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
             <div className="relative z-10 flex items-center justify-between h-full px-8">
@@ -305,13 +311,23 @@ export default function Home() {
               </button>
 
               <div className="text-center text-white">
-                <h1 className="text-4xl font-bold mb-4">{heroBanners[currentHeroBanner]?.title || 'RitZone'}</h1>
-                <p className="text-xl mb-6">{heroBanners[currentHeroBanner]?.subtitle || 'Your premium shopping destination'}</p>
+                <h1 className="text-4xl font-bold mb-4">
+                  {getContentValue('hero', 'welcome_title') || 
+                   heroBanners[currentHeroBanner]?.title || 
+                   'Welcome to RitZone - Your One-Stop Shopping Destination'}
+                </h1>
+                <p className="text-xl mb-6">
+                  {getContentValue('hero', 'welcome_subtitle') || 
+                   heroBanners[currentHeroBanner]?.subtitle || 
+                   'Discover millions of products with fast delivery, great deals, and excellent customer service'}
+                </p>
                 <a 
                   href={heroBanners[currentHeroBanner]?.buttonLink || '/'}
                   className="bg-[#febd69] hover:bg-[#f3a847] text-black font-bold py-3 px-8 rounded-lg whitespace-nowrap inline-block"
                 >
-                  {heroBanners[currentHeroBanner]?.buttonText || 'Shop Now'}
+                  {getContentValue('hero', 'cta_button_text') || 
+                   heroBanners[currentHeroBanner]?.buttonText || 
+                   'Shop Now'}
                 </a>
               </div>
 
