@@ -605,7 +605,7 @@ test_plan:
     file: "backend/config/environment.js, backend/services/supabase-service.js, backend/services/admin-users-service.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "user"
