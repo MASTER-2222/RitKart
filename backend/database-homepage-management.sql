@@ -276,25 +276,31 @@ SELECT
     hs.display_order,
     hs.is_active,
     -- Aggregate content
-    json_agg(
-        DISTINCT jsonb_build_object(
-            'key', hc.content_key,
-            'value', hc.content_value,
-            'type', hc.content_type
-        )
-    ) FILTER (WHERE hc.id IS NOT NULL) as content,
+    COALESCE(
+        json_agg(
+            jsonb_build_object(
+                'key', hc.content_key,
+                'value', hc.content_value,
+                'type', hc.content_type
+            )
+        ) FILTER (WHERE hc.id IS NOT NULL), 
+        '[]'::json
+    ) as content,
     -- Aggregate images  
-    json_agg(
-        DISTINCT jsonb_build_object(
-            'id', hi.id,
-            'key', hi.image_key,
-            'url', hi.image_url,
-            'alt', hi.image_alt,
-            'title', hi.image_title,
-            'order', hi.display_order,
-            'upload_type', hi.upload_type
-        ) ORDER BY hi.display_order
-    ) FILTER (WHERE hi.id IS NOT NULL) as images
+    COALESCE(
+        json_agg(
+            jsonb_build_object(
+                'id', hi.id,
+                'key', hi.image_key,
+                'url', hi.image_url,
+                'alt', hi.image_alt,
+                'title', hi.image_title,
+                'order', hi.display_order,
+                'upload_type', hi.upload_type
+            ) ORDER BY hi.display_order
+        ) FILTER (WHERE hi.id IS NOT NULL),
+        '[]'::json
+    ) as images
 FROM homepage_sections hs
 LEFT JOIN homepage_content hc ON hs.id = hc.section_id AND hc.is_active = true
 LEFT JOIN homepage_images hi ON hs.id = hi.section_id AND hi.is_active = true
