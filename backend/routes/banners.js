@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
 // ==============================================
 // ✨ CREATE NEW BANNER (Admin only)
 // ==============================================
-router.post('/', async (req, res) => {
+router.post('/', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const bannerData = req.body;
 
