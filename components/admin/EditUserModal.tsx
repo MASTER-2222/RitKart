@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { useAdminAuth } from '../../contexts/AdminAuthContext';
 
+// Use the same API base URL as AdminAuthContext
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8001/api';
+
 interface User {
   id: string;
   email: string;
