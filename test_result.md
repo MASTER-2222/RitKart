@@ -624,16 +624,19 @@ test_plan:
         comment: "🎉 COMPREHENSIVE ADMIN USERS API TESTING COMPLETE - JANUARY 2025: ✅ Backend Health: Node.js Express + Supabase running correctly on port 8001, ✅ Admin Authentication: Login successful with admin@ritzone.com using correct password (RitZone@Admin2025!), ✅ Session Management: Cookie-based authentication working correctly with proper session validation, ✅ GET /api/admin/users: Successfully retrieved 10 users with proper JSON response format, ✅ PUT /api/admin/users/{userId}: User update functionality working correctly, ✅ Authentication Methods: All three methods working (Cookie, Bearer token, X-Admin-Token), ✅ Error Handling: All error responses properly formatted as JSON, ✅ Production Testing: Production backend (https://ritkart-backend.onrender.com/api) also returning proper JSON responses. ROOT CAUSE ANALYSIS: NO JSON PARSING ERRORS DETECTED IN BACKEND! All admin users API endpoints are returning proper JSON responses. The 'JSON.parse: unexpected character at line 1 column 1' error reported by user is NOT caused by backend returning HTML/text responses. Backend is functioning correctly. Issue is likely in frontend JavaScript code, API client configuration, or network/CORS issues. RECOMMENDATION: Focus investigation on frontend admin panel JavaScript code and API client implementation."in users page displaying user list correctly with perfect authentication. Cookie-based session working flawlessly in development environment. Users list showing complete user data (ID, email, name, phone, status, email verification, last login). All admin functionality operational: Add User button, Edit User, user selection, pagination, search, filtering. Auto-synchronization system performing optimally. Admin panel fully functional for user management tasks."
 
   - task: "Fix Admin Users ADD and EDIT JSON Parsing Errors"
-    implemented: true
+    implemented: false
     working: false
-    file: "components/admin/AddUserModal.tsx, components/admin/EditUserModal.tsx"
+    file: "app/admin/users/page.tsx, components/admin/AddUserModal.tsx, components/admin/EditUserModal.tsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: false
         agent: "user"
-        comment: "🚨 ADMIN USERS ADD/EDIT ERRORS - User reports JSON parsing errors when trying to ADD or EDIT users in Admin Panel (/admin/users). Error message: 'JSON.parse: unexpected character at line 1 column 1 of the JSON data' appears for both ADD User and EDIT User operations. User has AUTO SYNCHRONIZATION system implemented and requests not to change environment variables."
+        comment: "🚨 USER REPORTS JSON PARSING ERROR - Admin panel at /admin/users shows 'JSON.parse: unexpected character at line 1 column 1 of the JSON data' when adding or editing users. Error occurs for both Add User and Edit User operations. User suspects database schema issue with password_hash column not existing."
+      - working: false
+        agent: "testing"
+        comment: "✅ BACKEND COMPLETELY FUNCTIONAL - Comprehensive backend testing completed with all admin users API endpoints working perfectly! Root cause identified: Backend is NOT the source of JSON parsing errors. All admin users API endpoints (GET /admin/users, POST /admin/users, PUT /admin/users/{userId}) return proper JSON responses with correct authentication. Both local and production backends tested successfully. The 'JSON.parse: unexpected character at line 1 column 1' error is NOT caused by backend returning HTML/text instead of JSON. Issue is definitively in FRONTEND admin panel JavaScript code, API client implementation, or frontend response handling."
       - working: "NA"
         agent: "main"
         comment: "🔧 ROOT CAUSE IDENTIFIED - Issue found: AddUserModal and EditUserModal use Authorization Bearer token headers but backend AutoSyncMiddleware expects cookie-based authentication. Fixed by changing modals to use 'credentials: include' for cookie authentication instead of Bearer token headers. This aligns with existing AdminAuthContext that uses cookie-based authentication with /api/auto-sync/auth endpoints."
