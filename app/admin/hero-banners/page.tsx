@@ -17,7 +17,9 @@ interface BannerEditProps {
   banner: HeroBanner;
   onUpdate: (bannerId: string, data: Partial<HeroBanner>) => void;
   onSave: (bannerId: string) => void;
+  onUpload: (bannerId: string, file: File) => void;
   saving: string | null;
+  uploading: string | null;
 }
 
 const BannerEdit: React.FC<BannerEditProps> = ({ banner, onUpdate, onSave, saving }) => {
