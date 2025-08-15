@@ -112,6 +112,8 @@ class AdminUsersServiceRoleTester:
         # Try auto-sync auth endpoint first
         success, status, data = self.make_request('POST', '/auto-sync/auth/login', admin_credentials)
         
+        print(f"🔍 Auto-sync auth response: Status={status}, Data={data}")
+        
         if success and data.get('success'):
             if 'token' in data:
                 self.admin_token = data['token']
@@ -127,6 +129,8 @@ class AdminUsersServiceRoleTester:
         else:
             # Try regular auth endpoint as fallback
             success, status, data = self.make_request('POST', '/auth/login', admin_credentials)
+            
+            print(f"🔍 Regular auth response: Status={status}, Data={data}")
             
             if success and data.get('success'):
                 if 'token' in data:
