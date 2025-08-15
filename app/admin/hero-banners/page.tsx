@@ -311,6 +311,46 @@ export default function HeroBannersManagement() {
     }
   };
 
+  const handleUploadImage = async (bannerId: string, file: File) => {
+    try {
+      setUploading(bannerId);
+      setSaveMessage('');
+      
+      const result = await apiClient.uploadBannerImage(bannerId, file);
+      
+      if (result.success) {
+        // Update local state with new image URL
+        setBanners(prev => prev.map(banner => 
+          banner.id === bannerId ? { ...banner, image_url: result.data.imageUrl } : banner
+        ));
+        
+        // Clear any pending updates for image_url
+        setPendingUpdates(prev => {
+          const newUpdates = { ...prev };
+          if (newUpdates[bannerId]) {
+            delete newUpdates[bannerId].image_url;
+            if (Object.keys(newUpdates[bannerId]).length === 0) {
+              delete newUpdates[bannerId];
+            }
+          }
+          return newUpdates;
+        });
+        
+        setSaveMessage(`✅ Image uploaded successfully for Banner ${banners.find(b => b.id === bannerId)?.sort_order}`);
+        setTimeout(() => setSaveMessage(''), 3000);
+      } else {
+        setSaveMessage(`❌ Failed to upload image: ${result.message}`);
+        setTimeout(() => setSaveMessage(''), 5000);
+      }
+    } catch (err) {
+      console.error('Upload image error:', err);
+      setSaveMessage('❌ Failed to upload image');
+      setTimeout(() => setSaveMessage(''), 5000);
+    } finally {
+      setUploading(null);
+    }
+  };
+
   const handleRefresh = () => {
     setPendingUpdates({});
     loadBanners();
