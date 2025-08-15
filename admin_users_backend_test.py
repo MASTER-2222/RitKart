@@ -148,6 +148,8 @@ class AdminUsersServiceRoleTester:
         if not self.admin_token:
             return self.log_test("Admin Users List Access", False, "No admin token available")
         
+        print(f"🔍 Using admin token: {self.admin_token[:20]}...")
+        
         print("\n📋 Testing Admin Users List Access...")
         success, status, data = self.make_request('GET', '/admin/users')
         
