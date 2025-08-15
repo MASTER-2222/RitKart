@@ -52,16 +52,23 @@ export default function Home() {
       
       console.log(`🔄 Loading homepage data in ${selectedCurrency.code} currency...`);
       
-      // Fetch all data in parallel WITH CURRENCY SUPPORT
-      const [categoriesResponse, featuredResponse, electronicsResponse, bannersResponse] = await Promise.all([
+      // Fetch all data in parallel WITH CURRENCY SUPPORT including homepage sections
+      const [categoriesResponse, featuredResponse, electronicsResponse, bannersResponse, homepageResponse] = await Promise.all([
         apiClient.getCategories(),
         apiClient.getFeaturedProducts(selectedCurrency.code), // Add currency
         apiClient.getProductsByCategory('electronics', { 
           limit: 6,
           currency: selectedCurrency.code // Add currency
         }),
-        apiClient.getBanners()
+        apiClient.getBanners(),
+        apiClient.getHomepageSections() // Fetch dynamic homepage sections
       ]);
+
+      // Process homepage sections
+      if (homepageResponse.success && homepageResponse.data) {
+        setHomepageSections(homepageResponse.data);
+        console.log(`✅ Loaded ${homepageResponse.data.length} dynamic homepage sections`);
+      }
 
       if (categoriesResponse.success) {
         setCategories(categoriesResponse.data);
@@ -77,7 +84,7 @@ export default function Home() {
         console.log(`✅ Loaded ${electronicsResponse.data.length} electronics products in ${selectedCurrency.code}`);
       }
 
-      // Handle banners API response
+      // Handle banners API response (keeping existing logic as fallback)
       if (bannersResponse.success) {
         const apiHeroBanners = bannersResponse.data.map((banner: any) => ({
           image: banner.image_url,
