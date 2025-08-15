@@ -175,6 +175,13 @@ class ApiClient {
   async getBanners() {
     return this.makeRequest('/banners');
   }
+  
+  async updateBanner(bannerId: string, bannerData: any) {
+    return this.makeRequest(`/banners/${bannerId}`, {
+      method: 'PUT',
+      body: JSON.stringify(bannerData)
+    });
+  }
 
   // Deals API
   async getDeals() {
