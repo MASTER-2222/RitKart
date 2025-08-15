@@ -18,7 +18,6 @@ import uuid
 import time
 import io
 from datetime import datetime
-from PIL import Image
 
 class HeroBannersUploadTester:
     def __init__(self, base_url="http://localhost:8001/api"):
