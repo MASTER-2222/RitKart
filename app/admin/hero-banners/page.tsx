@@ -236,6 +236,7 @@ export default function HeroBannersManagement() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
   const [saving, setSaving] = useState<string | null>(null);
+  const [uploading, setUploading] = useState<string | null>(null);
   const [saveMessage, setSaveMessage] = useState<string>('');
   const [pendingUpdates, setPendingUpdates] = useState<Record<string, Partial<HeroBanner>>>({});
 
