@@ -21,15 +21,17 @@ const cleanupHeroBanners = async () => {
 
     console.log(`Found ${currentBanners.length} banners`);
 
-    // Step 2: Delete all current banners
+    // Step 2: Delete all current banners one by one
     console.log('🗑️ Clearing all existing banners...');
-    const { error: deleteError } = await supabase
-      .from('hero_banners')
-      .delete()
-      .not('id', 'is', null); // Delete all
-
-    if (deleteError) {
-      throw new Error(`Failed to delete banners: ${deleteError.message}`);
+    for (const banner of currentBanners) {
+      const { error: deleteError } = await supabase
+        .from('hero_banners')
+        .delete()
+        .eq('id', banner.id);
+      
+      if (deleteError) {
+        console.warn(`Failed to delete banner ${banner.id}: ${deleteError.message}`);
+      }
     }
 
     // Step 3: Create exactly 8 unique hero banners
