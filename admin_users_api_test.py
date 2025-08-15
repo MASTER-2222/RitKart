@@ -307,6 +307,7 @@ class AdminUsersAPITester:
             test_user_data = {
                 "email": f"testuser_{int(time.time())}@example.com",
                 "password": "TestPassword123!",
+                "full_name": "Test User",
                 "first_name": "Test",
                 "last_name": "User",
                 "role": "user"
