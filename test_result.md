@@ -509,6 +509,18 @@ test_plan:
       - working: false
         agent: "user"
         comment: "🚨 PRODUCTION ISSUE PERSISTS - User confirms that while local development environment is working perfectly, the PRODUCTION environment (https://ritzone-frontend.onrender.com) still shows 'Application error: a client-side exception has occurred' when clicking 'Add to Cart' buttons on category pages. Console shows 'TypeError: t is undefined'. Issue occurs across all categories in production. User notes that production changes only appear when pushed to GitHub repository. Local environment working correctly confirms fixes are valid but need deployment to production."
+  - task: "Add Hero Banners Image Upload Functionality"
+    implemented: false
+    working: false
+    file: "backend/routes/banners.js, app/admin/hero-banners/page.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🚀 STARTING HERO BANNERS UPLOAD IMPLEMENTATION: Adding file upload functionality to admin panel hero banners section alongside existing URL input method. Will implement backend multer upload endpoint and frontend upload component with drag-and-drop support."
+
   - task: "Fix Category Pages Pagination - Add functional page navigation"
     implemented: true
     working: true
