@@ -462,7 +462,9 @@ export default function HeroBannersManagement() {
               banner={banner}
               onUpdate={handleUpdateBanner}
               onSave={handleSaveBanner}
+              onUpload={handleUploadImage}
               saving={saving}
+              uploading={uploading}
             />
           ))}
       </div>
