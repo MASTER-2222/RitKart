@@ -1100,6 +1100,292 @@ const bannerService = {
 };
 
 // ==============================================
+// 🏠 HOMEPAGE MANAGEMENT SERVICE
+// ==============================================
+const homepageService = {
+  // Get all homepage sections with content and images
+  async getAllSections() {
+    try {
+      const client = getSupabaseClient();
+      const { data, error } = await client
+        .from('homepage_section_complete')
+        .select('*')
+        .order('display_order');
+
+      if (error) {
+        console.error('❌ Supabase homepage sections fetch error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        sections: data || []
+      };
+    } catch (error) {
+      console.error('❌ Get homepage sections service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Get specific section by name
+  async getSectionByName(sectionName) {
+    try {
+      const client = getSupabaseClient();
+      const { data, error } = await client
+        .from('homepage_section_complete')
+        .select('*')
+        .eq('section_name', sectionName)
+        .single();
+
+      if (error) {
+        console.error('❌ Supabase homepage section fetch error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        section: data
+      };
+    } catch (error) {
+      console.error('❌ Get homepage section service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Update section content
+  async updateSectionContent(sectionName, contentUpdates) {
+    try {
+      const client = getSupabaseClient();
+      
+      // First get the section ID
+      const { data: section, error: sectionError } = await client
+        .from('homepage_sections')
+        .select('id')
+        .eq('section_name', sectionName)
+        .single();
+
+      if (sectionError || !section) {
+        return { success: false, error: 'Section not found' };
+      }
+
+      // Update each content item
+      const updatePromises = Object.entries(contentUpdates).map(async ([key, value]) => {
+        const { error } = await client
+          .from('homepage_content')
+          .upsert({
+            section_id: section.id,
+            content_key: key,
+            content_value: value,
+            content_type: 'text',
+            updated_at: new Date().toISOString()
+          }, {
+            onConflict: 'section_id,content_key'
+          });
+        return error;
+      });
+
+      const errors = await Promise.all(updatePromises);
+      const hasErrors = errors.some(error => error !== null);
+
+      if (hasErrors) {
+        console.error('❌ Some content updates failed:', errors);
+        return { success: false, error: 'Failed to update some content' };
+      }
+
+      return { success: true, message: 'Content updated successfully' };
+    } catch (error) {
+      console.error('❌ Update section content service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Update section images
+  async updateSectionImages(sectionName, imageUpdates) {
+    try {
+      const client = getSupabaseClient();
+      
+      // First get the section ID
+      const { data: section, error: sectionError } = await client
+        .from('homepage_sections')
+        .select('id')
+        .eq('section_name', sectionName)
+        .single();
+
+      if (sectionError || !section) {
+        return { success: false, error: 'Section not found' };
+      }
+
+      // Update each image
+      const updatePromises = Object.entries(imageUpdates).map(async ([imageKey, imageData]) => {
+        const { error } = await client
+          .from('homepage_images')
+          .upsert({
+            section_id: section.id,
+            image_key: imageKey,
+            image_url: imageData.url,
+            image_alt: imageData.alt || '',
+            image_title: imageData.title || '',
+            upload_type: imageData.upload_type || 'url',
+            updated_at: new Date().toISOString()
+          }, {
+            onConflict: 'section_id,image_key'
+          });
+        return error;
+      });
+
+      const errors = await Promise.all(updatePromises);
+      const hasErrors = errors.some(error => error !== null);
+
+      if (hasErrors) {
+        console.error('❌ Some image updates failed:', errors);
+        return { success: false, error: 'Failed to update some images' };
+      }
+
+      return { success: true, message: 'Images updated successfully' };
+    } catch (error) {
+      console.error('❌ Update section images service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Get homepage categories for display
+  async getHomepageCategories() {
+    try {
+      const client = getSupabaseClient();
+      const { data, error } = await client
+        .from('homepage_categories_display')
+        .select('*')
+        .order('display_order');
+
+      if (error) {
+        console.error('❌ Supabase homepage categories fetch error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        categories: data || []
+      };
+    } catch (error) {
+      console.error('❌ Get homepage categories service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Get homepage featured products  
+  async getHomepageProducts(sectionName = 'featured_products') {
+    try {
+      const client = getSupabaseClient();
+      const { data, error } = await client
+        .from('homepage_products_display')
+        .select('*')
+        .eq('section_name', sectionName)
+        .order('display_order')
+        .limit(12);
+
+      if (error) {
+        console.error('❌ Supabase homepage products fetch error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        products: data || []
+      };
+    } catch (error) {
+      console.error('❌ Get homepage products service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Update section settings (title, subtitle, etc.)
+  async updateSectionSettings(sectionName, settings) {
+    try {
+      const client = getSupabaseClient();
+      
+      const updateData = {
+        updated_at: new Date().toISOString()
+      };
+
+      if (settings.title) updateData.section_title = settings.title;
+      if (settings.subtitle) updateData.section_subtitle = settings.subtitle;
+      if (settings.display_order !== undefined) updateData.display_order = settings.display_order;
+      if (settings.is_active !== undefined) updateData.is_active = settings.is_active;
+
+      const { data, error } = await client
+        .from('homepage_sections')
+        .update(updateData)
+        .eq('section_name', sectionName)
+        .select()
+        .single();
+
+      if (error) {
+        console.error('❌ Supabase section settings update error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        section: data
+      };
+    } catch (error) {
+      console.error('❌ Update section settings service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Add/Update featured product in section
+  async updateFeaturedProducts(sectionName, productUpdates) {
+    try {
+      const client = getSupabaseClient();
+      
+      // Get section ID
+      const { data: section, error: sectionError } = await client
+        .from('homepage_sections')
+        .select('id')
+        .eq('section_name', sectionName)
+        .single();
+
+      if (sectionError || !section) {
+        return { success: false, error: 'Section not found' };
+      }
+
+      // Update featured products
+      const updatePromises = productUpdates.map(async (productUpdate) => {
+        const { error } = await client
+          .from('homepage_featured_products')
+          .upsert({
+            section_id: section.id,
+            product_id: productUpdate.product_id,
+            display_order: productUpdate.display_order || 0,
+            feature_type: productUpdate.feature_type || 'featured',
+            custom_title: productUpdate.custom_title || null,
+            custom_price: productUpdate.custom_price || null,
+            is_active: productUpdate.is_active !== false,
+            updated_at: new Date().toISOString()
+          }, {
+            onConflict: 'section_id,product_id'
+          });
+        return error;
+      });
+
+      const errors = await Promise.all(updatePromises);
+      const hasErrors = errors.some(error => error !== null);
+
+      if (hasErrors) {
+        console.error('❌ Some product updates failed:', errors);
+        return { success: false, error: 'Failed to update some products' };
+      }
+
+      return { success: true, message: 'Featured products updated successfully' };
+    } catch (error) {
+      console.error('❌ Update featured products service error:', error);
+      return { success: false, error: error.message };
+    }
+  }
+};
+
+// ==============================================
 // 🏷️ DEALS SERVICE
 // ==============================================
 const dealsService = {
