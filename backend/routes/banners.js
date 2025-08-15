@@ -146,6 +146,98 @@ router.put('/:id', AutoSyncMiddleware.adminAuth, async (req, res) => {
 });
 
 // ==============================================
+// 📤 UPLOAD HERO BANNER IMAGE TO SUPABASE STORAGE
+// ==============================================
+router.post('/:id/upload', AutoSyncMiddleware.adminAuth, upload.single('image'), async (req, res) => {
+  try {
+    const bannerId = req.params.id;
+
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: 'No image file uploaded'
+      });
+    }
+
+    // Generate unique filename for Supabase Storage
+    const timestamp = Date.now();
+    const randomString = Math.random().toString(36).substring(7);
+    const ext = path.extname(req.file.originalname);
+    const fileName = `hero_banner_${bannerId}_${timestamp}_${randomString}${ext}`;
+
+    // Upload to Supabase Storage
+    const supabase = getSupabaseClient();
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from('hero-banners')
+      .upload(fileName, req.file.buffer, {
+        contentType: req.file.mimetype,
+        upsert: false
+      });
+
+    if (uploadError) {
+      console.error('❌ Supabase Storage upload error:', uploadError);
+      return res.status(400).json({
+        success: false,
+        message: 'Failed to upload image to storage',
+        error: environment.isDevelopment() ? uploadError.message : undefined
+      });
+    }
+
+    // Get public URL for uploaded image
+    const { data: urlData } = supabase.storage
+      .from('hero-banners')
+      .getPublicUrl(fileName);
+
+    if (!urlData.publicUrl) {
+      return res.status(400).json({
+        success: false,
+        message: 'Failed to get public URL for uploaded image'
+      });
+    }
+
+    // Update banner with uploaded image URL
+    const bannerData = {
+      image_url: urlData.publicUrl
+    };
+
+    const result = await bannerService.updateBanner(bannerId, bannerData);
+
+    if (!result.success) {
+      // Clean up uploaded file if banner update fails
+      await supabase.storage
+        .from('hero-banners')
+        .remove([fileName]);
+
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Hero banner image uploaded and updated successfully',
+      data: {
+        bannerId,
+        imageUrl: urlData.publicUrl,
+        fileName,
+        originalName: req.file.originalname,
+        size: req.file.size,
+        banner: result.banner
+      }
+    });
+
+  } catch (error) {
+    console.error('❌ Upload hero banner image error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to upload hero banner image',
+      error: environment.isDevelopment() ? error.message : undefined
+    });
+  }
+});
+
+// ==============================================
 // 🗑️ DELETE BANNER (Admin only)
 // ==============================================
 router.delete('/:id', AutoSyncMiddleware.adminAuth, async (req, res) => {
