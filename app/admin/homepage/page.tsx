@@ -120,7 +120,12 @@ export default function HomepageManagement() {
     <div className="space-y-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">Homepage Management</h2>
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900">Homepage Management</h2>
+            <p className="text-gray-600 text-sm mt-1">
+              Manage homepage sections. For hero banners, visit the <a href="/admin/hero-banners" className="text-blue-600 hover:underline">Hero Banners</a> page.
+            </p>
+          </div>
           <div className="flex items-center space-x-4">
             {saveMessage && (
               <span className="text-sm text-green-600">{saveMessage}</span>
