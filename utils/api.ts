@@ -303,6 +303,53 @@ class ApiClient {
       method: 'DELETE'
     });
   }
+
+  // ==============================
+  // 📝 HOMEPAGE CONTENT MANAGEMENT
+  // ==============================
+  
+  // Update section content
+  async updateHomepageContent(sectionName: string, content: any): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/sections/${sectionName}/content`, {
+      method: 'PUT',
+      body: JSON.stringify({ content })
+    });
+  }
+
+  // ==============================
+  // 🖼️ HOMEPAGE IMAGE MANAGEMENT
+  // ==============================
+  
+  // Update section images via URL
+  async updateHomepageImages(sectionName: string, images: any): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/sections/${sectionName}/images`, {
+      method: 'PUT',
+      body: JSON.stringify({ images })
+    });
+  }
+
+  // Upload homepage image file
+  async uploadHomepageImage(
+    sectionName: string, 
+    imageKey: string, 
+    file: File, 
+    alt?: string, 
+    title?: string
+  ): Promise<ApiResponse<any>> {
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('imageKey', imageKey);
+    if (alt) formData.append('alt', alt);
+    if (title) formData.append('title', title);
+
+    return this.makeRequest(`/homepage/sections/${sectionName}/upload`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        // Don't set Content-Type header - let browser set it for multipart/form-data
+      }
+    });
+  }
 }
 
 // Export singleton instance
