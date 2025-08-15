@@ -26,7 +26,7 @@ const cleanupHeroBanners = async () => {
     const { error: deleteError } = await supabase
       .from('hero_banners')
       .delete()
-      .neq('id', 'null'); // Delete all
+      .not('id', 'is', null); // Delete all
 
     if (deleteError) {
       throw new Error(`Failed to delete banners: ${deleteError.message}`);
