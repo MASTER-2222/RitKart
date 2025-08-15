@@ -13,6 +13,7 @@ export default function AdminSidebar() {
   const menuItems = [
     { icon: 'ri-dashboard-line', label: 'Dashboard', path: '/admin' },
     { icon: 'ri-home-line', label: 'Homepage', path: '/admin/homepage' },
+    { icon: 'ri-image-line', label: 'Hero Banners', path: '/admin/hero-banners' },
     { icon: 'ri-box-line', label: 'Products', path: '/admin/products' },
     { icon: 'ri-folder-line', label: 'Categories', path: '/admin/categories' },
     { icon: 'ri-user-line', label: 'Users', path: '/admin/users' },
@@ -20,7 +21,7 @@ export default function AdminSidebar() {
     { icon: 'ri-store-line', label: 'Inventory', path: '/admin/inventory' },
     { icon: 'ri-bar-chart-line', label: 'Analytics', path: '/admin/analytics' },
     { icon: 'ri-settings-line', label: 'System', path: '/admin/system' },
-    { icon: 'ri-image-line', label: 'Media', path: '/admin/media' },
+    { icon: 'ri-camera-line', label: 'Media', path: '/admin/media' },
   ];
 
   const handleLogout = () => {
