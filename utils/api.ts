@@ -183,6 +183,17 @@ class ApiClient {
     });
   }
 
+  async uploadBannerImage(bannerId: string, imageFile: File) {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+    
+    return this.makeRequest(`/banners/${bannerId}/upload`, {
+      method: 'POST',
+      body: formData,
+      headers: {} // Remove Content-Type header to let browser set multipart/form-data boundary
+    });
+  }
+
   // Deals API
   async getDeals() {
     return this.makeRequest('/deals');
