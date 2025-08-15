@@ -32,6 +32,17 @@ const BannerEdit: React.FC<BannerEditProps> = ({ banner, onUpdate, onSave, onUpl
   });
   const [dragActive, setDragActive] = useState(false);
 
+  // Update local data when banner prop changes (e.g., after upload)
+  React.useEffect(() => {
+    setLocalData({
+      title: banner.title,
+      subtitle: banner.subtitle,
+      image_url: banner.image_url,
+      button_text: banner.button_text,
+      button_link: banner.button_link
+    });
+  }, [banner]);
+
   const handleChange = (field: string, value: string) => {
     setLocalData(prev => ({ ...prev, [field]: value }));
     onUpdate(banner.id, { [field]: value });
