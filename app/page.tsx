@@ -8,6 +8,15 @@ import ProductCarousel from '../components/ProductCarousel';
 import { apiClient, Category, Product } from '../utils/api';
 import { useCurrency } from '../contexts/CurrencyContext';
 
+interface HomepageSection {
+  id: string;
+  section_name: string;
+  section_title: string;
+  section_subtitle?: string;
+  content: { key: string; value: string; type: string; }[];
+  images: { id: string; key: string; url: string; alt: string; title: string; order: number; }[];
+}
+
 export default function Home() {
   const { selectedCurrency } = useCurrency(); // Add currency context
   
