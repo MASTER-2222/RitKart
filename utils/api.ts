@@ -266,6 +266,43 @@ class ApiClient {
   async getProfile() {
     return this.makeRequest('/auth/profile');
   }
+
+  // ==============================================
+  // 🏠 HOMEPAGE MANAGEMENT API
+  // ==============================================
+  
+  // Get all homepage sections
+  async getHomepageSections(): Promise<ApiResponse<any[]>> {
+    return this.makeRequest('/homepage/sections');
+  }
+
+  // Get specific homepage section
+  async getHomepageSection(sectionName: string): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/sections/${sectionName}`);
+  }
+
+  // Update section content
+  async updateHomepageSection(sectionName: string, data: any): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/sections/${sectionName}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+
+  // Create new section
+  async createHomepageSection(data: any): Promise<ApiResponse<any>> {
+    return this.makeRequest('/homepage/sections', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  // Delete section
+  async deleteHomepageSection(sectionName: string): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/homepage/sections/${sectionName}`, {
+      method: 'DELETE'
+    });
+  }
 }
 
 // Export singleton instance
