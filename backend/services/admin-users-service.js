@@ -260,6 +260,22 @@ const adminUsersService = {
         return { success: false, error: `Failed to create user: ${authError.message}` };
       }
 
+      // Check if user ID already exists in users table (cleanup orphaned records)
+      const { data: existingUserRecord } = await client
+        .from('users')
+        .select('id')
+        .eq('id', authUser.user.id)
+        .single();
+
+      if (existingUserRecord) {
+        console.log('🧹 Found existing user record, cleaning up...');
+        // Delete the existing record to avoid constraint violation
+        await client
+          .from('users')
+          .delete()
+          .eq('id', authUser.user.id);
+      }
+
       // Create corresponding record in users table
       const { data: user, error: userError } = await client
         .from('users')
@@ -274,7 +290,7 @@ const adminUsersService = {
           country: country || null,
           postal_code: postal_code || null,
           is_active: true,
-          email_verified: !authError, // Set based on auth creation success
+          email_verified: true, // Auto-confirmed for admin-created users
           created_at: authUser.user.created_at,
           updated_at: authUser.user.updated_at
         }])
@@ -285,7 +301,7 @@ const adminUsersService = {
         console.error('❌ User table insert failed:', userError);
         // Try to delete the auth user if table insert fails
         try {
-          await client.auth.admin.deleteUser(authUser.user.id);
+          await adminClient.auth.admin.deleteUser(authUser.user.id);
         } catch (deleteError) {
           console.error('❌ Failed to cleanup auth user:', deleteError);
         }
