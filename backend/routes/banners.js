@@ -119,9 +119,9 @@ router.put('/:id', AutoSyncMiddleware.adminAuth, async (req, res) => {
 });
 
 // ==============================================
-// 🗑️ DELETE BANNER
+// 🗑️ DELETE BANNER (Admin only)
 // ==============================================
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', AutoSyncMiddleware.adminAuth, async (req, res) => {
   try {
     const bannerId = req.params.id;
 
