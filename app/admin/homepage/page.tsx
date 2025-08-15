@@ -157,48 +157,6 @@ export default function HomepageManagement() {
           ))}
         </div>
 
-        {/* Hero Section */}
-        {activeTab === 'hero' && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <ContentEditor
-                title="Hero Title"
-                content={getContentValue('hero', 'welcome_title') || 'Welcome to RitZone - Your One-Stop Shopping Destination'}
-                placeholder="Enter hero title..."
-                sectionName="hero"
-                contentKey="welcome_title"
-                onSave={loadHomepageSections}
-              />
-              <ContentEditor
-                title="Hero Subtitle"
-                content={getContentValue('hero', 'welcome_subtitle') || 'Discover millions of products with fast delivery, great deals, and excellent customer service'}
-                placeholder="Enter hero subtitle..."
-                isTextarea={true}
-                sectionName="hero"
-                contentKey="welcome_subtitle"
-                onSave={loadHomepageSections}
-              />
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <ContentEditor
-                title="Call-to-Action Button Text"
-                content={getContentValue('hero', 'cta_button_text') || 'Shop Now'}
-                placeholder="Enter button text..."
-                sectionName="hero"
-                contentKey="cta_button_text"
-                onSave={loadHomepageSections}
-              />
-            </div>
-            <ImageManager
-              title="Hero Background Image"
-              currentImage={getImageUrl('hero', 'hero_background') || 'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?w=1200&h=400&fit=crop&crop=center'}
-              sectionName="hero"
-              imageKey="hero_background"
-              onImageUpdate={loadHomepageSections}
-            />
-          </div>
-        )}
-
         {/* Categories Section */}
         {activeTab === 'categories' && (
           <div className="space-y-6">
