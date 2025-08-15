@@ -136,7 +136,9 @@ class AdminUsersServiceRoleTester:
             print(f"🔍 Regular auth response: Status={status}, Data={data}")
             
             if success and data.get('success'):
-                if 'token' in data:
+                if 'sessionToken' in data:
+                    self.admin_token = data['sessionToken']
+                elif 'token' in data:
                     self.admin_token = data['token']
                 if 'user' in data:
                     self.admin_user_id = data['user'].get('id')
