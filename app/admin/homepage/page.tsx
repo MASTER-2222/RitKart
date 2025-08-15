@@ -14,7 +14,7 @@ interface HomepageSection {
 }
 
 export default function HomepageManagement() {
-  const [activeTab, setActiveTab] = useState('hero');
+  const [activeTab, setActiveTab] = useState('categories');
   const [sections, setSections] = useState<HomepageSection[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
