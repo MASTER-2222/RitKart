@@ -115,8 +115,10 @@ class AdminUsersServiceRoleTester:
         if success and data.get('success'):
             if 'token' in data:
                 self.admin_token = data['token']
+                print(f"🔑 Admin token acquired: {self.admin_token[:20]}...")
             if 'user' in data:
                 self.admin_user_id = data['user'].get('id')
+                print(f"👤 Admin user ID: {self.admin_user_id}")
             return self.log_test(
                 "Admin Authentication", 
                 True, 
