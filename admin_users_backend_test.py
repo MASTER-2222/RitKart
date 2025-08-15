@@ -115,7 +115,10 @@ class AdminUsersServiceRoleTester:
         print(f"🔍 Auto-sync auth response: Status={status}, Data={data}")
         
         if success and data.get('success'):
-            if 'token' in data:
+            if 'sessionToken' in data:
+                self.admin_token = data['sessionToken']
+                print(f"🔑 Admin token acquired: {self.admin_token[:20]}...")
+            elif 'token' in data:
                 self.admin_token = data['token']
                 print(f"🔑 Admin token acquired: {self.admin_token[:20]}...")
             if 'user' in data:
