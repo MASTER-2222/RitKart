@@ -346,7 +346,10 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus: 
+    - "Fix Homepage Images Database Constraint Issue - Add unique constraint"
+    - "Add Missing API Methods for Admin Panel Integration"
+    - "Test Dynamic Homepage Management from Admin Panel to Live Site"
   stuck_tasks: []
   test_all: false
   test_priority: "frontend_first"
