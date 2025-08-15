@@ -5,9 +5,8 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
 const { environment } = require('../config/environment');
-const { bannerService } = require('../services/supabase-service');
+const { bannerService, getSupabaseClient } = require('../services/supabase-service');
 const AutoSyncMiddleware = require('../middleware/auto-sync-middleware');
 
 const router = express.Router();
@@ -15,24 +14,8 @@ const router = express.Router();
 // ==============================================
 // 📁 FILE UPLOAD CONFIGURATION FOR HERO BANNERS
 // ==============================================
-// Configure multer for hero banner image uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, '../../uploads/banners');
-    // Create directory if it doesn't exist
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    // Generate unique filename
-    const timestamp = Date.now();
-    const randomString = Math.random().toString(36).substring(7);
-    const ext = path.extname(file.originalname);
-    cb(null, `hero_banner_${timestamp}_${randomString}${ext}`);
-  }
-});
+// Configure multer for memory storage (Supabase Storage)
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage: storage,
