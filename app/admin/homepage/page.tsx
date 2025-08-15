@@ -21,7 +21,6 @@ export default function HomepageManagement() {
   const [saveMessage, setSaveMessage] = useState<string>('');
 
   const tabs = [
-    { id: 'hero', label: 'Hero Section', icon: 'ri-image-line' },
     { id: 'categories', label: 'Categories', icon: 'ri-folder-line' },
     { id: 'featured_products', label: 'Featured Products', icon: 'ri-star-line' },
     { id: 'bestsellers_electronics', label: 'Electronics Bestsellers', icon: 'ri-flashlight-line' },
