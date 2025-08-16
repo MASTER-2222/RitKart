@@ -248,9 +248,7 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus:
-    - "Test complete CRUD functionality for Featured Products admin panel"
-    - "Test backend API endpoints for product update and delete operations"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
