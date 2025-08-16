@@ -386,7 +386,7 @@ class FeaturedProductsCRUDTester:
             "name": f"Integration Test Product {timestamp}",
             "description": "Product for integration testing workflow",
             "price": 199.99,
-            "category_id": "electronics",
+            "category_id": "62e76cdb-d138-4380-a4dc-820964a02670",  # Electronics category ID
             "sku": f"INT-TEST-{timestamp}",
             "brand": "IntegrationBrand",
             "stock_quantity": 50,
