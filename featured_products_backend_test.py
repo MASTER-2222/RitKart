@@ -18,7 +18,7 @@ import time
 from typing import Dict, Any, List, Optional
 
 # Configuration
-BACKEND_URL = "https://2fbb179f-c2e2-4d3a-89a9-5fd671304225.preview.emergentagent.com"
+BACKEND_URL = "https://task-automator-15.preview.emergentagent.com"
 API_BASE = f"{BACKEND_URL}/api"
 
 class FeaturedProductsBackendTester:
