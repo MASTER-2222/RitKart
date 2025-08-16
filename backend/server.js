@@ -23,6 +23,7 @@ const dealRoutes = require('./routes/deals');
 const currencyRoutes = require('./routes/currency');
 const adminRoutes = require('./routes/admin');
 const adminUsersRoutes = require('./routes/admin-users');
+const adminHomepageRoutes = require('./routes/admin-homepage');
 const autoSyncRoutes = require('./routes/auto-sync');
 
 // Import auto-sync middleware
