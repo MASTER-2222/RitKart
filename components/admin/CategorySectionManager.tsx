@@ -244,6 +244,13 @@ export default function CategorySectionManager({ categories, onUpdate }: Categor
                 >
                   <i className="ri-edit-line w-4 h-4 flex items-center justify-center"></i>
                 </button>
+                <button
+                  onClick={() => handleDeleteCategory(category.id)}
+                  disabled={loading === category.id}
+                  className="text-red-600 hover:text-red-800 text-sm font-medium disabled:opacity-50"
+                >
+                  <i className="ri-delete-bin-line w-4 h-4 flex items-center justify-center"></i>
+                </button>
               </div>
             </div>
 
