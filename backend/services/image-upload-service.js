@@ -3,7 +3,7 @@ const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs').promises;
 const { v4: uuidv4 } = require('uuid');
-const supabase = require('./supabase-service').supabase;
+const { getAdminSupabaseClient } = require('./supabase-service');
 
 // ==============================================
 // 🖼️ IMAGE UPLOAD SERVICE
