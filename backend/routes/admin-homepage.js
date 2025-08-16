@@ -183,12 +183,32 @@ router.put('/category/:id', async (req, res) => {
     const categoryId = req.params.id;
     const categoryData = req.body;
 
-    // This would need to be implemented in categoryService
-    // For now, return a success response
+    // Validate required fields
+    const required = ['name'];
+    const missing = required.filter(field => !categoryData[field]);
+    
+    if (missing.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required fields',
+        required: required,
+        missing: missing
+      });
+    }
+
+    const result = await categoryService.updateCategory(categoryId, categoryData);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
     res.status(200).json({
       success: true,
-      message: 'Category updated successfully (API placeholder)',
-      data: { id: categoryId, ...categoryData }
+      message: 'Category updated successfully',
+      data: result.category
     });
 
   } catch (error) {
@@ -196,6 +216,82 @@ router.put('/category/:id', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Failed to update category',
+      error: environment.isDevelopment() ? error.message : undefined
+    });
+  }
+});
+
+// ==============================================
+// ✨ CREATE NEW CATEGORY
+// ==============================================
+router.post('/category', async (req, res) => {
+  try {
+    const categoryData = req.body;
+
+    // Validate required fields
+    const required = ['name', 'image_url'];
+    const missing = required.filter(field => !categoryData[field]);
+    
+    if (missing.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required fields',
+        required: required,
+        missing: missing
+      });
+    }
+
+    const result = await categoryService.createCategory(categoryData);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    res.status(201).json({
+      success: true,
+      message: 'Category created successfully',
+      data: result.category
+    });
+
+  } catch (error) {
+    console.error('❌ Create category error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create category',
+      error: environment.isDevelopment() ? error.message : undefined
+    });
+  }
+});
+
+// ==============================================
+// 🗑️ DELETE CATEGORY
+// ==============================================
+router.delete('/category/:id', async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+
+    const result = await categoryService.deleteCategory(categoryId);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Category deleted successfully'
+    });
+
+  } catch (error) {
+    console.error('❌ Delete category error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete category',
       error: environment.isDevelopment() ? error.message : undefined
     });
   }
