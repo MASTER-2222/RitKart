@@ -257,10 +257,36 @@ class FeaturedProductsCRUDTester:
         """Test DELETE /api/products/:id endpoint for soft delete"""
         print("\n🗑️ Testing Product Delete API (DELETE /api/products/:id)...")
         
-        if not self.created_product_id:
-            return self.log_test("Product Delete API", False, "No created product available for delete testing")
+        # Use created product if available, otherwise use an existing product
+        product_id_to_delete = self.created_product_id
         
-        result = self.make_request('DELETE', f'/products/{self.created_product_id}')
+        if not product_id_to_delete and self.test_product_ids:
+            # Create a product specifically for delete testing
+            timestamp = datetime.now().strftime('%H%M%S%f')[:-3]
+            delete_test_product = {
+                "name": f"Delete Test Product {timestamp}",
+                "slug": f"delete-test-product-{timestamp}",
+                "description": "Product created specifically for delete testing",
+                "price": 49.99,
+                "category_id": "62e76cdb-d138-4380-a4dc-820964a02670",
+                "sku": f"DEL-TEST-{timestamp}",
+                "brand": "DeleteTestBrand",
+                "stock_quantity": 10,
+                "is_active": True,
+                "is_featured": False
+            }
+            
+            create_result = self.make_request('POST', '/products', delete_test_product, 201)
+            if create_result.get('success') and create_result['data'].get('success'):
+                product_id_to_delete = create_result['data']['data']['id']
+                self.log_test("Create Product for Delete Test", True, f"Created product {product_id_to_delete} for delete testing")
+            else:
+                return self.log_test("Product Delete API", False, "Could not create or find product for delete testing")
+        
+        if not product_id_to_delete:
+            return self.log_test("Product Delete API", False, "No product available for delete testing")
+        
+        result = self.make_request('DELETE', f'/products/{product_id_to_delete}')
         
         if 'error' in result:
             return self.log_test("Product Delete API", False, f"Request failed: {result['error']}")
@@ -281,7 +307,7 @@ class FeaturedProductsCRUDTester:
         if deleted_product.get('is_featured') != False:
             return self.log_test("Product Delete API", False, "Product is_featured not set to false after delete")
         
-        return self.log_test("Product Delete API", True, f"Successfully soft deleted product {self.created_product_id}", 
+        return self.log_test("Product Delete API", True, f"Successfully soft deleted product {product_id_to_delete}", 
                            {'is_active': deleted_product.get('is_active'), 'is_featured': deleted_product.get('is_featured')})
 
     def test_delete_validation(self):
