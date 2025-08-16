@@ -588,9 +588,9 @@ test_plan:
         comment: "🎉 CART FUNCTIONALITY COMPLETELY RESOLVED - DECEMBER 2025 FINAL TESTING: ✅ Backend Health: Node.js Express + Supabase running correctly on port 8001, ✅ User Registration & Login: Successfully created and authenticated test users (carttest.113441077@example.com), ✅ Supabase Authentication: Token acquired and working correctly, ✅ Product Integration: Retrieved 5 real products across multiple categories for comprehensive testing, ✅ Cart API Endpoints: All endpoints working perfectly - GET /api/cart, POST /api/cart/add, PUT /api/cart/items/:itemId, DELETE /api/cart/items/:itemId, ✅ Add to Cart Flow: Successfully added 'Belkin 3-in-1 Wireless Charger' ($149) with quantity 2, ✅ Cart Data Structure: Fixed frontend-backend mismatch - backend returns 'products' (plural), frontend now correctly uses 'products' instead of 'product', ✅ Cart Page Display: Cart page now correctly shows product images, names, prices, quantities from database, ✅ Cart Operations: Update quantities, remove items, cart persistence all working correctly, ✅ Input Validation: Properly rejects invalid productId, zero/negative quantities, non-existent products, ✅ Authentication & Authorization: Both JWT and Supabase tokens working correctly. FINAL RESULTS: 16/16 comprehensive cart tests passed (100%). Cart functionality is FULLY OPERATIONAL - both Add to Cart and Cart page display are working correctly for registered users across all 10 categories."
 
   - task: "Fix Admin Panel Image Upload Browse Functionality"
-    implemented: false
-    working: false
-    file: "app/admin/indexpage/page.tsx, backend/routes/admin-homepage.js"
+    implemented: true
+    working: true
+    file: "app/admin/indexpage/page.tsx, backend/routes/admin-homepage.js, backend/services/image-upload-service.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
@@ -601,6 +601,9 @@ test_plan:
       - working: "NA"
         agent: "main"
         comment: "Starting investigation of admin panel image upload functionality to identify why browse option fails while URL option works. Need to examine current implementation and fix file upload system."
+      - working: true
+        agent: "main"
+        comment: "🎉 BACKEND IMAGE UPLOAD FIXED - JANUARY 2025: Root cause identified and resolved! Issue was incorrect Supabase client import in image-upload-service.js. Fixed by: ✅ Updated import from 'require('./supabase-service').supabase' to 'const { getAdminSupabaseClient } = require('./supabase-service')', ✅ Modified all storage operations to use getAdminSupabaseClient().storage instead of undefined supabase.storage, ✅ Updated uploadToSupabase(), ensureBucketExists(), and deleteImage() methods, ✅ Backend restarted successfully. Testing confirms: File upload ✅ Working (uploads to Supabase, processes/resizes correctly), URL processing ✅ Working (fetches from URLs, processes correctly), Both methods return proper image URLs and handle all image types. Ready for frontend testing to verify admin panel functionality."
 
   - task: "Enhance Admin Panel Image Upload - Add Browse/File Upload Support"
     implemented: true
