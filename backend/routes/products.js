@@ -328,4 +328,76 @@ router.post('/', async (req, res) => {
   }
 });
 
+// ==============================================
+// ✨ UPDATE PRODUCT (Admin only)
+// ==============================================
+router.put('/:id', async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const productData = req.body;
+
+    // Remove empty strings and undefined values
+    Object.keys(productData).forEach(key => {
+      if (productData[key] === '' || productData[key] === undefined) {
+        delete productData[key];
+      }
+    });
+
+    const result = await productService.updateProduct(productId, productData);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Product updated successfully',
+      data: result.product
+    });
+
+  } catch (error) {
+    console.error('❌ Update product error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update product',
+      error: environment.isDevelopment() ? error.message : undefined
+    });
+  }
+});
+
+// ==============================================
+// ✨ DELETE PRODUCT (Admin only - Soft Delete)
+// ==============================================
+router.delete('/:id', async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    const result = await productService.deleteProduct(productId);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    res.json({
+      success: true,
+      message: result.message,
+      data: result.product
+    });
+
+  } catch (error) {
+    console.error('❌ Delete product error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete product',
+      error: environment.isDevelopment() ? error.message : undefined
+    });
+  }
+});
+
 module.exports = router;
