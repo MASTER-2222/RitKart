@@ -719,6 +719,111 @@ const categoryService = {
       console.error('❌ Get categories failed:', error.message);
       return { success: false, error: error.message };
     }
+  },
+
+  // Create new category
+  async createCategory(categoryData) {
+    try {
+      const client = getSupabaseClient();
+      
+      // Generate slug from name if not provided
+      if (!categoryData.slug && categoryData.name) {
+        categoryData.slug = categoryData.name.toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '');
+      }
+
+      const { data, error } = await client
+        .from('categories')
+        .insert([categoryData])
+        .select()
+        .single();
+
+      if (error) {
+        console.error('❌ Supabase category create error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        category: data
+      };
+    } catch (error) {
+      console.error('❌ Create category service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Update category
+  async updateCategory(categoryId, categoryData) {
+    try {
+      const client = getSupabaseClient();
+      
+      // Generate slug from name if name is being updated and slug not provided
+      if (categoryData.name && !categoryData.slug) {
+        categoryData.slug = categoryData.name.toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '');
+      }
+
+      const { data, error } = await client
+        .from('categories')
+        .update(categoryData)
+        .eq('id', categoryId)
+        .select()
+        .single();
+
+      if (error) {
+        console.error('❌ Supabase category update error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return {
+        success: true,
+        category: data
+      };
+    } catch (error) {
+      console.error('❌ Update category service error:', error);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Delete category
+  async deleteCategory(categoryId) {
+    try {
+      const client = getSupabaseClient();
+      
+      // Check if category has products first
+      const { data: products, error: checkError } = await client
+        .from('products')
+        .select('id')
+        .eq('category_id', categoryId)
+        .limit(1);
+
+      if (checkError) {
+        console.error('❌ Category check error:', checkError);
+        return { success: false, error: checkError.message };
+      }
+
+      if (products && products.length > 0) {
+        return { success: false, error: 'Cannot delete category with existing products. Please move or delete products first.' };
+      }
+
+      const { error } = await client
+        .from('categories')
+        .delete()
+        .eq('id', categoryId);
+
+      if (error) {
+        console.error('❌ Supabase category delete error:', error);
+        return { success: false, error: error.message };
+      }
+
+      return { success: true };
+    } catch (error) {
+      console.error('❌ Delete category service error:', error);
+      return { success: false, error: error.message };
+    }
   }
 };
 
