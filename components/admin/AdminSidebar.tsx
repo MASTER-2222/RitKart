@@ -13,6 +13,7 @@ export default function AdminSidebar() {
   const menuItems = [
     { icon: 'ri-dashboard-line', label: 'Dashboard', path: '/admin' },
     { icon: 'ri-home-line', label: 'Homepage', path: '/admin/homepage' },
+    { icon: 'ri-layout-line', label: 'Index Page', path: '/admin/indexpage' },
     { icon: 'ri-box-line', label: 'Products', path: '/admin/products' },
     { icon: 'ri-folder-line', label: 'Categories', path: '/admin/categories' },
     { icon: 'ri-user-line', label: 'Users', path: '/admin/users' },
