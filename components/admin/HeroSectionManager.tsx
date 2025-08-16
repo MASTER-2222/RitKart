@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import ImageManager from './ImageManager';
+import DualImageUpload from './DualImageUpload';
 import ContentEditor from './ContentEditor';
 
 interface Banner {
