@@ -218,13 +218,12 @@ export default function HeroSectionManager({ banners, onUpdate }: HeroSectionMan
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Image URL *</label>
-            <input
-              type="url"
-              value={newBanner.image_url}
-              onChange={(e) => setNewBanner(prev => ({ ...prev, image_url: e.target.value }))}
-              placeholder="https://example.com/image.jpg"
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <DualImageUpload
+              currentImageUrl={newBanner.image_url}
+              imageType="hero"
+              onImageChange={(imageUrl) => setNewBanner(prev => ({ ...prev, image_url: imageUrl }))}
+              label="Banner Image"
+              required={true}
             />
           </div>
 
