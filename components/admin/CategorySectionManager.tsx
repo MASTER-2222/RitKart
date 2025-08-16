@@ -298,7 +298,7 @@ export default function CategorySectionManager({ categories, onUpdate }: Categor
           <div>
             <h4 className="text-sm font-semibold text-blue-900 mb-1">Category Management</h4>
             <p className="text-sm text-blue-700">
-              Categories are automatically generated based on your product catalog. You can edit the display name, description, and image for each category to customize how they appear on your homepage.
+              You can create, edit, and delete categories for your homepage. Each category can have a custom name, description, and image. Categories that are set to active will appear in the "Shop by Category" section on your homepage.
             </p>
           </div>
         </div>
