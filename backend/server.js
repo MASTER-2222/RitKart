@@ -117,6 +117,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/admin', adminUsersRoutes);
 app.use('/api/admin/homepage', adminHomepageRoutes);
 app.use('/api/auto-sync', autoSyncRoutes);
+app.use('/api/images', imageUploadRoutes);
 
 // ==============================================
 // 🔍 ROOT ENDPOINT
