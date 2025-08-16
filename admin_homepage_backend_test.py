@@ -142,7 +142,7 @@ class AdminHomepageTester:
     def test_create_hero_banner(self):
         """Test POST /api/admin/homepage/hero endpoint"""
         try:
-            # Test banner data
+            # Test banner data (using correct column names from database)
             banner_data = {
                 "title": "Test Admin Banner",
                 "subtitle": "Created by Admin Homepage API Test",
@@ -150,7 +150,7 @@ class AdminHomepageTester:
                 "button_text": "Shop Now",
                 "button_link": "/category/electronics",
                 "is_active": True,
-                "display_order": 99
+                "sort_order": 99
             }
             
             response = requests.post(
