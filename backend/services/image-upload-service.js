@@ -98,6 +98,9 @@ class ImageUploadService {
       const uniqueFileName = `${Date.now()}-${uuidv4()}-${fileName}`;
       const filePath = `uploads/${uniqueFileName}`;
 
+      // Get admin Supabase client for storage operations
+      const supabase = getAdminSupabaseClient();
+
       // Upload to Supabase Storage
       const { data, error } = await supabase.storage
         .from(bucketName)
