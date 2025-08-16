@@ -136,40 +136,40 @@ backend:
         comment: "productService is missing getFeaturedProducts() and updateProductFeaturedStatus() methods. API endpoint /featured/:id is just placeholder returning success without database update"
 
   - task: "Implement getFeaturedProducts method in productService"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "/app/backend/services/supabase-service.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
-      - working: false
+      - working: true
         agent: "main"
-        comment: "Need to create getFeaturedProducts() method to fetch products where is_featured=true"
+        comment: "Successfully implemented getFeaturedProducts() method that fetches products where is_featured=true with proper data transformation"
 
   - task: "Implement updateProductFeaturedStatus method in productService"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "/app/backend/services/supabase-service.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
-      - working: false
+      - working: true
         agent: "main"
-        comment: "Need to create method to update is_featured status of products in database"
+        comment: "Successfully implemented updateProductFeaturedStatus() method to update is_featured status with validation and proper response format"
 
   - task: "Fix Featured Products API endpoint implementation"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "/app/backend/routes/admin-homepage.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
-      - working: false
+      - working: true
         agent: "main"
-        comment: "Replace placeholder /featured/:id endpoint with real productService method calls"
+        comment: "Replaced placeholder /featured/:id endpoint with real productService.updateProductFeaturedStatus() call. Also fixed /sections endpoint to call productService.getFeaturedProducts()"
 
 frontend:
   - task: "Analyze existing FeaturedProductsManager component"
