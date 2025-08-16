@@ -143,6 +143,7 @@ class FeaturedProductsCRUDTester:
         timestamp = datetime.now().strftime('%H%M%S%f')[:-3]
         product_data = {
             "name": f"CRUD Test Product {timestamp}",
+            "slug": f"crud-test-product-{timestamp}",
             "description": f"Test product created for CRUD testing at {datetime.now().isoformat()}",
             "price": 99.99,
             "category_id": "62e76cdb-d138-4380-a4dc-820964a02670",  # Electronics category ID
