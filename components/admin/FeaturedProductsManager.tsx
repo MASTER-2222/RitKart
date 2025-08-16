@@ -330,7 +330,7 @@ export default function FeaturedProductsManager({ products, onUpdate }: Featured
                   <span className="text-lg font-bold text-blue-600">
                     {formatPrice(product.price)}
                   </span>
-                  {product.rating_average && (
+                  {product.rating_average > 0 && (
                     <div className="flex items-center">
                       <i className="ri-star-fill w-4 h-4 flex items-center justify-center text-yellow-400"></i>
                       <span className="text-sm text-gray-600 ml-1">
