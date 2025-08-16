@@ -136,6 +136,9 @@ class ImageUploadService {
   // Ensure Supabase bucket exists
   async ensureBucketExists(bucketName) {
     try {
+      // Get admin Supabase client for storage operations
+      const supabase = getAdminSupabaseClient();
+      
       // Check if bucket exists
       const { data: buckets, error: listError } = await supabase.storage.listBuckets();
       
