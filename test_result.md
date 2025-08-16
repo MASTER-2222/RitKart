@@ -333,10 +333,14 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Test Admin Panel Image Upload Browse Functionality"
+    - "Test Admin Panel Image Upload URL Functionality"
+    - "Test Hero Section Image Upload Integration"
+    - "Test Category Section Image Upload Integration"
   stuck_tasks: []
   test_all: false
-  test_priority: "frontend_first"
+  test_priority: "high_first"
 
   - task: "Migrate Sports & Outdoors category products to database"
     implemented: true
