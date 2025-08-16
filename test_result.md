@@ -171,11 +171,14 @@ backend:
     file: "/app/backend/routes/admin-homepage.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Replaced placeholder /featured/:id endpoint with real productService.updateProductFeaturedStatus() call. Also fixed /sections endpoint to call productService.getFeaturedProducts()"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Both API endpoints working correctly. GET /api/admin/homepage/sections returns featured products in featured_section.products array. PUT /api/admin/homepage/featured/:id successfully toggles featured status with proper validation and error handling."
 
 frontend:
   - task: "Analyze existing FeaturedProductsManager component"
