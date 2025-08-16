@@ -18,7 +18,15 @@ interface CategorySectionManagerProps {
 
 export default function CategorySectionManager({ categories, onUpdate }: CategorySectionManagerProps) {
   const [editingCategory, setEditingCategory] = useState<string | null>(null);
+  const [showAddForm, setShowAddForm] = useState(false);
   const [loading, setLoading] = useState<string | null>(null);
+
+  const [newCategory, setNewCategory] = useState({
+    name: '',
+    description: '',
+    image_url: '',
+    is_active: true
+  });
 
   const handleUpdateCategory = async (categoryId: string, categoryData: any) => {
     try {
@@ -48,6 +56,82 @@ export default function CategorySectionManager({ categories, onUpdate }: Categor
     } catch (error) {
       console.error('Error updating category:', error);
       alert('Failed to update category. Please try again.');
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const handleCreateCategory = async () => {
+    if (!newCategory.name || !newCategory.image_url) {
+      alert('Please provide at least category name and image URL');
+      return;
+    }
+
+    try {
+      setLoading('creating');
+      
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8001/api'}/admin/homepage/category`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(newCategory)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setShowAddForm(false);
+        setNewCategory({
+          name: '',
+          description: '',
+          image_url: '',
+          is_active: true
+        });
+        onUpdate(); // Refresh parent data
+      } else {
+        throw new Error(result.message || 'Failed to create category');
+      }
+    } catch (error) {
+      console.error('Error creating category:', error);
+      alert('Failed to create category. Please try again.');
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const handleDeleteCategory = async (categoryId: string) => {
+    if (!confirm('Are you sure you want to delete this category? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      setLoading(categoryId);
+      
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8001/api'}/admin/homepage/category/${categoryId}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.success) {
+        onUpdate(); // Refresh parent data
+      } else {
+        throw new Error(result.message || 'Failed to delete category');
+      }
+    } catch (error) {
+      console.error('Error deleting category:', error);
+      alert('Failed to delete category. Please try again.');
     } finally {
       setLoading(null);
     }
