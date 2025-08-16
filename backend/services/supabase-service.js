@@ -445,6 +445,128 @@ const productService = {
       console.error('❌ Update product featured status failed:', error.message);
       return { success: false, error: error.message };
     }
+  },
+
+  // Update product details
+  updateProduct: async (productId, productData) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Validate product exists
+      const { data: existingProduct, error: checkError } = await client
+        .from('products')
+        .select('id, name')
+        .eq('id', productId)
+        .single();
+
+      if (checkError) throw new Error(`Product not found: ${checkError.message}`);
+
+      // Prepare update data
+      const updateData = {
+        ...productData,
+        updated_at: new Date().toISOString()
+      };
+
+      // Remove undefined values
+      Object.keys(updateData).forEach(key => {
+        if (updateData[key] === undefined) {
+          delete updateData[key];
+        }
+      });
+
+      // Update product
+      const { data, error } = await client
+        .from('products')
+        .update(updateData)
+        .eq('id', productId)
+        .select(`
+          id,
+          name,
+          description,
+          price,
+          original_price,
+          images,
+          brand,
+          stock_quantity,
+          rating_average,
+          total_reviews,
+          is_featured,
+          is_active,
+          sku,
+          categories (
+            name
+          )
+        `)
+        .single();
+
+      if (error) throw error;
+
+      // Transform the response to match expected format
+      const transformedProduct = {
+        id: data.id,
+        name: data.name,
+        description: data.description,
+        price: data.price,
+        original_price: data.original_price,
+        images: data.images,
+        brand: data.brand,
+        category_name: data.categories?.name,
+        is_featured: data.is_featured,
+        is_active: data.is_active,
+        stock_quantity: data.stock_quantity,
+        rating_average: data.rating_average,
+        total_reviews: data.total_reviews,
+        sku: data.sku
+      };
+
+      return { 
+        success: true, 
+        product: transformedProduct
+      };
+    } catch (error) {
+      console.error('❌ Update product failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Delete product (soft delete by setting is_active = false)
+  deleteProduct: async (productId) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Validate product exists
+      const { data: existingProduct, error: checkError } = await client
+        .from('products')
+        .select('id, name, is_active')
+        .eq('id', productId)
+        .single();
+
+      if (checkError) throw new Error(`Product not found: ${checkError.message}`);
+      if (!existingProduct.is_active) throw new Error('Product is already inactive');
+
+      // Soft delete by setting is_active = false
+      const { data, error } = await client
+        .from('products')
+        .update({ 
+          is_active: false,
+          is_featured: false, // Also remove from featured when deleting
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', productId)
+        .select('id, name, is_active')
+        .single();
+
+      if (error) throw error;
+
+      return { 
+        success: true, 
+        message: `Product "${existingProduct.name}" has been deleted successfully`,
+        product: data
+      };
+    } catch (error) {
+      console.error('❌ Delete product failed:', error.message);
+      return { success: false, error: error.message };
+    }
   }
 };
 
