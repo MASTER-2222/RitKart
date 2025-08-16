@@ -146,7 +146,78 @@ export default function CategorySectionManager({ categories, onUpdate }: Categor
             Manage the category cards displayed in the "Shop by Category" section. You have {categories.length} categories configured.
           </p>
         </div>
+        <button
+          onClick={() => setShowAddForm(true)}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center"
+        >
+          <i className="ri-add-line w-4 h-4 flex items-center justify-center mr-2"></i>
+          Add Category
+        </button>
       </div>
+
+      {/* Add New Category Form */}
+      {showAddForm && (
+        <div className="border border-blue-200 bg-blue-50 rounded-lg p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="text-lg font-semibold text-gray-900">Add New Category</h4>
+            <button
+              onClick={() => setShowAddForm(false)}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <i className="ri-close-line w-5 h-5 flex items-center justify-center"></i>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Category Name *</label>
+              <input
+                type="text"
+                value={newCategory.name}
+                onChange={(e) => setNewCategory(prev => ({ ...prev, name: e.target.value }))}
+                placeholder="Enter category name"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+              <input
+                type="text"
+                value={newCategory.description}
+                onChange={(e) => setNewCategory(prev => ({ ...prev, description: e.target.value }))}
+                placeholder="Enter category description"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <DualImageUpload
+              currentImageUrl={newCategory.image_url}
+              imageType="category"
+              onImageChange={(imageUrl) => setNewCategory(prev => ({ ...prev, image_url: imageUrl }))}
+              label="Category Image"
+              required={true}
+            />
+          </div>
+
+          <div className="flex justify-end space-x-3">
+            <button
+              onClick={() => setShowAddForm(false)}
+              className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleCreateCategory}
+              disabled={loading === 'creating'}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
+            >
+              {loading === 'creating' ? 'Creating...' : 'Create Category'}
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((category) => (
