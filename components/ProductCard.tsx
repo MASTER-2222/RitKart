@@ -120,7 +120,9 @@ export default function ProductCard({
               ></i>
             ))}
           </div>
-          <span className="text-sm text-gray-600">({reviewCount})</span>
+          {reviewCount > 0 && (
+            <span className="text-sm text-gray-600">({reviewCount})</span>
+          )}
         </div>
         
         <div className="flex items-center space-x-2">
