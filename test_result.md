@@ -601,9 +601,9 @@ test_plan:
         comment: "🎉 ADMIN HOMEPAGE MANAGEMENT API TESTING COMPLETE - JANUARY 2025: Comprehensive testing of new Admin Homepage Management API endpoints shows EXCELLENT results! ✅ All Core Endpoints Working: GET /api/admin/homepage/sections (retrieves 8 banners, 10 categories, 5 featured products), POST /api/admin/homepage/hero (creates banners with validation), PUT /api/admin/homepage/hero/:id (updates banners), DELETE /api/admin/homepage/hero/:id (deletes banners), PUT /api/admin/homepage/category/:id (updates categories), PUT /api/admin/homepage/featured/:id (updates featured status), ✅ Backend Integration: Node.js Express + Supabase running correctly, proper JSON responses, real database data, ✅ Input Validation: Correctly rejects missing required fields (title, image_url), ✅ CRUD Operations: Full hero banner lifecycle tested successfully (create, read, update, delete), ✅ Real Data Testing: Successfully tested with existing banners, categories, and featured products from database. FINAL RESULTS: 10/11 tests passed (90.9% success rate). Only missing feature: PUT /api/admin/homepage/electronics/:id endpoint not implemented yet. Admin Homepage Management system is FULLY FUNCTIONAL and ready for production use!"
 
   - task: "Enhance Admin Panel Image Upload - Add Browse/File Upload Support"
-    implemented: false
+    implemented: true
     working: false
-    file: "components/admin/HeroSectionManager.tsx, components/admin/CategorySectionManager.tsx, backend/routes/admin-homepage.js"
+    file: "components/admin/HeroSectionManager.tsx, components/admin/CategorySectionManager.tsx, components/admin/DualImageUpload.tsx, backend/routes/image-upload.js, backend/services/image-upload-service.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
@@ -611,6 +611,9 @@ test_plan:
       - working: "NA"
         agent: "main"
         comment: "🔍 ANALYSIS COMPLETE - JANUARY 2025: Current admin panel only supports Image URL input method. User requests dual image upload functionality: 1) Browse (upload from device), 2) Image URL (fetch from link). Found existing components: HeroSectionManager and CategorySectionManager use only URL inputs. No multer or file upload middleware installed in backend. Plan: 1) Install multer for file handling, 2) Create file upload API endpoints, 3) Add image upload component supporting both methods, 4) Update admin forms to use new component, 5) Implement proper file storage and validation."
+      - working: "NA"
+        agent: "main"
+        comment: "🎉 DUAL IMAGE UPLOAD IMPLEMENTATION COMPLETE - JANUARY 2025: ✅ Backend Enhancement: Installed multer & sharp for file handling and image processing, Created comprehensive ImageUploadService with automatic resizing for optimal dimensions, Built image-upload API routes (/api/images/upload, /api/images/from-url, /api/images/validate-url), Supabase Storage integration for file storage, ✅ Frontend Enhancement: Created DualImageUpload component supporting both Browse and URL methods, Updated HeroSectionManager to use new dual upload component, Updated CategorySectionManager to use new dual upload component, ✅ Features: Automatic resizing for banner (1920x600), category (400x400), and other image types, Support for all image formats (JPG, PNG, GIF, WebP, SVG, BMP, TIFF), Drag & drop functionality, Real-time preview, Progress indicators, Error handling, Image validation. Backend restarted successfully. Ready for comprehensive testing!"
 
   - task: "Implement Buy Now Button Functionality"
     implemented: true
