@@ -145,7 +145,7 @@ class FeaturedProductsCRUDTester:
             "name": f"CRUD Test Product {timestamp}",
             "description": f"Test product created for CRUD testing at {datetime.now().isoformat()}",
             "price": 99.99,
-            "category_id": "electronics",  # Assuming electronics category exists
+            "category_id": "62e76cdb-d138-4380-a4dc-820964a02670",  # Electronics category ID
             "sku": f"CRUD-TEST-{timestamp}",
             "brand": "TestBrand",
             "stock_quantity": 100,
