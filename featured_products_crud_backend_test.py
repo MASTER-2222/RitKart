@@ -29,8 +29,8 @@ from typing import Dict, Any, List, Optional
 
 class FeaturedProductsCRUDTester:
     def __init__(self):
-        # Use production backend URL from environment
-        self.base_url = "https://ritkart-backend.onrender.com/api"
+        # Use local backend URL (running on port 10000)
+        self.base_url = "http://localhost:10000/api"
         self.session = requests.Session()
         self.session.headers.update({
             'Content-Type': 'application/json',
