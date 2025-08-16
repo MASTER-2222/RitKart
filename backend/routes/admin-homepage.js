@@ -305,12 +305,27 @@ router.put('/featured/:id', async (req, res) => {
     const productId = req.params.id;
     const { is_featured } = req.body;
 
-    // This would need to be implemented in productService
-    // For now, return a success response
+    // Validate required fields
+    if (typeof is_featured !== 'boolean') {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing or invalid is_featured field (must be boolean)'
+      });
+    }
+
+    const result = await productService.updateProductFeaturedStatus(productId, is_featured);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
     res.status(200).json({
       success: true,
-      message: 'Featured product status updated successfully (API placeholder)',
-      data: { id: productId, is_featured }
+      message: `Product ${is_featured ? 'added to' : 'removed from'} featured products successfully`,
+      data: result.product
     });
 
   } catch (error) {
