@@ -181,13 +181,12 @@ function CategoryEditForm({ category, onSave, onCancel, loading }: any) {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-          <input
-            type="url"
-            value={formData.image_url}
-            onChange={(e) => setFormData(prev => ({ ...prev, image_url: e.target.value }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="https://example.com/category-image.jpg"
+          <DualImageUpload
+            currentImageUrl={formData.image_url}
+            imageType="category"
+            onImageChange={(imageUrl) => setFormData(prev => ({ ...prev, image_url: imageUrl }))}
+            label="Category Image"
+            required={true}
           />
         </div>
 
