@@ -464,7 +464,10 @@ export default function FeaturedProductsManager({ products, onUpdate }: Featured
 
         {products.filter(p => !p.is_featured && p.is_active).length > 8 && (
           <p className="text-sm text-gray-600 mt-3 text-center">
-            And {products.filter(p => !p.is_featured && p.is_active).length - 8} more products available...
+            {(() => {
+              const remainingCount = products.filter(p => !p.is_featured && p.is_active).length - 8;
+              return remainingCount > 0 ? `And ${remainingCount} more products available...` : '';
+            })()}
           </p>
         )}
       </div>
