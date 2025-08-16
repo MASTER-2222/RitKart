@@ -294,6 +294,9 @@ class ImageUploadService {
       const pathSegments = url.pathname.split('/');
       const filePath = pathSegments.slice(-2).join('/'); // Get last 2 segments (uploads/filename)
 
+      // Get admin Supabase client for storage operations
+      const supabase = getAdminSupabaseClient();
+
       const { error } = await supabase.storage
         .from(bucketName)
         .remove([filePath]);
