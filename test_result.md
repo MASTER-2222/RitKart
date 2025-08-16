@@ -210,11 +210,14 @@ backend:
     file: "/app/backend/routes/products.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Added PUT /api/products/:id and DELETE /api/products/:id endpoints with full validation, error handling, and proper response format. Integrated with updateProduct and deleteProduct service methods."
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Product Update API (PUT /api/products/:id) working correctly. Successfully updates product fields (name, description, price, brand, stock_quantity, images) with proper validation for invalid product IDs. Product Delete API (DELETE /api/products/:id) working correctly. Performs soft delete by setting is_active=false and is_featured=false automatically. Validates product exists and prevents double deletion. Minor: Delete response only includes id/name/is_active fields, missing is_featured field in response (functionality works correctly, just response format)."
 
 frontend:
   - task: "Analyze existing FeaturedProductsManager component"
