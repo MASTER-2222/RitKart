@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import DualImageUpload from './DualImageUpload';
 
 interface Category {
   id: string;
