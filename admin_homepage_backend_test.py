@@ -114,6 +114,17 @@ class AdminHomepageTester:
                 self.test_categories = sections_data.get('categories_section', {}).get('categories', [])
                 self.test_products = sections_data.get('featured_section', {}).get('products', [])
                 
+                # Also try to get featured products directly from API if none found
+                if not self.test_products:
+                    try:
+                        featured_response = requests.get(f"{self.base_url}/products?featured=true", timeout=10)
+                        if featured_response.status_code == 200:
+                            featured_data = featured_response.json()
+                            if featured_data.get('success') and featured_data.get('data'):
+                                self.test_products = featured_data['data'][:5]  # Use first 5 for testing
+                    except:
+                        pass  # Continue with empty products list
+                
                 return self.log_test(
                     "Get Homepage Sections",
                     True,
