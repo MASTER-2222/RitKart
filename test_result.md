@@ -180,6 +180,18 @@ backend:
         agent: "testing"
         comment: "✅ TESTED: Both API endpoints working correctly. GET /api/admin/homepage/sections returns featured products in featured_section.products array. PUT /api/admin/homepage/featured/:id successfully toggles featured status with proper validation and error handling."
 
+  - task: "Fix Node.js backend environment configuration"
+    implemented: true
+    working: true
+    file: "/app/backend/.env"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ FIXED: Node.js backend was failing to start due to missing Supabase environment variables. Copied .env.example to .env to provide required configuration. Backend now starts successfully and all endpoints are accessible."
+
 frontend:
   - task: "Analyze existing FeaturedProductsManager component"
     implemented: true
