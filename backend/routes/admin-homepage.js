@@ -17,7 +17,7 @@ router.get('/sections', async (req, res) => {
     const [bannersResult, categoriesResult, featuredResult, electronicsResult] = await Promise.all([
       bannerService.getAllBanners(),
       categoryService.getAllCategories(),
-      productService.getFeaturedProducts ? productService.getFeaturedProducts(20) : { success: true, products: [] },
+      productService.getFeaturedProducts(20),
       productService.getProductsByCategory('electronics', 1, 20)
     ]);
 
