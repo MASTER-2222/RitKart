@@ -14,7 +14,7 @@ export default function ProductsManagement() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8001/api'}/products?limit=50`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8001/api'}/products?limit=345`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
