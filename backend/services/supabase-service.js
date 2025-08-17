@@ -519,7 +519,10 @@ const productService = {
         stock_quantity: data.stock_quantity,
         rating_average: data.rating_average,
         total_reviews: data.total_reviews,
-        sku: data.sku
+        sku: data.sku,
+        features: data.features,
+        specifications: data.specifications,
+        reviews: data.reviews
       };
 
       return { 
