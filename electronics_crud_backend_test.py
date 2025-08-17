@@ -34,7 +34,7 @@ import uuid
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://ritkart-backend.onrender.com/api"
+BASE_URL = "http://localhost:10000/api"
 ADMIN_HOMEPAGE_URL = f"{BASE_URL}/admin/homepage"
 
 # Test data
