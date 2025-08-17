@@ -12,10 +12,12 @@ interface Product {
   sku?: string;
   stock_quantity?: number;
   category_name?: string;
+  category_id?: string;
   rating_average?: number;
   total_reviews?: number;
   features?: string[];
   specifications?: Record<string, string>;
+  reviews?: string; // New field for product reviews content
   images?: string[];
   is_active: boolean;
   is_featured?: boolean;
