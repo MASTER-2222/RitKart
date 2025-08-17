@@ -253,6 +253,42 @@ backend:
         agent: "testing"
         comment: "✅ TESTED: Product Update API (PUT /api/products/:id) working correctly. Successfully updates product fields (name, description, price, brand, stock_quantity, images) with proper validation for invalid product IDs. Product Delete API (DELETE /api/products/:id) working correctly. Performs soft delete by setting is_active=false and is_featured=false automatically. Validates product exists and prevents double deletion. Minor: Delete response only includes id/name/is_active fields, missing is_featured field in response (functionality works correctly, just response format)."
 
+  - task: "Implement Electronics section CRUD endpoints"
+    implemented: true
+    working: false
+    file: "/app/backend/routes/admin-homepage.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL DATABASE SCHEMA ISSUE: Electronics CRUD endpoints implemented in code but database is missing 'is_bestseller' column in products table. All electronics endpoints (POST /api/admin/homepage/electronics, PUT /api/admin/homepage/electronics/:id/details, DELETE /api/admin/homepage/electronics/:id, PUT /api/admin/homepage/electronics/:id) fail with 'Could not find the is_bestseller column of products in the schema cache' error. Database schema only has is_featured column, not is_bestseller."
+
+  - task: "Implement getBestsellerElectronicsProducts service method"
+    implemented: true
+    working: false
+    file: "/app/backend/services/supabase-service.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL DATABASE SCHEMA ISSUE: getBestsellerElectronicsProducts() method implemented but fails because database products table is missing 'is_bestseller' column. Method tries to query .eq('is_bestseller', true) but column doesn't exist in database schema. Currently returns empty array for electronics_section in GET /api/admin/homepage/sections."
+
+  - task: "Implement updateProductBestsellerStatus service method"
+    implemented: true
+    working: false
+    file: "/app/backend/services/supabase-service.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL DATABASE SCHEMA ISSUE: updateProductBestsellerStatus() method implemented but fails because database products table is missing 'is_bestseller' column. Method tries to update is_bestseller field but column doesn't exist in database schema."
+
 frontend:
   - task: "Analyze existing ElectronicsProductsManager component"
     implemented: true
