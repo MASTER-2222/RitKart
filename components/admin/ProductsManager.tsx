@@ -677,6 +677,7 @@ function ProductEditForm({ product, onSave, onCancel, loading }: any) {
       total_reviews: formData.total_reviews ? parseInt(formData.total_reviews) : 0,
       features: formData.features ? formData.features.split(',').map(f => f.trim()).filter(f => f) : [],
       specifications: formData.specifications ? JSON.parse(`{${formData.specifications}}`) : {},
+      reviews: formData.reviews || '', // Include reviews field
       images: formData.images.filter(img => img && img.trim()),
       is_active: formData.is_active,
       is_featured: formData.is_featured,
