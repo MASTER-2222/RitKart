@@ -550,6 +550,7 @@ const productService = {
         .update({ 
           is_active: false,
           is_featured: false, // Also remove from featured when deleting
+          is_bestseller: false, // Also remove from bestseller when deleting
           updated_at: new Date().toISOString()
         })
         .eq('id', productId)
@@ -565,6 +566,138 @@ const productService = {
       };
     } catch (error) {
       console.error('❌ Delete product failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Get bestseller electronics products
+  getBestsellerElectronicsProducts: async (limit = 20) => {
+    try {
+      const client = getSupabaseClient();
+      
+      const { data, error } = await client
+        .from('products')
+        .select(`
+          id,
+          name,
+          description,
+          price,
+          original_price,
+          images,
+          brand,
+          stock_quantity,
+          rating_average,
+          total_reviews,
+          is_bestseller,
+          is_active,
+          created_at,
+          categories (
+            name,
+            slug
+          )
+        `)
+        .eq('is_active', true)
+        .eq('is_bestseller', true)
+        .ilike('categories.slug', '%electronics%')
+        .limit(limit)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // Transform the data to match the expected format
+      const transformedProducts = data?.map(product => ({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        original_price: product.original_price,
+        images: product.images,
+        brand: product.brand,
+        category_name: product.categories?.name,
+        is_bestseller: product.is_bestseller,
+        is_active: product.is_active,
+        stock_quantity: product.stock_quantity,
+        rating_average: product.rating_average,
+        total_reviews: product.total_reviews
+      })) || [];
+
+      return { 
+        success: true, 
+        products: transformedProducts
+      };
+    } catch (error) {
+      console.error('❌ Get bestseller electronics products failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Update product bestseller status
+  updateProductBestsellerStatus: async (productId, isBestseller) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Validate product exists and is active
+      const { data: existingProduct, error: checkError } = await client
+        .from('products')
+        .select('id, name, is_active')
+        .eq('id', productId)
+        .single();
+
+      if (checkError) throw new Error(`Product not found: ${checkError.message}`);
+      if (!existingProduct.is_active) throw new Error('Cannot update bestseller status for inactive product');
+
+      // Update bestseller status
+      const { data, error } = await client
+        .from('products')
+        .update({ 
+          is_bestseller: isBestseller,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', productId)
+        .select(`
+          id,
+          name,
+          description,
+          price,
+          original_price,
+          images,
+          brand,
+          stock_quantity,
+          rating_average,
+          total_reviews,
+          is_bestseller,
+          is_active,
+          categories (
+            name
+          )
+        `)
+        .single();
+
+      if (error) throw error;
+
+      // Transform the response to match expected format
+      const transformedProduct = {
+        id: data.id,
+        name: data.name,
+        description: data.description,
+        price: data.price,
+        original_price: data.original_price,
+        images: data.images,
+        brand: data.brand,
+        category_name: data.categories?.name,
+        is_bestseller: data.is_bestseller,
+        is_active: data.is_active,
+        stock_quantity: data.stock_quantity,
+        rating_average: data.rating_average,
+        total_reviews: data.total_reviews
+      };
+
+      return { 
+        success: true, 
+        product: transformedProduct
+      };
+    } catch (error) {
+      console.error('❌ Update product bestseller status failed:', error.message);
       return { success: false, error: error.message };
     }
   }
