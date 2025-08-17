@@ -19,7 +19,7 @@ import time
 from datetime import datetime
 
 class ProductsEnhancementTester:
-    def __init__(self, base_url="https://ritzone-frontend.onrender.com/api"):
+    def __init__(self, base_url="http://localhost:10000/api"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
