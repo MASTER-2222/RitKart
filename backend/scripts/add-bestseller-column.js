@@ -2,8 +2,7 @@
 // ==============================================
 // Adds the missing is_bestseller column to products table
 
-require('dotenv').config({ path: '/app/.env.local' });
-require('dotenv').config({ path: '/app/backend/.env' });
+require('dotenv').config({ path: '/app/.env.production' });
 const { createClient } = require('@supabase/supabase-js');
 
 // ==============================================
