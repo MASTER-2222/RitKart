@@ -611,17 +611,26 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
         ))}
       </div>
 
-      {products.length === 0 && (
+      {filteredProducts.length === 0 && (
         <div className="text-center py-12 border-2 border-dashed border-gray-300 rounded-lg">
           <i className="ri-shopping-bag-line w-12 h-12 flex items-center justify-center text-gray-400 mx-auto mb-4 text-4xl"></i>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No Products</h3>
-          <p className="text-gray-600 mb-4">Get started by creating your first product.</p>
-          <button
-            onClick={() => setShowAddForm(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
-          >
-            Create First Product
-          </button>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">
+            {selectedCategory === 'all' ? 'No Products' : `No Products in ${categories.find(cat => cat.id === selectedCategory)?.name}`}
+          </h3>
+          <p className="text-gray-600 mb-4">
+            {selectedCategory === 'all' 
+              ? 'Get started by creating your first product.' 
+              : 'No products found in this category. Try selecting another category or add a new product.'
+            }
+          </p>
+          {selectedCategory === 'all' && (
+            <button
+              onClick={() => setShowAddForm(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+            >
+              Create First Product
+            </button>
+          )}
         </div>
       )}
     </div>
