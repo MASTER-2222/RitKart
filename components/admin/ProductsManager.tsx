@@ -244,7 +244,7 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
         <div>
           <h3 className="text-lg font-semibold text-gray-900">Products Management</h3>
           <p className="text-sm text-gray-600">
-            Manage all products in your store. Add, edit, delete, and replace content including brands, ratings, descriptions, features, specifications, reviews, and images. You have {products.length} products configured.
+            Manage all 345 products in your store. Add, edit, delete, and replace content including brands, ratings, descriptions, features, specifications, reviews, and images. You have {products.length} products configured.
           </p>
         </div>
         <button
@@ -254,6 +254,39 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
           <i className="ri-add-line w-4 h-4 flex items-center justify-center mr-2"></i>
           Add Product
         </button>
+      </div>
+
+      {/* Category Filter */}
+      <div className="bg-gray-50 rounded-lg p-4">
+        <div className="flex flex-wrap gap-2">
+          <span className="text-sm font-medium text-gray-700 mr-2">Filter by Category:</span>
+          {categories.map((category) => {
+            const categoryProducts = category.id === 'all' 
+              ? products 
+              : products.filter(p => {
+                  const slug = category.slug || category.name.toLowerCase();
+                  return p.category_name?.toLowerCase().includes(slug);
+                });
+            
+            return (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  selectedCategory === category.id
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+                }`}
+              >
+                {category.name} ({categoryProducts.length})
+              </button>
+            );
+          })}
+        </div>
+        <p className="text-xs text-gray-500 mt-2">
+          Showing {filteredProducts.length} of {products.length} products
+          {selectedCategory !== 'all' && ` in ${categories.find(cat => cat.id === selectedCategory)?.name} category`}
+        </p>
       </div>
 
       {/* Add New Product Form */}
