@@ -431,6 +431,16 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
               />
             </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Product Reviews</label>
+              <textarea
+                value={newProduct.reviews}
+                onChange={(e) => setNewProduct(prev => ({ ...prev, reviews: e.target.value }))}
+                placeholder="Enter product reviews, customer feedback, or review summary..."
+                rows={2}
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              />
+            </div>
           </div>
 
           <div className="mb-4">
