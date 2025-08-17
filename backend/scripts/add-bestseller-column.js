@@ -2,14 +2,7 @@
 // ==============================================
 // Adds the missing is_bestseller column to products table
 
-const { environment } = require('../config/environment');
-const { createClient } = require('@supabase/supabase-js');
-
-// RitZone Database Migration - Add is_bestseller column
-// ==============================================
-// Adds the missing is_bestseller column to products table
-
-require('dotenv').config({ path: '../.env.production' });
+require('dotenv').config({ path: '../.env' });
 const { createClient } = require('@supabase/supabase-js');
 
 // ==============================================
