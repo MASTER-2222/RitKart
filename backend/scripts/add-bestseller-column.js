@@ -5,17 +5,25 @@
 const { environment } = require('../config/environment');
 const { createClient } = require('@supabase/supabase-js');
 
+// RitZone Database Migration - Add is_bestseller column
+// ==============================================
+// Adds the missing is_bestseller column to products table
+
+const { environment } = require('../config/environment');
+const { createClient } = require('@supabase/supabase-js');
+
 // ==============================================
 // 🗄️ SUPABASE CONNECTION
 // ==============================================
 const getSupabaseClient = () => {
-  const supabaseUrl = environment.database.supabaseUrl;
-  const supabaseKey = environment.database.supabaseServiceKey;
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_ANON_KEY;
   
   if (!supabaseUrl || !supabaseKey) {
-    throw new Error('Missing Supabase configuration. Please check SUPABASE_URL and SUPABASE_SERVICE_KEY environment variables.');
+    throw new Error('Missing Supabase configuration. Please check SUPABASE_URL and SUPABASE_ANON_KEY environment variables.');
   }
 
+  console.log(`🔗 Connecting to Supabase: ${supabaseUrl.substring(0, 30)}...`);
   return createClient(supabaseUrl, supabaseKey);
 };
 
