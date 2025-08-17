@@ -128,7 +128,19 @@ user_problem_statement: |
   GOAL: Complete admin control over all 345 products with both Specifications AND Reviews editing capability, properly categorized and fully functional CRUD operations for all product content including images.
 
 backend:
-  - task: "Analyze existing backend products API structure"
+  - task: "Add Reviews field functionality to products"
+    implemented: true
+    working: false
+    file: "/app/backend/services/supabase-service.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ ENHANCED BACKEND: Updated productService in supabase-service.js to include reviews field in select statements and response transformations. Modified updateProduct method to handle reviews field alongside existing specifications field."
+        
+  - task: "Update products API to handle all 345 products"
     implemented: true
     working: true
     file: "/app/backend/routes/products.js"
@@ -138,31 +150,19 @@ backend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Backend products API already exists with complete CRUD endpoints: GET /, GET /:id, POST /, PUT /:id, DELETE /:id. All endpoints include currency conversion, validation, error handling. productService methods are available for product management."
-        
-  - task: "Create /admin/products page with routing"
-    implemented: true
-    working: false
-    file: "/app/app/admin/products/page.tsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: true
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "✅ CREATED: Successfully created /admin/products page following exact structure as indexpage. Includes proper loading states, error handling, product fetching from backend API, and integration with ProductsManager component. Uses same design patterns and navigation structure."
+        comment: "✅ VERIFIED: Backend API already supports any limit parameter. Products API at /backend/routes/products.js can handle requests for all 345 products with ?limit=345 parameter. No changes needed."
 
-  - task: "Create ProductsManager component with full CRUD functionality"
-    implemented: true
+  - task: "Add reviews column to products table schema"
+    implemented: false
     working: false
-    file: "/app/components/admin/ProductsManager.tsx"
-    stuck_count: 0
+    file: "/app/backend/add-reviews-field-migration.sql"
+    stuck_count: 1
     priority: "high"
     needs_retesting: true
     status_history:
-      - working: true
+      - working: false
         agent: "main"
-        comment: "✅ IMPLEMENTED: Complete ProductsManager component with full CRUD operations following exact pattern from HeroSectionManager/CategorySectionManager. Features: 1) Add/Edit/Delete products, 2) DualImageUpload (Browse+URL), 3) All product fields (name, brand, description, price, original_price, stock, features, specifications), 4) ⭐ STAR RATING management (0-5 with visual stars), 5) 📊 REVIEW NUMBER management, 6) Status toggles (active/featured/bestseller), 7) Inline editing forms, 8) Real-time updates. Matches exact functionality of working Hero/Category sections."
+        comment: "⚠️ PENDING: Created migration script to add reviews TEXT field to products table. Direct SQL execution through Supabase client may not work due to permissions. Need to verify if reviews field gets auto-created or if manual database update is needed."
 
 frontend:
   - task: "Create /admin/products page with proper navigation"
