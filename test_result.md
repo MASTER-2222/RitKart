@@ -242,11 +242,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Add Reviews field functionality to products"
-    - "Add reviews column to products table schema"  
-    - "Add Reviews field to ProductsManager component"
-    - "Add category filtering to admin products page"
-    - "Update products page to load all 345 products"
+    - "Add reviews column to products table schema"
   stuck_tasks:
     - "Add reviews column to products table schema"
   test_all: false
