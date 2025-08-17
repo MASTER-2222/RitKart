@@ -329,8 +329,14 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
-  stuck_tasks: []
+  current_focus:
+    - "Implement Electronics section CRUD endpoints"
+    - "Implement getBestsellerElectronicsProducts service method"
+    - "Implement updateProductBestsellerStatus service method"
+  stuck_tasks:
+    - "Implement Electronics section CRUD endpoints"
+    - "Implement getBestsellerElectronicsProducts service method"
+    - "Implement updateProductBestsellerStatus service method"
   test_all: false
   test_priority: "high_first"
 
