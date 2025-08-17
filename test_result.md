@@ -115,133 +115,7 @@ user_problem_statement: |
   - Need to create /app/admin/products page and ProductsManager component following same pattern
 
 backend:
-  - task: "Analyze existing backend structure for Hero/Category sections"
-    implemented: true
-    working: true
-    file: "/app/backend/routes/admin-homepage.js"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Found Hero and Category sections have complete CRUD APIs - bannerService and categoryService methods exist"
-
-  - task: "Add missing CRUD endpoints for Electronics section"
-    implemented: true
-    working: false
-    file: "/app/backend/routes/admin-homepage.js"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: true
-    status_history:
-      - working: false
-        agent: "main"
-        comment: "Electronics section only has PUT /electronics/:id for toggle status. Missing POST, PUT (full update), DELETE endpoints for complete product management"
-      - working: true
-        agent: "main"
-        comment: "Added complete CRUD endpoints: POST /electronics (create), PUT /electronics/:id/details (update), DELETE /electronics/:id (delete), PUT /electronics/:id (toggle bestseller). Also added backend service methods getBestsellerElectronicsProducts() and updateProductBestsellerStatus()"
-
-  - task: "Implement complete CRUD functionality for Electronics admin panel"
-    implemented: true
-    working: false
-    file: "/app/components/admin/ElectronicsProductsManager.tsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: true
-    status_history:
-      - working: false
-        agent: "main"
-        comment: "Current ElectronicsProductsManager only allows toggle bestseller status, missing Add/Edit/Delete/Replace functionality like Hero and Category sections"
-      - working: true
-        agent: "main"
-        comment: "Completely rewrote ElectronicsProductsManager to match Hero/Category pattern. Added full CRUD operations (Create/Read/Update/Delete), DualImageUpload integration for Browse+URL image options, inline editing forms, product management with fields like name, description, price, brand, stock, and bestseller status toggle. Now provides same dynamic functionality as working sections."
-
-  - task: "Identify missing Featured Products backend methods"
-    implemented: true
-    working: false
-    file: "/app/backend/services/supabase-service.js"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: true
-    status_history:
-      - working: false
-        agent: "main" 
-        comment: "productService is missing getFeaturedProducts() and updateProductFeaturedStatus() methods. API endpoint /featured/:id is just placeholder returning success without database update"
-
-  - task: "Implement getFeaturedProducts method in productService"
-    implemented: true
-    working: true
-    file: "/app/backend/services/supabase-service.js"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Successfully implemented getFeaturedProducts() method that fetches products where is_featured=true with proper data transformation"
-      - working: true
-        agent: "testing"
-        comment: "✅ TESTED: getFeaturedProducts() working correctly. Returns 20 featured products with proper data structure including id, name, price, is_featured=true, images, brand, category_name, stock_quantity, rating_average, total_reviews."
-
-  - task: "Implement updateProductFeaturedStatus method in productService"
-    implemented: true
-    working: true
-    file: "/app/backend/services/supabase-service.js"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Successfully implemented updateProductFeaturedStatus() method to update is_featured status with validation and proper response format"
-      - working: true
-        agent: "testing"
-        comment: "✅ TESTED: updateProductFeaturedStatus() working correctly. Successfully toggles is_featured status (true/false), validates product exists and is active, returns proper response format with updated product data."
-
-  - task: "Fix Featured Products API endpoint implementation"
-    implemented: true
-    working: true
-    file: "/app/backend/routes/admin-homepage.js"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Replaced placeholder /featured/:id endpoint with real productService.updateProductFeaturedStatus() call. Also fixed /sections endpoint to call productService.getFeaturedProducts()"
-      - working: true
-        agent: "testing"
-        comment: "✅ TESTED: Both API endpoints working correctly. GET /api/admin/homepage/sections returns featured products in featured_section.products array. PUT /api/admin/homepage/featured/:id successfully toggles featured status with proper validation and error handling."
-
-  - task: "Fix Node.js backend environment configuration"
-    implemented: true
-    working: true
-    file: "/app/backend/.env"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "✅ FIXED: Node.js backend was failing to start due to missing Supabase environment variables. Copied .env.example to .env to provide required configuration. Backend now starts successfully and all endpoints are accessible."
-
-  - task: "Implement complete CRUD functionality for Featured Products admin panel"
-    implemented: true
-    working: true
-    file: "/app/components/admin/FeaturedProductsManager.tsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Successfully implemented full CRUD functionality matching Hero/Category sections. Added: 1) Backend - updateProduct and deleteProduct methods in productService + PUT/DELETE routes, 2) Frontend - Complete rewrite of FeaturedProductsManager with Add/Edit/Delete/Replace features, DualImageUpload integration, inline editing forms, and featured status management. Now matches exact functionality of working Hero and Category sections."
-      - working: true
-        agent: "testing"
-        comment: "✅ TESTED: Complete CRUD functionality working correctly. Integration workflow test passed: Create product → Set as featured → Update product → Delete product (soft delete with is_active=false, is_featured=false). All backend endpoints operational with proper validation and error handling. Minor: Featured Products API response missing description/is_active fields for frontend compatibility (core functionality works)."
-
-  - task: "Add backend API endpoints for product update and delete operations"
+  - task: "Analyze existing backend products API structure"
     implemented: true
     working: true
     file: "/app/backend/routes/products.js"
@@ -251,55 +125,56 @@ backend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Added PUT /api/products/:id and DELETE /api/products/:id endpoints with full validation, error handling, and proper response format. Integrated with updateProduct and deleteProduct service methods."
-      - working: true
-        agent: "testing"
-        comment: "✅ TESTED: Product Update API (PUT /api/products/:id) working correctly. Successfully updates product fields (name, description, price, brand, stock_quantity, images) with proper validation for invalid product IDs. Product Delete API (DELETE /api/products/:id) working correctly. Performs soft delete by setting is_active=false and is_featured=false automatically. Validates product exists and prevents double deletion. Minor: Delete response only includes id/name/is_active fields, missing is_featured field in response (functionality works correctly, just response format)."
-
-  - task: "Implement Electronics section CRUD endpoints"
-    implemented: true
-    working: true
-    file: "/app/backend/routes/admin-homepage.js"
-    stuck_count: 1
+        comment: "Backend products API already exists with complete CRUD endpoints: GET /, GET /:id, POST /, PUT /:id, DELETE /:id. All endpoints include currency conversion, validation, error handling. productService methods are available for product management."
+        
+  - task: "Create /admin/products page with routing"
+    implemented: false
+    working: false
+    file: "/app/app/admin/products/page.tsx"
+    stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: false
-        agent: "testing"
-        comment: "❌ CRITICAL DATABASE SCHEMA ISSUE: Electronics CRUD endpoints implemented in code but database is missing 'is_bestseller' column in products table. All electronics endpoints (POST /api/admin/homepage/electronics, PUT /api/admin/homepage/electronics/:id/details, DELETE /api/admin/homepage/electronics/:id, PUT /api/admin/homepage/electronics/:id) fail with 'Could not find the is_bestseller column of products in the schema cache' error. Database schema only has is_featured column, not is_bestseller."
-      - working: true
-        agent: "testing"
-        comment: "✅ VERIFIED AFTER DATABASE FIX: All Electronics CRUD endpoints now working correctly after database migration. POST /api/admin/homepage/electronics creates products with is_bestseller=true by default. PUT /api/admin/homepage/electronics/:id/details updates product details successfully. PUT /api/admin/homepage/electronics/:id toggles bestseller status correctly. DELETE /api/admin/homepage/electronics/:id performs soft delete (is_active=false, is_bestseller=false). Minor: Delete response missing is_bestseller field but functionality works correctly."
+        agent: "main"
+        comment: "Need to create new /admin/products page following same structure as /admin/indexpage. Should include proper routing, layout, and integration with ProductsManager component."
 
-  - task: "Implement getBestsellerElectronicsProducts service method"
-    implemented: true
-    working: true
-    file: "/app/backend/services/supabase-service.js"
-    stuck_count: 1
+  - task: "Create ProductsManager component with full CRUD functionality"
+    implemented: false
+    working: false
+    file: "/app/components/admin/ProductsManager.tsx"
+    stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: false
-        agent: "testing"
-        comment: "❌ CRITICAL DATABASE SCHEMA ISSUE: getBestsellerElectronicsProducts() method implemented but fails because database products table is missing 'is_bestseller' column. Method tries to query .eq('is_bestseller', true) but column doesn't exist in database schema. Currently returns empty array for electronics_section in GET /api/admin/homepage/sections."
-      - working: true
-        agent: "testing"
-        comment: "✅ VERIFIED AFTER DATABASE FIX: getBestsellerElectronicsProducts() method now working correctly. Returns 14 electronics products where is_bestseller=true and is_active=true. Proper data transformation includes id, name, description, price, original_price, images, brand, category_name, stock_quantity, rating_average, total_reviews. GET /api/admin/homepage/sections now returns electronics_section with bestseller products successfully."
+        agent: "main"
+        comment: "Need to create ProductsManager component following exact pattern from HeroSectionManager and CategorySectionManager. Must include: Add/Edit/Delete operations, DualImageUpload integration, inline editing forms, product fields management (brands, rating, description, features, specifications, reviews), image upload with Browse+URL options."
 
-  - task: "Implement updateProductBestsellerStatus service method"
-    implemented: true
-    working: true
-    file: "/app/backend/services/supabase-service.js"
-    stuck_count: 1
+frontend:
+  - task: "Create /admin/products page with proper navigation"
+    implemented: false
+    working: false
+    file: "/app/app/admin/products/page.tsx"
+    stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: false
-        agent: "testing"
-        comment: "❌ CRITICAL DATABASE SCHEMA ISSUE: updateProductBestsellerStatus() method implemented but fails because database products table is missing 'is_bestseller' column. Method tries to update is_bestseller field but column doesn't exist in database schema."
-      - working: true
-        agent: "testing"
-        comment: "✅ VERIFIED AFTER DATABASE FIX: updateProductBestsellerStatus() method now working correctly. Successfully toggles is_bestseller status (true/false), validates product exists and is_active, returns proper response format with updated product data including id, name, description, price, images, brand, category_name, stock_quantity, rating_average, total_reviews, is_bestseller, is_active."
+        agent: "main"
+        comment: "Need to create new admin products page that follows same layout and functionality pattern as working indexpage. Should integrate with ProductsManager component."
+        
+  - task: "Implement ProductsManager with complete CRUD operations"
+    implemented: false
+    working: false
+    file: "/app/components/admin/ProductsManager.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Must create ProductsManager following exact same code structure as HeroSectionManager and CategorySectionManager. Include all product fields (name, description, price, brand, rating, features, specifications, reviews), DualImageUpload for images, inline editing, and full CRUD operations."
 
 frontend:
   - task: "Analyze existing ElectronicsProductsManager component"
