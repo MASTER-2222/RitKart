@@ -124,6 +124,18 @@ backend:
         agent: "main"
         comment: "Found Hero and Category sections have complete CRUD APIs - bannerService and categoryService methods exist"
 
+  - task: "Add missing CRUD endpoints for Electronics section"
+    implemented: false
+    working: false
+    file: "/app/backend/routes/admin-homepage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Electronics section only has PUT /electronics/:id for toggle status. Missing POST, PUT (full update), DELETE endpoints for complete product management"
+
   - task: "Identify missing Featured Products backend methods"
     implemented: true
     working: false
