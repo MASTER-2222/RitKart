@@ -50,26 +50,15 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
     { id: 'beauty', name: 'Beauty & Personal Care', category_id: 'd713a6b8-015b-4c3c-94da-90df2073afc5' }
   ];
 
-  // Filter products by category - Enhanced matching logic
+  // Filter products by category - PRECISE category_id matching
   const filteredProducts = selectedCategory === 'all' 
     ? products 
     : products.filter(product => {
         const category = categories.find(cat => cat.id === selectedCategory);
-        if (!category) return false;
+        if (!category || !category.category_id) return false;
         
-        // Check multiple fields for matching
-        const productName = (product.name || '').toLowerCase();
-        const productDesc = (product.description || '').toLowerCase();
-        const productCategory = (product.category_name || '').toLowerCase();
-        const productBrand = (product.brand || '').toLowerCase();
-        
-        // Combined text for searching
-        const searchText = `${productName} ${productDesc} ${productCategory} ${productBrand}`;
-        
-        // Check if any category keyword matches
-        return category.keywords.some(keyword => 
-          searchText.includes(keyword.toLowerCase())
-        );
+        // Exact match using category_id from database
+        return product.category_id === category.category_id;
       });
 
   const [newProduct, setNewProduct] = useState({
