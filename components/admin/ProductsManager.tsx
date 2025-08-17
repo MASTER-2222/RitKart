@@ -804,6 +804,28 @@ function ProductEditForm({ product, onSave, onCancel, loading }: any) {
         </div>
 
         <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Specifications (JSON format)</label>
+          <textarea
+            value={formData.specifications}
+            onChange={(e) => setFormData(prev => ({ ...prev, specifications: e.target.value }))}
+            placeholder='"Color": "Red", "Size": "Large", "Material": "Cotton"'
+            rows={2}
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Product Reviews</label>
+          <textarea
+            value={formData.reviews}
+            onChange={(e) => setFormData(prev => ({ ...prev, reviews: e.target.value }))}
+            placeholder="Enter product reviews, customer feedback, or review summary..."
+            rows={2}
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          />
+        </div>
+
+        <div>
           <DualImageUpload
             currentImageUrl={formData.images[0]}
             imageType="product"
