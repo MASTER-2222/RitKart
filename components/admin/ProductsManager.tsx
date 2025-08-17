@@ -278,8 +278,21 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
             const categoryProducts = category.id === 'all' 
               ? products 
               : products.filter(p => {
-                  const slug = category.slug || category.name.toLowerCase();
-                  return p.category_name?.toLowerCase().includes(slug);
+                  if (!category.keywords || category.keywords.length === 0) return false;
+                  
+                  // Check multiple fields for matching
+                  const productName = (p.name || '').toLowerCase();
+                  const productDesc = (p.description || '').toLowerCase();
+                  const productCategory = (p.category_name || '').toLowerCase();
+                  const productBrand = (p.brand || '').toLowerCase();
+                  
+                  // Combined text for searching
+                  const searchText = `${productName} ${productDesc} ${productCategory} ${productBrand}`;
+                  
+                  // Check if any category keyword matches
+                  return category.keywords.some(keyword => 
+                    searchText.includes(keyword.toLowerCase())
+                  );
                 });
             
             return (
