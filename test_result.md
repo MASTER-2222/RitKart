@@ -134,11 +134,14 @@ backend:
     file: "/app/backend/services/supabase-service.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "✅ ENHANCED BACKEND: Updated productService in supabase-service.js to include reviews field in select statements and response transformations. Modified updateProduct method to handle reviews field alongside existing specifications field."
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL: Backend service code is correct but database schema missing reviews column. Error: 'Could not find the reviews column of products in the schema cache'. Backend attempts to select/update reviews field but column doesn't exist in Supabase products table. Migration script exists at /app/backend/add-reviews-field-migration.sql but needs manual execution in Supabase SQL Editor."
         
   - task: "Update products API to handle all 345 products"
     implemented: true
@@ -151,6 +154,9 @@ backend:
       - working: true
         agent: "main"
         comment: "✅ VERIFIED: Backend API already supports any limit parameter. Products API at /backend/routes/products.js can handle requests for all 345 products with ?limit=345 parameter. No changes needed."
+      - working: true
+        agent: "testing"
+        comment: "✅ CONFIRMED: GET /api/products?limit=345 successfully returns exactly 345 products with proper pagination metadata. API handles large limits correctly and returns all required fields including specifications, features, images, and category data."
 
   - task: "Add reviews column to products table schema"
     implemented: false
@@ -163,6 +169,9 @@ backend:
       - working: false
         agent: "main"
         comment: "⚠️ PENDING: Created migration script to add reviews TEXT field to products table. Direct SQL execution through Supabase client may not work due to permissions. Need to verify if reviews field gets auto-created or if manual database update is needed."
+      - working: false
+        agent: "testing"
+        comment: "❌ CONFIRMED: Reviews column does NOT exist in products table. Database schema validation shows products table has specifications field (working with JSON data) but no reviews field. Migration script add-reviews-field-migration.sql exists and is ready for execution but requires manual execution in Supabase SQL Editor due to RLS permissions. This is blocking reviews field functionality."
 
 frontend:
   - task: "Add Reviews field to ProductsManager component"
