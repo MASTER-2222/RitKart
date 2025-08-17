@@ -18,7 +18,7 @@ router.get('/sections', async (req, res) => {
       bannerService.getAllBanners(),
       categoryService.getAllCategories(),
       productService.getFeaturedProducts(20),
-      productService.getProductsByCategory('electronics', 1, 20)
+      productService.getBestsellerElectronicsProducts(20)
     ]);
 
     // Format response data
