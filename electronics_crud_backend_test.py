@@ -46,7 +46,7 @@ TEST_ELECTRONICS_PRODUCT = {
     "original_price": 1299.99,
     "brand": "Samsung",
     "stock_quantity": 50,
-    "category_id": "01234567-89ab-cdef-0123-456789abcdef",  # Electronics category ID
+    "category_id": "62e76cdb-d138-4380-a4dc-820964a02670",  # Electronics category ID
     "images": [
         "https://images.samsung.com/is/image/samsung/p6pim/us/2401/gallery/us-galaxy-s24-ultra-s928-sm-s928uzkeue-thumb-539573016",
         "https://images.samsung.com/is/image/samsung/p6pim/us/2401/gallery/us-galaxy-s24-ultra-s928-sm-s928uzkeue-thumb-539573017"
