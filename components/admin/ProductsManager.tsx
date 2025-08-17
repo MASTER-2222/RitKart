@@ -71,6 +71,7 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
     total_reviews: '',
     features: '',
     specifications: '',
+    reviews: '', // New field for product reviews content
     images: [''],
     is_active: true,
     is_featured: false,
