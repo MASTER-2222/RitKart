@@ -452,13 +452,51 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
               {selectedTab === 'reviews' && (
                 <div>
                   <h3 className="text-lg font-medium mb-4">Customer Reviews</h3>
-                  <div className="bg-gray-50 p-6 rounded-lg text-center">
-                    <div className="text-gray-400 text-4xl mb-2">💬</div>
-                    <p className="text-gray-600">Reviews functionality coming soon!</p>
-                    <p className="text-sm text-gray-500 mt-2">
-                      This product has {product.total_reviews} reviews with an average rating of {product.rating_average} stars.
-                    </p>
+                  
+                  {/* Review Summary */}
+                  <div className="bg-gray-50 p-4 rounded-lg mb-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-2">
+                        <div className="flex items-center">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <i 
+                              key={star}
+                              className={`w-5 h-5 ${
+                                star <= Math.floor(product.rating_average) 
+                                  ? 'ri-star-fill text-yellow-400' 
+                                  : star - 0.5 <= product.rating_average 
+                                    ? 'ri-star-half-fill text-yellow-400'
+                                    : 'ri-star-line text-gray-300'
+                              }`}
+                            ></i>
+                          ))}
+                        </div>
+                        <span className="text-lg font-semibold">{product.rating_average} out of 5</span>
+                      </div>
+                      <span className="text-sm text-gray-600">{product.total_reviews} customer reviews</span>
+                    </div>
                   </div>
+
+                  {/* Reviews Content */}
+                  {product.reviews ? (
+                    <div className="space-y-4">
+                      <div className="bg-white border rounded-lg p-4">
+                        <div className="prose max-w-none">
+                          <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+                            {product.reviews}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-gray-50 p-6 rounded-lg text-center">
+                      <div className="text-gray-400 text-4xl mb-2">💬</div>
+                      <p className="text-gray-600">No reviews available yet</p>
+                      <p className="text-sm text-gray-500 mt-2">
+                        Be the first to review this product!
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
