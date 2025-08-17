@@ -126,74 +126,41 @@ user_problem_statement: |
   GOAL: Complete user review system allowing registered users to submit reviews with images, while maintaining admin control over all review content through existing admin panel.
 
 backend:
-  - task: "Add Reviews field functionality to products"
-    implemented: true
-    working: true
-    file: "/app/backend/services/supabase-service.js"
+  - task: "Create user_reviews table and API endpoints"
+    implemented: false
+    working: false
+    file: "/app/backend/database/user-reviews-schema.sql"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "main"
-        comment: "✅ ENHANCED BACKEND: Updated productService in supabase-service.js to include reviews field in select statements and response transformations. Modified updateProduct method to handle reviews field alongside existing specifications field."
       - working: false
-        agent: "testing"
-        comment: "❌ CRITICAL: Backend service code is correct but database schema missing reviews column. Error: 'Could not find the reviews column of products in the schema cache'. Backend attempts to select/update reviews field but column doesn't exist in Supabase products table. Migration script exists at /app/backend/add-reviews-field-migration.sql but needs manual execution in Supabase SQL Editor."
-      - working: true
-        agent: "main"  
-        comment: "🎯 DATABASE SCHEMA RESOLVED: User confirmed successful execution of reviews field migration in Supabase SQL Editor. Backend already using select('*') which includes reviews field. Reviews now properly flowing from admin panel → database → backend API → frontend display. Complete data flow working end-to-end."
-      - working: true
-        agent: "testing"
-        comment: "✅ COMPREHENSIVE TESTING COMPLETE: Executed comprehensive reviews functionality testing suite with 10/10 tests passed. VERIFIED: 1) GET /api/products/{id} returns reviews field in response, 2) Database reviews column exists and contains data (found 2 products with reviews content), 3) Complete data flow working from admin panel → database → backend API → frontend display, 4) Frontend API integration ready with all required fields present, 5) Reviews field properly included in all product endpoints (individual, list, category), 6) API error handling working correctly. Reviews functionality is fully operational end-to-end."
-        
-  - task: "Update products API to handle all 345 products"
-    implemented: true
-    working: true
+        agent: "main"
+        comment: "🎯 NEW TASK: Need to create database schema for user_reviews table to store user-submitted reviews with fields: id, user_id, product_id, rating, review_text, images, created_at, updated_at, is_approved. Also need API endpoints for CRUD operations on user reviews."
+
+  - task: "Add image upload functionality for reviews"
+    implemented: false
+    working: false
+    file: "/app/backend/routes/uploads.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🎯 NEW TASK: Need to implement image upload functionality for user reviews. Users should be able to upload multiple images with their reviews. Need backend upload endpoint and proper file storage system."
+
+  - task: "Update products API to include user reviews"
+    implemented: false
+    working: false
     file: "/app/backend/routes/products.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "main"
-        comment: "✅ VERIFIED: Backend API already supports any limit parameter. Products API at /backend/routes/products.js can handle requests for all 345 products with ?limit=345 parameter. No changes needed."
-      - working: true
-        agent: "testing"
-        comment: "✅ CONFIRMED: GET /api/products?limit=345 successfully returns exactly 345 products with proper pagination metadata. API handles large limits correctly and returns all required fields including specifications, features, images, and category data."
-      - working: true
-        agent: "testing"
-        comment: "✅ COMPREHENSIVE TESTING COMPLETE: Extensive categorization system testing confirms all 345 products are properly loaded and accessible. All 10 categories work perfectly with exact expected counts. Category filtering via GET /api/products/category/{slug} works flawlessly for all categories. Products API fully functional for admin panel requirements."
-
-  - task: "Complete admin panel categorization system for 345 products"
-    implemented: true
-    working: true
-    file: "/app/components/admin/ProductsManager.tsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "✅ CATEGORIZATION SYSTEM COMPLETE: User requested proper categorization of all 345 products in admin panel. System analysis shows full implementation: 1) Category filtering with all 10 categories working, 2) Products API supporting limit=345, 3) Backend category endpoints functional, 4) Admin panel CRUD operations working, 5) Proper product-category mapping in place."
-      - working: true
-        agent: "testing"
-        comment: "✅ VERIFIED: Comprehensive backend testing confirms perfect categorization functionality. All category counts match exactly: Electronics: 47, Fashion: 38, Books: 37, Home & Gardens: 38, Sports & Outdoors: 37, Grocery: 37, Appliances: 32, Solar: 29, Pharmacy: 37, Beauty: 13. Category filtering API endpoints work flawlessly. Products contain proper category mapping. System ready for production use."
       - working: false
-        agent: "user"
-        comment: "❌ USER ISSUE: Frontend category buttons showing (0) products for all categories instead of correct counts. Screenshot shows All Products (345) correct but Electronics (0), Fashion (0), Books (0) etc all wrong. Frontend filtering logic needs fix."
-      - working: true
         agent: "main"
-        comment: "🔧 FRONTEND FIX APPLIED: Fixed category filtering logic in ProductsManager.tsx. Issue was in category matching algorithm - products don't have category_name field matching slugs. Implemented enhanced keyword-based matching system that searches product name, description, category_name, and brand fields using multiple keywords per category. Updated both filteredProducts logic and category button count calculation. Services restarted successfully."
-      - working: false
-        agent: "user"
-        comment: "❌ STILL WRONG: Frontend still showing incorrect counts after fix. Electronics showing 11 instead of 47, cross-contamination with Solar products in Electronics category. Keyword matching causing wrong categorization. Need precise categorization without cross-contamination."
-      - working: true
-        agent: "main"
-        comment: "🎯 PRECISE FIX APPLIED: Replaced keyword matching with EXACT category_id mapping from database analysis. Found precise category_id values: Electronics='62e76cdb-d138-4380-a4dc-820964a02670' (47 products), Fashion='ceaf5ccf-bda1-4caa-a613-1e6285ca9b21' (38 products), etc. Implemented direct category_id comparison for exact categorization. No more cross-contamination. Backend testing confirmed perfect 1:1 mapping with expected counts. Services restarted."
-      - working: true
-        agent: "testing"
-        comment: "✅ COMPREHENSIVE ANALYSIS COMPLETE: Conducted critical analysis of RitZone product data structure and categorization mapping. FINDINGS: 1) All 345 products successfully loaded via GET /api/products?limit=345, 2) Perfect category mapping using category_id field - each product has valid category_id that maps to exact category names, 3) Exact counts verified: Electronics(47), Fashion(38), Books(37), Home & Garden(38), Sports & Outdoors(37), Grocery(37), Appliances(32), Solar(29), Pharmacy(37), Beauty & Personal Care(13), 4) Backend categorization system is 100% accurate with proper database structure. ISSUE IDENTIFIED: Category filtering endpoints (/api/products/category/{slug}) have pagination limit of 20, causing frontend to show wrong counts. Frontend should use category_id field for filtering, not API endpoints. Backend categorization data is perfect and ready for production."
+        comment: "🎯 NEW TASK: Update product endpoints to include user_reviews in responses. Need to aggregate user reviews and display them alongside existing admin reviews field."
 
 frontend:
   - task: "Add Reviews field to ProductsManager component"
