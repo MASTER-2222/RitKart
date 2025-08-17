@@ -285,15 +285,18 @@ backend:
 
   - task: "Implement updateProductBestsellerStatus service method"
     implemented: true
-    working: false
+    working: true
     file: "/app/backend/services/supabase-service.js"
     stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "testing"
         comment: "❌ CRITICAL DATABASE SCHEMA ISSUE: updateProductBestsellerStatus() method implemented but fails because database products table is missing 'is_bestseller' column. Method tries to update is_bestseller field but column doesn't exist in database schema."
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED AFTER DATABASE FIX: updateProductBestsellerStatus() method now working correctly. Successfully toggles is_bestseller status (true/false), validates product exists and is_active, returns proper response format with updated product data including id, name, description, price, images, brand, category_name, stock_quantity, rating_average, total_reviews, is_bestseller, is_active."
 
 frontend:
   - task: "Analyze existing ElectronicsProductsManager component"
