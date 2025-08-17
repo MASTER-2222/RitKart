@@ -103,13 +103,16 @@
 #====================================================================================================
 
 user_problem_statement: |
-  RitZone Admin Panel Bestsellers in Electronics Section Fix:
-  - Admin Panel (/admin/indexpage) has Hero Section and Shop by Category sections working perfectly
-  - Bestsellers in Electronics section functionality is NOT working - cannot add/edit/delete/replace content and images
-  - Need to apply same code logic and structure from working sections to Bestsellers in Electronics section
-  - Changes should update Database/Backend and reflect on Frontend Index Page automatically
-  - Goal: Make Bestsellers in Electronics section have same dynamic functionality as Hero and Category sections
+  RitZone Admin Panel Products Section Implementation:
+  - Admin Panel (/admin/indexpage) has Hero Section and Shop by Category sections working perfectly with full CRUD operations
+  - Need to create NEW /admin/products page with same functionality as working Hero/Category sections
+  - Admin should be able to Add, Edit, Delete, Replace all product content (Brands, Rating, Description, Features, Specification, Reviews) and images
+  - Image upload must support two methods: Browse (upload from device) and Image URL (fetch from link)
+  - Changes should update Database/Backend and reflect on Frontend Individual Product Pages across all categories
+  - Goal: Apply exact same code logic and structure from working Hero/Category sections to new Products section
   - System uses Supabase database, Node.js backend in /backend folder, Next.js frontend in root folder
+  - Backend products API already exists at /backend/routes/products.js with CRUD endpoints
+  - Need to create /app/admin/products page and ProductsManager component following same pattern
 
 backend:
   - task: "Analyze existing backend structure for Hero/Category sections"
