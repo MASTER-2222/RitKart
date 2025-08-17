@@ -652,6 +652,7 @@ function ProductEditForm({ product, onSave, onCancel, loading }: any) {
     features: Array.isArray(product.features) ? product.features.join(', ') : '',
     specifications: typeof product.specifications === 'object' ? 
       Object.entries(product.specifications || {}).map(([k, v]) => `"${k}": "${v}"`).join(', ') : '',
+    reviews: product.reviews || '', // Add reviews field
     images: product.images || [''],
     is_active: product.is_active,
     is_featured: product.is_featured || false,
