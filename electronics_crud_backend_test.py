@@ -40,11 +40,13 @@ ADMIN_HOMEPAGE_URL = f"{BASE_URL}/admin/homepage"
 # Test data
 TEST_ELECTRONICS_PRODUCT = {
     "name": "Samsung Galaxy S24 Ultra",
+    "slug": "samsung-galaxy-s24-ultra-test",
     "description": "Latest flagship smartphone with advanced AI features",
     "price": 1199.99,
     "original_price": 1299.99,
     "brand": "Samsung",
     "stock_quantity": 50,
+    "category_id": "01234567-89ab-cdef-0123-456789abcdef",  # Electronics category ID
     "images": [
         "https://images.samsung.com/is/image/samsung/p6pim/us/2401/gallery/us-galaxy-s24-ultra-s928-sm-s928uzkeue-thumb-539573016",
         "https://images.samsung.com/is/image/samsung/p6pim/us/2401/gallery/us-galaxy-s24-ultra-s928-sm-s928uzkeue-thumb-539573017"
