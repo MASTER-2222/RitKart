@@ -493,6 +493,9 @@ const productService = {
           is_featured,
           is_active,
           sku,
+          features,
+          specifications,
+          reviews,
           categories (
             name
           )
