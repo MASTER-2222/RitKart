@@ -134,6 +134,7 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
         total_reviews: newProduct.total_reviews ? parseInt(newProduct.total_reviews) : 0,
         features: newProduct.features ? newProduct.features.split(',').map(f => f.trim()).filter(f => f) : [],
         specifications: newProduct.specifications ? JSON.parse(`{${newProduct.specifications}}`) : {},
+        reviews: newProduct.reviews || '', // Include reviews field
         images: newProduct.images.filter(img => img.trim()),
         is_active: newProduct.is_active,
         is_featured: newProduct.is_featured,
