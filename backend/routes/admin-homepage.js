@@ -339,8 +339,10 @@ router.put('/featured/:id', async (req, res) => {
 });
 
 // ==============================================
-// ⚡ UPDATE ELECTRONICS BESTSELLER STATUS
+// ⚡ ELECTRONICS PRODUCTS FULL CRUD ENDPOINTS
 // ==============================================
+
+// UPDATE ELECTRONICS BESTSELLER STATUS
 router.put('/electronics/:id', async (req, res) => {
   try {
     const productId = req.params.id;
@@ -354,17 +356,19 @@ router.put('/electronics/:id', async (req, res) => {
       });
     }
 
-    // This would need to be implemented in productService
-    // For now, return a success response with proper validation
+    const result = await productService.updateProductBestsellerStatus(productId, is_bestseller);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
     res.status(200).json({
       success: true,
       message: `Electronics bestseller status ${is_bestseller ? 'enabled' : 'disabled'} successfully`,
-      data: { 
-        id: productId, 
-        is_bestseller,
-        category: 'electronics',
-        updated_at: new Date().toISOString()
-      }
+      data: result.product
     });
 
   } catch (error) {
@@ -372,6 +376,132 @@ router.put('/electronics/:id', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Failed to update electronics bestseller status',
+      error: environment.isDevelopment() ? error.message : undefined
+    });
+  }
+});
+
+// CREATE NEW ELECTRONICS PRODUCT
+router.post('/electronics', async (req, res) => {
+  try {
+    const productData = req.body;
+
+    // Validate required fields
+    const required = ['name', 'price', 'images'];
+    const missing = required.filter(field => !productData[field]);
+    
+    if (missing.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required fields',
+        required: required,
+        missing: missing
+      });
+    }
+
+    // Set default values for electronics products
+    const electronicsProductData = {
+      ...productData,
+      is_active: true,
+      is_bestseller: true, // New electronics products default to bestseller
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+
+    const result = await productService.createProduct(electronicsProductData);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    res.status(201).json({
+      success: true,
+      message: 'Electronics product created successfully',
+      data: result.product
+    });
+
+  } catch (error) {
+    console.error('❌ Create electronics product error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create electronics product',
+      error: environment.isDevelopment() ? error.message : undefined
+    });
+  }
+});
+
+// UPDATE ELECTRONICS PRODUCT DETAILS
+router.put('/electronics/:id/details', async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const productData = req.body;
+
+    // Validate required fields
+    const required = ['name'];
+    const missing = required.filter(field => !productData[field]);
+    
+    if (missing.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required fields',
+        required: required,
+        missing: missing
+      });
+    }
+
+    const result = await productService.updateProduct(productId, productData);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Electronics product updated successfully',
+      data: result.product
+    });
+
+  } catch (error) {
+    console.error('❌ Update electronics product error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update electronics product',
+      error: environment.isDevelopment() ? error.message : undefined
+    });
+  }
+});
+
+// DELETE ELECTRONICS PRODUCT
+router.delete('/electronics/:id', async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    const result = await productService.deleteProduct(productId);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Electronics product deleted successfully',
+      data: result.product
+    });
+
+  } catch (error) {
+    console.error('❌ Delete electronics product error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete electronics product',
       error: environment.isDevelopment() ? error.message : undefined
     });
   }
