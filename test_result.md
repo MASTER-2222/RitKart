@@ -218,7 +218,10 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: ["Test frontend reviews display functionality"]
+  current_focus: 
+    - "Create user_reviews table and API endpoints"
+    - "Add user review submission form to ProductDetail component"
+    - "Add image upload functionality for reviews"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
