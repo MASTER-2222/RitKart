@@ -33,6 +33,30 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
   const [editingProduct, setEditingProduct] = useState<string | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [loading, setLoading] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  // Available categories based on user requirements
+  const categories = [
+    { id: 'all', name: 'All Products', count: products.length },
+    { id: 'electronics', name: 'Electronics', slug: 'electronics' },
+    { id: 'fashion', name: 'Fashion', slug: 'fashion' },
+    { id: 'books', name: 'Books', slug: 'books' },
+    { id: 'home', name: 'Home & Gardens', slug: 'home' },
+    { id: 'sports', name: 'Sports & Outdoors', slug: 'sports' },
+    { id: 'grocery', name: 'Grocery', slug: 'grocery' },
+    { id: 'appliances', name: 'Appliances', slug: 'appliances' },
+    { id: 'solar', name: 'Solar', slug: 'solar' },
+    { id: 'pharmacy', name: 'Pharmacy', slug: 'pharmacy' },
+    { id: 'beauty', name: 'Beauty & Personal Care', slug: 'beauty' }
+  ];
+
+  // Filter products by category
+  const filteredProducts = selectedCategory === 'all' 
+    ? products 
+    : products.filter(product => {
+        const category = categories.find(cat => cat.id === selectedCategory);
+        return category && product.category_name?.toLowerCase().includes(category.slug || category.name.toLowerCase());
+      });
 
   const [newProduct, setNewProduct] = useState({
     name: '',
