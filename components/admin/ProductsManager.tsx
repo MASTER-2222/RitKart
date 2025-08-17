@@ -35,19 +35,19 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
   const [loading, setLoading] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  // Available categories based on user requirements
+  // Available categories based on user requirements with multiple matching patterns
   const categories = [
-    { id: 'all', name: 'All Products', count: products.length },
-    { id: 'electronics', name: 'Electronics', slug: 'electronics' },
-    { id: 'fashion', name: 'Fashion', slug: 'fashion' },
-    { id: 'books', name: 'Books', slug: 'books' },
-    { id: 'home', name: 'Home & Gardens', slug: 'home' },
-    { id: 'sports', name: 'Sports & Outdoors', slug: 'sports' },
-    { id: 'grocery', name: 'Grocery', slug: 'grocery' },
-    { id: 'appliances', name: 'Appliances', slug: 'appliances' },
-    { id: 'solar', name: 'Solar', slug: 'solar' },
-    { id: 'pharmacy', name: 'Pharmacy', slug: 'pharmacy' },
-    { id: 'beauty', name: 'Beauty & Personal Care', slug: 'beauty' }
+    { id: 'all', name: 'All Products', keywords: [] },
+    { id: 'electronics', name: 'Electronics', keywords: ['electronics', 'electronic', 'tech', 'gadget', 'device'] },
+    { id: 'fashion', name: 'Fashion', keywords: ['fashion', 'clothing', 'apparel', 'wear', 'style'] },
+    { id: 'books', name: 'Books', keywords: ['books', 'book', 'literature', 'reading'] },
+    { id: 'home', name: 'Home & Gardens', keywords: ['home', 'garden', 'house', 'kitchen', 'living', 'furniture'] },
+    { id: 'sports', name: 'Sports & Outdoors', keywords: ['sports', 'outdoor', 'fitness', 'exercise', 'athletic'] },
+    { id: 'grocery', name: 'Grocery', keywords: ['grocery', 'food', 'snack', 'beverage', 'drink'] },
+    { id: 'appliances', name: 'Appliances', keywords: ['appliances', 'appliance', 'machine', 'equipment'] },
+    { id: 'solar', name: 'Solar', keywords: ['solar', 'energy', 'renewable', 'panel'] },
+    { id: 'pharmacy', name: 'Pharmacy', keywords: ['pharmacy', 'medicine', 'health', 'medical', 'drug'] },
+    { id: 'beauty', name: 'Beauty & Personal Care', keywords: ['beauty', 'personal care', 'cosmetics', 'skincare', 'makeup'] }
   ];
 
   // Filter products by category
