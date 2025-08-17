@@ -103,12 +103,13 @@
 #====================================================================================================
 
 user_problem_statement: |
-  RitZone Admin Panel Featured Products Section Fix:
+  RitZone Admin Panel Bestsellers in Electronics Section Fix:
   - Admin Panel (/admin/indexpage) has Hero Section and Shop by Category sections working perfectly
-  - Featured Products section functionality is NOT working - cannot add/edit/delete/replace content and images
-  - Need to apply same code logic and structure from working sections to Featured Products section
+  - Bestsellers in Electronics section functionality is NOT working - cannot add/edit/delete/replace content and images
+  - Need to apply same code logic and structure from working sections to Bestsellers in Electronics section
   - Changes should update Database/Backend and reflect on Frontend Index Page automatically
-  - Goal: Make Featured Products section have same dynamic functionality as Hero and Category sections
+  - Goal: Make Bestsellers in Electronics section have same dynamic functionality as Hero and Category sections
+  - System uses Supabase database, Node.js backend in /backend folder, Next.js frontend in root folder
 
 backend:
   - task: "Analyze existing backend structure for Hero/Category sections"
