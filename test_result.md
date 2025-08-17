@@ -251,9 +251,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Add reviews column to products table schema"
-  stuck_tasks:
-    - "Add reviews column to products table schema"
+    - "Complete admin panel categorization system for 345 products"
+  stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
