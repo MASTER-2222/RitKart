@@ -338,10 +338,7 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus:
-    - "Verify Electronics section CRUD endpoints after database fix"
-    - "Test getBestsellerElectronicsProducts service method after database fix"
-    - "Test updateProductBestsellerStatus service method after database fix"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
