@@ -255,15 +255,18 @@ backend:
 
   - task: "Implement Electronics section CRUD endpoints"
     implemented: true
-    working: false
+    working: true
     file: "/app/backend/routes/admin-homepage.js"
     stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "testing"
         comment: "❌ CRITICAL DATABASE SCHEMA ISSUE: Electronics CRUD endpoints implemented in code but database is missing 'is_bestseller' column in products table. All electronics endpoints (POST /api/admin/homepage/electronics, PUT /api/admin/homepage/electronics/:id/details, DELETE /api/admin/homepage/electronics/:id, PUT /api/admin/homepage/electronics/:id) fail with 'Could not find the is_bestseller column of products in the schema cache' error. Database schema only has is_featured column, not is_bestseller."
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED AFTER DATABASE FIX: All Electronics CRUD endpoints now working correctly after database migration. POST /api/admin/homepage/electronics creates products with is_bestseller=true by default. PUT /api/admin/homepage/electronics/:id/details updates product details successfully. PUT /api/admin/homepage/electronics/:id toggles bestseller status correctly. DELETE /api/admin/homepage/electronics/:id performs soft delete (is_active=false, is_bestseller=false). Minor: Delete response missing is_bestseller field but functionality works correctly."
 
   - task: "Implement getBestsellerElectronicsProducts service method"
     implemented: true
