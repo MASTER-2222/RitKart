@@ -171,6 +171,7 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
           total_reviews: '',
           features: '',
           specifications: '',
+          reviews: '', // Reset reviews field
           images: [''],
           is_active: true,
           is_featured: false,
