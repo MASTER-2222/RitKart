@@ -35,19 +35,19 @@ export default function ProductsManager({ products, onUpdate }: ProductsManagerP
   const [loading, setLoading] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  // Available categories based on user requirements with multiple matching patterns
+  // Available categories with EXACT category_id mapping from database
   const categories = [
-    { id: 'all', name: 'All Products', keywords: [] },
-    { id: 'electronics', name: 'Electronics', keywords: ['electronics', 'electronic', 'tech', 'gadget', 'device'] },
-    { id: 'fashion', name: 'Fashion', keywords: ['fashion', 'clothing', 'apparel', 'wear', 'style'] },
-    { id: 'books', name: 'Books', keywords: ['books', 'book', 'literature', 'reading'] },
-    { id: 'home', name: 'Home & Gardens', keywords: ['home', 'garden', 'house', 'kitchen', 'living', 'furniture'] },
-    { id: 'sports', name: 'Sports & Outdoors', keywords: ['sports', 'outdoor', 'fitness', 'exercise', 'athletic'] },
-    { id: 'grocery', name: 'Grocery', keywords: ['grocery', 'food', 'snack', 'beverage', 'drink'] },
-    { id: 'appliances', name: 'Appliances', keywords: ['appliances', 'appliance', 'machine', 'equipment'] },
-    { id: 'solar', name: 'Solar', keywords: ['solar', 'energy', 'renewable', 'panel'] },
-    { id: 'pharmacy', name: 'Pharmacy', keywords: ['pharmacy', 'medicine', 'health', 'medical', 'drug'] },
-    { id: 'beauty', name: 'Beauty & Personal Care', keywords: ['beauty', 'personal care', 'cosmetics', 'skincare', 'makeup'] }
+    { id: 'all', name: 'All Products', category_id: null },
+    { id: 'electronics', name: 'Electronics', category_id: '62e76cdb-d138-4380-a4dc-820964a02670' },
+    { id: 'fashion', name: 'Fashion', category_id: 'ceaf5ccf-bda1-4caa-a613-1e6285ca9b21' },
+    { id: 'books', name: 'Books', category_id: '04acda97-1df6-4cfb-a2bc-102294f2fb2d' },
+    { id: 'home', name: 'Home & Gardens', category_id: 'a7f3d520-8097-455e-8c8a-a6f15c03821b' },
+    { id: 'sports', name: 'Sports & Outdoors', category_id: '927fd2f3-2fc0-4340-a8d5-460239f1cdc6' },
+    { id: 'grocery', name: 'Grocery', category_id: 'c85cffd2-1eee-4b5f-9ae4-a224b317ffc4' },
+    { id: 'appliances', name: 'Appliances', category_id: '4767d8c0-2dad-4a8c-8341-407ac7a3b4b7' },
+    { id: 'solar', name: 'Solar', category_id: '1a2683d9-5a1b-4488-a92e-1562a816ad8e' },
+    { id: 'pharmacy', name: 'Pharmacy', category_id: 'c9eb705e-efbf-4233-ab81-24feb9bd51d2' },
+    { id: 'beauty', name: 'Beauty & Personal Care', category_id: 'd713a6b8-015b-4c3c-94da-90df2073afc5' }
   ];
 
   // Filter products by category - Enhanced matching logic
