@@ -167,7 +167,7 @@ backend:
     file: "/app/components/admin/ProductsManager.tsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: true
         agent: "main"
@@ -175,6 +175,12 @@ backend:
       - working: true
         agent: "testing"
         comment: "✅ VERIFIED: Comprehensive backend testing confirms perfect categorization functionality. All category counts match exactly: Electronics: 47, Fashion: 38, Books: 37, Home & Gardens: 38, Sports & Outdoors: 37, Grocery: 37, Appliances: 32, Solar: 29, Pharmacy: 37, Beauty: 13. Category filtering API endpoints work flawlessly. Products contain proper category mapping. System ready for production use."
+      - working: false
+        agent: "user"
+        comment: "❌ USER ISSUE: Frontend category buttons showing (0) products for all categories instead of correct counts. Screenshot shows All Products (345) correct but Electronics (0), Fashion (0), Books (0) etc all wrong. Frontend filtering logic needs fix."
+      - working: true
+        agent: "main"
+        comment: "🔧 FRONTEND FIX APPLIED: Fixed category filtering logic in ProductsManager.tsx. Issue was in category matching algorithm - products don't have category_name field matching slugs. Implemented enhanced keyword-based matching system that searches product name, description, category_name, and brand fields using multiple keywords per category. Updated both filteredProducts logic and category button count calculation. Services restarted successfully."
 
 frontend:
   - task: "Add Reviews field to ProductsManager component"
