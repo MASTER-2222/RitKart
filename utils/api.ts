@@ -362,6 +362,7 @@ export interface Product {
   images: string[];
   features: string[];
   specifications: Record<string, any>;
+  reviews?: string; // NEW: Reviews field for admin panel editable reviews
   rating_average: number;
   rating_count: number;
   total_reviews: number;
