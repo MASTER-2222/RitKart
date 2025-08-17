@@ -163,77 +163,53 @@ backend:
         comment: "🎯 NEW TASK: Update product endpoints to include user_reviews in responses. Need to aggregate user reviews and display them alongside existing admin reviews field."
 
 frontend:
-  - task: "Add Reviews field to ProductsManager component"
-    implemented: true
-    working: true
-    file: "/app/components/admin/ProductsManager.tsx"
+  - task: "Add user review submission form to ProductDetail component"
+    implemented: false
+    working: false
+    file: "/app/app/product/[id]/ProductDetail.tsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
-        agent: "main"
-        comment: "✅ ENHANCED FRONTEND: Added Reviews field to ProductsManager component alongside existing Specifications field. Updated both Add Product form and Edit Product form to include reviews textarea with proper validation. Reviews field allows editing of product review content/summary."
       - working: false
-        agent: "testing"
-        comment: "❌ BLOCKED BY BACKEND: Frontend reviews field implementation is likely correct but cannot function due to backend database schema issue. Reviews field will fail when trying to create/update products because database lacks reviews column. Frontend depends on backend API which currently fails with 'reviews column not found' error."
-      - working: true
         agent: "main"
-        comment: "🎯 FRONTEND DISPLAY FIX COMPLETE: User confirmed database reviews field is working and admin panel saves reviews successfully, but reviews weren't showing on frontend product pages. FIXED: 1) Added reviews field to Product interface in /app/utils/api.ts, 2) Updated ProductDetail component to display actual reviews content instead of placeholder 'Reviews functionality coming soon!', 3) Enhanced reviews tab with proper review display including rating summary and formatted review text with whitespace-pre-wrap for proper formatting. Reviews now flow: Admin Panel → Database → Backend API → Frontend Display."
-      - working: true
-        agent: "testing"
-        comment: "✅ BACKEND INTEGRATION VERIFIED: Comprehensive backend testing confirms reviews functionality is fully operational. Backend API properly serves reviews field in all product endpoints (GET /api/products/{id}, GET /api/products, GET /api/products/category/{slug}). Database reviews column exists with data, complete data flow working from admin panel to API responses. Frontend integration ready with all required fields present in API responses. Reviews functionality working end-to-end."
+        comment: "🎯 NEW TASK: Need to add review submission form to individual product pages. Form should include rating input (1-5 stars), review text textarea, and image upload capability. Only visible to registered users."
 
-  - task: "Add category filtering to admin products page"
-    implemented: true
-    working: true
-    file: "/app/components/admin/ProductsManager.tsx"
+  - task: "Update reviews display to show both admin and user reviews"
+    implemented: false
+    working: false
+    file: "/app/app/product/[id]/ProductDetail.tsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
+      - working: false
         agent: "main"
-        comment: "✅ CATEGORY FILTERING: Added complete category filter system to ProductsManager. Shows all 10 categories (Electronics: 47, Fashion: 38, Books: 37, Home & Gardens: 38, Sports & Outdoors: 37, Grocery: 37, Appliances: 32, Solar: 29, Pharmacy: 37, Beauty: 13). Users can filter by category to see organized products. Total 345 products properly categorized."
-      - working: true
-        agent: "testing"
-        comment: "✅ BACKEND CONFIRMED: Category data is working correctly. Backend API returns 10 categories with proper filtering. GET /api/categories returns all categories, and GET /api/products/category/{slug} works for filtering. Frontend category filtering should work properly with this backend support."
-      - working: true
-        agent: "testing"
-        comment: "✅ PERFECT CATEGORIZATION: Comprehensive testing confirms all 10 categories work flawlessly with exact expected product counts (Electronics: 47, Fashion: 38, Books: 37, Home & Gardens: 38, Sports & Outdoors: 37, Grocery: 37, Appliances: 32, Solar: 29, Pharmacy: 37, Beauty: 13). Category filtering API endpoints fully functional. Products contain category_id for proper frontend mapping."
+        comment: "🎯 NEW TASK: Update reviews tab to display both admin reviews (existing) and user-submitted reviews. Need to aggregate and display all reviews with proper formatting."
 
-  - task: "Update products page to load all 345 products"
-    implemented: true
-    working: true
-    file: "/app/app/admin/products/page.tsx"
+  - task: "Add image upload component for reviews"
+    implemented: false
+    working: false
+    file: "/app/components/ImageUpload.tsx"
     stuck_count: 0
-    priority: "high"
-    needs_retesting: false
+    priority: "medium"
+    needs_retesting: true
     status_history:
-      - working: true
+      - working: false
         agent: "main"
-        comment: "✅ EXPANDED LIMIT: Updated /admin/products page to fetch limit=345 instead of limit=50. Now loads all 345 products from database for complete admin control over entire product catalog."
-      - working: true
-        agent: "testing"
-        comment: "✅ BACKEND CONFIRMED: Products API successfully handles limit=345 and returns exactly 345 products with proper pagination metadata. Frontend should be able to load all products correctly since backend supports the required functionality."
-      - working: true
-        agent: "testing"
-        comment: "✅ FULLY VERIFIED: Comprehensive testing confirms GET /api/products?limit=345 returns exactly 345 products with proper pagination. All products properly categorized across 10 categories with correct counts. Backend fully supports admin panel requirements for managing all 345 products."
-        
-  - task: "Enhance ProductsManager with specifications editing"
-    implemented: true
-    working: true
+        comment: "🎯 NEW TASK: Create reusable image upload component for review submission. Should support multiple image uploads, preview, and proper file validation."
+
+  - task: "Update admin panel to manage user reviews"
+    implemented: false
+    working: false
     file: "/app/components/admin/ProductsManager.tsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-      - working: true
+      - working: false
         agent: "main"
-        comment: "✅ SPECIFICATIONS READY: ProductsManager component already includes specifications field in both Add and Edit forms. Specifications field accepts JSON format input and properly processes data for backend storage. Feature was already working from previous implementation."
-      - working: true
-        agent: "testing"
-        comment: "✅ BACKEND CONFIRMED: Specifications field is fully functional in backend. Products contain specifications as JSON objects with proper data structure. CRUD operations work correctly for specifications field. Frontend specifications editing should work perfectly."
+        comment: "🎯 NEW TASK: Add user review management section to admin panel. Admins should be able to view, approve, edit, and delete user-submitted reviews for each product."
 
 metadata:
   created_by: "main_agent"
