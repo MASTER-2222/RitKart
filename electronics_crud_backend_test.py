@@ -41,6 +41,7 @@ ADMIN_HOMEPAGE_URL = f"{BASE_URL}/admin/homepage"
 TEST_ELECTRONICS_PRODUCT = {
     "name": "Samsung Galaxy S24 Ultra",
     "slug": "samsung-galaxy-s24-ultra-test",
+    "sku": "SAM-S24U-TEST-001",
     "description": "Latest flagship smartphone with advanced AI features",
     "price": 1199.99,
     "original_price": 1299.99,
