@@ -385,6 +385,13 @@ export const currencyApiClient = {
     const currency = this.getCurrentCurrency();
     return apiClient.getFeaturedProducts(currency);
   },
+
+  async getRelatedProducts(productId: string, params?: {
+    limit?: number;
+  }) {
+    const currency = this.getCurrentCurrency();
+    return apiClient.getRelatedProducts(productId, { ...params, currency });
+  },
 };
 
 // Export types for API responses
