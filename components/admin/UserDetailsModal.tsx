@@ -302,7 +302,7 @@ export default function UserDetailsModal({
             <div className="space-y-6">
               {/* Statistics Cards */}
               {currentUser.statistics && (
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
                   <div className="bg-blue-50 rounded-lg p-4 text-center">
                     <div className="text-2xl font-bold text-blue-600">{currentUser.statistics.totalOrders}</div>
                     <div className="text-sm text-blue-800">Total Orders</div>
