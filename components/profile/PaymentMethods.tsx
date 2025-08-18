@@ -100,27 +100,45 @@ export default function PaymentMethods() {
     setShowAddModal(true);
   };
 
-  const handleUpdatePaymentMethod = () => {
+  const handleUpdatePaymentMethod = async () => {
     if (!editingMethod) return;
+    
+    try {
+      setSaving(true);
+      setError(null);
+      
+      const paymentData = {
+        type: paymentType,
+        name: paymentType === 'card' 
+          ? `Card ending in ${formData.cardNumber.slice(-4)}`
+          : `UPI - ${formData.upiId}`,
+        details: paymentType === 'card'
+          ? `**** **** **** ${formData.cardNumber.slice(-4)}`
+          : formData.upiId,
+        lastFour: paymentType === 'card' ? formData.cardNumber.slice(-4) : undefined,
+        expiryDate: paymentType === 'card' ? formData.expiryDate : undefined
+      };
 
-    setPaymentMethods(prev =>
-      prev.map(method =>
-        method.id === editingMethod.id
-          ? {
-              ...method,
-              name: paymentType === 'card' 
-                ? `Card ending in ${formData.cardNumber.slice(-4)}`
-                : `UPI - ${formData.upiId}`,
-              details: paymentType === 'card'
-                ? `**** **** **** ${formData.cardNumber.slice(-4)}`
-                : formData.upiId,
-              lastFour: paymentType === 'card' ? formData.cardNumber.slice(-4) : undefined,
-              expiryDate: paymentType === 'card' ? formData.expiryDate : undefined
-            }
-          : method
-      )
-    );
-    closeModal();
+      const response = await apiClient.updatePaymentMethod(editingMethod.id, paymentData);
+      
+      if (response.success) {
+        setPaymentMethods(prev => 
+          prev.map(method => 
+            method.id === editingMethod.id 
+              ? { ...method, ...paymentData }
+              : method
+          )
+        );
+        closeModal();
+      } else {
+        setError(response.message || 'Failed to update payment method');
+      }
+    } catch (err) {
+      console.error('Error updating payment method:', err);
+      setError('Failed to update payment method. Please try again.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleDeletePaymentMethod = (methodId: string) => {
