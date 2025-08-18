@@ -21,7 +21,7 @@ import time
 from datetime import datetime
 
 class ProfileEnhancementTester:
-    def __init__(self, base_url="http://localhost:10000/api"):
+    def __init__(self, base_url="https://ritzone-frontend.onrender.com/api"):
         self.base_url = base_url
         self.token = None
         self.user_id = None
