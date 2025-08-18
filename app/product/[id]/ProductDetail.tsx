@@ -6,9 +6,12 @@ import Footer from '../../../components/Footer';
 import ProductCarousel from '../../../components/ProductCarousel';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { apiClient, Product } from '../../../utils/api';
+import { apiClient, Product, UserReview, ReviewStats } from '../../../utils/api';
 import { useCurrency } from '../../../contexts/CurrencyContext';
 import { createClient } from '../../../utils/supabase/client';
+import UserReviewForm from '../../../components/UserReviewForm';
+import UserReviewsList from '../../../components/UserReviewsList';
+import StarRating from '../../../components/StarRating';
 
 interface ProductDetailProps {
   productId: string;
