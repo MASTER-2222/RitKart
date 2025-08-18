@@ -1811,7 +1811,7 @@ const userReviewService = {
   // Create a new review
   createReview: async (reviewData) => {
     try {
-      const client = getSupabaseClient();
+      const client = getAdminSupabaseClient();
       
       // Check if user already reviewed this product
       const { data: existingReview } = await client
