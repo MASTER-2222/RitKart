@@ -239,6 +239,15 @@ export default function PaymentMethods() {
           </button>
         </div>
 
+        {error && (
+          <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="flex items-center">
+              <i className="ri-error-warning-line text-red-500 mr-2"></i>
+              <span className="text-red-700">{error}</span>
+            </div>
+          </div>
+        )}
+
         {paymentMethods.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-gray-500 mb-4">
