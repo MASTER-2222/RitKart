@@ -361,6 +361,9 @@ backend:
       - working: false
         agent: "testing"
         comment: "❌ PAYMENT METHODS BLOCKED BY DATABASE: GET/POST/PUT/DELETE /api/profile/payment-methods endpoints implemented but failing with 500 errors. ROOT CAUSE: 'Could not find the table public.user_payment_methods in the schema cache'. SOLUTION REQUIRED: Execute /app/backend/profile-enhancement-schema.sql in Supabase SQL Editor to create missing user_payment_methods table. API code is complete and ready to work once table exists."
+      - working: false
+        agent: "main"
+        comment: "🔄 DATABASE SCHEMA UPDATED: User has manually executed profile-enhancement-schema.sql. The user_payment_methods table should now exist. Marking for retesting to verify API functionality after database schema update."
 
   - task: "Implement Wishlist Management API endpoints"
     implemented: true
