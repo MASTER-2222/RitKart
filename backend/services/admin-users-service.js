@@ -243,12 +243,16 @@ const adminUsersService = {
       const userWithDetails = {
         ...user,
         recentOrders: orders || [],
+        addresses: addresses || [],
+        paymentMethods: paymentMethods || [],
+        wishlistItems: wishlistItems || [],
         statistics: {
           totalOrders,
           completedOrders,
           pendingOrders,
           totalSpent,
           cartItemsCount,
+          wishlistItemsCount,
           joinedDaysAgo: Math.floor((new Date() - new Date(user.created_at)) / (1000 * 60 * 60 * 24))
         }
       };
