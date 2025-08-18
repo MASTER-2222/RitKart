@@ -50,6 +50,8 @@ export default function CartPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [updatingItems, setUpdatingItems] = useState<Set<string>>(new Set());
+  const [relatedProducts, setRelatedProducts] = useState<RelatedProduct[]>([]);
+  const [relatedProductsLoading, setRelatedProductsLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
   const { selectedCurrency } = useCurrency();
