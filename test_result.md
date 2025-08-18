@@ -201,12 +201,24 @@ backend:
         comment: "✅ COMPREHENSIVE SERVICE VERIFICATION: Full code review of userReviewService confirms complete implementation. FEATURES VERIFIED: 1) getReviewsByProduct() with pagination and user data joining ✓, 2) createReview() with duplicate prevention and validation ✓, 3) updateReview() with ownership verification and image management ✓, 4) getUserReviews() with product information ✓, 5) deleteReview() with ownership verification ✓, 6) getReviewStats() with rating distribution calculation ✓. STATISTICS: Calculates average rating, total reviews, rating distribution (1-5 stars). SECURITY: Proper user ownership verification, RLS policy support. All endpoints return consistent JSON responses with proper error handling. Ready to function immediately after user_reviews table creation."
 
 frontend:
-  - task: "Add user review submission form to ProductDetail component"
+  - task: "Implement Related Products display in ProductDetail component"
     implemented: false
     working: false
     file: "/app/app/product/[id]/ProductDetail.tsx"
     stuck_count: 0
     priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🎯 NEW TASK: Need to replace placeholder Related Products section with dynamic display of 10 related products fetched from backend API. Each product should show image, name, price and redirect to individual product page on click."
+
+  - task: "Add user review submission form to ProductDetail component"
+    implemented: false
+    working: false
+    file: "/app/app/product/[id]/ProductDetail.tsx"
+    stuck_count: 0
+    priority: "medium"
     needs_retesting: true
     status_history:
       - working: false
