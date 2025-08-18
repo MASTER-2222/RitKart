@@ -400,4 +400,43 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// ==============================================
+// 🔗 GET RELATED PRODUCTS (WITH DYNAMIC CURRENCY)
+// ==============================================
+router.get('/:id/related', async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const limit = parseInt(req.query.limit) || 10;
+    const currency = req.query.currency || 'INR';
+
+    const result = await productService.getRelatedProducts(productId, limit);
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    // Convert prices to requested currency
+    const convertedProducts = await convertProductsPrices(result.products, currency);
+
+    res.status(200).json({
+      success: true,
+      message: `Related products retrieved successfully${currency !== 'INR' ? ` with prices in ${currency}` : ''}`,
+      data: convertedProducts,
+      currency: currency,
+      total: result.products.length
+    });
+
+  } catch (error) {
+    console.error('❌ Get related products error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to retrieve related products',
+      error: environment.isDevelopment() ? error.message : undefined
+    });
+  }
+});
+
 module.exports = router;
