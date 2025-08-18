@@ -1969,7 +1969,7 @@ const userReviewService = {
   // Get user's own reviews
   getUserReviews: async (userId, page = 1, limit = 10) => {
     try {
-      const client = getSupabaseClient();
+      const client = getAdminSupabaseClient();
       const offset = (page - 1) * limit;
       
       const { data, error, count } = await client
