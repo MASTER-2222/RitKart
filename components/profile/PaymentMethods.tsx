@@ -10,6 +10,7 @@ export default function PaymentMethods() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingMethod, setEditingMethod] = useState<PaymentMethod | null>(null);
   const [paymentType, setPaymentType] = useState<'card' | 'upi'>('card');
+  const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
     cardNumber: '',
     expiryDate: '',
@@ -17,6 +18,30 @@ export default function PaymentMethods() {
     cardholderName: '',
     upiId: ''
   });
+
+  useEffect(() => {
+    const fetchPaymentMethods = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await apiClient.getPaymentMethods();
+        
+        if (response.success) {
+          setPaymentMethods(response.data.paymentMethods || response.data || []);
+        } else {
+          setError(response.message || 'Failed to load payment methods');
+        }
+      } catch (err) {
+        console.error('Error fetching payment methods:', err);
+        setError('Failed to load payment methods. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPaymentMethods();
+  }, []);
 
   const handleAddPaymentMethod = () => {
     const newMethod: PaymentMethod = {
