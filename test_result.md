@@ -103,7 +103,7 @@
 #====================================================================================================
 
 user_problem_statement: |
-  RitZone Related Products Implementation:
+  RitZone Cart Page "You might also like" Enhancement:
   
   PREVIOUS COMPLETION STATE:
   - ✅ Admin Panel (/admin/products) fully functional with CRUD operations for all 345 products
@@ -112,23 +112,28 @@ user_problem_statement: |
   - ✅ Frontend displays admin-created reviews on individual product pages
   - ✅ Complete categorization system working with 10 categories (345 products total)
   - ✅ User Review System partially implemented (backend ready, database schema issue resolved)
+  - ✅ Related Products API implemented and tested (GET /api/products/:id/related) - working perfectly
   
-  NEW REQUIREMENTS - RELATED PRODUCTS FEATURE:
-  1. ISSUE: Currently, when users (registered/unregistered) visit individual product pages, the "Related Products" section doesn't show any products - it shows placeholder content
-  2. REQUIREMENT: Display 10 related products in the "Related Products" section with:
-     - Product price and proper text content
-     - Must be fetched from backend and database (not hardcoded/static)
+  NEW REQUIREMENTS - CART PAGE ENHANCEMENT:
+  1. ISSUE: Currently, when registered users visit Cart Page (/cart), the "You might also like" section shows only dummy/static/hardcoded data
+  2. REQUIREMENT: Replace with dynamic related products showing 10 related products with:
+     - Price and images
+     - Proper text content (title/description)
+     - Must be fetched dynamically from Backend and Database (not hardcoded/static)
      - Related products based on Product Description and Category matching
-  3. IMPLEMENTATION SCOPE:
-     - Backend API endpoint for fetching related products based on category and description similarity
-     - Frontend integration to display related products with proper formatting
-     - Products should show image, name, price, and basic details
-  4. CONSTRAINTS:
+  3. FUNCTIONALITY:
+     - When user clicks "Add to Cart" button of any related product → redirect to Individual Product Page of that product
+     - Related products must be generated dynamically based on cart items' categories and descriptions
+  4. IMPLEMENTATION SCOPE:
+     - Utilize existing GET /api/products/:id/related endpoint (already working)
+     - Update Cart page frontend to fetch and display dynamic related products
+     - Replace hardcoded addon products with real database-driven content
+  5. CONSTRAINTS:
      - Don't change environment variables for backend and frontend
      - Use .env.local for development if necessary
      - Frontend is in root folder, backend is in backend folder
   
-  GOAL: Complete related products functionality showing 10 relevant products on individual product pages, fetched from database based on category and description matching.
+  GOAL: Complete cart page enhancement with dynamic "You might also like" section showing real products from database, with click-to-product-page functionality.
 
 backend:
   - task: "Implement Related Products API endpoint"
