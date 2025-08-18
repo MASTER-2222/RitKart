@@ -212,6 +212,18 @@ backend:
         comment: "✅ COMPREHENSIVE SERVICE VERIFICATION: Full code review of userReviewService confirms complete implementation. FEATURES VERIFIED: 1) getReviewsByProduct() with pagination and user data joining ✓, 2) createReview() with duplicate prevention and validation ✓, 3) updateReview() with ownership verification and image management ✓, 4) getUserReviews() with product information ✓, 5) deleteReview() with ownership verification ✓, 6) getReviewStats() with rating distribution calculation ✓. STATISTICS: Calculates average rating, total reviews, rating distribution (1-5 stars). SECURITY: Proper user ownership verification, RLS policy support. All endpoints return consistent JSON responses with proper error handling. Ready to function immediately after user_reviews table creation."
 
 frontend:
+  - task: "Implement dynamic 'You might also like' section in Cart page"
+    implemented: false
+    working: false
+    file: "/app/app/cart/page.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🎯 NEW TASK: Need to replace static/hardcoded 'You might also like' section on Cart page with dynamic products fetched from backend. Currently shows 3 dummy products (Apple Magic Mouse, USB-C Adapter, Laptop Stand). Must fetch 10 related products based on cart items' categories and descriptions using existing GET /api/products/:id/related API endpoint."
+
   - task: "Implement Related Products display in ProductDetail component"
     implemented: true
     working: false
