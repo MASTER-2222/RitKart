@@ -155,6 +155,21 @@ class ApiClient {
     return this.getProducts({ featured: true, currency });
   }
 
+  async getRelatedProducts(productId: string, params?: {
+    limit?: number;
+    currency?: string;
+  }) {
+    const searchParams = new URLSearchParams();
+    
+    if (params?.limit) searchParams.set('limit', params.limit.toString());
+    
+    // Add currency parameter
+    this.addCurrencyToParams(searchParams, params?.currency);
+
+    const query = searchParams.toString();
+    return this.makeRequest(`/products/${productId}/related${query ? `?${query}` : ''}`);
+  }
+
   async getProductsByCategory(categorySlug: string, params?: {
     limit?: number;
     page?: number;
