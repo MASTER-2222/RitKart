@@ -765,7 +765,7 @@ def main():
     print("=" * 80)
     
     # Initialize tester with production server
-    tester = ProfileEnhancementTester("https://ritzone-frontend.onrender.com/api")
+    tester = ProfileEnhancementTester("https://ritkart-backend.onrender.com/api")
     
     # Run all tests
     success = tester.run_all_tests()
