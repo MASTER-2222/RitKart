@@ -1743,7 +1743,7 @@ const userReviewService = {
           images,
           created_at,
           updated_at,
-          users!inner (
+          users!user_reviews_user_id_fkey (
             id,
             full_name,
             email
