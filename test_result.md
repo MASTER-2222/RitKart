@@ -103,7 +103,7 @@
 #====================================================================================================
 
 user_problem_statement: |
-  RitZone User Review System Implementation:
+  RitZone Related Products Implementation:
   
   PREVIOUS COMPLETION STATE:
   - ✅ Admin Panel (/admin/products) fully functional with CRUD operations for all 345 products
@@ -111,19 +111,24 @@ user_problem_statement: |
   - ✅ Backend API supports reviews field in all endpoints
   - ✅ Frontend displays admin-created reviews on individual product pages
   - ✅ Complete categorization system working with 10 categories (345 products total)
+  - ✅ User Review System partially implemented (backend ready, database schema issue resolved)
   
-  NEW REQUIREMENTS - USER REVIEW SUBMISSION SYSTEM:
-  1. ADD USER REVIEW FORM: Registered users should be able to submit reviews on individual product pages (/product/[id])
-  2. REVIEW CONTENT: Each user review should include:
-     - Review text/content (required)
-     - Rating (1-5 stars, required)
-     - User's personal experience
-     - Image upload capability (optional) - Users can upload photos with their reviews
-  3. DATABASE INTEGRATION: User reviews should be stored in database and connected to existing backend
-  4. ADMIN MANAGEMENT: Administrators should be able to view/edit/delete user-submitted reviews from admin panel (/admin/products)
-  5. FRONTEND DISPLAY: User reviews should be displayed alongside existing admin reviews on product pages
+  NEW REQUIREMENTS - RELATED PRODUCTS FEATURE:
+  1. ISSUE: Currently, when users (registered/unregistered) visit individual product pages, the "Related Products" section doesn't show any products - it shows placeholder content
+  2. REQUIREMENT: Display 10 related products in the "Related Products" section with:
+     - Product price and proper text content
+     - Must be fetched from backend and database (not hardcoded/static)
+     - Related products based on Product Description and Category matching
+  3. IMPLEMENTATION SCOPE:
+     - Backend API endpoint for fetching related products based on category and description similarity
+     - Frontend integration to display related products with proper formatting
+     - Products should show image, name, price, and basic details
+  4. CONSTRAINTS:
+     - Don't change environment variables for backend and frontend
+     - Use .env.local for development if necessary
+     - Frontend is in root folder, backend is in backend folder
   
-  GOAL: Complete user review system allowing registered users to submit reviews with images, while maintaining admin control over all review content through existing admin panel.
+  GOAL: Complete related products functionality showing 10 relevant products on individual product pages, fetched from database based on category and description matching.
 
 backend:
   - task: "Create user_reviews table and API endpoints"
