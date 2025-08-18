@@ -156,13 +156,24 @@ export default function PaymentMethods() {
     }
   };
 
-  const handleSetDefault = (methodId: string) => {
-    setPaymentMethods(prev =>
-      prev.map(method => ({
-        ...method,
-        isDefault: method.id === methodId
-      }))
-    );
+  const handleSetDefault = async (methodId: string) => {
+    try {
+      const response = await apiClient.updatePaymentMethod(methodId, { isDefault: true });
+      
+      if (response.success) {
+        setPaymentMethods(prev => 
+          prev.map(method => ({
+            ...method,
+            isDefault: method.id === methodId
+          }))
+        );
+      } else {
+        setError(response.message || 'Failed to set default payment method');
+      }
+    } catch (err) {
+      console.error('Error setting default payment method:', err);
+      setError('Failed to set default payment method. Please try again.');
+    }
   };
 
   const closeModal = () => {
