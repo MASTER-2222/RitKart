@@ -1730,7 +1730,7 @@ const userReviewService = {
   // Get reviews for a specific product
   getReviewsByProduct: async (productId, page = 1, limit = 10) => {
     try {
-      const client = getSupabaseClient();
+      const client = getAdminSupabaseClient();
       const offset = (page - 1) * limit;
       
       // Get reviews with user information
