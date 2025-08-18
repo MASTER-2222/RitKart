@@ -705,14 +705,100 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
         {/* Related Products */}
         <div className="mt-12">
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Related Products</h2>
-            <div className="bg-gray-50 p-6 rounded-lg text-center">
-              <div className="text-gray-400 text-4xl mb-2">🛍️</div>
-              <p className="text-gray-600">Related products feature coming soon!</p>
-              <p className="text-sm text-gray-500 mt-2">
-                Discover more products similar to this one.
-              </p>
-            </div>
+            <h2 className="text-xl font-bold text-gray-900 mb-6">Related Products</h2>
+            
+            {relatedLoading ? (
+              // Loading state
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {[...Array(10)].map((_, i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="bg-gray-200 aspect-square rounded-lg mb-2"></div>
+                    <div className="bg-gray-200 h-4 rounded mb-1"></div>
+                    <div className="bg-gray-200 h-4 w-2/3 rounded"></div>
+                  </div>
+                ))}
+              </div>
+            ) : relatedProducts.length > 0 ? (
+              // Related products display
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {relatedProducts.map((relatedProduct) => (
+                  <div
+                    key={relatedProduct.id}
+                    className="group cursor-pointer border rounded-lg p-3 hover:shadow-md transition-shadow"
+                    onClick={() => router.push(`/product/${relatedProduct.id}`)}
+                  >
+                    {/* Product Image */}
+                    <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
+                      <img
+                        src={relatedProduct.images?.[0] || '/placeholder-product.jpg'}
+                        alt={relatedProduct.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                      />
+                    </div>
+                    
+                    {/* Product Details */}
+                    <div className="space-y-1">
+                      <h3 className="font-medium text-sm text-gray-900 line-clamp-2 group-hover:text-blue-600">
+                        {relatedProduct.name}
+                      </h3>
+                      
+                      {relatedProduct.brand && (
+                        <p className="text-xs text-gray-500">{relatedProduct.brand}</p>
+                      )}
+                      
+                      {/* Rating */}
+                      {relatedProduct.rating_average && relatedProduct.rating_average > 0 && (
+                        <div className="flex items-center text-xs">
+                          <div className="flex items-center mr-1">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <i 
+                                key={star}
+                                className={`w-3 h-3 ${
+                                  star <= Math.floor(relatedProduct.rating_average) 
+                                    ? 'ri-star-fill text-yellow-400' 
+                                    : 'ri-star-line text-gray-300'
+                                }`}
+                              ></i>
+                            ))}
+                          </div>
+                          <span className="text-gray-500">({relatedProduct.total_reviews || 0})</span>
+                        </div>
+                      )}
+                      
+                      {/* Price */}
+                      <div className="flex items-center space-x-2">
+                        <span className="font-bold text-sm text-gray-900">
+                          {relatedProduct.formatted_price || `${selectedCurrency.symbol}${relatedProduct.price}`}
+                        </span>
+                        {relatedProduct.original_price && relatedProduct.original_price > relatedProduct.price && (
+                          <span className="text-xs text-gray-500 line-through">
+                            {relatedProduct.formatted_original_price || `${selectedCurrency.symbol}${relatedProduct.original_price}`}
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Stock Status */}
+                      <div className="text-xs">
+                        {relatedProduct.stock_quantity > 0 ? (
+                          <span className="text-green-600">In Stock</span>
+                        ) : (
+                          <span className="text-red-600">Out of Stock</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              // No related products found
+              <div className="bg-gray-50 p-6 rounded-lg text-center">
+                <div className="text-gray-400 text-4xl mb-2">🛍️</div>
+                <p className="text-gray-600">No related products found</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  Check back later for similar products.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </main>
