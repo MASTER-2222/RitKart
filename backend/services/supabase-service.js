@@ -212,6 +212,35 @@ const userService = {
       console.error('❌ Get user profile failed:', error.message);
       return { success: false, error: error.message };
     }
+  },
+
+  // Update user profile
+  updateProfile: async (userId, profileData) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Prepare update data
+      const updateData = {
+        updated_at: new Date().toISOString()
+      };
+
+      if (profileData.fullName) updateData.full_name = profileData.fullName;
+      if (profileData.phone !== undefined) updateData.phone = profileData.phone;
+      if (profileData.dateOfBirth !== undefined) updateData.date_of_birth = profileData.dateOfBirth;
+
+      const { data, error } = await client
+        .from('users')
+        .update(updateData)
+        .eq('id', userId)
+        .select()
+        .single();
+
+      if (error) throw error;
+      return { success: true, user: data };
+    } catch (error) {
+      console.error('❌ Update user profile failed:', error.message);
+      return { success: false, error: error.message };
+    }
   }
 };
 
