@@ -240,6 +240,8 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
   const [buyingNow, setBuyingNow] = useState(false);
   const [cartMessage, setCartMessage] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [relatedLoading, setRelatedLoading] = useState(true);
 
   // Fetch product data from API
   useEffect(() => {
