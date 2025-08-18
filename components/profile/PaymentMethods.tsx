@@ -1,44 +1,11 @@
 'use client';
-import { useState } from 'react';
-
-interface PaymentMethod {
-  id: string;
-  type: 'card' | 'upi';
-  name: string;
-  details: string;
-  lastFour?: string;
-  expiryDate?: string;
-  isDefault: boolean;
-}
+import { useState, useEffect } from 'react';
+import { apiClient, PaymentMethod } from '../../utils/api';
 
 export default function PaymentMethods() {
-  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
-    {
-      id: '1',
-      type: 'card',
-      name: 'Visa ending in 4567',
-      details: '**** **** **** 4567',
-      lastFour: '4567',
-      expiryDate: '12/26',
-      isDefault: true
-    },
-    {
-      id: '2',
-      type: 'card',
-      name: 'Mastercard ending in 9012',
-      details: '**** **** **** 9012',
-      lastFour: '9012',
-      expiryDate: '08/25',
-      isDefault: false
-    },
-    {
-      id: '3',
-      type: 'upi',
-      name: 'Google Pay',
-      details: 'john.doe@paytm',
-      isDefault: false
-    }
-  ]);
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingMethod, setEditingMethod] = useState<PaymentMethod | null>(null);
