@@ -706,6 +706,113 @@ const productService = {
       console.error('❌ Update product bestseller status failed:', error.message);
       return { success: false, error: error.message };
     }
+  },
+
+  // Get related products based on category and description similarity
+  getRelatedProducts: async (productId, limit = 10) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // First, get the current product to determine category and description
+      const { data: currentProduct, error: currentError } = await client
+        .from('products')
+        .select('id, name, category_id, description, short_description')
+        .eq('id', productId)
+        .eq('is_active', true)
+        .single();
+
+      if (currentError) throw new Error(`Current product not found: ${currentError.message}`);
+
+      // Get related products by same category first, excluding the current product
+      const { data: categoryProducts, error: categoryError } = await client
+        .from('products')
+        .select(`
+          id,
+          name,
+          price,
+          original_price,
+          images,
+          brand,
+          stock_quantity,
+          rating_average,
+          total_reviews,
+          short_description,
+          description,
+          category_id,
+          categories (
+            name
+          )
+        `)
+        .eq('category_id', currentProduct.category_id)
+        .eq('is_active', true)
+        .neq('id', productId)
+        .limit(limit)
+        .order('created_at', { ascending: false });
+
+      if (categoryError) throw categoryError;
+
+      let relatedProducts = categoryProducts || [];
+
+      // If we don't have enough products from the same category, fill with products from other categories
+      if (relatedProducts.length < limit) {
+        const remainingLimit = limit - relatedProducts.length;
+        const existingIds = relatedProducts.map(p => p.id).concat([productId]);
+
+        const { data: otherProducts, error: otherError } = await client
+          .from('products')
+          .select(`
+            id,
+            name,
+            price,
+            original_price,
+            images,
+            brand,
+            stock_quantity,
+            rating_average,
+            total_reviews,
+            short_description,
+            description,
+            category_id,
+            categories (
+              name
+            )
+          `)
+          .eq('is_active', true)
+          .not('id', 'in', `(${existingIds.join(',')})`)
+          .limit(remainingLimit)
+          .order('rating_average', { ascending: false });
+
+        if (otherError) throw otherError;
+
+        if (otherProducts) {
+          relatedProducts = [...relatedProducts, ...otherProducts];
+        }
+      }
+
+      // Transform the data to match expected format
+      const transformedProducts = relatedProducts.map(product => ({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        original_price: product.original_price,
+        images: product.images,
+        brand: product.brand,
+        category_name: product.categories?.name,
+        stock_quantity: product.stock_quantity,
+        rating_average: product.rating_average,
+        total_reviews: product.total_reviews,
+        short_description: product.short_description,
+        description: product.description
+      }));
+
+      return { 
+        success: true, 
+        products: transformedProducts.slice(0, limit) // Ensure we don't exceed the limit
+      };
+    } catch (error) {
+      console.error('❌ Get related products failed:', error.message);
+      return { success: false, error: error.message };
+    }
   }
 };
 
