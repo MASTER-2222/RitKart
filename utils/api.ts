@@ -617,4 +617,80 @@ export interface ReviewStats {
   };
 }
 
+// Profile Enhancement interfaces
+export interface ProfileDashboard {
+  user: {
+    id: string;
+    email: string;
+    fullName: string;
+    memberSince: string;
+  };
+  stats: {
+    totalOrders: number;
+    activeDeliveries: number;
+    completedOrders: number;
+    totalSpent: number;
+    cartItems: number;
+    wishlistItems: number;
+  };
+  recentOrders: Array<{
+    id: string;
+    date: string;
+    status: string;
+    totalAmount: number;
+    items: Array<{
+      name: string;
+      image: string;
+      price: number;
+    }>;
+  }>;
+}
+
+export interface Address {
+  id: string;
+  type: string;
+  name: string;
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  phone?: string;
+  isDefault: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PaymentMethod {
+  id: string;
+  type: 'card' | 'upi';
+  name: string;
+  details: string;
+  lastFour?: string;
+  expiryDate?: string;
+  isDefault: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface WishlistItem {
+  id: string;
+  productId: string;
+  dateAdded: string;
+  product: {
+    id: string;
+    name: string;
+    price: number;
+    originalPrice?: number;
+    image: string;
+    rating: number;
+    reviewCount: number;
+    isPrime?: boolean;
+    isDeliveryTomorrow?: boolean;
+    discount?: number;
+    inStock: boolean;
+    brand?: string;
+  };
+}
+
 export default apiClient;
