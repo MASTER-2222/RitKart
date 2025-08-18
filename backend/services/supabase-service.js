@@ -1723,6 +1723,381 @@ const dealsService = {
   }
 };
 
+// ==============================================
+// 📝 USER REVIEWS MANAGEMENT SERVICES
+// ==============================================
+const userReviewService = {
+  // Get reviews for a specific product
+  getReviewsByProduct: async (productId, page = 1, limit = 10) => {
+    try {
+      const client = getSupabaseClient();
+      const offset = (page - 1) * limit;
+      
+      // Get reviews with user information
+      const { data: reviews, error, count } = await client
+        .from('user_reviews')
+        .select(`
+          id,
+          rating,
+          review_text,
+          images,
+          created_at,
+          updated_at,
+          users!inner (
+            id,
+            full_name,
+            email
+          )
+        `, { count: 'exact' })
+        .eq('product_id', productId)
+        .eq('is_approved', true)
+        .range(offset, offset + limit - 1)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // Get review statistics
+      const { data: stats } = await client
+        .from('user_reviews')
+        .select('rating')
+        .eq('product_id', productId)
+        .eq('is_approved', true);
+
+      // Calculate statistics
+      const reviewStats = {
+        totalReviews: stats?.length || 0,
+        averageRating: 0,
+        ratingDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+      };
+
+      if (stats && stats.length > 0) {
+        const totalRating = stats.reduce((sum, review) => sum + review.rating, 0);
+        reviewStats.averageRating = Math.round((totalRating / stats.length) * 10) / 10;
+        
+        stats.forEach(review => {
+          reviewStats.ratingDistribution[review.rating]++;
+        });
+      }
+
+      // Transform reviews data
+      const transformedReviews = reviews?.map(review => ({
+        id: review.id,
+        rating: review.rating,
+        review_text: review.review_text,
+        images: review.images || [],
+        created_at: review.created_at,
+        updated_at: review.updated_at,
+        user: {
+          id: review.users.id,
+          name: review.users.full_name || 'Anonymous User',
+          email: review.users.email
+        }
+      })) || [];
+
+      return { 
+        success: true, 
+        reviews: transformedReviews,
+        stats: reviewStats,
+        totalCount: count,
+        currentPage: page,
+        totalPages: Math.ceil(count / limit)
+      };
+    } catch (error) {
+      console.error('❌ Get reviews by product failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Create a new review
+  createReview: async (reviewData) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Check if user already reviewed this product
+      const { data: existingReview } = await client
+        .from('user_reviews')
+        .select('id')
+        .eq('user_id', reviewData.user_id)
+        .eq('product_id', reviewData.product_id)
+        .single();
+
+      if (existingReview) {
+        return { success: false, error: 'You have already reviewed this product. You can edit your existing review instead.' };
+      }
+
+      // Verify product exists
+      const { data: product, error: productError } = await client
+        .from('products')
+        .select('id, name')
+        .eq('id', reviewData.product_id)
+        .single();
+
+      if (productError || !product) {
+        return { success: false, error: 'Product not found' };
+      }
+
+      const { data, error } = await client
+        .from('user_reviews')
+        .insert([reviewData])
+        .select(`
+          id,
+          rating,
+          review_text,
+          images,
+          created_at,
+          updated_at,
+          users!inner (
+            id,
+            full_name,
+            email
+          )
+        `)
+        .single();
+
+      if (error) throw error;
+
+      // Transform response
+      const transformedReview = {
+        id: data.id,
+        rating: data.rating,
+        review_text: data.review_text,
+        images: data.images || [],
+        created_at: data.created_at,
+        updated_at: data.updated_at,
+        user: {
+          id: data.users.id,
+          name: data.users.full_name || 'Anonymous User',
+          email: data.users.email
+        }
+      };
+
+      return { success: true, review: transformedReview };
+    } catch (error) {
+      console.error('❌ Create review failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Update user's own review
+  updateReview: async (reviewId, userId, updateData) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Get current review to verify ownership and get current images
+      const { data: currentReview, error: fetchError } = await client
+        .from('user_reviews')
+        .select('user_id, images')
+        .eq('id', reviewId)
+        .single();
+
+      if (fetchError || !currentReview) {
+        return { success: false, error: 'Review not found' };
+      }
+
+      if (currentReview.user_id !== userId) {
+        return { success: false, error: 'You can only edit your own reviews' };
+      }
+
+      // Handle image updates
+      let finalImages = currentReview.images || [];
+      
+      // Remove specified images
+      if (updateData.remove_images && updateData.remove_images.length > 0) {
+        finalImages = finalImages.filter(img => !updateData.remove_images.includes(img));
+      }
+      
+      // Add new images
+      if (updateData.new_images && updateData.new_images.length > 0) {
+        finalImages = [...finalImages, ...updateData.new_images];
+        
+        // Enforce 5 image limit
+        if (finalImages.length > 5) {
+          return { success: false, error: 'Maximum 5 images allowed per review' };
+        }
+      }
+
+      // Prepare update object
+      const reviewUpdate = {};
+      if (updateData.rating !== undefined) reviewUpdate.rating = updateData.rating;
+      if (updateData.review_text !== undefined) reviewUpdate.review_text = updateData.review_text;
+      if (updateData.new_images || updateData.remove_images) reviewUpdate.images = finalImages;
+
+      const { data, error } = await client
+        .from('user_reviews')
+        .update(reviewUpdate)
+        .eq('id', reviewId)
+        .eq('user_id', userId)
+        .select(`
+          id,
+          rating,
+          review_text,
+          images,
+          created_at,
+          updated_at,
+          users!inner (
+            id,
+            full_name,
+            email
+          )
+        `)
+        .single();
+
+      if (error) throw error;
+
+      // Transform response
+      const transformedReview = {
+        id: data.id,
+        rating: data.rating,
+        review_text: data.review_text,
+        images: data.images || [],
+        created_at: data.created_at,
+        updated_at: data.updated_at,
+        user: {
+          id: data.users.id,
+          name: data.users.full_name || 'Anonymous User',
+          email: data.users.email
+        }
+      };
+
+      return { success: true, review: transformedReview };
+    } catch (error) {
+      console.error('❌ Update review failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Get user's own reviews
+  getUserReviews: async (userId, page = 1, limit = 10) => {
+    try {
+      const client = getSupabaseClient();
+      const offset = (page - 1) * limit;
+      
+      const { data, error, count } = await client
+        .from('user_reviews')
+        .select(`
+          id,
+          rating,
+          review_text,
+          images,
+          created_at,
+          updated_at,
+          products!inner (
+            id,
+            name,
+            slug,
+            images
+          )
+        `, { count: 'exact' })
+        .eq('user_id', userId)
+        .range(offset, offset + limit - 1)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // Transform reviews data
+      const transformedReviews = data?.map(review => ({
+        id: review.id,
+        rating: review.rating,
+        review_text: review.review_text,
+        images: review.images || [],
+        created_at: review.created_at,
+        updated_at: review.updated_at,
+        product: {
+          id: review.products.id,
+          name: review.products.name,
+          slug: review.products.slug,
+          image: review.products.images?.[0] || ''
+        }
+      })) || [];
+
+      return { 
+        success: true, 
+        reviews: transformedReviews,
+        totalCount: count,
+        currentPage: page,
+        totalPages: Math.ceil(count / limit)
+      };
+    } catch (error) {
+      console.error('❌ Get user reviews failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Delete user's own review
+  deleteReview: async (reviewId, userId) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Verify ownership before deletion
+      const { data: review, error: fetchError } = await client
+        .from('user_reviews')
+        .select('user_id, images')
+        .eq('id', reviewId)
+        .single();
+
+      if (fetchError || !review) {
+        return { success: false, error: 'Review not found' };
+      }
+
+      if (review.user_id !== userId) {
+        return { success: false, error: 'You can only delete your own reviews' };
+      }
+
+      // Delete review
+      const { error: deleteError } = await client
+        .from('user_reviews')
+        .delete()
+        .eq('id', reviewId)
+        .eq('user_id', userId);
+
+      if (deleteError) throw deleteError;
+
+      // TODO: Clean up associated image files
+      // This could be implemented to remove orphaned images from filesystem
+
+      return { success: true, message: 'Review deleted successfully' };
+    } catch (error) {
+      console.error('❌ Delete review failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
+  // Get review statistics for a product
+  getReviewStats: async (productId) => {
+    try {
+      const client = getSupabaseClient();
+      
+      const { data: reviews, error } = await client
+        .from('user_reviews')
+        .select('rating')
+        .eq('product_id', productId)
+        .eq('is_approved', true);
+
+      if (error) throw error;
+
+      const stats = {
+        totalReviews: reviews?.length || 0,
+        averageRating: 0,
+        ratingDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+      };
+
+      if (reviews && reviews.length > 0) {
+        const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+        stats.averageRating = Math.round((totalRating / reviews.length) * 10) / 10;
+        
+        reviews.forEach(review => {
+          stats.ratingDistribution[review.rating]++;
+        });
+      }
+
+      return { success: true, stats };
+    } catch (error) {
+      console.error('❌ Get review stats failed:', error.message);
+      return { success: false, error: error.message };
+    }
+  }
+};
+
 module.exports = {
   initializeSupabase,
   getSupabaseClient,
@@ -1735,4 +2110,5 @@ module.exports = {
   orderService,
   bannerService,
   dealsService,
+  userReviewService,
 };
