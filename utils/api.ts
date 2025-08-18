@@ -445,4 +445,36 @@ export interface Cart {
   status?: string;
 }
 
+export interface UserReview {
+  id: string;
+  rating: number;
+  review_text: string;
+  images: string[];
+  created_at: string;
+  updated_at: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  product?: {
+    id: string;
+    name: string;
+    slug: string;
+    image: string;
+  };
+}
+
+export interface ReviewStats {
+  totalReviews: number;
+  averageRating: number;
+  ratingDistribution: {
+    1: number;
+    2: number;
+    3: number;
+    4: number;
+    5: number;
+  };
+}
+
 export default apiClient;
