@@ -13,7 +13,7 @@ import os
 from datetime import datetime
 
 # Configuration
-BACKEND_URL = "http://localhost:8001/api"  # Internal backend URL for testing
+BACKEND_URL = "http://localhost:10000/api"  # Internal backend URL for testing
 TEST_USER_EMAIL = "testuser@ritzone.com"
 TEST_USER_PASSWORD = "TestPassword123!"
 TEST_USER_NAME = "Test User"
