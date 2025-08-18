@@ -97,9 +97,9 @@ router.get('/product/:productId', async (req, res) => {
 // ==============================================
 // 📝 CREATE USER REVIEW
 // ==============================================
-router.post('/', authMiddleware, upload.array('images', 5), async (req, res) => {
+router.post('/', authenticateToken, upload.array('images', 5), async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { productId, rating, reviewText } = req.body;
 
     // Validate required fields
