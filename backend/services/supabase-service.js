@@ -1981,7 +1981,7 @@ const userReviewService = {
           images,
           created_at,
           updated_at,
-          products!inner (
+          products!user_reviews_product_id_fkey (
             id,
             name,
             slug,
