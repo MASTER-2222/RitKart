@@ -397,7 +397,12 @@ export default function CartPage() {
                           alt={product.name}
                           className="w-20 h-20 object-cover rounded mx-auto mb-2"
                         />
-                        <h4 className="text-sm font-medium mb-1 text-left line-clamp-2" title={product.name}>
+                        <h4 className="text-sm font-medium mb-1 text-left overflow-hidden" style={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical' as 'vertical',
+                          maxHeight: '2.5em'
+                        }} title={product.name}>
                           {product.name}
                         </h4>
                         {product.brand && (
