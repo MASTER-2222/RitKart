@@ -764,8 +764,8 @@ def main():
     print("📅 January 2025 - Comprehensive API Testing")
     print("=" * 80)
     
-    # Initialize tester with local development server
-    tester = ProfileEnhancementTester("http://localhost:10000/api")
+    # Initialize tester with production server
+    tester = ProfileEnhancementTester("https://ritzone-frontend.onrender.com/api")
     
     # Run all tests
     success = tester.run_all_tests()
