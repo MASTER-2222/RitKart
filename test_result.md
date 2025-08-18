@@ -346,6 +346,9 @@ backend:
       - working: false
         agent: "testing"
         comment: "❌ ADDRESS MANAGEMENT BLOCKED BY DATABASE: GET/POST/PUT/DELETE /api/profile/addresses endpoints implemented but failing with 500 errors. ROOT CAUSE: 'Could not find the table public.user_addresses in the schema cache'. SOLUTION REQUIRED: Execute /app/backend/profile-enhancement-schema.sql in Supabase SQL Editor to create missing user_addresses table. API code is complete and ready to work once table exists."
+      - working: false
+        agent: "main"
+        comment: "🔄 DATABASE SCHEMA UPDATED: User has manually executed profile-enhancement-schema.sql. The user_addresses table should now exist. Marking for retesting to verify API functionality after database schema update."
 
   - task: "Implement Payment Methods Management API endpoints"
     implemented: true
