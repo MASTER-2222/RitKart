@@ -266,6 +266,69 @@ class ApiClient {
   async getProfile() {
     return this.makeRequest('/auth/profile');
   }
+
+  // User Reviews API
+  async getProductReviews(productId: string, params?: {
+    page?: number;
+    limit?: number;
+  }) {
+    const searchParams = new URLSearchParams();
+    if (params?.page) searchParams.set('page', params.page.toString());
+    if (params?.limit) searchParams.set('limit', params.limit.toString());
+    
+    const query = searchParams.toString();
+    return this.makeRequest(`/reviews/product/${productId}${query ? `?${query}` : ''}`);
+  }
+
+  async createReview(formData: FormData) {
+    return this.makeRequest('/reviews', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        // Remove Content-Type header to allow FormData to set it with boundary
+        ...Object.fromEntries(
+          Object.entries(this.makeRequest === undefined ? {} : {})
+            .filter(([key]) => key !== 'Content-Type')
+        )
+      },
+    });
+  }
+
+  async updateReview(reviewId: string, formData: FormData) {
+    return this.makeRequest(`/reviews/${reviewId}`, {
+      method: 'PUT',
+      body: formData,
+      headers: {
+        // Remove Content-Type header to allow FormData to set it with boundary
+        ...Object.fromEntries(
+          Object.entries(this.makeRequest === undefined ? {} : {})
+            .filter(([key]) => key !== 'Content-Type')
+        )
+      },
+    });
+  }
+
+  async deleteReview(reviewId: string) {
+    return this.makeRequest(`/reviews/${reviewId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  async getUserReviews(params?: {
+    page?: number;
+    limit?: number;
+  }) {
+    const searchParams = new URLSearchParams();
+    if (params?.page) searchParams.set('page', params.page.toString());
+    if (params?.limit) searchParams.set('limit', params.limit.toString());
+    
+    const query = searchParams.toString();
+    return this.makeRequest(`/reviews/my-reviews${query ? `?${query}` : ''}`);
+  }
+
+  async getReviewStats(productId: string) {
+    return this.makeRequest(`/reviews/stats/${productId}`);
+  }
 }
 
 // Export singleton instance
