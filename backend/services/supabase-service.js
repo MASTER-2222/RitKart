@@ -802,7 +802,8 @@ const productService = {
         rating_average: product.rating_average,
         total_reviews: product.total_reviews,
         short_description: product.short_description,
-        description: product.description
+        description: product.description,
+        is_active: true // All products are filtered for is_active: true
       }));
 
       return { 
