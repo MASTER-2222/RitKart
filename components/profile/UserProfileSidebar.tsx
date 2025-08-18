@@ -10,6 +10,30 @@ interface UserProfileSidebarProps {
 
 export default function UserProfileSidebar({ activeSection, onSectionChange }: UserProfileSidebarProps) {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [userInfo, setUserInfo] = useState<{fullName: string; email: string} | null>(null);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await apiClient.getProfile();
+        if (response.success) {
+          const user = response.data.user || response.data;
+          setUserInfo({
+            fullName: user.fullName || user.full_name || 'User',
+            email: user.email || 'user@example.com'
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+        setUserInfo({
+          fullName: 'User',
+          email: 'user@example.com'
+        });
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: 'ri-dashboard-line' },
