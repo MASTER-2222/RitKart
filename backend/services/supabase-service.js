@@ -2065,7 +2065,7 @@ const userReviewService = {
   // Get review statistics for a product
   getReviewStats: async (productId) => {
     try {
-      const client = getSupabaseClient();
+      const client = getAdminSupabaseClient();
       
       const { data: reviews, error } = await client
         .from('user_reviews')
