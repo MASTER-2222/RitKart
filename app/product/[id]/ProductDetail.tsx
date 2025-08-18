@@ -738,7 +738,7 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
                     
                     {/* Product Details */}
                     <div className="space-y-1">
-                      <h3 className="font-medium text-sm text-gray-900 line-clamp-2 group-hover:text-blue-600">
+                      <h3 className="font-medium text-sm text-gray-900 truncate group-hover:text-blue-600" title={relatedProduct.name}>
                         {relatedProduct.name}
                       </h3>
                       
