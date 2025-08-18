@@ -1,85 +1,61 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { apiClient } from '../../utils/api';
+
+interface OrderItem {
+  id: string;
+  product_id: string;
+  quantity: number;
+  unit_price: number;
+  total_price: number;
+  products: {
+    id: string;
+    name: string;
+    images: string[];
+    brand: string;
+  };
+}
+
+interface Order {
+  id: string;
+  status: string;
+  total_amount: number;
+  created_at: string;
+  delivery_address: string;
+  tracking_number?: string;
+  estimated_delivery?: string;
+  order_items: OrderItem[];
+}
 
 export default function MyOrders() {
+  const [orders, setOrders] = useState<Order[]>([]);
   const [filterStatus, setFilterStatus] = useState('all');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const orders = [
-    {
-      id: '#RZ-001234',
-      date: 'December 15, 2023',
-      status: 'Delivered',
-      total: '$1,599.00',
-      items: [
-        {
-          id: '1',
-          name: 'Apple MacBook Pro 14-inch M3 Chip',
-          image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=100&h=100&fit=crop&crop=center',
-          price: '$1,599.00',
-          quantity: 1
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await apiClient.getOrders();
+        
+        if (response.success) {
+          setOrders(response.data.orders || response.data || []);
+        } else {
+          setError(response.message || 'Failed to load orders');
         }
-      ],
-      deliveryAddress: '123 Main St, New York, NY 10001',
-      trackingNumber: 'TRK123456789'
-    },
-    {
-      id: '#RZ-001235',
-      date: 'December 18, 2023',
-      status: 'In Transit',
-      total: '$358.00',
-      items: [
-        {
-          id: 'f2',
-          name: 'Nike Air Force 1 \'07 White Leather Sneakers',
-          image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=100&h=100&fit=crop&crop=center',
-          price: '$110.00',
-          quantity: 1
-        },
-        {
-          id: '2',
-          name: 'Sony WH-1000XM4 Wireless Headphones',
-          image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=100&h=100&fit=crop&crop=center',
-          price: '$248.00',
-          quantity: 1
-        }
-      ],
-      deliveryAddress: '123 Main St, New York, NY 10001',
-      trackingNumber: 'TRK123456790',
-      estimatedDelivery: 'December 22, 2023'
-    },
-    {
-      id: '#RZ-001236',
-      date: 'December 20, 2023',
-      status: 'Processing',
-      total: '$129.99',
-      items: [
-        {
-          id: 's2',
-          name: 'Nike Men\'s Air Zoom Pegasus 39 Running Shoes',
-          image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&h=100&fit=crop&crop=center',
-          price: '$129.99',
-          quantity: 1
-        }
-      ],
-      deliveryAddress: '123 Main St, New York, NY 10001'
-    },
-    {
-      id: '#RZ-001237',
-      date: 'December 12, 2023',
-      status: 'Cancelled',
-      total: '$79.00',
-      items: [
-        {
-          id: 'a1',
-          name: 'Instant Pot Duo 7-in-1 Electric Pressure Cooker',
-          image: 'https://images.unsplash.com/photo-1585515656617-d405f574bfa3?w=100&h=100&fit=crop&crop=center',
-          price: '$79.00',
-          quantity: 1
-        }
-      ],
-      deliveryAddress: '123 Main St, New York, NY 10001'
-    }
-  ];
+      } catch (err) {
+        console.error('Error fetching orders:', err);
+        setError('Failed to load orders. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
 
   const filteredOrders = filterStatus === 'all' 
     ? orders 
@@ -101,16 +77,61 @@ export default function MyOrders() {
   };
 
   const handleTrackOrder = (trackingNumber: string) => {
+    // TODO: Implement order tracking functionality
     console.log('Tracking order:', trackingNumber);
   };
 
   const handleReorder = (orderId: string) => {
+    // TODO: Implement reorder functionality
     console.log('Reordering:', orderId);
   };
 
   const handleCancelOrder = (orderId: string) => {
+    // TODO: Implement order cancellation functionality
     console.log('Cancelling order:', orderId);
   };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg shadow-sm border p-6">
+        <div className="animate-pulse">
+          <div className="flex items-center justify-between mb-6">
+            <div className="h-8 bg-gray-200 rounded w-32"></div>
+            <div className="h-10 bg-gray-200 rounded w-32"></div>
+          </div>
+          <div className="space-y-6">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="border rounded-lg p-6">
+                <div className="h-6 bg-gray-200 rounded w-40 mb-4"></div>
+                <div className="h-4 bg-gray-200 rounded w-64 mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-48"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white rounded-lg shadow-sm border p-6">
+        <div className="text-center py-12">
+          <div className="text-red-500 mb-4">
+            <i className="ri-error-warning-line text-6xl"></i>
+          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Orders</h3>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-sm border p-6">
@@ -151,23 +172,23 @@ export default function MyOrders() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="flex items-center space-x-4 mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">Order {order.id}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">Order #{order.id}</h3>
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(order.status)}`}>
                       {order.status}
                     </span>
                   </div>
                   <div className="text-sm text-gray-600 space-y-1">
-                    <div>Order Date: {order.date}</div>
-                    <div>Total: {order.total}</div>
-                    {order.estimatedDelivery && (
-                      <div>Estimated Delivery: {order.estimatedDelivery}</div>
+                    <div>Order Date: {new Date(order.created_at).toLocaleDateString()}</div>
+                    <div>Total: ₹{order.total_amount.toFixed(2)}</div>
+                    {order.estimated_delivery && (
+                      <div>Estimated Delivery: {new Date(order.estimated_delivery).toLocaleDateString()}</div>
                     )}
                   </div>
                 </div>
                 <div className="flex space-x-2">
-                  {order.trackingNumber && order.status !== 'Delivered' && order.status !== 'Cancelled' && (
+                  {order.tracking_number && order.status !== 'Delivered' && order.status !== 'Cancelled' && (
                     <button
-                      onClick={() => handleTrackOrder(order.trackingNumber)}
+                      onClick={() => handleTrackOrder(order.tracking_number!)}
                       className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap"
                     >
                       Track Order
@@ -193,19 +214,23 @@ export default function MyOrders() {
               </div>
 
               <div className="space-y-3">
-                {order.items.map((item, itemIndex) => (
+                {order.order_items.map((item, itemIndex) => (
                   <div key={itemIndex} className="flex items-center space-x-4 p-3 bg-gray-50 rounded">
                     <img
-                      src={item.image}
-                      alt={item.name}
+                      src={item.products.images?.[0] || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop&crop=center'}
+                      alt={item.products.name}
                       className="w-16 h-16 object-cover rounded"
                     />
                     <div className="flex-1">
-                      <h4 className="font-medium text-gray-900">{item.name}</h4>
+                      <h4 className="font-medium text-gray-900">{item.products.name}</h4>
                       <div className="text-sm text-gray-600">
-                        <div>Price: {item.price}</div>
+                        <div>Price: ₹{item.unit_price.toFixed(2)}</div>
                         <div>Quantity: {item.quantity}</div>
+                        {item.products.brand && <div>Brand: {item.products.brand}</div>}
                       </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-medium text-gray-900">₹{item.total_price.toFixed(2)}</div>
                     </div>
                   </div>
                 ))}
@@ -214,12 +239,12 @@ export default function MyOrders() {
               <div className="mt-4 pt-4 border-t border-gray-200 text-sm text-gray-600">
                 <div className="flex items-center">
                   <i className="ri-map-pin-line w-4 h-4 flex items-center justify-center mr-2"></i>
-                  Delivery Address: {order.deliveryAddress}
+                  Delivery Address: {order.delivery_address || 'No address specified'}
                 </div>
-                {order.trackingNumber && (
+                {order.tracking_number && (
                   <div className="flex items-center mt-1">
                     <i className="ri-truck-line w-4 h-4 flex items-center justify-center mr-2"></i>
-                    Tracking: {order.trackingNumber}
+                    Tracking: {order.tracking_number}
                   </div>
                 )}
               </div>
