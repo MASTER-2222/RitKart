@@ -205,7 +205,7 @@ backend:
 
 frontend:
   - task: "Implement Related Products display in ProductDetail component"
-    implemented: false
+    implemented: true
     working: false
     file: "/app/app/product/[id]/ProductDetail.tsx"
     stuck_count: 0
@@ -215,6 +215,9 @@ frontend:
       - working: false
         agent: "main"
         comment: "🎯 NEW TASK: Need to replace placeholder Related Products section with dynamic display of 10 related products fetched from backend API. Each product should show image, name, price and redirect to individual product page on click."
+      - working: false
+        agent: "main"
+        comment: "✅ FRONTEND IMPLEMENTATION COMPLETE: Replaced static Related Products section with dynamic implementation. Added API method getRelatedProducts() to utils/api.ts with currency support. Updated ProductDetail component to fetch and display related products in responsive grid layout (2/3/5 columns). Features: product images, names, brands, ratings, prices with currency conversion, stock status, hover effects, and click-to-navigate functionality. Includes loading states and error handling. Ready for testing."
 
   - task: "Add user review submission form to ProductDetail component"
     implemented: false
