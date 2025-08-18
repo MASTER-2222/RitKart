@@ -314,12 +314,10 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Verify Address Management API after database schema update"
-    - "Verify Payment Methods Management API after database schema update" 
-    - "Verify Wishlist Management API after database schema update"
-    - "Verify Profile Update API after database schema update"
-  stuck_tasks: []
-  test_all: true
+    - "Fix Profile Update API by adding date_of_birth column to users table"
+  stuck_tasks: 
+    - "Implement Profile Update API endpoint"
+  test_all: false
   test_priority: "high_first"
 
 backend:
