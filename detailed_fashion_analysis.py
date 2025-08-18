@@ -11,7 +11,7 @@ import sys
 from datetime import datetime
 
 class DetailedFashionAnalyzer:
-    def __init__(self, base_url="https://app-launcher-35.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://quickstart-app.preview.emergentagent.com/api"):
         self.base_url = base_url
 
     def make_request(self, method, endpoint, data=None, expected_status=200):
