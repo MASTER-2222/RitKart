@@ -186,12 +186,59 @@ const adminUsersService = {
         console.warn('Failed to fetch cart items:', cartError.message);
       }
 
+      // Get user's addresses
+      const { data: addresses, error: addressError } = await client
+        .from('user_addresses')
+        .select('*')
+        .eq('user_id', userId)
+        .order('is_default', { ascending: false });
+
+      if (addressError) {
+        console.warn('Failed to fetch user addresses:', addressError.message);
+      }
+
+      // Get user's payment methods
+      const { data: paymentMethods, error: paymentError } = await client
+        .from('user_payment_methods')
+        .select('*')
+        .eq('user_id', userId)
+        .order('is_default', { ascending: false });
+
+      if (paymentError) {
+        console.warn('Failed to fetch user payment methods:', paymentError.message);
+      }
+
+      // Get user's wishlist items with product details
+      const { data: wishlistItems, error: wishlistError } = await client
+        .from('user_wishlist')
+        .select(`
+          id,
+          product_id,
+          created_at,
+          products (
+            id,
+            name,
+            price,
+            currency,
+            images,
+            brand,
+            stock_quantity
+          )
+        `)
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+
+      if (wishlistError) {
+        console.warn('Failed to fetch user wishlist:', wishlistError.message);
+      }
+
       // Calculate user statistics
       const totalOrders = orders?.length || 0;
       const completedOrders = orders?.filter(order => order.status === 'delivered').length || 0;
       const pendingOrders = orders?.filter(order => order.status === 'pending').length || 0;
       const totalSpent = orders?.reduce((sum, order) => sum + parseFloat(order.total_amount || 0), 0) || 0;
       const cartItemsCount = cartItems?.length || 0;
+      const wishlistItemsCount = wishlistItems?.length || 0;
 
       const userWithDetails = {
         ...user,
