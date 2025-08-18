@@ -391,6 +391,9 @@ backend:
       - working: false
         agent: "testing"
         comment: "❌ PROFILE UPDATE BLOCKED BY DATABASE: PUT /api/auth/profile endpoint implemented but failing with 400 errors. ROOT CAUSE: 'Could not find the date_of_birth column of users in the schema cache'. SOLUTION REQUIRED: Add date_of_birth column to users table or update API to handle missing column gracefully. API code is complete but needs database schema update."
+      - working: false
+        agent: "main"
+        comment: "🔄 DATABASE SCHEMA UPDATED: User has manually executed profile-enhancement-schema.sql. The date_of_birth column should now exist in users table. Marking for retesting to verify API functionality after database schema update."
 
   - task: "Verify Orders API functionality"
     implemented: true
