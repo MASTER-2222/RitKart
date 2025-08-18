@@ -33,7 +33,20 @@ export default function UserProfileSidebar({ activeSection, onSectionChange }: U
     };
 
     fetchUserInfo();
-  }, []);
+
+    // Listen for navigation events from other components
+    const handleNavigateToSection = (event: any) => {
+      if (event.detail) {
+        onSectionChange(event.detail);
+      }
+    };
+
+    window.addEventListener('navigate-to-section', handleNavigateToSection);
+    
+    return () => {
+      window.removeEventListener('navigate-to-section', handleNavigateToSection);
+    };
+  }, [onSectionChange]);
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: 'ri-dashboard-line' },
