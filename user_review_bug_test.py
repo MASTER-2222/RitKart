@@ -94,14 +94,14 @@ class UserReviewBugTester:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and data.get('data', {}).get('session'):
-                    self.auth_token = data['data']['session']['access_token']
-                    self.user_id = data['data']['user']['id']
+                if data.get('success') and data.get('token'):
+                    self.auth_token = data['token']
+                    self.user_id = data['user']['id']
                     self.log("✅ User login successful")
                     self.log(f"🔑 Auth token: {self.auth_token[:20]}...")
                     return True
                 else:
-                    self.log(f"❌ Login response missing session data: {data}", "ERROR")
+                    self.log(f"❌ Login response missing token data: {data}", "ERROR")
                     return False
             else:
                 self.log(f"❌ User login failed: {response.status_code} - {response.text}", "ERROR")
