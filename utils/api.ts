@@ -36,9 +36,12 @@ class ApiClient {
   private async makeRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
     
-    const defaultHeaders = {
-      'Content-Type': 'application/json',
-    };
+    const defaultHeaders: Record<string, string> = {};
+
+    // Only set Content-Type for non-FormData requests
+    if (!(options.body instanceof FormData)) {
+      defaultHeaders['Content-Type'] = 'application/json';
+    }
 
     // Add auth token if available (from Supabase)
     if (typeof window !== 'undefined') {
