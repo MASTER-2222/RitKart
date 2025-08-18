@@ -141,16 +141,18 @@ export default function PaymentMethods() {
     }
   };
 
-  const handleDeletePaymentMethod = (methodId: string) => {
-    const methodToDelete = paymentMethods.find(method => method.id === methodId);
-    if (!methodToDelete) return;
-
-    if (methodToDelete.isDefault && paymentMethods.length > 1) {
-      const remainingMethods = paymentMethods.filter(method => method.id !== methodId);
-      remainingMethods[0].isDefault = true;
-      setPaymentMethods(remainingMethods);
-    } else {
-      setPaymentMethods(prev => prev.filter(method => method.id !== methodId));
+  const handleDeletePaymentMethod = async (methodId: string) => {
+    try {
+      const response = await apiClient.deletePaymentMethod(methodId);
+      
+      if (response.success) {
+        setPaymentMethods(prev => prev.filter(method => method.id !== methodId));
+      } else {
+        setError(response.message || 'Failed to delete payment method');
+      }
+    } catch (err) {
+      console.error('Error deleting payment method:', err);
+      setError('Failed to delete payment method. Please try again.');
     }
   };
 
