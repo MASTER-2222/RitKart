@@ -103,9 +103,10 @@
 #====================================================================================================
 
 user_problem_statement: |
-  RitZone Cart Page "You might also like" Enhancement:
+  RitZone Profile Page Dynamic Enhancement:
   
   PREVIOUS COMPLETION STATE:
+  - ✅ Cart Page "You might also like" enhancement completed with dynamic related products
   - ✅ Admin Panel (/admin/products) fully functional with CRUD operations for all 345 products
   - ✅ Reviews field added and working in admin panel for admin-created reviews
   - ✅ Backend API supports reviews field in all endpoints
@@ -114,26 +115,35 @@ user_problem_statement: |
   - ✅ User Review System partially implemented (backend ready, database schema issue resolved)
   - ✅ Related Products API implemented and tested (GET /api/products/:id/related) - working perfectly
   
-  NEW REQUIREMENTS - CART PAGE ENHANCEMENT:
-  1. ISSUE: Currently, when registered users visit Cart Page (/cart), the "You might also like" section shows only dummy/static/hardcoded data
-  2. REQUIREMENT: Replace with dynamic related products showing 10 related products with:
-     - Price and images
-     - Proper text content (title/description)
-     - Must be fetched dynamically from Backend and Database (not hardcoded/static)
-     - Related products based on Product Description and Category matching
+  NEW REQUIREMENTS - PROFILE PAGE DYNAMIC ENHANCEMENT:
+  1. ISSUE: Currently, the Profile Page (/profile) for registered users displays static/dummy/hardcoded data
+  2. SECTIONS TO MAKE DYNAMIC:
+     - Dashboard: Dynamic user statistics, recent orders, wishlist count, cart items
+     - Personal Info: Real user data from authentication/database with edit functionality
+     - My Orders: Real orders from database with proper status, tracking, actions
+     - Wishlist: Real wishlist items from database with product details
+     - Address Book: Real saved addresses from database with CRUD operations
+     - Payment Methods: Real payment methods from database with CRUD operations
   3. FUNCTIONALITY:
-     - When user clicks "Add to Cart" button of any related product → redirect to Individual Product Page of that product
-     - Related products must be generated dynamically based on cart items' categories and descriptions
-  4. IMPLEMENTATION SCOPE:
-     - Utilize existing GET /api/products/:id/related endpoint (already working)
-     - Update Cart page frontend to fetch and display dynamic related products
-     - Replace hardcoded addon products with real database-driven content
-  5. CONSTRAINTS:
+     - All sections must fetch data from Backend and Database (not hardcoded/static)
+     - User-specific data synchronized with authentication
+     - Full CRUD operations where applicable
+     - Dynamic statistics and counts
+  4. ADMIN PANEL SYNCHRONIZATION:
+     - Same data visible in Admin Panel under Users Section (/admin/users)
+     - Two-way synchronization: User Profile Page ↔ Backend/Database ↔ Admin Panel
+     - Profile Info section in admin must show same dynamic data
+  5. IMPLEMENTATION SCOPE:
+     - Create backend API endpoints for profile data operations
+     - Update frontend components to fetch and display real user data
+     - Implement proper authentication-based data fetching
+     - Ensure admin panel shows same synchronized data
+  6. CONSTRAINTS:
      - Don't change environment variables for backend and frontend
      - Use .env.local for development if necessary
      - Frontend is in root folder, backend is in backend folder
   
-  GOAL: Complete cart page enhancement with dynamic "You might also like" section showing real products from database, with click-to-product-page functionality.
+  GOAL: Convert static Profile Page into dynamic, database-driven interface with full synchronization between user profile and admin panel.
 
 backend:
   - task: "Implement Related Products API endpoint"
