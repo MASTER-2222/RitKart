@@ -119,13 +119,20 @@ class UserReviewBugTester:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and data.get('data', {}).get('products'):
-                    products = data['data']['products']
-                    if products:
+                if data.get('success') and data.get('data'):
+                    products = data['data']
+                    if isinstance(products, list) and products:
                         self.test_product_id = products[0]['id']
                         product_name = products[0]['name']
                         self.log(f"✅ Test product found: {product_name} (ID: {self.test_product_id})")
                         return True
+                    elif isinstance(products, dict) and products.get('products'):
+                        products_list = products['products']
+                        if products_list:
+                            self.test_product_id = products_list[0]['id']
+                            product_name = products_list[0]['name']
+                            self.log(f"✅ Test product found: {product_name} (ID: {self.test_product_id})")
+                            return True
                     else:
                         self.log("❌ No products found in database", "ERROR")
                         return False
