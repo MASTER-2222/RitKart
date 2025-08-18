@@ -338,6 +338,15 @@ export default function PaymentMethods() {
               {editingMethod ? 'Edit Payment Method' : 'Add Payment Method'}
             </h3>
 
+            {error && (
+              <div className="mb-4 bg-red-50 border border-red-200 rounded-lg p-3">
+                <div className="flex items-center">
+                  <i className="ri-error-warning-line text-red-500 mr-2"></i>
+                  <span className="text-red-700 text-sm">{error}</span>
+                </div>
+              </div>
+            )}
+
             <div className="mb-4">
               <div className="flex space-x-4">
                 <button
