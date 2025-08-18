@@ -2026,7 +2026,7 @@ const userReviewService = {
   // Delete user's own review
   deleteReview: async (reviewId, userId) => {
     try {
-      const client = getSupabaseClient();
+      const client = getAdminSupabaseClient();
       
       // Verify ownership before deletion
       const { data: review, error: fetchError } = await client
