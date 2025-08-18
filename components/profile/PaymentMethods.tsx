@@ -43,23 +43,38 @@ export default function PaymentMethods() {
     fetchPaymentMethods();
   }, []);
 
-  const handleAddPaymentMethod = () => {
-    const newMethod: PaymentMethod = {
-      id: Date.now().toString(),
-      type: paymentType,
-      name: paymentType === 'card' 
-        ? `Card ending in ${formData.cardNumber.slice(-4)}`
-        : `UPI - ${formData.upiId}`,
-      details: paymentType === 'card'
-        ? `**** **** **** ${formData.cardNumber.slice(-4)}`
-        : formData.upiId,
-      lastFour: paymentType === 'card' ? formData.cardNumber.slice(-4) : undefined,
-      expiryDate: paymentType === 'card' ? formData.expiryDate : undefined,
-      isDefault: paymentMethods.length === 0
-    };
+  const handleAddPaymentMethod = async () => {
+    try {
+      setSaving(true);
+      setError(null);
+      
+      const paymentData = {
+        type: paymentType,
+        name: paymentType === 'card' 
+          ? `Card ending in ${formData.cardNumber.slice(-4)}`
+          : `UPI - ${formData.upiId}`,
+        details: paymentType === 'card'
+          ? `**** **** **** ${formData.cardNumber.slice(-4)}`
+          : formData.upiId,
+        lastFour: paymentType === 'card' ? formData.cardNumber.slice(-4) : undefined,
+        expiryDate: paymentType === 'card' ? formData.expiryDate : undefined,
+        isDefault: paymentMethods.length === 0
+      };
 
-    setPaymentMethods(prev => [...prev, newMethod]);
-    closeModal();
+      const response = await apiClient.createPaymentMethod(paymentData);
+      
+      if (response.success) {
+        setPaymentMethods(prev => [...prev, response.data.paymentMethod]);
+        closeModal();
+      } else {
+        setError(response.message || 'Failed to add payment method');
+      }
+    } catch (err) {
+      console.error('Error adding payment method:', err);
+      setError('Failed to add payment method. Please try again.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleEditPaymentMethod = (method: PaymentMethod) => {
