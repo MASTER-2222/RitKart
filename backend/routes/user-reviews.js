@@ -188,10 +188,10 @@ router.post('/', authenticateToken, upload.array('images', 5), async (req, res) 
 // ==============================================
 // 📝 UPDATE USER REVIEW
 // ==============================================
-router.put('/:reviewId', authMiddleware, upload.array('images', 5), async (req, res) => {
+router.put('/:reviewId', authenticateToken, upload.array('images', 5), async (req, res) => {
   try {
     const reviewId = req.params.reviewId;
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const { rating, reviewText, removeImages } = req.body;
 
     // Validate rating if provided
