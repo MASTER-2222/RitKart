@@ -378,41 +378,72 @@ export default function CartPage() {
             {cartItems.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm border p-6">
                 <h2 className="text-lg font-bold text-gray-900 mb-4">You might also like</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {[
-                    {
-                      id: 'addon1',
-                      title: 'Apple Magic Mouse',
-                      price: 79,
-                      image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?w=150&h=150&fit=crop&crop=center'
-                    },
-                    {
-                      id: 'addon2',
-                      title: 'USB-C to USB Adapter',
-                      price: 19,
-                      image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=150&h=150&fit=crop&crop=center'
-                    },
-                    {
-                      id: 'addon3',
-                      title: 'Laptop Stand',
-                      price: 49,
-                      image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=150&h=150&fit=crop&crop=center'
-                    }
-                  ].map(addon => (
-                    <div key={addon.id} className="text-center border rounded-lg p-4">
-                      <img 
-                        src={addon.image}
-                        alt={addon.title}
-                        className="w-20 h-20 object-cover rounded mx-auto mb-2"
-                      />
-                      <h4 className="text-sm font-medium mb-1">{addon.title}</h4>
-                      <div className="text-sm font-bold mb-2">{selectedCurrency.symbol}{addon.price}</div>
-                      <button className="bg-[#febd69] hover:bg-[#f3a847] text-black text-xs font-medium py-1 px-3 rounded whitespace-nowrap">
-                        Add to Cart
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                
+                {relatedProductsLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+                    <span className="ml-2 text-gray-600">Loading recommendations...</span>
+                  </div>
+                ) : relatedProducts.length > 0 ? (
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    {relatedProducts.map(product => (
+                      <div 
+                        key={product.id} 
+                        className="text-center border rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer"
+                        onClick={() => router.push(`/product/${product.id}`)}
+                      >
+                        <img 
+                          src={product.images?.[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=150&h=150&fit=crop&crop=center'}
+                          alt={product.name}
+                          className="w-20 h-20 object-cover rounded mx-auto mb-2"
+                        />
+                        <h4 className="text-sm font-medium mb-1 text-left line-clamp-2" title={product.name}>
+                          {product.name}
+                        </h4>
+                        {product.brand && (
+                          <p className="text-xs text-gray-500 mb-1 text-left">{product.brand}</p>
+                        )}
+                        {product.rating_average && (
+                          <div className="flex items-center justify-start mb-1">
+                            <div className="flex text-yellow-400 text-xs">
+                              {[1, 2, 3, 4, 5].map(star => (
+                                <span key={star}>
+                                  {star <= Math.floor(product.rating_average || 0) ? '★' : '☆'}
+                                </span>
+                              ))}
+                            </div>
+                            <span className="text-xs text-gray-500 ml-1">
+                              ({product.rating_average?.toFixed(1)})
+                            </span>
+                          </div>
+                        )}
+                        <div className="text-sm font-bold mb-2 text-left">
+                          {selectedCurrency.symbol}{product.price.toFixed(2)}
+                        </div>
+                        <div className="text-xs text-gray-600 mb-2 text-left">
+                          {product.stock_quantity > 0 && product.is_active ? (
+                            <span className="text-green-600">In Stock</span>
+                          ) : (
+                            <span className="text-red-600">Out of Stock</span>
+                          )}
+                        </div>
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent card click
+                            router.push(`/product/${product.id}`);
+                          }}
+                          className="w-full bg-[#febd69] hover:bg-[#f3a847] text-black text-xs font-medium py-1 px-2 rounded whitespace-nowrap transition-colors"
+                        >
+                          View Product
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500">No recommendations available at the moment.</p>
+                  </div>
+                )}
               </div>
             )}
           </div>
