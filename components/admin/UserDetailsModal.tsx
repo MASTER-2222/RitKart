@@ -321,6 +321,10 @@ export default function UserDetailsModal({
                     </div>
                     <div className="text-sm text-purple-800">Total Spent</div>
                   </div>
+                  <div className="bg-pink-50 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-bold text-pink-600">{currentUser.statistics.wishlistItemsCount || 0}</div>
+                    <div className="text-sm text-pink-800">Wishlist Items</div>
+                  </div>
                   <div className="bg-orange-50 rounded-lg p-4 text-center">
                     <div className="text-2xl font-bold text-orange-600">{currentUser.statistics.joinedDaysAgo}</div>
                     <div className="text-sm text-orange-800">Days Ago</div>
