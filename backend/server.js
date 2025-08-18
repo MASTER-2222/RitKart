@@ -15,6 +15,7 @@ const { initializeSupabase, testConnection } = require('./services/supabase-serv
 
 // Import route handlers
 const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
 const productRoutes = require('./routes/products');
 const categoryRoutes = require('./routes/categories');
 const cartRoutes = require('./routes/cart');
