@@ -17,6 +17,214 @@ interface ProductDetailProps {
   productId: string;
 }
 
+// Reviews Section Component
+interface ReviewsSectionProps {
+  productId: string;
+  user: any;
+  product: Product;
+}
+
+function ReviewsSection({ productId, user, product }: ReviewsSectionProps) {
+  const [userReviews, setUserReviews] = useState<UserReview[]>([]);
+  const [reviewStats, setReviewStats] = useState<ReviewStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [existingUserReview, setExistingUserReview] = useState<UserReview | null>(null);
+
+  useEffect(() => {
+    fetchReviews();
+    fetchReviewStats();
+  }, [productId]);
+
+  const fetchReviews = async () => {
+    try {
+      const response = await apiClient.getProductReviews(productId, { limit: 20 });
+      if (response.success) {
+        setUserReviews(response.data);
+        
+        // Check if current user has already reviewed this product
+        if (user) {
+          const userReview = response.data.find((review: UserReview) => review.user.id === user.id);
+          setExistingUserReview(userReview || null);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch reviews:', error);
+    }
+  };
+
+  const fetchReviewStats = async () => {
+    try {
+      const response = await apiClient.getReviewStats(productId);
+      if (response.success) {
+        setReviewStats(response.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch review stats:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleReviewSubmitted = (newReview: UserReview) => {
+    if (existingUserReview) {
+      // Update existing review
+      setUserReviews(prev => prev.map(review => 
+        review.id === existingUserReview.id ? newReview : review
+      ));
+    } else {
+      // Add new review
+      setUserReviews(prev => [newReview, ...prev]);
+    }
+    setExistingUserReview(newReview);
+    setShowReviewForm(false);
+    fetchReviewStats(); // Refresh stats
+  };
+
+  const handleReviewDeleted = (reviewId: string) => {
+    setUserReviews(prev => prev.filter(review => review.id !== reviewId));
+    setExistingUserReview(null);
+    fetchReviewStats(); // Refresh stats
+  };
+
+  const handleReviewUpdated = (updatedReview: UserReview) => {
+    setUserReviews(prev => prev.map(review => 
+      review.id === updatedReview.id ? updatedReview : review
+    ));
+    setExistingUserReview(updatedReview);
+    fetchReviewStats(); // Refresh stats
+  };
+
+  if (loading) {
+    return (
+      <div className="space-y-4">
+        <div className="animate-pulse bg-gray-200 h-8 w-1/3 rounded"></div>
+        <div className="animate-pulse bg-gray-200 h-32 rounded"></div>
+        <div className="animate-pulse bg-gray-200 h-20 rounded"></div>
+      </div>
+    );
+  }
+
+  const combinedRating = reviewStats && reviewStats.totalReviews > 0 
+    ? reviewStats.averageRating 
+    : product.rating_average;
+  
+  const totalReviews = (reviewStats?.totalReviews || 0) + (product.total_reviews || 0);
+
+  return (
+    <div className="space-y-6">
+      {/* Review Summary */}
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-3">
+            <StarRating
+              rating={combinedRating}
+              onRatingChange={() => {}}
+              readonly={true}
+              size="lg"
+            />
+            <span className="text-xl font-semibold">{combinedRating.toFixed(1)} out of 5</span>
+          </div>
+          <span className="text-sm text-gray-600">{totalReviews} total reviews</span>
+        </div>
+
+        {/* Rating Distribution */}
+        {reviewStats && reviewStats.totalReviews > 0 && (
+          <div className="space-y-2">
+            {[5, 4, 3, 2, 1].map(rating => {
+              const count = reviewStats.ratingDistribution[rating as keyof typeof reviewStats.ratingDistribution];
+              const percentage = reviewStats.totalReviews > 0 ? (count / reviewStats.totalReviews) * 100 : 0;
+              
+              return (
+                <div key={rating} className="flex items-center space-x-2 text-sm">
+                  <span className="w-8">{rating} ★</span>
+                  <div className="flex-1 bg-gray-200 rounded-full h-2">
+                    <div 
+                      className="bg-yellow-400 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${percentage}%` }}
+                    ></div>
+                  </div>
+                  <span className="w-8 text-gray-600">{count}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Admin Reviews (if any) */}
+      {product.reviews && (
+        <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+          <h4 className="font-medium text-blue-800 mb-2">Editorial Review</h4>
+          <div className="text-blue-700 leading-relaxed whitespace-pre-wrap">
+            {product.reviews}
+          </div>
+        </div>
+      )}
+
+      {/* Write Review Section */}
+      {user ? (
+        <div>
+          {existingUserReview ? (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <p className="text-green-800 font-medium mb-2">You've already reviewed this product</p>
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setShowReviewForm(true)}
+                  className="text-sm text-green-600 hover:text-green-800 font-medium"
+                >
+                  Edit Review
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              {!showReviewForm ? (
+                <button
+                  onClick={() => setShowReviewForm(true)}
+                  className="bg-blue-600 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700 transition-colors"
+                >
+                  Write a Review
+                </button>
+              ) : null}
+            </div>
+          )}
+
+          {showReviewForm && (
+            <UserReviewForm
+              productId={productId}
+              onReviewSubmitted={handleReviewSubmitted}
+              existingReview={existingUserReview}
+              onCancel={() => setShowReviewForm(false)}
+            />
+          )}
+        </div>
+      ) : (
+        <div className="bg-gray-50 border rounded-lg p-4 text-center">
+          <p className="text-gray-600 mb-2">Want to share your experience?</p>
+          <Link 
+            href={`/auth/login?redirect=product/${productId}`}
+            className="text-blue-600 hover:text-blue-800 font-medium"
+          >
+            Sign in to write a review
+          </Link>
+        </div>
+      )}
+
+      {/* User Reviews */}
+      <div>
+        <h4 className="text-lg font-medium mb-4">Customer Reviews ({userReviews.length})</h4>
+        <UserReviewsList
+          reviews={userReviews}
+          onReviewUpdated={handleReviewUpdated}
+          onReviewDeleted={handleReviewDeleted}
+          currentUserId={user?.id}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function ProductDetail({ productId }: ProductDetailProps) {
   const { selectedCurrency } = useCurrency(); // Add currency context
   const router = useRouter();
