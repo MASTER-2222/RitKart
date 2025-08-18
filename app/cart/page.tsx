@@ -107,6 +107,11 @@ export default function CartPage() {
           });
 
           console.log(`✅ Cart loaded successfully with ${validatedCartItems.length} items in ${selectedCurrency.code}`);
+          
+          // Load related products if cart has items
+          if (validatedCartItems.length > 0) {
+            await loadRelatedProducts(validatedCartItems);
+          }
         } else {
           // If no valid cart data, create empty cart
           setCart({ id: '', user_id: '', total_amount: 0, cart_items: [] });
@@ -123,6 +128,41 @@ export default function CartPage() {
       setCart({ id: '', user_id: '', total_amount: 0, cart_items: [] });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadRelatedProducts = async (cartItems: CartItem[]) => {
+    try {
+      setRelatedProductsLoading(true);
+      console.log(`🔄 Loading related products based on ${cartItems.length} cart items...`);
+      
+      // Get related products based on the first cart item (or we could use multiple items)
+      // For now, let's use the first item to get related products
+      const firstItem = cartItems[0];
+      
+      if (firstItem && firstItem.products.id) {
+        const response = await apiClient.getRelatedProducts(firstItem.products.id, {
+          limit: 10,
+          currency: selectedCurrency.code
+        });
+        
+        if (response.success && response.data) {
+          // Filter out products that are already in the cart
+          const cartProductIds = new Set(cartItems.map(item => item.products.id));
+          const filteredRelatedProducts = response.data.filter(
+            (product: RelatedProduct) => !cartProductIds.has(product.id)
+          );
+          
+          setRelatedProducts(filteredRelatedProducts.slice(0, 10)); // Ensure max 10 products
+          console.log(`✅ Loaded ${filteredRelatedProducts.length} related products (excluded ${response.data.length - filteredRelatedProducts.length} already in cart)`);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to load related products:', err);
+      // Don't show error to user for related products failure
+      setRelatedProducts([]);
+    } finally {
+      setRelatedProductsLoading(false);
     }
   };
 
