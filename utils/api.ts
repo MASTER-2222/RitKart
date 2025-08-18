@@ -287,13 +287,6 @@ class ApiClient {
     return this.makeRequest('/reviews', {
       method: 'POST',
       body: formData,
-      headers: {
-        // Remove Content-Type header to allow FormData to set it with boundary
-        ...Object.fromEntries(
-          Object.entries(this.makeRequest === undefined ? {} : {})
-            .filter(([key]) => key !== 'Content-Type')
-        )
-      },
     });
   }
 
@@ -301,13 +294,6 @@ class ApiClient {
     return this.makeRequest(`/reviews/${reviewId}`, {
       method: 'PUT',
       body: formData,
-      headers: {
-        // Remove Content-Type header to allow FormData to set it with boundary
-        ...Object.fromEntries(
-          Object.entries(this.makeRequest === undefined ? {} : {})
-            .filter(([key]) => key !== 'Content-Type')
-        )
-      },
     });
   }
 
