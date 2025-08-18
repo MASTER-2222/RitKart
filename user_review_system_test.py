@@ -131,15 +131,28 @@ class RitZoneUserReviewTester:
             
             if response.status_code == 200:
                 data = response.json()
-                products = data.get('data', {}).get('products', [])
                 
-                if products:
+                # Handle different possible response structures
+                products = None
+                if isinstance(data, list) and len(data) > 0:
+                    products = data
+                elif isinstance(data, dict):
+                    if 'data' in data:
+                        if isinstance(data['data'], list):
+                            products = data['data']
+                        elif isinstance(data['data'], dict) and 'products' in data['data']:
+                            products = data['data']['products']
+                    elif 'products' in data:
+                        products = data['products']
+                
+                if products and len(products) > 0:
                     self.test_product_id = products[0]['id']
                     product_name = products[0]['name']
                     self.log(f"✅ Test product selected: {product_name} (ID: {self.test_product_id})")
                     return True
                 else:
                     self.log("❌ No products found in database", "ERROR")
+                    self.log(f"   Response structure: {type(data)} - {list(data.keys()) if isinstance(data, dict) else 'Not a dict'}")
                     return False
             else:
                 self.log(f"❌ Failed to get products: HTTP {response.status_code}", "ERROR")
