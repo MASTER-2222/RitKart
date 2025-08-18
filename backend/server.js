@@ -7,6 +7,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const path = require('path');
 
 // Import environment configuration
 const { environment, validateEnvironment, getEnvironmentInfo } = require('./config/environment');
