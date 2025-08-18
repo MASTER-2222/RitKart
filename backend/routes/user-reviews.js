@@ -284,9 +284,9 @@ router.put('/:reviewId', authenticateToken, upload.array('images', 5), async (re
 // ==============================================
 // 📝 GET USER'S OWN REVIEWS
 // ==============================================
-router.get('/my-reviews', authMiddleware, async (req, res) => {
+router.get('/my-reviews', authenticateToken, async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
 
