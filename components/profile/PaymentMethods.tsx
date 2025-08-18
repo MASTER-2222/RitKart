@@ -386,7 +386,8 @@ export default function PaymentMethods() {
                     type="text"
                     value={formData.cardNumber}
                     onChange={(e) => setFormData(prev => ({ ...prev, cardNumber: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    disabled={saving}
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
                     placeholder="1234 5678 9012 3456"
                     required
                   />
