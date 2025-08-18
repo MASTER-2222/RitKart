@@ -361,29 +361,34 @@ export default function UserDetailsModal({
 
                 {/* Address Information */}
                 <div className="bg-gray-50 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Address Information</h3>
-                  <div className="space-y-3">
-                    <div>
-                      <label className="text-sm font-medium text-gray-500">Address</label>
-                      <div className="text-gray-900">{currentUser.address || 'Not provided'}</div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Addresses ({currentUser.addresses?.length || 0})</h3>
+                  {currentUser.addresses && currentUser.addresses.length > 0 ? (
+                    <div className="space-y-3">
+                      {currentUser.addresses.slice(0, 2).map((address, index) => (
+                        <div key={index} className="bg-white rounded p-3 border">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-medium text-sm">{address.type}</span>
+                            {address.isDefault && (
+                              <span className="bg-green-100 text-green-800 px-2 py-1 text-xs rounded">Default</span>
+                            )}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            <div>{address.name}</div>
+                            <div>{address.street}</div>
+                            <div>{address.city}, {address.state} {address.zipCode}</div>
+                            <div>{address.country}</div>
+                          </div>
+                        </div>
+                      ))}
+                      {currentUser.addresses.length > 2 && (
+                        <div className="text-sm text-gray-500 text-center">
+                          +{currentUser.addresses.length - 2} more addresses
+                        </div>
+                      )}
                     </div>
-                    <div>
-                      <label className="text-sm font-medium text-gray-500">City</label>
-                      <div className="text-gray-900">{currentUser.city || 'Not provided'}</div>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-gray-500">State</label>
-                      <div className="text-gray-900">{currentUser.state || 'Not provided'}</div>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-gray-500">Country</label>
-                      <div className="text-gray-900">{currentUser.country || 'Not provided'}</div>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-gray-500">Postal Code</label>
-                      <div className="text-gray-900">{currentUser.postal_code || 'Not provided'}</div>
-                    </div>
-                  </div>
+                  ) : (
+                    <div className="text-gray-500 text-sm">No saved addresses</div>
+                  )}
                 </div>
               </div>
 
