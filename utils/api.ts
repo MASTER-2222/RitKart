@@ -285,6 +285,124 @@ class ApiClient {
     return this.makeRequest('/auth/profile');
   }
 
+  async updateProfile(profileData: {
+    fullName?: string;
+    phone?: string;
+    dateOfBirth?: string;
+  }) {
+    return this.makeRequest('/auth/profile', {
+      method: 'PUT',
+      body: JSON.stringify(profileData),
+    });
+  }
+
+  // Profile Dashboard API
+  async getProfileDashboard() {
+    return this.makeRequest('/profile/dashboard');
+  }
+
+  // Address Management API
+  async getAddresses() {
+    return this.makeRequest('/profile/addresses');
+  }
+
+  async createAddress(addressData: {
+    type: string;
+    name: string;
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+    phone?: string;
+    isDefault?: boolean;
+  }) {
+    return this.makeRequest('/profile/addresses', {
+      method: 'POST',
+      body: JSON.stringify(addressData),
+    });
+  }
+
+  async updateAddress(addressId: string, addressData: {
+    type?: string;
+    name?: string;
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    country?: string;
+    phone?: string;
+    isDefault?: boolean;
+  }) {
+    return this.makeRequest(`/profile/addresses/${addressId}`, {
+      method: 'PUT',
+      body: JSON.stringify(addressData),
+    });
+  }
+
+  async deleteAddress(addressId: string) {
+    return this.makeRequest(`/profile/addresses/${addressId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  // Payment Methods API
+  async getPaymentMethods() {
+    return this.makeRequest('/profile/payment-methods');
+  }
+
+  async createPaymentMethod(paymentData: {
+    type: 'card' | 'upi';
+    name: string;
+    details: string;
+    lastFour?: string;
+    expiryDate?: string;
+    isDefault?: boolean;
+  }) {
+    return this.makeRequest('/profile/payment-methods', {
+      method: 'POST',
+      body: JSON.stringify(paymentData),
+    });
+  }
+
+  async updatePaymentMethod(methodId: string, paymentData: {
+    type?: 'card' | 'upi';
+    name?: string;
+    details?: string;
+    lastFour?: string;
+    expiryDate?: string;
+    isDefault?: boolean;
+  }) {
+    return this.makeRequest(`/profile/payment-methods/${methodId}`, {
+      method: 'PUT',
+      body: JSON.stringify(paymentData),
+    });
+  }
+
+  async deletePaymentMethod(methodId: string) {
+    return this.makeRequest(`/profile/payment-methods/${methodId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  // Wishlist API
+  async getWishlist() {
+    return this.makeRequest('/profile/wishlist');
+  }
+
+  async addToWishlist(productId: string) {
+    return this.makeRequest('/profile/wishlist', {
+      method: 'POST',
+      body: JSON.stringify({ productId }),
+    });
+  }
+
+  async removeFromWishlist(productId: string) {
+    return this.makeRequest(`/profile/wishlist/${productId}`, {
+      method: 'DELETE',
+    });
+  }
+
   // User Reviews API
   async getProductReviews(productId: string, params?: {
     page?: number;
