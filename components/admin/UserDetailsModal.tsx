@@ -392,6 +392,68 @@ export default function UserDetailsModal({
                 </div>
               </div>
 
+              {/* Payment Methods and Wishlist */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Payment Methods */}
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Payment Methods ({currentUser.paymentMethods?.length || 0})</h3>
+                  {currentUser.paymentMethods && currentUser.paymentMethods.length > 0 ? (
+                    <div className="space-y-3">
+                      {currentUser.paymentMethods.slice(0, 3).map((method, index) => (
+                        <div key={index} className="bg-white rounded p-3 border flex items-center space-x-3">
+                          <div className="w-8 h-8 bg-gray-100 rounded flex items-center justify-center">
+                            <i className={`${method.type === 'card' ? 'ri-bank-card-line' : 'ri-smartphone-line'} text-gray-600`}></i>
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-medium text-sm">{method.name}</div>
+                            <div className="text-xs text-gray-500">{method.details}</div>
+                          </div>
+                          {method.isDefault && (
+                            <span className="bg-green-100 text-green-800 px-2 py-1 text-xs rounded">Default</span>
+                          )}
+                        </div>
+                      ))}
+                      {currentUser.paymentMethods.length > 3 && (
+                        <div className="text-sm text-gray-500 text-center">
+                          +{currentUser.paymentMethods.length - 3} more methods
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="text-gray-500 text-sm">No saved payment methods</div>
+                  )}
+                </div>
+
+                {/* Wishlist */}
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Wishlist ({currentUser.wishlistItems?.length || 0})</h3>
+                  {currentUser.wishlistItems && currentUser.wishlistItems.length > 0 ? (
+                    <div className="space-y-3">
+                      {currentUser.wishlistItems.slice(0, 3).map((item, index) => (
+                        <div key={index} className="bg-white rounded p-3 border flex items-center space-x-3">
+                          <img 
+                            src={item.products?.images?.[0] || '/placeholder-product.jpg'} 
+                            alt={item.products?.name}
+                            className="w-10 h-10 object-cover rounded"
+                          />
+                          <div className="flex-1">
+                            <div className="font-medium text-sm">{item.products?.name}</div>
+                            <div className="text-xs text-gray-500">₹{item.products?.price}</div>
+                          </div>
+                        </div>
+                      ))}
+                      {currentUser.wishlistItems.length > 3 && (
+                        <div className="text-sm text-gray-500 text-center">
+                          +{currentUser.wishlistItems.length - 3} more items
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="text-gray-500 text-sm">No wishlist items</div>
+                  )}
+                </div>
+              </div>
+
               {/* Recent Orders Preview */}
               {currentUser.recentOrders && currentUser.recentOrders.length > 0 && (
                 <div className="bg-gray-50 rounded-lg p-6">
