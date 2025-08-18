@@ -1,132 +1,124 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { apiClient, WishlistItem } from '../../utils/api';
 
 export default function Wishlist() {
-  const [wishlistItems, setWishlistItems] = useState([
-    {
-      id: '1',
-      title: 'Apple MacBook Pro 14-inch M3 Chip with 8-Core CPU and 10-Core GPU',
-      price: 1599,
-      originalPrice: 1999,
-      rating: 4.8,
-      reviewCount: 2847,
-      image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 20,
-      inStock: true,
-      dateAdded: 'December 15, 2023'
-    },
-    {
-      id: 'f2',
-      title: 'Nike Air Force 1 \'07 White Leather Sneakers - Unisex',
-      price: 110,
-      originalPrice: 130,
-      rating: 4.8,
-      reviewCount: 28934,
-      image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 15,
-      inStock: true,
-      dateAdded: 'December 12, 2023'
-    },
-    {
-      id: 'b1',
-      title: 'The Seven Husbands of Evelyn Hugo: A Novel by Taylor Jenkins Reid',
-      price: 16.99,
-      originalPrice: 17.99,
-      rating: 4.6,
-      reviewCount: 147832,
-      image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 6,
-      inStock: true,
-      dateAdded: 'December 10, 2023'
-    },
-    {
-      id: 'so1',
-      title: 'Renogy 100 Watt 12 Volt Monocrystalline Solar Panel - High Efficiency',
-      price: 109,
-      originalPrice: 149,
-      rating: 4.7,
-      reviewCount: 12456,
-      image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      discount: 27,
-      inStock: false,
-      dateAdded: 'December 8, 2023'
-    },
-    {
-      id: 'be1',
-      title: 'CeraVe Foaming Facial Cleanser - Normal to Oily Skin 12 fl oz',
-      price: 14.99,
-      originalPrice: 18.99,
-      rating: 4.6,
-      reviewCount: 89234,
-      image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 21,
-      inStock: true,
-      dateAdded: 'December 5, 2023'
-    },
-    {
-      id: 'h1',
-      title: 'Instant Pot Duo 7-in-1 Electric Pressure Cooker, 8 Quart',
-      price: 79,
-      originalPrice: 119,
-      rating: 4.7,
-      reviewCount: 98234,
-      image: 'https://images.unsplash.com/photo-1585515656617-d405f574bfa3?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      discount: 34,
-      inStock: true,
-      dateAdded: 'December 3, 2023'
-    },
-    {
-      id: 's1',
-      title: 'Fitbit Charge 5 Advanced Fitness & Health Tracker with GPS',
-      price: 149,
-      originalPrice: 179,
-      rating: 4.2,
-      reviewCount: 34567,
-      image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      discount: 17,
-      inStock: true,
-      dateAdded: 'December 1, 2023'
-    },
-    {
-      id: 'ph1',
-      title: 'Tylenol Extra Strength Pain Reliever - 500mg Caplets 100 Count',
-      price: 12.99,
-      originalPrice: 15.99,
-      rating: 4.7,
-      reviewCount: 23456,
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=300&h=300&fit=crop&crop=center',
-      isPrime: true,
-      isDeliveryTomorrow: true,
-      discount: 19,
-      inStock: true,
-      dateAdded: 'November 28, 2023'
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [removingItems, setRemovingItems] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await apiClient.getWishlist();
+        
+        if (response.success) {
+          setWishlistItems(response.data.items || response.data || []);
+        } else {
+          setError(response.message || 'Failed to load wishlist');
+        }
+      } catch (err) {
+        console.error('Error fetching wishlist:', err);
+        setError('Failed to load wishlist. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWishlist();
+  }, []);
+
+  const removeFromWishlist = async (productId: string) => {
+    try {
+      setRemovingItems(prev => new Set(prev).add(productId));
+      
+      const response = await apiClient.removeFromWishlist(productId);
+      
+      if (response.success) {
+        setWishlistItems(prev => prev.filter(item => item.productId !== productId));
+      } else {
+        setError(response.message || 'Failed to remove item from wishlist');
+      }
+    } catch (err) {
+      console.error('Error removing from wishlist:', err);
+      setError('Failed to remove item. Please try again.');
+    } finally {
+      setRemovingItems(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(productId);
+        return newSet;
+      });
     }
-  ]);
-
-  const removeFromWishlist = (productId: string) => {
-    setWishlistItems(prev => prev.filter(item => item.id !== productId));
   };
 
-  const addToCart = (productId: string) => {
-    console.log('Added to cart:', productId);
+  const addToCart = async (productId: string) => {
+    try {
+      const response = await apiClient.addToCart(productId, 1);
+      
+      if (response.success) {
+        // TODO: Show success message or notification
+        console.log('Added to cart successfully');
+      } else {
+        setError(response.message || 'Failed to add to cart');
+      }
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      setError('Failed to add to cart. Please try again.');
+    }
   };
 
-  const moveToCart = (productId: string) => {
-    addToCart(productId);
-    removeFromWishlist(productId);
+  const moveToCart = async (productId: string) => {
+    await addToCart(productId);
+    await removeFromWishlist(productId);
   };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg shadow-sm border p-6">
+        <div className="animate-pulse">
+          <div className="flex items-center justify-between mb-6">
+            <div className="h-8 bg-gray-200 rounded w-32"></div>
+            <div className="h-4 bg-gray-200 rounded w-16"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="border rounded-lg p-4">
+                <div className="w-full h-48 bg-gray-200 rounded mb-3"></div>
+                <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
+                <div className="h-6 bg-gray-200 rounded w-1/3"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error && wishlistItems.length === 0) {
+    return (
+      <div className="bg-white rounded-lg shadow-sm border p-6">
+        <div className="text-center py-12">
+          <div className="text-red-500 mb-4">
+            <i className="ri-error-warning-line text-6xl"></i>
+          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Wishlist</h3>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-sm border p-6">
@@ -136,6 +128,15 @@ export default function Wishlist() {
           {wishlistItems.length} {wishlistItems.length === 1 ? 'item' : 'items'}
         </div>
       </div>
+
+      {error && (
+        <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+          <div className="flex items-center">
+            <i className="ri-error-warning-line text-red-500 mr-2"></i>
+            <span className="text-red-700">{error}</span>
+          </div>
+        </div>
+      )}
 
       {wishlistItems.length === 0 ? (
         <div className="text-center py-12">
@@ -157,19 +158,19 @@ export default function Wishlist() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {wishlistItems.map((item) => (
             <div key={item.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-              <Link href={`/product/${item.id}`}>
+              <Link href={`/product/${item.productId}`}>
                 <div className="relative mb-3">
                   <img
-                    src={item.image}
-                    alt={item.title}
+                    src={item.product.image || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300&h=300&fit=crop&crop=center'}
+                    alt={item.product.name}
                     className="w-full h-48 object-cover rounded"
                   />
-                  {item.discount && (
+                  {item.product.discount && (
                     <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 text-xs font-bold rounded">
-                      -{item.discount}%
+                      -{item.product.discount}%
                     </div>
                   )}
-                  {item.isPrime && (
+                  {item.product.isPrime && (
                     <div className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 text-xs font-bold rounded">
                       Prime
                     </div>
@@ -178,9 +179,9 @@ export default function Wishlist() {
               </Link>
 
               <div className="space-y-2">
-                <Link href={`/product/${item.id}`}>
+                <Link href={`/product/${item.productId}`}>
                   <h3 className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
-                    {item.title}
+                    {item.product.name}
                   </h3>
                 </Link>
 
@@ -190,36 +191,42 @@ export default function Wishlist() {
                       <i
                         key={star}
                         className={`w-4 h-4 flex items-center justify-center ${
-                          star <= Math.floor(item.rating)
+                          star <= Math.floor(item.product.rating)
                             ? 'ri-star-fill text-yellow-400'
-                            : star - 0.5 <= item.rating
+                            : star - 0.5 <= item.product.rating
                             ? 'ri-star-half-fill text-yellow-400'
                             : 'ri-star-line text-gray-300'
                         }`}
                       ></i>
                     ))}
                   </div>
-                  <span className="text-sm text-gray-600">({item.reviewCount})</span>
+                  <span className="text-sm text-gray-600">({item.product.reviewCount})</span>
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  <span className="text-lg font-bold text-gray-900">${item.price}</span>
-                  {item.originalPrice && item.originalPrice > item.price && (
-                    <span className="text-sm text-gray-500 line-through">${item.originalPrice}</span>
+                  <span className="text-lg font-bold text-gray-900">₹{item.product.price}</span>
+                  {item.product.originalPrice && item.product.originalPrice > item.product.price && (
+                    <span className="text-sm text-gray-500 line-through">₹{item.product.originalPrice}</span>
                   )}
                 </div>
 
                 <div className="text-xs text-gray-500">
-                  Added on {item.dateAdded}
+                  Added on {new Date(item.dateAdded).toLocaleDateString()}
                 </div>
 
-                {!item.inStock ? (
+                {item.product.brand && (
+                  <div className="text-xs text-gray-600">
+                    Brand: {item.product.brand}
+                  </div>
+                )}
+
+                {!item.product.inStock ? (
                   <div className="text-red-600 text-sm font-medium">
                     Currently unavailable
                   </div>
                 ) : (
                   <>
-                    {item.isDeliveryTomorrow && (
+                    {item.product.isDeliveryTomorrow && (
                       <div className="text-sm text-green-600">
                         <i className="ri-truck-line w-4 h-4 inline-flex items-center justify-center mr-1"></i>
                         FREE delivery tomorrow
@@ -230,17 +237,23 @@ export default function Wishlist() {
 
                 <div className="space-y-2 pt-2">
                   <button
-                    onClick={() => moveToCart(item.id)}
-                    disabled={!item.inStock}
+                    onClick={() => moveToCart(item.productId)}
+                    disabled={!item.product.inStock || removingItems.has(item.productId)}
                     className="w-full bg-[#febd69] hover:bg-[#f3a847] text-black font-medium py-2 px-4 rounded disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed whitespace-nowrap"
                   >
-                    {item.inStock ? 'Move to Cart' : 'Currently Unavailable'}
+                    {!item.product.inStock 
+                      ? 'Currently Unavailable' 
+                      : removingItems.has(item.productId) 
+                      ? 'Moving to Cart...' 
+                      : 'Move to Cart'
+                    }
                   </button>
                   <button
-                    onClick={() => removeFromWishlist(item.id)}
-                    className="w-full text-red-600 hover:text-red-800 font-medium py-2 px-4 rounded border border-red-300 hover:border-red-400 whitespace-nowrap"
+                    onClick={() => removeFromWishlist(item.productId)}
+                    disabled={removingItems.has(item.productId)}
+                    className="w-full text-red-600 hover:text-red-800 font-medium py-2 px-4 rounded border border-red-300 hover:border-red-400 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                   >
-                    Remove from Wishlist
+                    {removingItems.has(item.productId) ? 'Removing...' : 'Remove from Wishlist'}
                   </button>
                 </div>
               </div>
