@@ -33,6 +33,18 @@ interface Cart {
   cart_items: CartItem[];
 }
 
+interface RelatedProduct {
+  id: string;
+  name: string;
+  price: number;
+  images: string[];
+  brand: string;
+  category_name: string;
+  rating_average?: number;
+  stock_quantity: number;
+  is_active: boolean;
+}
+
 export default function CartPage() {
   const [cart, setCart] = useState<Cart | null>(null);
   const [loading, setLoading] = useState(true);
