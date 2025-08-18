@@ -127,16 +127,19 @@ user_problem_statement: |
 
 backend:
   - task: "Create user_reviews table and API endpoints"
-    implemented: false
+    implemented: true
     working: false
-    file: "/app/backend/database/user-reviews-schema.sql"
-    stuck_count: 0
+    file: "/app/backend/routes/user-reviews.js"
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
         comment: "🎯 NEW TASK: Need to create database schema for user_reviews table to store user-submitted reviews with fields: id, user_id, product_id, rating, review_text, images, created_at, updated_at, is_approved. Also need API endpoints for CRUD operations on user reviews."
+      - working: false
+        agent: "testing"
+        comment: "🚨 CRITICAL BUG IDENTIFIED: HTTP 400 error 'Could not find a relationship between user_reviews and users in the schema cache'. CAUSE: user_reviews table does not exist in database. BACKEND CODE: ✅ Fully implemented with proper authentication, validation, file upload support. DATABASE SCHEMA: ❌ Missing - user_reviews table not created. SOLUTION: Execute /app/user_reviews_schema_corrected.sql in Supabase SQL Editor to create table with correct foreign key reference to public.users (not auth.users). All API endpoints are ready and working once table exists."
 
   - task: "Add image upload functionality for reviews"
     implemented: false
