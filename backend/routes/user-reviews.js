@@ -324,10 +324,10 @@ router.get('/my-reviews', authenticateToken, async (req, res) => {
 // ==============================================
 // 📝 DELETE USER REVIEW
 // ==============================================
-router.delete('/:reviewId', authMiddleware, async (req, res) => {
+router.delete('/:reviewId', authenticateToken, async (req, res) => {
   try {
     const reviewId = req.params.reviewId;
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     const result = await userReviewService.deleteReview(reviewId, userId);
 
