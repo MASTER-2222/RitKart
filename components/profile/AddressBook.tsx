@@ -1,50 +1,15 @@
 'use client';
-import { useState } from 'react';
-
-interface Address {
-  id: string;
-  type: string;
-  name: string;
-  street: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  country: string;
-  phone?: string;
-  isDefault: boolean;
-}
+import { useState, useEffect } from 'react';
+import { apiClient, Address } from '../../utils/api';
 
 export default function AddressBook() {
-  const [addresses, setAddresses] = useState<Address[]>([
-    {
-      id: '1',
-      type: 'Home',
-      name: 'John Doe',
-      street: '123 Main Street',
-      city: 'New York',
-      state: 'NY',
-      zipCode: '10001',
-      country: 'United States',
-      phone: '+1 (555) 123-4567',
-      isDefault: true
-    },
-    {
-      id: '2',
-      type: 'Office',
-      name: 'John Doe',
-      street: '456 Business Ave, Suite 200',
-      city: 'New York',
-      state: 'NY',
-      zipCode: '10002',
-      country: 'United States',
-      phone: '+1 (555) 987-6543',
-      isDefault: false
-    }
-  ]);
-
+  const [addresses, setAddresses] = useState<Address[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
-  const [formData, setFormData] = useState<Omit<Address, 'id' | 'isDefault'>>({
+  const [saving, setSaving] = useState(false);
+  const [formData, setFormData] = useState({
     type: 'Home',
     name: '',
     street: '',
@@ -55,15 +20,53 @@ export default function AddressBook() {
     phone: ''
   });
 
-  const handleAddAddress = () => {
-    const newAddress: Address = {
-      ...formData,
-      id: Date.now().toString(),
-      isDefault: addresses.length === 0
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await apiClient.getAddresses();
+        
+        if (response.success) {
+          setAddresses(response.data.addresses || response.data || []);
+        } else {
+          setError(response.message || 'Failed to load addresses');
+        }
+      } catch (err) {
+        console.error('Error fetching addresses:', err);
+        setError('Failed to load addresses. Please try again.');
+      } finally {
+        setLoading(false);
+      }
     };
-    setAddresses(prev => [...prev, newAddress]);
-    setShowAddModal(false);
-    resetForm();
+
+    fetchAddresses();
+  }, []);
+
+  const handleAddAddress = async () => {
+    try {
+      setSaving(true);
+      setError(null);
+      
+      const response = await apiClient.createAddress({
+        ...formData,
+        isDefault: addresses.length === 0
+      });
+      
+      if (response.success) {
+        setAddresses(prev => [...prev, response.data.address]);
+        setShowAddModal(false);
+        resetForm();
+      } else {
+        setError(response.message || 'Failed to add address');
+      }
+    } catch (err) {
+      console.error('Error adding address:', err);
+      setError('Failed to add address. Please try again.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleEditAddress = (address: Address) => {
@@ -81,41 +84,70 @@ export default function AddressBook() {
     setShowAddModal(true);
   };
 
-  const handleUpdateAddress = () => {
+  const handleUpdateAddress = async () => {
     if (!editingAddress) return;
     
-    setAddresses(prev => 
-      prev.map(addr => 
-        addr.id === editingAddress.id 
-          ? { ...formData, id: addr.id, isDefault: addr.isDefault }
-          : addr
-      )
-    );
-    setShowAddModal(false);
-    setEditingAddress(null);
-    resetForm();
-  };
-
-  const handleDeleteAddress = (addressId: string) => {
-    const addressToDelete = addresses.find(addr => addr.id === addressId);
-    if (!addressToDelete) return;
-
-    if (addressToDelete.isDefault && addresses.length > 1) {
-      const remainingAddresses = addresses.filter(addr => addr.id !== addressId);
-      remainingAddresses[0].isDefault = true;
-      setAddresses(remainingAddresses);
-    } else {
-      setAddresses(prev => prev.filter(addr => addr.id !== addressId));
+    try {
+      setSaving(true);
+      setError(null);
+      
+      const response = await apiClient.updateAddress(editingAddress.id, formData);
+      
+      if (response.success) {
+        setAddresses(prev => 
+          prev.map(addr => 
+            addr.id === editingAddress.id 
+              ? { ...addr, ...formData }
+              : addr
+          )
+        );
+        setShowAddModal(false);
+        setEditingAddress(null);
+        resetForm();
+      } else {
+        setError(response.message || 'Failed to update address');
+      }
+    } catch (err) {
+      console.error('Error updating address:', err);
+      setError('Failed to update address. Please try again.');
+    } finally {
+      setSaving(false);
     }
   };
 
-  const handleSetDefault = (addressId: string) => {
-    setAddresses(prev => 
-      prev.map(addr => ({
-        ...addr,
-        isDefault: addr.id === addressId
-      }))
-    );
+  const handleDeleteAddress = async (addressId: string) => {
+    try {
+      const response = await apiClient.deleteAddress(addressId);
+      
+      if (response.success) {
+        setAddresses(prev => prev.filter(addr => addr.id !== addressId));
+      } else {
+        setError(response.message || 'Failed to delete address');
+      }
+    } catch (err) {
+      console.error('Error deleting address:', err);
+      setError('Failed to delete address. Please try again.');
+    }
+  };
+
+  const handleSetDefault = async (addressId: string) => {
+    try {
+      const response = await apiClient.updateAddress(addressId, { isDefault: true });
+      
+      if (response.success) {
+        setAddresses(prev => 
+          prev.map(addr => ({
+            ...addr,
+            isDefault: addr.id === addressId
+          }))
+        );
+      } else {
+        setError(response.message || 'Failed to set default address');
+      }
+    } catch (err) {
+      console.error('Error setting default address:', err);
+      setError('Failed to set default address. Please try again.');
+    }
   };
 
   const resetForm = () => {
@@ -135,7 +167,33 @@ export default function AddressBook() {
     setShowAddModal(false);
     setEditingAddress(null);
     resetForm();
+    setError(null);
   };
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg shadow-sm border p-6">
+        <div className="animate-pulse">
+          <div className="flex items-center justify-between mb-6">
+            <div className="h-8 bg-gray-200 rounded w-32"></div>
+            <div className="h-10 bg-gray-200 rounded w-40"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[1, 2].map((i) => (
+              <div key={i} className="border rounded-lg p-4">
+                <div className="h-6 bg-gray-200 rounded w-24 mb-4"></div>
+                <div className="space-y-2">
+                  <div className="h-4 bg-gray-200 rounded"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -150,6 +208,15 @@ export default function AddressBook() {
             <span>Add New Address</span>
           </button>
         </div>
+
+        {error && (
+          <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="flex items-center">
+              <i className="ri-error-warning-line text-red-500 mr-2"></i>
+              <span className="text-red-700">{error}</span>
+            </div>
+          </div>
+        )}
 
         {addresses.length === 0 ? (
           <div className="text-center py-12">
@@ -236,6 +303,15 @@ export default function AddressBook() {
               {editingAddress ? 'Edit Address' : 'Add New Address'}
             </h3>
 
+            {error && (
+              <div className="mb-4 bg-red-50 border border-red-200 rounded-lg p-3">
+                <div className="flex items-center">
+                  <i className="ri-error-warning-line text-red-500 mr-2"></i>
+                  <span className="text-red-700 text-sm">{error}</span>
+                </div>
+              </div>
+            )}
+
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -245,7 +321,8 @@ export default function AddressBook() {
                   <select
                     value={formData.type}
                     onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-8"
+                    disabled={saving}
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-8 disabled:bg-gray-50"
                   >
                     <option value="Home">Home</option>
                     <option value="Office">Office</option>
@@ -261,7 +338,8 @@ export default function AddressBook() {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    disabled={saving}
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
                     placeholder="Enter full name"
                     required
                   />
@@ -276,7 +354,8 @@ export default function AddressBook() {
                   type="text"
                   value={formData.street}
                   onChange={(e) => setFormData(prev => ({ ...prev, street: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  disabled={saving}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
                   placeholder="Enter street address"
                   required
                 />
@@ -291,7 +370,8 @@ export default function AddressBook() {
                     type="text"
                     value={formData.city}
                     onChange={(e) => setFormData(prev => ({ ...prev, city: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    disabled={saving}
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
                     placeholder="Enter city"
                     required
                   />
@@ -305,7 +385,8 @@ export default function AddressBook() {
                     type="text"
                     value={formData.state}
                     onChange={(e) => setFormData(prev => ({ ...prev, state: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    disabled={saving}
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
                     placeholder="Enter state"
                     required
                   />
@@ -321,7 +402,8 @@ export default function AddressBook() {
                     type="text"
                     value={formData.zipCode}
                     onChange={(e) => setFormData(prev => ({ ...prev, zipCode: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    disabled={saving}
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
                     placeholder="Enter ZIP code"
                     required
                   />
@@ -334,11 +416,14 @@ export default function AddressBook() {
                   <select
                     value={formData.country}
                     onChange={(e) => setFormData(prev => ({ ...prev, country: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-8"
+                    disabled={saving}
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-8 disabled:bg-gray-50"
                   >
                     <option value="United States">United States</option>
                     <option value="Canada">Canada</option>
                     <option value="Mexico">Mexico</option>
+                    <option value="India">India</option>
+                    <option value="United Kingdom">United Kingdom</option>
                   </select>
                 </div>
               </div>
@@ -351,7 +436,8 @@ export default function AddressBook() {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  disabled={saving}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
                   placeholder="Enter phone number"
                 />
               </div>
@@ -360,15 +446,22 @@ export default function AddressBook() {
             <div className="flex space-x-3 mt-6">
               <button
                 onClick={closeModal}
-                className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg whitespace-nowrap"
+                disabled={saving}
+                className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Cancel
               </button>
               <button
                 onClick={editingAddress ? handleUpdateAddress : handleAddAddress}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg whitespace-nowrap"
+                disabled={saving}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {editingAddress ? 'Update Address' : 'Add Address'}
+                {saving 
+                  ? 'Saving...' 
+                  : editingAddress 
+                  ? 'Update Address' 
+                  : 'Add Address'
+                }
               </button>
             </div>
           </div>
