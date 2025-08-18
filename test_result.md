@@ -314,16 +314,12 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Implement Address Management API endpoints"
-    - "Implement Payment Methods Management API endpoints"
-    - "Implement Wishlist Management API endpoints"
-    - "Implement Profile Update API endpoint"
-  stuck_tasks: 
-    - "Implement Address Management API endpoints"
-    - "Implement Payment Methods Management API endpoints"
-    - "Implement Wishlist Management API endpoints"
-    - "Implement Profile Update API endpoint"
-  test_all: false
+    - "Verify Address Management API after database schema update"
+    - "Verify Payment Methods Management API after database schema update" 
+    - "Verify Wishlist Management API after database schema update"
+    - "Verify Profile Update API after database schema update"
+  stuck_tasks: []
+  test_all: true
   test_priority: "high_first"
 
 backend:
