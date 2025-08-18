@@ -376,6 +376,9 @@ backend:
       - working: false
         agent: "testing"
         comment: "❌ WISHLIST MANAGEMENT BLOCKED BY DATABASE: GET/POST/DELETE /api/profile/wishlist endpoints implemented but failing with 500 errors. ROOT CAUSE: 'Could not find the table public.user_wishlist in the schema cache'. SOLUTION REQUIRED: Execute /app/backend/profile-enhancement-schema.sql in Supabase SQL Editor to create missing user_wishlist table. API code is complete and ready to work once table exists."
+      - working: false
+        agent: "main"
+        comment: "🔄 DATABASE SCHEMA UPDATED: User has manually executed profile-enhancement-schema.sql. The user_wishlist table should now exist. Marking for retesting to verify API functionality after database schema update."
 
   - task: "Implement Profile Update API endpoint"
     implemented: true
