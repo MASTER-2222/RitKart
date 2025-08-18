@@ -393,7 +393,7 @@ backend:
     implemented: true
     working: false
     file: "/app/backend/routes/auth.js"
-    stuck_count: 1
+    stuck_count: 2
     priority: "high"
     needs_retesting: true
     status_history:
@@ -403,6 +403,9 @@ backend:
       - working: false
         agent: "main"
         comment: "🔄 DATABASE SCHEMA UPDATED: User has manually executed profile-enhancement-schema.sql. The date_of_birth column should now exist in users table. Marking for retesting to verify API functionality after database schema update."
+      - working: false
+        agent: "testing"
+        comment: "❌ PROFILE UPDATE STILL BLOCKED: After database schema update, PUT /api/auth/profile still failing with 400 error. ROOT CAUSE: 'Could not find the date_of_birth column of users in the schema cache'. ISSUE: The profile-enhancement-schema.sql file does not include the date_of_birth column addition to users table. SOLUTION REQUIRED: Execute /app/add_date_of_birth_column.sql in Supabase SQL Editor to add missing date_of_birth column to users table. API code is ready but database schema is incomplete."
 
   - task: "Verify Orders API functionality"
     implemented: true
