@@ -180,6 +180,7 @@ export default function PaymentMethods() {
     setShowAddModal(false);
     setEditingMethod(null);
     setPaymentType('card');
+    setError(null);
     setFormData({
       cardNumber: '',
       expiryDate: '',
