@@ -229,8 +229,9 @@ metadata:
 test_plan:
   current_focus: 
     - "Create user_reviews table and API endpoints"
-    - "Add user review submission form to ProductDetail component"
+    - "Add user review submission form to ProductDetail component"  
     - "Add image upload functionality for reviews"
+    - "FIXED: Backend URL Configuration - Updated frontend to connect to correct backend port"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
