@@ -131,12 +131,24 @@ user_problem_statement: |
   GOAL: Complete related products functionality showing 10 relevant products on individual product pages, fetched from database based on category and description matching.
 
 backend:
+  - task: "Implement Related Products API endpoint"
+    implemented: false
+    working: false
+    file: "/app/backend/routes/products.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🎯 NEW TASK: Need to create API endpoint for fetching 10 related products based on category and description similarity. Endpoint should return products with image, name, price, and basic details for display in Related Products section."
+
   - task: "Create user_reviews table and API endpoints"
     implemented: true
     working: false
     file: "/app/backend/routes/user-reviews.js"
     stuck_count: 2
-    priority: "high"
+    priority: "medium"
     needs_retesting: false
     status_history:
       - working: false
