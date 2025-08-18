@@ -249,6 +249,13 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
     checkUserAuth();
   }, [productId, selectedCurrency]); // Add currency dependency
 
+  // Fetch related products when main product is loaded
+  useEffect(() => {
+    if (product) {
+      fetchRelatedProducts();
+    }
+  }, [product, selectedCurrency]);
+
   // Check if user is authenticated
   const checkUserAuth = async () => {
     try {
@@ -256,6 +263,29 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
       setUser(user);
     } catch (error) {
       console.error('Failed to check user authentication:', error);
+    }
+  };
+
+  // Fetch related products
+  const fetchRelatedProducts = async () => {
+    try {
+      setRelatedLoading(true);
+      console.log(`🔄 Loading related products for ${productId}...`);
+      
+      const response = await apiClient.getRelatedProducts(productId, { limit: 10 });
+      
+      if (response.success) {
+        setRelatedProducts(response.data || []);
+        console.log(`✅ Loaded ${response.data?.length || 0} related products`);
+      } else {
+        console.error('Failed to fetch related products:', response.message);
+        setRelatedProducts([]);
+      }
+    } catch (err) {
+      console.error('Failed to fetch related products:', err);
+      setRelatedProducts([]);
+    } finally {
+      setRelatedLoading(false);
     }
   };
 
