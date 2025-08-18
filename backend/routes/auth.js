@@ -152,6 +152,52 @@ router.get('/profile', authenticateToken, async (req, res) => {
 });
 
 // ==============================================
+// ✏️ UPDATE USER PROFILE
+// ==============================================
+router.put('/profile', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { fullName, phone, dateOfBirth } = req.body;
+
+    // Basic validation
+    if (!fullName) {
+      return res.status(400).json({
+        success: false,
+        message: 'Full name is required'
+      });
+    }
+
+    // Update user profile in database
+    const result = await userService.updateProfile(userId, {
+      fullName,
+      phone,
+      dateOfBirth
+    });
+
+    if (!result.success) {
+      return res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Profile updated successfully',
+      user: result.user
+    });
+
+  } catch (error) {
+    console.error('❌ Update profile error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update profile',
+      error: environment.isDevelopment() ? error.message : undefined
+    });
+  }
+});
+
+// ==============================================
 // 🔄 TOKEN REFRESH
 // ==============================================
 router.post('/refresh', async (req, res) => {
