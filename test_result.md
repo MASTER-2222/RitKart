@@ -130,7 +130,7 @@ backend:
     implemented: true
     working: false
     file: "/app/backend/routes/user-reviews.js"
-    stuck_count: 1
+    stuck_count: 2
     priority: "high"
     needs_retesting: false
     status_history:
@@ -143,6 +143,9 @@ backend:
       - working: false
         agent: "testing"
         comment: "🧪 COMPREHENSIVE TESTING COMPLETED: Executed full user review system test suite with 11 test scenarios. ✅ WORKING COMPONENTS: 1) Backend health check ✓, 2) User authentication (login/register) ✓, 3) Products API integration ✓, 4) Review statistics endpoint ✓, 5) User reviews endpoint ✓, 6) Input validation (all 5 validation rules) ✓, 7) Authentication protection (all 4 protected endpoints) ✓. ❌ BLOCKED BY DATABASE: Review creation, product reviews retrieval, and database integration all fail with same error: 'Could not find a relationship between user_reviews and users in the schema cache'. ROOT CAUSE CONFIRMED: user_reviews table does not exist in database. BACKEND CODE STATUS: 100% ready and functional. SOLUTION: Execute /app/user_reviews_schema_corrected.sql in Supabase SQL Editor to create missing table. Test results: 8/11 tests passed (72.7%) - all failures due to missing database table."
+      - working: false
+        agent: "testing"
+        comment: "🔍 CRITICAL SCHEMA CACHE ISSUE IDENTIFIED: Despite user confirming successful execution of user_reviews_schema_corrected.sql, the error persists. COMPREHENSIVE TESTING RESULTS: 19/24 tests passed (79.2%). ✅ WORKING: Backend health ✓, Authentication ✓, Input validation (9/9 tests) ✓, Route protection ✓, Image upload directory ✓. ❌ FAILING: Create review, Get product reviews, Database table verification - all with same 'schema cache' error. ROOT CAUSE: Supabase PostgREST schema cache not recognizing user_reviews table relationships. BACKEND FIXES APPLIED: 1) Changed all userReviewService methods to use getAdminSupabaseClient() instead of getSupabaseClient() for proper RLS bypass, 2) Updated foreign key constraint references to explicit naming (user_reviews_user_id_fkey). SOLUTION NEEDED: Execute 'NOTIFY pgrst, reload schema;' in Supabase SQL Editor to refresh schema cache, or verify foreign key constraints exist properly."
 
   - task: "Add image upload functionality for reviews"
     implemented: true
