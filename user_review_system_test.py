@@ -35,11 +35,9 @@ class RitZoneUserReviewTester:
         
     def create_test_image(self, filename="test_image.jpg"):
         """Create a test image file for upload testing"""
-        # Create a simple test image
-        img = Image.new('RGB', (100, 100), color='red')
-        img_bytes = io.BytesIO()
-        img.save(img_bytes, format='JPEG')
-        img_bytes.seek(0)
+        # Create a simple test image data (mock)
+        test_data = b"fake_image_data_for_testing"
+        img_bytes = io.BytesIO(test_data)
         return img_bytes
         
     def test_backend_health(self):
