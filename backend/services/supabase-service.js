@@ -1881,7 +1881,7 @@ const userReviewService = {
   // Update user's own review
   updateReview: async (reviewId, userId, updateData) => {
     try {
-      const client = getSupabaseClient();
+      const client = getAdminSupabaseClient();
       
       // Get current review to verify ownership and get current images
       const { data: currentReview, error: fetchError } = await client
