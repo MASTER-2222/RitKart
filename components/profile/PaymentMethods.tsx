@@ -351,7 +351,8 @@ export default function PaymentMethods() {
               <div className="flex space-x-4">
                 <button
                   onClick={() => setPaymentType('card')}
-                  className={`flex-1 p-3 rounded-lg border-2 transition-colors ${
+                  disabled={saving}
+                  className={`flex-1 p-3 rounded-lg border-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                     paymentType === 'card'
                       ? 'border-blue-500 bg-blue-50 text-blue-900'
                       : 'border-gray-300 text-gray-600 hover:border-gray-400'
@@ -362,7 +363,8 @@ export default function PaymentMethods() {
                 </button>
                 <button
                   onClick={() => setPaymentType('upi')}
-                  className={`flex-1 p-3 rounded-lg border-2 transition-colors ${
+                  disabled={saving}
+                  className={`flex-1 p-3 rounded-lg border-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                     paymentType === 'upi'
                       ? 'border-blue-500 bg-blue-50 text-blue-900'
                       : 'border-gray-300 text-gray-600 hover:border-gray-400'
