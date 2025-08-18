@@ -32,8 +32,8 @@ export default function UserProfileSidebar({ activeSection, onSectionChange }: U
           <div className="w-20 h-20 bg-gray-300 rounded-full mx-auto mb-3 flex items-center justify-center">
             <i className="ri-user-line w-8 h-8 flex items-center justify-center text-gray-600 text-2xl"></i>
           </div>
-          <h2 className="text-xl font-bold text-gray-900">John Doe</h2>
-          <p className="text-gray-600 text-sm">john.doe@email.com</p>
+          <h2 className="text-xl font-bold text-gray-900">User Profile</h2>
+          <p className="text-gray-600 text-sm">Loading...</p>
         </div>
 
         <nav className="space-y-2">
