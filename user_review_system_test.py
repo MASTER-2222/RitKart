@@ -10,7 +10,6 @@ import json
 import time
 import os
 import tempfile
-from PIL import Image
 import io
 
 # Configuration
