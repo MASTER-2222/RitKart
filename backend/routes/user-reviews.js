@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const { environment } = require('../config/environment');
 const { userReviewService } = require('../services/supabase-service');
-const { authMiddleware } = require('../middleware/auth');
+const { authenticateToken } = require('../middleware/enhanced-auth');
 
 const router = express.Router();
 
