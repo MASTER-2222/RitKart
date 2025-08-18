@@ -314,9 +314,12 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Fix Profile Update API by adding date_of_birth column to users table"
-  stuck_tasks: 
-    - "Implement Profile Update API endpoint"
+    - "Frontend Profile Dashboard Component - Dynamic user statistics"
+    - "Frontend Personal Info Component - Real user data with edit functionality"
+    - "Frontend Wishlist Component - Real wishlist items with CRUD operations"
+    - "Frontend Address Book Component - Real addresses with CRUD operations"
+    - "Frontend Payment Methods Component - Real payment methods with CRUD operations"
+  stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
