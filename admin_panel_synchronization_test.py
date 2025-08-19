@@ -105,8 +105,8 @@ class AdminPanelSyncTester:
             if register_response.status_code == 201:
                 register_result = register_response.json()
                 if register_result.get('success'):
-                    self.user_token = register_result['data']['token']
-                    self.test_user_id = register_result['data']['user']['id']
+                    self.user_token = register_result['token']
+                    self.test_user_id = register_result['user']['id']
                     self.log_test("User Registration", True, 
                                 f"Test user created with ID: {self.test_user_id}")
                     return True
