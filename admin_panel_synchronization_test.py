@@ -123,8 +123,8 @@ class AdminPanelSyncTester:
             if login_response.status_code == 200:
                 login_result = login_response.json()
                 if login_result.get('success'):
-                    self.user_token = login_result['data']['token']
-                    self.test_user_id = login_result['data']['user']['id']
+                    self.user_token = login_result['token']
+                    self.test_user_id = login_result['user']['id']
                     self.log_test("User Login", True, 
                                 f"Logged in with existing user ID: {self.test_user_id}")
                     return True
