@@ -72,9 +72,9 @@ class AdminPanelSyncTester:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and data.get('data', {}).get('token'):
-                    self.admin_token = data['data']['token']
-                    self.session.headers.update({'X-Admin-Token': self.admin_token})
+                if data.get('success') and data.get('sessionToken'):
+                    self.admin_token = data['sessionToken']
+                    self.session.headers.update({'Authorization': f'Bearer {self.admin_token}'})
                     self.log_test("Admin Login", True, "Admin authentication successful")
                     return True
                 else:
