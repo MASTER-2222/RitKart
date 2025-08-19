@@ -67,7 +67,7 @@ class AdminPanelSyncTester:
                 "password": "RitZone@Admin2025!"
             }
             
-            response = self.session.post(f"{BACKEND_URL}/admin/login", 
+            response = self.session.post(f"{BACKEND_URL}/admin/auth/login", 
                                        json=login_data, timeout=TIMEOUT)
             
             if response.status_code == 200:
