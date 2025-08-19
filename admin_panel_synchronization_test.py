@@ -105,11 +105,23 @@ class AdminPanelSyncTester:
             if register_response.status_code == 201:
                 register_result = register_response.json()
                 if register_result.get('success'):
-                    self.user_token = register_result['token']
-                    self.test_user_id = register_result['user']['id']
-                    self.log_test("User Registration", True, 
-                                f"Test user created with ID: {self.test_user_id}")
-                    return True
+                    # Registration successful, now login to get token
+                    login_data = {
+                        "email": register_data["email"],
+                        "password": register_data["password"]
+                    }
+                    
+                    login_response = self.session.post(f"{BACKEND_URL}/auth/login", 
+                                                     json=login_data, timeout=TIMEOUT)
+                    
+                    if login_response.status_code == 200:
+                        login_result = login_response.json()
+                        if login_result.get('success'):
+                            self.user_token = login_result['token']
+                            self.test_user_id = login_result['user']['id']
+                            self.log_test("User Registration & Login", True, 
+                                        f"Test user created and logged in with ID: {self.test_user_id}")
+                            return True
             
             # If registration fails, try to login with existing test user
             login_data = {
