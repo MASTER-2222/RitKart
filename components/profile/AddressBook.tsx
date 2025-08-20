@@ -55,7 +55,7 @@ export default function AddressBook() {
       });
       
       if (response.success) {
-        setAddresses(prev => [...prev, response.data.address]);
+        setAddresses(prev => [...prev, response.data]);
         setShowAddModal(false);
         resetForm();
       } else {
