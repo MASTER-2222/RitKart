@@ -64,7 +64,7 @@ export default function PaymentMethods() {
       const response = await apiClient.createPaymentMethod(paymentData);
       
       if (response.success) {
-        setPaymentMethods(prev => [...prev, response.data.paymentMethod]);
+        setPaymentMethods(prev => [...prev, response.data]);
         closeModal();
       } else {
         setError(response.message || 'Failed to add payment method');
