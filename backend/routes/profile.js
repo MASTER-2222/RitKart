@@ -223,7 +223,7 @@ router.get('/addresses', authenticateSupabaseToken, async (req, res) => {
 });
 
 // Add new address
-router.post('/addresses', authenticateSupabaseToken, async (req, res) => {
+router.post('/addresses', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { type, name, street, city, state, zip_code, country, phone, is_default } = req.body;
@@ -275,7 +275,7 @@ router.post('/addresses', authenticateSupabaseToken, async (req, res) => {
 });
 
 // Update address
-router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) => {
+router.put('/addresses/:addressId', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const addressId = req.params.addressId;
@@ -330,7 +330,7 @@ router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) 
 });
 
 // Delete address
-router.delete('/addresses/:addressId', authenticateSupabaseToken, async (req, res) => {
+router.delete('/addresses/:addressId', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const addressId = req.params.addressId;
@@ -385,7 +385,7 @@ router.delete('/addresses/:addressId', authenticateSupabaseToken, async (req, re
 // ==============================================
 
 // Get user payment methods
-router.get('/payment-methods', authenticateSupabaseToken, async (req, res) => {
+router.get('/payment-methods', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const client = getSupabaseClient();
@@ -416,7 +416,7 @@ router.get('/payment-methods', authenticateSupabaseToken, async (req, res) => {
 });
 
 // Add new payment method
-router.post('/payment-methods', authenticateSupabaseToken, async (req, res) => {
+router.post('/payment-methods', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { type, name, details, last_four, expiry_date, is_default } = req.body;
@@ -465,7 +465,7 @@ router.post('/payment-methods', authenticateSupabaseToken, async (req, res) => {
 });
 
 // Update payment method
-router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async (req, res) => {
+router.put('/payment-methods/:paymentMethodId', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const paymentMethodId = req.params.paymentMethodId;
@@ -520,7 +520,7 @@ router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async
 });
 
 // Delete payment method
-router.delete('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async (req, res) => {
+router.delete('/payment-methods/:paymentMethodId', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const paymentMethodId = req.params.paymentMethodId;
@@ -575,7 +575,7 @@ router.delete('/payment-methods/:paymentMethodId', authenticateSupabaseToken, as
 // ==============================================
 
 // Get user wishlist
-router.get('/wishlist', authenticateSupabaseToken, async (req, res) => {
+router.get('/wishlist', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const client = getSupabaseClient();
@@ -637,7 +637,7 @@ router.get('/wishlist', authenticateSupabaseToken, async (req, res) => {
 });
 
 // Add item to wishlist
-router.post('/wishlist', authenticateSupabaseToken, async (req, res) => {
+router.post('/wishlist', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { product_id } = req.body;
@@ -693,7 +693,7 @@ router.post('/wishlist', authenticateSupabaseToken, async (req, res) => {
 });
 
 // Remove item from wishlist
-router.delete('/wishlist/:productId', authenticateSupabaseToken, async (req, res) => {
+router.delete('/wishlist/:productId', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const productId = req.params.productId;
