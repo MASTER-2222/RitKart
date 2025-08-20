@@ -253,7 +253,7 @@ router.post('/add', authenticateSupabaseToken, async (req, res) => {
 // ==============================================
 // 🔄 UPDATE CART ITEM
 // ==============================================
-router.put('/items/:itemId', authenticateToken, async (req, res) => {
+router.put('/items/:itemId', authenticateSupabaseToken, async (req, res) => {
   try {
     const itemId = req.params.itemId;
     const { quantity } = req.body;
