@@ -28,7 +28,7 @@ export default function PaymentMethods() {
         const response = await apiClient.getPaymentMethods();
         
         if (response.success) {
-          setPaymentMethods(response.data.paymentMethods || response.data || []);
+          setPaymentMethods(response.data || []);
         } else {
           setError(response.message || 'Failed to load payment methods');
         }
