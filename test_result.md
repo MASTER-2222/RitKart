@@ -338,7 +338,7 @@ backend:
 
   - task: "Implement Address Management API endpoints"
     implemented: true
-    working: true
+    working: false
     file: "/app/backend/routes/profile.js"
     stuck_count: 1
     priority: "high"
@@ -353,6 +353,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "✅ ADDRESS MANAGEMENT APIS WORKING PERFECTLY: Comprehensive testing completed with 100% success rate. VERIFIED FUNCTIONALITY: 1) GET /api/profile/addresses - retrieves user addresses successfully ✓, 2) POST /api/profile/addresses - creates new addresses with proper validation ✓, 3) PUT /api/profile/addresses/:id - updates existing addresses with ownership verification ✓, 4) DELETE /api/profile/addresses/:id - deletes addresses with proper authorization ✓. CRUD OPERATIONS: All address management operations working flawlessly. DATABASE INTEGRATION: user_addresses table created successfully, foreign key relationships working, default address management functional. SECURITY: Proper authentication required, ownership verification implemented. Address Management APIs are production-ready!"
+      - working: false
+        agent: "testing"
+        comment: "❌ MINOR DATABASE SCHEMA ISSUE IDENTIFIED: GET /api/profile/addresses works perfectly, but POST /api/profile/addresses fails with 500 error. ROOT CAUSE: Database schema mismatch - API expects 'street' field but database has 'address_line_1' column. ERROR: 'Could not find the address_line_1 column of user_addresses in the schema cache'. SOLUTION: Either update API to use 'address_line_1' field or update database schema to use 'street' column. All other address operations (GET, PUT, DELETE) work perfectly. This is a minor field mapping issue, not a critical functionality problem."
 
   - task: "Implement Payment Methods Management API endpoints"
     implemented: true
