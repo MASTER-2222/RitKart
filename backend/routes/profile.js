@@ -369,8 +369,9 @@ router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) 
     if (country !== undefined) updateData.country = country;
     if (phone !== undefined) updateData.phone = phone;
     if (isDefault !== undefined) updateData.is_default = isDefault;
-      updated_at: new Date().toISOString()
-    };
+    
+    // Always update the updated_at timestamp
+    updateData.updated_at = new Date().toISOString();
 
     // Remove undefined values
     Object.keys(updateData).forEach(key => {
