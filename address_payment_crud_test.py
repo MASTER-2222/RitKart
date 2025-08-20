@@ -39,8 +39,8 @@ import time
 import sys
 from typing import Dict, Any, Optional
 
-# Configuration - Using production backend URL
-BACKEND_URL = "https://ritkart-backend-ujnt.onrender.com/api"
+# Configuration - Using local development backend URL
+BACKEND_URL = "http://localhost:10000/api"
 TEST_USER_EMAIL = "b@b.com"
 TEST_USER_PASSWORD = "Abcd@1234"
 
