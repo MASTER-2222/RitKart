@@ -42,7 +42,7 @@ export default function MyOrders() {
         const response = await apiClient.getOrders();
         
         if (response.success) {
-          setOrders(response.data.orders || response.data || []);
+          setOrders(response.data || []);
         } else {
           setError(response.message || 'Failed to load orders');
         }
