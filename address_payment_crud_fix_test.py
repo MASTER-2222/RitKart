@@ -108,15 +108,17 @@ class AddressPaymentCRUDFixTest:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and data.get('data', {}).get('access_token'):
-                    self.access_token = data['data']['access_token']
+                # Check for both 'token' and 'access_token' fields
+                token = data.get('token') or data.get('data', {}).get('access_token')
+                if data.get('success') and token:
+                    self.access_token = token
                     self.session.headers.update({
                         'Authorization': f'Bearer {self.access_token}'
                     })
                     self.log_test("User Authentication", True, f"Successfully authenticated {self.test_email}")
                     return True
                 else:
-                    self.log_test("User Authentication", False, f"Login response missing access token: {data}")
+                    self.log_test("User Authentication", False, f"Login response missing token: {data}")
                     return False
             else:
                 self.log_test("User Authentication", False, f"Login failed with status {response.status_code}: {response.text}")
