@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
 """
-RitZone Authentication System Testing
-=====================================
-Critical authentication system analysis for profile page issues.
+RitZone Profile Page API Diagnosis
+==================================
+Critical profile page API testing for production RitZone application.
 
-Focus: Test authentication flow and profile API calls with real user data.
+ISSUE CONTEXT: User experiencing multiple profile page errors:
+- "Failed to add address. Please try again."
+- "Error Loading Wishlist"  
+- "Error Loading Orders"
+- "Error Loading Profile" 
+- "Error Loading Dashboard"
+
+Focus: Test all profile-related API endpoints with Supabase authentication.
 """
 
 import requests
@@ -13,7 +20,7 @@ import time
 import sys
 from typing import Dict, Any, Optional
 
-# Configuration
+# Configuration - Using production backend URL
 BACKEND_URL = "https://ritkart-backend-ujnt.onrender.com/api"
 TEST_USER_EMAIL = "b@b.com"
 TEST_USER_PASSWORD = "Abcd@1234"
