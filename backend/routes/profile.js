@@ -550,11 +550,11 @@ router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async
     const userId = req.user.userId;
     const { paymentMethodId } = req.params;
     const {
-      cardholder_name,
-      expiry_month,
-      expiry_year,
-      billing_address_id,
-      is_default
+      name,
+      details,
+      lastFour,
+      expiryDate,
+      isDefault
     } = req.body;
 
     const client = getSupabaseClient();
@@ -575,7 +575,7 @@ router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async
     }
 
     // If this payment method is set as default, remove default from others
-    if (is_default) {
+    if (isDefault) {
       await client
         .from('user_payment_methods')
         .update({ is_default: false })
@@ -584,11 +584,11 @@ router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async
     }
 
     const updateData = {
-      cardholder_name,
-      expiry_month,
-      expiry_year,
-      billing_address_id,
-      is_default,
+      name,
+      details,
+      last_four: lastFour,
+      expiry_date: expiryDate,
+      is_default: isDefault,
       updated_at: new Date().toISOString()
     };
 
