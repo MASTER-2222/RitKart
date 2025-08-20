@@ -180,7 +180,7 @@ router.post('/', authenticateSupabaseToken, async (req, res) => {
 // ==============================================
 // 🔍 GET ORDER BY ID
 // ==============================================
-router.get('/:orderId', authenticateToken, async (req, res) => {
+router.get('/:orderId', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const orderId = req.params.orderId;
