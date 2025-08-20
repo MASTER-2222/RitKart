@@ -356,6 +356,9 @@ backend:
       - working: false
         agent: "testing"
         comment: "❌ MINOR DATABASE SCHEMA ISSUE IDENTIFIED: GET /api/profile/addresses works perfectly, but POST /api/profile/addresses fails with 500 error. ROOT CAUSE: Database schema mismatch - API expects 'street' field but database has 'address_line_1' column. ERROR: 'Could not find the address_line_1 column of user_addresses in the schema cache'. SOLUTION: Either update API to use 'address_line_1' field or update database schema to use 'street' column. All other address operations (GET, PUT, DELETE) work perfectly. This is a minor field mapping issue, not a critical functionality problem."
+      - working: false
+        agent: "testing"
+        comment: "🚨 CRITICAL FIELD MAPPING ISSUE CONFIRMED: Comprehensive testing of Address Management APIs after supposed field mapping fix reveals the issue is NOT resolved. ROOT CAUSE IDENTIFIED: Backend code expects database columns (address_line_1, postal_code, first_name/last_name) that don't exist in actual database schema. ACTUAL DATABASE SCHEMA: user_addresses table has columns 'street', 'zip_code', 'name', 'is_default'. BACKEND CODE MISMATCH: /app/backend/routes/profile.js tries to insert into 'address_line_1', 'postal_code', 'first_name'/'last_name' columns. FIELD MAPPING FIX STATUS: ❌ NOT WORKING - The fix needs to be reversed. Backend should use actual database column names (street, zip_code, name) instead of trying to map to non-existent columns. TESTING RESULTS: 2/5 tests passed - Authentication ✓, GET addresses ✓, POST/PUT/DELETE all fail due to schema mismatch. SOLUTION REQUIRED: Update backend code to use correct database column names from profile-enhancement-schema.sql."
 
   - task: "Implement Payment Methods Management API endpoints"
     implemented: true
