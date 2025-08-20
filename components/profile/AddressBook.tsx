@@ -10,7 +10,7 @@ export default function AddressBook() {
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
-    type: 'Home',
+    type: 'home',
     name: '',
     street: '',
     city: '',
@@ -248,7 +248,7 @@ export default function AddressBook() {
 
                 <div className="mb-4">
                   <div className="flex items-center space-x-2 mb-2">
-                    <h3 className="font-semibold text-gray-900">{address.type}</h3>
+                    <h3 className="font-semibold text-gray-900">{address.type.charAt(0).toUpperCase() + address.type.slice(1)}</h3>
                     <span className="text-gray-600">•</span>
                     <span className="text-gray-600">{address.name}</span>
                   </div>
@@ -324,9 +324,9 @@ export default function AddressBook() {
                     disabled={saving}
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-8 disabled:bg-gray-50"
                   >
-                    <option value="Home">Home</option>
-                    <option value="Office">Office</option>
-                    <option value="Other">Other</option>
+                    <option value="home">Home</option>
+                    <option value="office">Office</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
 

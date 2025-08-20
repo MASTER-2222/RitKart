@@ -470,10 +470,23 @@ router.get('/payment-methods', authenticateSupabaseToken, async (req, res) => {
 
     if (error) throw error;
 
+    // Transform the data to match frontend expectations
+    const transformedPaymentMethods = (paymentMethods || []).map(method => ({
+      id: method.id,
+      type: method.type,
+      name: method.name,
+      details: method.details,
+      lastFour: method.last_four,
+      expiryDate: method.expiry_date,
+      isDefault: method.is_default,
+      createdAt: method.created_at,
+      updatedAt: method.updated_at
+    }));
+
     res.status(200).json({
       success: true,
       message: 'Payment methods retrieved successfully',
-      data: paymentMethods || []
+      data: transformedPaymentMethods
     });
 
   } catch (error) {
@@ -492,19 +505,17 @@ router.post('/payment-methods', authenticateSupabaseToken, async (req, res) => {
     const userId = req.user.userId;
     const {
       type,
-      card_last4,
-      card_brand,
-      expiry_month,
-      expiry_year,
-      cardholder_name,
-      billing_address_id,
-      is_default
+      name,
+      details,
+      lastFour,
+      expiryDate,
+      isDefault
     } = req.body;
 
     const client = getSupabaseClient();
 
     // If this payment method is set as default, remove default from others
-    if (is_default) {
+    if (isDefault) {
       await client
         .from('user_payment_methods')
         .update({ is_default: false })
@@ -515,13 +526,11 @@ router.post('/payment-methods', authenticateSupabaseToken, async (req, res) => {
       id: uuidv4(),
       user_id: userId,
       type: type || 'card',
-      card_last4,
-      card_brand,
-      expiry_month,
-      expiry_year,
-      cardholder_name,
-      billing_address_id: billing_address_id || null,
-      is_default: is_default || false
+      name,
+      details,
+      last_four: lastFour || null,
+      expiry_date: expiryDate || null,
+      is_default: isDefault || false
     };
 
     const { data: newPaymentMethod, error } = await client
@@ -532,10 +541,23 @@ router.post('/payment-methods', authenticateSupabaseToken, async (req, res) => {
 
     if (error) throw error;
 
+    // Transform response to match frontend expectations
+    const transformedPaymentMethod = {
+      id: newPaymentMethod.id,
+      type: newPaymentMethod.type,
+      name: newPaymentMethod.name,
+      details: newPaymentMethod.details,
+      lastFour: newPaymentMethod.last_four,
+      expiryDate: newPaymentMethod.expiry_date,
+      isDefault: newPaymentMethod.is_default,
+      createdAt: newPaymentMethod.created_at,
+      updatedAt: newPaymentMethod.updated_at
+    };
+
     res.status(201).json({
       success: true,
       message: 'Payment method added successfully',
-      data: newPaymentMethod
+      data: transformedPaymentMethod
     });
 
   } catch (error) {
@@ -554,11 +576,12 @@ router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async
     const userId = req.user.userId;
     const { paymentMethodId } = req.params;
     const {
-      cardholder_name,
-      expiry_month,
-      expiry_year,
-      billing_address_id,
-      is_default
+      type,
+      name,
+      details,
+      lastFour,
+      expiryDate,
+      isDefault
     } = req.body;
 
     const client = getSupabaseClient();
@@ -579,7 +602,7 @@ router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async
     }
 
     // If this payment method is set as default, remove default from others
-    if (is_default) {
+    if (isDefault) {
       await client
         .from('user_payment_methods')
         .update({ is_default: false })
@@ -587,21 +610,18 @@ router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async
         .neq('id', paymentMethodId);
     }
 
-    const updateData = {
-      cardholder_name,
-      expiry_month,
-      expiry_year,
-      billing_address_id,
-      is_default,
-      updated_at: new Date().toISOString()
-    };
-
-    // Remove undefined values
-    Object.keys(updateData).forEach(key => {
-      if (updateData[key] === undefined) {
-        delete updateData[key];
-      }
-    });
+    const updateData = {};
+    
+    // Only update fields that are provided
+    if (type !== undefined) updateData.type = type;
+    if (name !== undefined) updateData.name = name;
+    if (details !== undefined) updateData.details = details;
+    if (lastFour !== undefined) updateData.last_four = lastFour;
+    if (expiryDate !== undefined) updateData.expiry_date = expiryDate;
+    if (isDefault !== undefined) updateData.is_default = isDefault;
+    
+    // Always update the updated_at timestamp
+    updateData.updated_at = new Date().toISOString();
 
     const { data: updatedPaymentMethod, error } = await client
       .from('user_payment_methods')
@@ -613,10 +633,23 @@ router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async
 
     if (error) throw error;
 
+    // Transform response to match frontend expectations
+    const transformedPaymentMethod = {
+      id: updatedPaymentMethod.id,
+      type: updatedPaymentMethod.type,
+      name: updatedPaymentMethod.name,
+      details: updatedPaymentMethod.details,
+      lastFour: updatedPaymentMethod.last_four,
+      expiryDate: updatedPaymentMethod.expiry_date,
+      isDefault: updatedPaymentMethod.is_default,
+      createdAt: updatedPaymentMethod.created_at,
+      updatedAt: updatedPaymentMethod.updated_at
+    };
+
     res.status(200).json({
       success: true,
       message: 'Payment method updated successfully',
-      data: updatedPaymentMethod
+      data: transformedPaymentMethod
     });
 
   } catch (error) {

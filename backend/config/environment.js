@@ -2,7 +2,7 @@
 // ==============================================
 // Centralized environment variable management using .env file
 
-require('dotenv').config({ path: '/app/backend/.env' });
+require('dotenv').config();
 
 const environment = {
   // ==============================================
