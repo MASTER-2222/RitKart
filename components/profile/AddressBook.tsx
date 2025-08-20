@@ -10,7 +10,7 @@ export default function AddressBook() {
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
-    type: 'Home',
+    type: 'home',
     name: '',
     street: '',
     city: '',
