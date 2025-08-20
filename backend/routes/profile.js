@@ -296,18 +296,23 @@ router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) 
     const { addressId } = req.params;
     const {
       type,
-      first_name,
-      last_name,
-      company,
-      address_line_1,
-      address_line_2,
+      name,
+      street,
       city,
       state,
-      postal_code,
+      zipCode,
       country,
       phone,
-      is_default
+      isDefault
     } = req.body;
+
+    // Extract first_name and last_name from combined name if provided
+    let first_name, last_name;
+    if (name) {
+      const nameParts = name.trim().split(' ');
+      first_name = nameParts[0] || '';
+      last_name = nameParts.slice(1).join(' ') || '';
+    }
 
     const client = getSupabaseClient();
 
