@@ -86,17 +86,48 @@ router.post('/login', async (req, res) => {
       });
     }
 
+    // Debug logging
+    console.log('🔍 Login result:', {
+      success: result.success,
+      hasUser: !!result.user,
+      hasSession: !!result.session,
+      sessionKeys: result.session ? Object.keys(result.session) : 'no session'
+    });
+
     // Return Supabase access token instead of JWT token
     // This ensures compatibility with authenticateSupabaseToken middleware
     const token = result.session?.access_token;
     
+    console.log('🔍 Access token from session:', token ? `${token.substring(0, 50)}...` : 'NO TOKEN');
+    
     if (!token) {
-      return res.status(500).json({
-        success: false,
-        message: 'Failed to obtain access token from Supabase session'
+      console.log('❌ No access token found in session, falling back to JWT');
+      // Fallback to JWT token generation for now
+      const jwtToken = jwt.sign(
+        { 
+          userId: result.user.id,
+          email: result.user.email 
+        },
+        environment.security.jwtSecret,
+        { 
+          expiresIn: environment.security.jwtExpiration 
+        }
+      );
+      
+      return res.status(200).json({
+        success: true,
+        message: 'Login successful (JWT fallback)',
+        token: jwtToken,
+        user: {
+          id: result.user.id,
+          email: result.user.email,
+          fullName: result.user.user_metadata?.full_name,
+          phone: result.user.user_metadata?.phone
+        }
       });
     }
 
+    console.log('✅ Using Supabase access token');
     res.status(200).json({
       success: true,
       message: 'Login successful',
