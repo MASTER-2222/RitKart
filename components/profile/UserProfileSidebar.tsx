@@ -17,7 +17,7 @@ export default function UserProfileSidebar({ activeSection, onSectionChange }: U
       try {
         const response = await apiClient.getProfile();
         if (response.success) {
-          const user = response.data.user || response.data;
+          const user = response.user;
           setUserInfo({
             fullName: user.fullName || user.full_name || 'User',
             email: user.email || 'user@example.com'
