@@ -83,8 +83,16 @@ class AddressManagementTester:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and data.get('data', {}).get('access_token'):
-                    self.access_token = data['data']['access_token']
+                # Handle both possible token field names
+                token = None
+                if data.get('success'):
+                    if data.get('data', {}).get('access_token'):
+                        token = data['data']['access_token']
+                    elif data.get('token'):
+                        token = data['token']
+                
+                if token:
+                    self.access_token = token
                     self.log_test(
                         "User Authentication",
                         True,
