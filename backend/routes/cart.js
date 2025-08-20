@@ -327,7 +327,7 @@ router.delete('/items/:itemId', authenticateSupabaseToken, async (req, res) => {
 // ==============================================
 // 🗑️ CLEAR CART
 // ==============================================
-router.delete('/', authenticateToken, async (req, res) => {
+router.delete('/', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
 
