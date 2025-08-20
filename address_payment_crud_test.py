@@ -176,9 +176,9 @@ class AddressPaymentCRUDTester:
         
         # Test 2.2: POST /api/profile/addresses (create new address - THIS IS FAILING)
         try:
-            # Test data as specified in review request
+            # Test data as specified in review request (fixed type to lowercase)
             address_data = {
-                "type": "Home",
+                "type": "home",  # Fixed: database constraint requires lowercase
                 "name": "John Doe",
                 "street": "123 Main St",
                 "city": "New York",
