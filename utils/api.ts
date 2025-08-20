@@ -47,19 +47,27 @@ class ApiClient {
     if (typeof window !== 'undefined') {
       try {
         // Try to get Supabase session first
+        console.log('🔍 Getting Supabase session...');
         const { createClient } = await import('../utils/supabase/client');
         const supabase = createClient();
         const { data: { session } } = await supabase.auth.getSession();
         
+        console.log('🔐 Supabase session:', session ? 'Found' : 'Not found');
         if (session?.access_token) {
+          console.log('✅ Access token found, length:', session.access_token.length);
           defaultHeaders['Authorization'] = `Bearer ${session.access_token}`;
+        } else {
+          console.log('❌ No access token in session');
         }
       } catch (error) {
-        console.warn('Failed to get Supabase session:', error);
+        console.warn('⚠️ Failed to get Supabase session:', error);
         // Fallback to localStorage token
         const token = localStorage.getItem('supabase.auth.token');
         if (token) {
+          console.log('🔄 Using localStorage token fallback');
           defaultHeaders['Authorization'] = `Bearer ${token}`;
+        } else {
+          console.log('❌ No token found in localStorage either');
         }
       }
     }
