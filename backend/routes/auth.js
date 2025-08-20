@@ -123,7 +123,7 @@ router.post('/login', async (req, res) => {
 // ==============================================
 // 👤 GET USER PROFILE
 // ==============================================
-router.get('/profile', authenticateToken, async (req, res) => {
+router.get('/profile', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
 
