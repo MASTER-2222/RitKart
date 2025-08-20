@@ -4,14 +4,76 @@
 
 const express = require('express');
 const { environment } = require('../config/environment');
-const { cartService } = require('../services/supabase-service');
-const { authenticateToken } = require('../middleware/enhanced-auth');
+const { cartService, getSupabaseClient } = require('../services/supabase-service');
+const AutoSyncMiddleware = require('../middleware/auto-sync-middleware');
 // NEW: Import currency service for dynamic currency conversion
 const { 
   convertPrice, 
   getCurrencySymbol, 
   formatPrice 
 } = require('../services/currency-service');
+
+const router = express.Router();
+
+// ==============================================
+// 🔒 SUPABASE AUTHENTICATION MIDDLEWARE
+// ==============================================
+async function authenticateSupabaseToken(req, res, next) {
+  try {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'Access token is required'
+      });
+    }
+
+    const client = getSupabaseClient();
+    
+    // Verify Supabase token and get user
+    const { data: { user }, error } = await client.auth.getUser(token);
+    
+    if (error || !user) {
+      return res.status(403).json({
+        success: false,
+        message: 'Invalid or expired token'
+      });
+    }
+
+    // Auto-sync user to local database
+    const syncResult = await AutoSyncMiddleware.syncSupabaseUser(
+      user.id, 
+      user.email,
+      {
+        email_verified: user.email_confirmed_at ? true : false,
+        phone: user.phone,
+        user_metadata: user.user_metadata
+      }
+    );
+
+    if (syncResult.success) {
+      // Attach synced user to request object
+      req.user = { userId: user.id, email: user.email };
+      req.syncedUser = syncResult.user;
+      req.supabaseUser = user;
+    } else {
+      return res.status(500).json({
+        success: false,
+        message: 'User synchronization failed'
+      });
+    }
+
+    next();
+  } catch (error) {
+    console.error('❌ Supabase auth middleware error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Authentication error'
+    });
+  }
+}
 
 const router = express.Router();
 
