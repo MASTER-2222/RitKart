@@ -205,7 +205,7 @@ router.get('/', authenticateSupabaseToken, async (req, res) => {
 // ==============================================
 // ➕ ADD ITEM TO CART
 // ==============================================
-router.post('/add', authenticateToken, async (req, res) => {
+router.post('/add', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { productId, quantity = 1 } = req.body;
