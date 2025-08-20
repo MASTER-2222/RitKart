@@ -18,7 +18,7 @@ export default function Wishlist() {
         const response = await apiClient.getWishlist();
         
         if (response.success) {
-          setWishlistItems(response.data.items || response.data || []);
+          setWishlistItems(response.data || []);
         } else {
           setError(response.message || 'Failed to load wishlist');
         }
