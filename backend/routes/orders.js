@@ -74,7 +74,7 @@ async function authenticateSupabaseToken(req, res, next) {
 // ==============================================
 // 📋 GET USER'S ORDERS
 // ==============================================
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const page = parseInt(req.query.page) || 1;
