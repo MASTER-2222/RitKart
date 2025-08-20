@@ -152,7 +152,7 @@ export default function AddressBook() {
 
   const resetForm = () => {
     setFormData({
-      type: 'Home',
+      type: 'home',
       name: '',
       street: '',
       city: '',
