@@ -365,9 +365,9 @@ backend:
 
   - task: "Implement Payment Methods Management API endpoints"
     implemented: true
-    working: true
+    working: false
     file: "/app/backend/routes/profile.js"
-    stuck_count: 1
+    stuck_count: 2
     priority: "high"
     needs_retesting: false
     status_history:
@@ -380,6 +380,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "✅ PAYMENT METHODS APIS WORKING PERFECTLY: Comprehensive testing completed with 100% success rate. VERIFIED FUNCTIONALITY: 1) GET /api/profile/payment-methods - retrieves user payment methods successfully ✓, 2) POST /api/profile/payment-methods - creates new payment methods with proper validation ✓, 3) PUT /api/profile/payment-methods/:id - updates existing payment methods with ownership verification ✓, 4) DELETE /api/profile/payment-methods/:id - deletes payment methods with proper authorization ✓. CRUD OPERATIONS: All payment method management operations working flawlessly. DATABASE INTEGRATION: user_payment_methods table created successfully, foreign key relationships working, default payment method management functional. SECURITY: Proper authentication required, ownership verification implemented. Payment Methods APIs are production-ready!"
+      - working: false
+        agent: "testing"
+        comment: "🚨 CRITICAL PAYMENT METHODS SCHEMA MISMATCH DISCOVERED: Comprehensive diagnosis reveals CRITICAL incompatibility between backend code and database schema. ✅ GET /api/profile/payment-methods works perfectly ✓. ❌ POST/PUT/DELETE operations fail with 'Could not find the billing_address_id column' error. 🔍 ROOT CAUSE ANALYSIS: Backend code expects columns (card_last4, card_brand, expiry_month, expiry_year, cardholder_name, billing_address_id) that DO NOT EXIST in database schema. Database schema has different columns (name, details, last_four, expiry_date). 🎯 IMPACT: This explains user reports of 'Failed to add payment method' errors. SOLUTION REQUIRED: Either update backend code to match database schema OR update database schema to match backend expectations. This is a fundamental architecture mismatch requiring code/schema alignment."
 
   - task: "Implement Wishlist Management API endpoints"
     implemented: true
