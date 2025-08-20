@@ -241,7 +241,7 @@ router.post('/addresses', authenticateSupabaseToken, async (req, res) => {
     const client = getSupabaseClient();
 
     // If this address is set as default, remove default from other addresses
-    if (is_default) {
+    if (isDefault) {
       await client
         .from('user_addresses')
         .update({ is_default: false })
@@ -254,15 +254,15 @@ router.post('/addresses', authenticateSupabaseToken, async (req, res) => {
       type: type || 'home',
       first_name,
       last_name,
-      company: company || null,
-      address_line_1,
-      address_line_2: address_line_2 || null,
+      company: null,
+      address_line_1: street,
+      address_line_2: null,
       city,
       state,
-      postal_code,
+      postal_code: zipCode,
       country: country || 'US',
       phone: phone || null,
-      is_default: is_default || false
+      is_default: isDefault || false
     };
 
     const { data: newAddress, error } = await client
