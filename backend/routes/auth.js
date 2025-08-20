@@ -155,7 +155,7 @@ router.get('/profile', authenticateSupabaseToken, async (req, res) => {
 // ==============================================
 // ✏️ UPDATE USER PROFILE
 // ==============================================
-router.put('/profile', authenticateToken, async (req, res) => {
+router.put('/profile', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { fullName, phone, dateOfBirth } = req.body;
