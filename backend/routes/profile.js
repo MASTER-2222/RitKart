@@ -332,7 +332,7 @@ router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) 
     }
 
     // If this address is set as default, remove default from other addresses
-    if (is_default) {
+    if (isDefault) {
       await client
         .from('user_addresses')
         .update({ is_default: false })
@@ -340,19 +340,19 @@ router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) 
         .neq('id', addressId);
     }
 
-    const updateData = {
-      type,
-      first_name,
-      last_name,
-      company,
-      address_line_1,
-      address_line_2,
-      city,
-      state,
-      postal_code,
-      country,
-      phone,
-      is_default,
+    const updateData = {};
+    
+    // Only update fields that are provided
+    if (type !== undefined) updateData.type = type;
+    if (first_name !== undefined) updateData.first_name = first_name;
+    if (last_name !== undefined) updateData.last_name = last_name;
+    if (street !== undefined) updateData.address_line_1 = street;
+    if (city !== undefined) updateData.city = city;
+    if (state !== undefined) updateData.state = state;
+    if (zipCode !== undefined) updateData.postal_code = zipCode;
+    if (country !== undefined) updateData.country = country;
+    if (phone !== undefined) updateData.phone = phone;
+    if (isDefault !== undefined) updateData.is_default = isDefault;
       updated_at: new Date().toISOString()
     };
 
