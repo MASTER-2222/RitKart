@@ -6,7 +6,8 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { environment } = require('../config/environment');
-const { userService } = require('../services/supabase-service');
+const { userService, getSupabaseClient } = require('../services/supabase-service');
+const AutoSyncMiddleware = require('../middleware/auto-sync-middleware');
 
 const router = express.Router();
 
