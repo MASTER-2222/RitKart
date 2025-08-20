@@ -114,7 +114,7 @@ router.get('/', authenticateSupabaseToken, async (req, res) => {
 // ==============================================
 // 🛍️ CREATE NEW ORDER
 // ==============================================
-router.post('/', authenticateToken, async (req, res) => {
+router.post('/', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { 
