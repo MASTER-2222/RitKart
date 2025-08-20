@@ -40,11 +40,11 @@ export default function PersonalInfo() {
         const response = await apiClient.getProfile();
         
         if (response.success) {
-          setUserProfile(response.data);
+          setUserProfile(response.user);
           setFormData({
-            fullName: response.data.fullName || response.data.full_name || '',
-            phone: response.data.phone || '',
-            dateOfBirth: response.data.dateOfBirth || response.data.date_of_birth || ''
+            fullName: response.user.fullName || response.user.full_name || '',
+            phone: response.user.phone || '',
+            dateOfBirth: response.user.dateOfBirth || response.user.date_of_birth || ''
           });
         } else {
           setError(response.message || 'Failed to load profile data');
