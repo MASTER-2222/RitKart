@@ -138,46 +138,51 @@ router.get('/dashboard', authenticateSupabaseToken, async (req, res) => {
         status,
         total_amount,
         created_at,
-        order_items!inner (
-          product_name,
+        order_items (
           quantity,
-          unit_price
+          product_name,
+          products (
+            name,
+            images
+          )
         )
       `)
       .eq('user_id', userId)
       .order('created_at', { ascending: false })
-      .limit(5);
+      .limit(3);
 
     if (recentOrdersError) {
       console.warn('Recent orders fetch failed:', recentOrdersError.message);
     }
 
+    const dashboardData = {
+      user: {
+        name: user.full_name || 'User',
+        memberSince: user.created_at
+      },
+      stats: {
+        totalOrders,
+        activeDeliveries,
+        completedOrders,
+        totalSpent,
+        cartItems: cartItemsCount,
+        wishlistItems: wishlistCount
+      },
+      recentOrders: recentOrders || []
+    };
+
     res.status(200).json({
       success: true,
       message: 'Dashboard data retrieved successfully',
-      data: {
-        user: {
-          name: user?.full_name || 'User',
-          memberSince: user?.created_at || new Date().toISOString()
-        },
-        stats: {
-          totalOrders,
-          activeDeliveries,
-          completedOrders,
-          totalSpent: Math.round(totalSpent * 100) / 100,
-          cartItems: cartItemsCount,
-          wishlistItems: wishlistCount
-        },
-        recentOrders: recentOrders || []
-      }
+      data: dashboardData
     });
 
   } catch (error) {
-    console.error('❌ Dashboard fetch failed:', error.message);
+    console.error('❌ Get dashboard error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to retrieve dashboard data',
-      error: error.message
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
@@ -208,62 +213,44 @@ router.get('/addresses', authenticateSupabaseToken, async (req, res) => {
     });
 
   } catch (error) {
-    console.error('❌ Get addresses failed:', error.message);
+    console.error('❌ Get addresses error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to retrieve addresses',
-      error: error.message
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
 
 // Add new address
-router.post('/addresses', authenticateSupabaseToken, async (req, res) => {
+router.post('/addresses', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
-    const {
-      type,
-      first_name,
-      last_name,
-      company,
-      address_line_1,
-      address_line_2,
-      city,
-      state,
-      postal_code,
-      country,
-      phone,
-      is_default
-    } = req.body;
-
+    const { type, name, street, city, state, zip_code, country, phone, is_default } = req.body;
     const client = getSupabaseClient();
 
-    // If this address is set as default, remove default from other addresses
-    if (is_default) {
-      await client
-        .from('user_addresses')
-        .update({ is_default: false })
-        .eq('user_id', userId);
+    // Validation
+    if (!name || !street || !city || !state || !zip_code) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name, street, city, state, and zip code are required'
+      });
     }
 
     const addressData = {
-      id: uuidv4(),
       user_id: userId,
       type: type || 'home',
-      first_name,
-      last_name,
-      company: company || null,
-      address_line_1,
-      address_line_2: address_line_2 || null,
+      name,
+      street,
       city,
       state,
-      postal_code,
-      country: country || 'US',
-      phone: phone || null,
+      zip_code,
+      country: country || 'United States',
+      phone,
       is_default: is_default || false
     };
 
-    const { data: newAddress, error } = await client
+    const { data: address, error } = await client
       .from('user_addresses')
       .insert([addressData])
       .select()
@@ -274,47 +261,32 @@ router.post('/addresses', authenticateSupabaseToken, async (req, res) => {
     res.status(201).json({
       success: true,
       message: 'Address added successfully',
-      data: newAddress
+      data: address
     });
 
   } catch (error) {
-    console.error('❌ Add address failed:', error.message);
+    console.error('❌ Add address error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to add address',
-      error: error.message
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
 
 // Update address
-router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) => {
+router.put('/addresses/:addressId', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
-    const { addressId } = req.params;
-    const {
-      type,
-      first_name,
-      last_name,
-      company,
-      address_line_1,
-      address_line_2,
-      city,
-      state,
-      postal_code,
-      country,
-      phone,
-      is_default
-    } = req.body;
-
+    const addressId = req.params.addressId;
+    const updateData = req.body;
     const client = getSupabaseClient();
 
-    // Verify address belongs to user
+    // Verify ownership
     const { data: existingAddress, error: checkError } = await client
       .from('user_addresses')
-      .select('id')
+      .select('user_id')
       .eq('id', addressId)
-      .eq('user_id', userId)
       .single();
 
     if (checkError || !existingAddress) {
@@ -324,39 +296,14 @@ router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) 
       });
     }
 
-    // If this address is set as default, remove default from other addresses
-    if (is_default) {
-      await client
-        .from('user_addresses')
-        .update({ is_default: false })
-        .eq('user_id', userId)
-        .neq('id', addressId);
+    if (existingAddress.user_id !== userId) {
+      return res.status(403).json({
+        success: false,
+        message: 'Unauthorized to update this address'
+      });
     }
 
-    const updateData = {
-      type,
-      first_name,
-      last_name,
-      company,
-      address_line_1,
-      address_line_2,
-      city,
-      state,
-      postal_code,
-      country,
-      phone,
-      is_default,
-      updated_at: new Date().toISOString()
-    };
-
-    // Remove undefined values
-    Object.keys(updateData).forEach(key => {
-      if (updateData[key] === undefined) {
-        delete updateData[key];
-      }
-    });
-
-    const { data: updatedAddress, error } = await client
+    const { data: address, error } = await client
       .from('user_addresses')
       .update(updateData)
       .eq('id', addressId)
@@ -369,32 +316,31 @@ router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) 
     res.status(200).json({
       success: true,
       message: 'Address updated successfully',
-      data: updatedAddress
+      data: address
     });
 
   } catch (error) {
-    console.error('❌ Update address failed:', error.message);
+    console.error('❌ Update address error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to update address',
-      error: error.message
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
 
 // Delete address
-router.delete('/addresses/:addressId', authenticateSupabaseToken, async (req, res) => {
+router.delete('/addresses/:addressId', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
-    const { addressId } = req.params;
+    const addressId = req.params.addressId;
     const client = getSupabaseClient();
 
-    // Verify address belongs to user and get details
+    // Verify ownership
     const { data: existingAddress, error: checkError } = await client
       .from('user_addresses')
-      .select('id, is_default')
+      .select('user_id')
       .eq('id', addressId)
-      .eq('user_id', userId)
       .single();
 
     if (checkError || !existingAddress) {
@@ -404,30 +350,20 @@ router.delete('/addresses/:addressId', authenticateSupabaseToken, async (req, re
       });
     }
 
-    // Delete the address
-    const { error: deleteError } = await client
+    if (existingAddress.user_id !== userId) {
+      return res.status(403).json({
+        success: false,
+        message: 'Unauthorized to delete this address'
+      });
+    }
+
+    const { error } = await client
       .from('user_addresses')
       .delete()
       .eq('id', addressId)
       .eq('user_id', userId);
 
-    if (deleteError) throw deleteError;
-
-    // If deleted address was default, set first remaining address as default
-    if (existingAddress.is_default) {
-      const { data: remainingAddresses } = await client
-        .from('user_addresses')
-        .select('id')
-        .eq('user_id', userId)
-        .limit(1);
-
-      if (remainingAddresses && remainingAddresses.length > 0) {
-        await client
-          .from('user_addresses')
-          .update({ is_default: true })
-          .eq('id', remainingAddresses[0].id);
-      }
-    }
+    if (error) throw error;
 
     res.status(200).json({
       success: true,
@@ -435,11 +371,11 @@ router.delete('/addresses/:addressId', authenticateSupabaseToken, async (req, re
     });
 
   } catch (error) {
-    console.error('❌ Delete address failed:', error.message);
+    console.error('❌ Delete address error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to delete address',
-      error: error.message
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
@@ -449,7 +385,7 @@ router.delete('/addresses/:addressId', authenticateSupabaseToken, async (req, re
 // ==============================================
 
 // Get user payment methods
-router.get('/payment-methods', authenticateSupabaseToken, async (req, res) => {
+router.get('/payment-methods', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const client = getSupabaseClient();
@@ -470,54 +406,41 @@ router.get('/payment-methods', authenticateSupabaseToken, async (req, res) => {
     });
 
   } catch (error) {
-    console.error('❌ Get payment methods failed:', error.message);
+    console.error('❌ Get payment methods error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to retrieve payment methods',
-      error: error.message
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
 
 // Add new payment method
-router.post('/payment-methods', authenticateSupabaseToken, async (req, res) => {
+router.post('/payment-methods', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
-    const {
-      type,
-      card_last4,
-      card_brand,
-      expiry_month,
-      expiry_year,
-      cardholder_name,
-      billing_address_id,
-      is_default
-    } = req.body;
-
+    const { type, name, details, last_four, expiry_date, is_default } = req.body;
     const client = getSupabaseClient();
 
-    // If this payment method is set as default, remove default from others
-    if (is_default) {
-      await client
-        .from('user_payment_methods')
-        .update({ is_default: false })
-        .eq('user_id', userId);
+    // Validation
+    if (!name || !details) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name and details are required'
+      });
     }
 
     const paymentMethodData = {
-      id: uuidv4(),
       user_id: userId,
       type: type || 'card',
-      card_last4,
-      card_brand,
-      expiry_month,
-      expiry_year,
-      cardholder_name,
-      billing_address_id: billing_address_id || null,
+      name,
+      details,
+      last_four,
+      expiry_date,
       is_default: is_default || false
     };
 
-    const { data: newPaymentMethod, error } = await client
+    const { data: paymentMethod, error } = await client
       .from('user_payment_methods')
       .insert([paymentMethodData])
       .select()
@@ -528,75 +451,49 @@ router.post('/payment-methods', authenticateSupabaseToken, async (req, res) => {
     res.status(201).json({
       success: true,
       message: 'Payment method added successfully',
-      data: newPaymentMethod
+      data: paymentMethod
     });
 
   } catch (error) {
-    console.error('❌ Add payment method failed:', error.message);
+    console.error('❌ Add payment method error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to add payment method',
-      error: error.message
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
 
 // Update payment method
-router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async (req, res) => {
+router.put('/payment-methods/:paymentMethodId', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
-    const { paymentMethodId } = req.params;
-    const {
-      cardholder_name,
-      expiry_month,
-      expiry_year,
-      billing_address_id,
-      is_default
-    } = req.body;
-
+    const paymentMethodId = req.params.paymentMethodId;
+    const updateData = req.body;
     const client = getSupabaseClient();
 
-    // Verify payment method belongs to user
-    const { data: existingPaymentMethod, error: checkError } = await client
+    // Verify ownership
+    const { data: existingMethod, error: checkError } = await client
       .from('user_payment_methods')
-      .select('id')
+      .select('user_id')
       .eq('id', paymentMethodId)
-      .eq('user_id', userId)
       .single();
 
-    if (checkError || !existingPaymentMethod) {
+    if (checkError || !existingMethod) {
       return res.status(404).json({
         success: false,
         message: 'Payment method not found'
       });
     }
 
-    // If this payment method is set as default, remove default from others
-    if (is_default) {
-      await client
-        .from('user_payment_methods')
-        .update({ is_default: false })
-        .eq('user_id', userId)
-        .neq('id', paymentMethodId);
+    if (existingMethod.user_id !== userId) {
+      return res.status(403).json({
+        success: false,
+        message: 'Unauthorized to update this payment method'
+      });
     }
 
-    const updateData = {
-      cardholder_name,
-      expiry_month,
-      expiry_year,
-      billing_address_id,
-      is_default,
-      updated_at: new Date().toISOString()
-    };
-
-    // Remove undefined values
-    Object.keys(updateData).forEach(key => {
-      if (updateData[key] === undefined) {
-        delete updateData[key];
-      }
-    });
-
-    const { data: updatedPaymentMethod, error } = await client
+    const { data: paymentMethod, error } = await client
       .from('user_payment_methods')
       .update(updateData)
       .eq('id', paymentMethodId)
@@ -609,65 +506,54 @@ router.put('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async
     res.status(200).json({
       success: true,
       message: 'Payment method updated successfully',
-      data: updatedPaymentMethod
+      data: paymentMethod
     });
 
   } catch (error) {
-    console.error('❌ Update payment method failed:', error.message);
+    console.error('❌ Update payment method error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to update payment method',
-      error: error.message
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
 
 // Delete payment method
-router.delete('/payment-methods/:paymentMethodId', authenticateSupabaseToken, async (req, res) => {
+router.delete('/payment-methods/:paymentMethodId', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
-    const { paymentMethodId } = req.params;
+    const paymentMethodId = req.params.paymentMethodId;
     const client = getSupabaseClient();
 
-    // Verify payment method belongs to user and get details
-    const { data: existingPaymentMethod, error: checkError } = await client
+    // Verify ownership
+    const { data: existingMethod, error: checkError } = await client
       .from('user_payment_methods')
-      .select('id, is_default')
+      .select('user_id')
       .eq('id', paymentMethodId)
-      .eq('user_id', userId)
       .single();
 
-    if (checkError || !existingPaymentMethod) {
+    if (checkError || !existingMethod) {
       return res.status(404).json({
         success: false,
         message: 'Payment method not found'
       });
     }
 
-    // Delete the payment method
-    const { error: deleteError } = await client
+    if (existingMethod.user_id !== userId) {
+      return res.status(403).json({
+        success: false,
+        message: 'Unauthorized to delete this payment method'
+      });
+    }
+
+    const { error } = await client
       .from('user_payment_methods')
       .delete()
       .eq('id', paymentMethodId)
       .eq('user_id', userId);
 
-    if (deleteError) throw deleteError;
-
-    // If deleted payment method was default, set first remaining as default
-    if (existingPaymentMethod.is_default) {
-      const { data: remainingMethods } = await client
-        .from('user_payment_methods')
-        .select('id')
-        .eq('user_id', userId)
-        .limit(1);
-
-      if (remainingMethods && remainingMethods.length > 0) {
-        await client
-          .from('user_payment_methods')
-          .update({ is_default: true })
-          .eq('id', remainingMethods[0].id);
-      }
-    }
+    if (error) throw error;
 
     res.status(200).json({
       success: true,
@@ -675,11 +561,11 @@ router.delete('/payment-methods/:paymentMethodId', authenticateSupabaseToken, as
     });
 
   } catch (error) {
-    console.error('❌ Delete payment method failed:', error.message);
+    console.error('❌ Delete payment method error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to delete payment method',
-      error: error.message
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
@@ -689,7 +575,7 @@ router.delete('/payment-methods/:paymentMethodId', authenticateSupabaseToken, as
 // ==============================================
 
 // Get user wishlist
-router.get('/wishlist', authenticateSupabaseToken, async (req, res) => {
+router.get('/wishlist', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const client = getSupabaseClient();
@@ -698,11 +584,10 @@ router.get('/wishlist', authenticateSupabaseToken, async (req, res) => {
       .from('user_wishlist')
       .select(`
         id,
-        created_at,
+        date_added,
         products (
           id,
           name,
-          slug,
           price,
           original_price,
           images,
@@ -710,35 +595,29 @@ router.get('/wishlist', authenticateSupabaseToken, async (req, res) => {
           rating_average,
           total_reviews,
           stock_quantity,
-          is_active,
-          categories (
-            name
-          )
+          is_active
         )
       `)
       .eq('user_id', userId)
-      .order('created_at', { ascending: false });
+      .eq('products.is_active', true)
+      .order('date_added', { ascending: false });
 
     if (error) throw error;
 
-    // Transform the data to match expected format
+    // Transform data to match frontend expectations
     const transformedWishlist = wishlistItems?.map(item => ({
-      id: item.id,
-      added_at: item.created_at,
-      product: {
-        id: item.products.id,
-        name: item.products.name,
-        slug: item.products.slug,
-        price: item.products.price,
-        original_price: item.products.original_price,
-        images: item.products.images,
-        brand: item.products.brand,
-        rating: item.products.rating_average,
-        reviewCount: item.products.total_reviews,
-        stock: item.products.stock_quantity,
-        isActive: item.products.is_active,
-        category: item.products.categories?.name
-      }
+      id: item.products.id,
+      title: item.products.name,
+      price: item.products.price,
+      originalPrice: item.products.original_price,
+      rating: item.products.rating_average,
+      reviewCount: item.products.total_reviews,
+      image: item.products.images?.[0] || '',
+      images: item.products.images,
+      brand: item.products.brand,
+      inStock: (item.products.stock_quantity || 0) > 0,
+      dateAdded: item.date_added,
+      wishlistItemId: item.id
     })) || [];
 
     res.status(200).json({
@@ -748,20 +627,21 @@ router.get('/wishlist', authenticateSupabaseToken, async (req, res) => {
     });
 
   } catch (error) {
-    console.error('❌ Get wishlist failed:', error.message);
+    console.error('❌ Get wishlist error:', error.message);
     res.status(500).json({
       success: false,
       message: 'Failed to retrieve wishlist',
-      error: error.message
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
 
 // Add item to wishlist
-router.post('/wishlist', authenticateSupabaseToken, async (req, res) => {
+router.post('/wishlist', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { product_id } = req.body;
+    const client = getSupabaseClient();
 
     if (!product_id) {
       return res.status(400).json({
@@ -770,58 +650,27 @@ router.post('/wishlist', authenticateSupabaseToken, async (req, res) => {
       });
     }
 
-    const client = getSupabaseClient();
-
-    // Check if product is already in wishlist
-    const { data: existingItem, error: checkError } = await client
+    // Check if already in wishlist
+    const { data: existing, error: checkError } = await client
       .from('user_wishlist')
       .select('id')
       .eq('user_id', userId)
       .eq('product_id', product_id)
       .single();
 
-    if (checkError && checkError.code !== 'PGRST116') {
-      throw checkError;
-    }
-
-    if (existingItem) {
-      return res.status(409).json({
-        success: false,
-        message: 'Product is already in your wishlist'
-      });
-    }
-
-    // Verify product exists
-    const { data: product, error: productError } = await client
-      .from('products')
-      .select('id, name, is_active')
-      .eq('id', product_id)
-      .single();
-
-    if (productError || !product) {
-      return res.status(404).json({
-        success: false,
-        message: 'Product not found'
-      });
-    }
-
-    if (!product.is_active) {
+    if (existing) {
       return res.status(400).json({
         success: false,
-        message: 'Product is not available'
+        message: 'Product is already in wishlist'
       });
     }
 
-    // Add to wishlist
-    const wishlistData = {
-      id: uuidv4(),
-      user_id: userId,
-      product_id: product_id
-    };
-
-    const { data: newWishlistItem, error } = await client
+    const { data: wishlistItem, error } = await client
       .from('user_wishlist')
-      .insert([wishlistData])
+      .insert([{
+        user_id: userId,
+        product_id: product_id
+      }])
       .select()
       .single();
 
@@ -829,47 +678,46 @@ router.post('/wishlist', authenticateSupabaseToken, async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'Product added to wishlist successfully',
-      data: newWishlistItem
+      message: 'Item added to wishlist successfully',
+      data: wishlistItem
     });
 
   } catch (error) {
-    console.error('❌ Add to wishlist failed:', error.message);
+    console.error('❌ Add to wishlist error:', error.message);
     res.status(500).json({
       success: false,
-      message: 'Failed to add product to wishlist',
-      error: error.message
+      message: 'Failed to add item to wishlist',
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
 
 // Remove item from wishlist
-router.delete('/wishlist/:productId', authenticateSupabaseToken, async (req, res) => {
+router.delete('/wishlist/:productId', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
-    const { productId } = req.params;
+    const productId = req.params.productId;
     const client = getSupabaseClient();
 
-    // Delete the wishlist item
-    const { error: deleteError } = await client
+    const { error } = await client
       .from('user_wishlist')
       .delete()
       .eq('user_id', userId)
       .eq('product_id', productId);
 
-    if (deleteError) throw deleteError;
+    if (error) throw error;
 
     res.status(200).json({
       success: true,
-      message: 'Product removed from wishlist successfully'
+      message: 'Item removed from wishlist successfully'
     });
 
   } catch (error) {
-    console.error('❌ Remove from wishlist failed:', error.message);
+    console.error('❌ Remove from wishlist error:', error.message);
     res.status(500).json({
       success: false,
-      message: 'Failed to remove product from wishlist',
-      error: error.message
+      message: 'Failed to remove item from wishlist',
+      error: environment.isDevelopment() ? error.message : undefined
     });
   }
 });
