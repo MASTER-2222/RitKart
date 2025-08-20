@@ -86,17 +86,16 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    // Generate JWT token using environment variable
-    const token = jwt.sign(
-      { 
-        userId: result.user.id,
-        email: result.user.email 
-      },
-      environment.security.jwtSecret,
-      { 
-        expiresIn: environment.security.jwtExpiration 
-      }
-    );
+    // Return Supabase access token instead of JWT token
+    // This ensures compatibility with authenticateSupabaseToken middleware
+    const token = result.session?.access_token;
+    
+    if (!token) {
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to obtain access token from Supabase session'
+      });
+    }
 
     res.status(200).json({
       success: true,
