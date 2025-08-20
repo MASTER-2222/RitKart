@@ -25,8 +25,8 @@ from datetime import datetime
 
 class AddressPaymentCRUDFixTest:
     def __init__(self):
-        # Use production backend URL from environment configuration
-        self.base_url = "https://ritzone-backend.onrender.com/api"
+        # Use local backend URL (running on port 10000)
+        self.base_url = "http://localhost:10000/api"
         self.session = requests.Session()
         self.session.headers.update({
             'Content-Type': 'application/json',
