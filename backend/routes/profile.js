@@ -314,14 +314,6 @@ router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) 
       isDefault
     } = req.body;
 
-    // Extract first_name and last_name from combined name if provided
-    let first_name, last_name;
-    if (name) {
-      const nameParts = name.trim().split(' ');
-      first_name = nameParts[0] || '';
-      last_name = nameParts.slice(1).join(' ') || '';
-    }
-
     const client = getSupabaseClient();
 
     // Verify address belongs to user
@@ -352,12 +344,11 @@ router.put('/addresses/:addressId', authenticateSupabaseToken, async (req, res) 
     
     // Only update fields that are provided
     if (type !== undefined) updateData.type = type;
-    if (first_name !== undefined) updateData.first_name = first_name;
-    if (last_name !== undefined) updateData.last_name = last_name;
-    if (street !== undefined) updateData.address_line_1 = street;
+    if (name !== undefined) updateData.name = name;
+    if (street !== undefined) updateData.street = street;
     if (city !== undefined) updateData.city = city;
     if (state !== undefined) updateData.state = state;
-    if (zipCode !== undefined) updateData.postal_code = zipCode;
+    if (zipCode !== undefined) updateData.zip_code = zipCode;
     if (country !== undefined) updateData.country = country;
     if (phone !== undefined) updateData.phone = phone;
     if (isDefault !== undefined) updateData.is_default = isDefault;
