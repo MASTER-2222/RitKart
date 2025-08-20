@@ -6,34 +6,69 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 const { environment } = require('../config/environment');
-const { orderService } = require('../services/supabase-service');
+const { orderService, getSupabaseClient } = require('../services/supabase-service');
+const AutoSyncMiddleware = require('../middleware/auto-sync-middleware');
 
 const router = express.Router();
 
 // ==============================================
-// 🔒 AUTHENTICATION MIDDLEWARE
+// 🔒 SUPABASE AUTHENTICATION MIDDLEWARE
 // ==============================================
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+async function authenticateSupabaseToken(req, res, next) {
+  try {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
 
-  if (!token) {
-    return res.status(401).json({
-      success: false,
-      message: 'Access token is required'
-    });
-  }
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'Access token is required'
+      });
+    }
 
-  jwt.verify(token, environment.security.jwtSecret, (error, user) => {
-    if (error) {
+    const client = getSupabaseClient();
+    
+    // Verify Supabase token and get user
+    const { data: { user }, error } = await client.auth.getUser(token);
+    
+    if (error || !user) {
       return res.status(403).json({
         success: false,
         message: 'Invalid or expired token'
       });
     }
-    req.user = user;
+
+    // Auto-sync user to local database
+    const syncResult = await AutoSyncMiddleware.syncSupabaseUser(
+      user.id, 
+      user.email,
+      {
+        email_verified: user.email_confirmed_at ? true : false,
+        phone: user.phone,
+        user_metadata: user.user_metadata
+      }
+    );
+
+    if (syncResult.success) {
+      // Attach synced user to request object
+      req.user = { userId: user.id, email: user.email };
+      req.syncedUser = syncResult.user;
+      req.supabaseUser = user;
+    } else {
+      return res.status(500).json({
+        success: false,
+        message: 'User synchronization failed'
+      });
+    }
+
     next();
-  });
+  } catch (error) {
+    console.error('❌ Supabase auth middleware error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Authentication error'
+    });
+  }
 }
 
 // ==============================================
