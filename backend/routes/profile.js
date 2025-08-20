@@ -192,7 +192,7 @@ router.get('/dashboard', authenticateSupabaseToken, async (req, res) => {
 // ==============================================
 
 // Get user addresses
-router.get('/addresses', authenticateToken, async (req, res) => {
+router.get('/addresses', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const client = getSupabaseClient();
