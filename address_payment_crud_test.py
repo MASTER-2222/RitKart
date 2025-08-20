@@ -393,14 +393,13 @@ class AddressPaymentCRUDTester:
         # Test 3.2: POST /api/profile/payment-methods (create new payment method - THIS IS FAILING)
         try:
             # Test data as specified in review request
-            # Note: Backend expects different field names than frontend form data
+            # Note: Backend expects different field names than database schema
             payment_method_data = {
                 "type": "card",
-                "card_last4": "1234",  # Extract last 4 digits from cardNumber
-                "card_brand": "visa",  # Determine from cardNumber
-                "expiry_month": 1,     # Extract from expiryDate "01/26"
-                "expiry_year": 2026,   # Extract from expiryDate "01/26"
-                "cardholder_name": "John Doe",
+                "name": "Visa ending in 1234",  # Database expects 'name' field
+                "details": "**** **** **** 1234",  # Database expects 'details' field
+                "last_four": "1234",  # Database expects 'last_four' field
+                "expiry_date": "01/26",  # Database expects 'expiry_date' field (MM/YY format)
                 "is_default": True
             }
             
