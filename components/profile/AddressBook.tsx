@@ -29,7 +29,7 @@ export default function AddressBook() {
         const response = await apiClient.getAddresses();
         
         if (response.success) {
-          setAddresses(response.data.addresses || response.data || []);
+          setAddresses(response.data || []);
         } else {
           setError(response.message || 'Failed to load addresses');
         }
