@@ -155,7 +155,7 @@ async function convertCartPrices(cartData, targetCurrency = 'INR') {
 // ==============================================
 // 🛒 GET USER'S CART (WITH DYNAMIC CURRENCY)
 // ==============================================
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const currency = req.query.currency || 'INR'; // NEW: Support currency parameter
