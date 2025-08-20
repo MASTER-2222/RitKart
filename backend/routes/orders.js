@@ -213,7 +213,7 @@ router.get('/:orderId', authenticateSupabaseToken, async (req, res) => {
 // ==============================================
 // ❌ CANCEL ORDER
 // ==============================================
-router.put('/:orderId/cancel', authenticateToken, async (req, res) => {
+router.put('/:orderId/cancel', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const orderId = req.params.orderId;
