@@ -79,7 +79,7 @@ async function authenticateSupabaseToken(req, res, next) {
 // ==============================================
 // 📊 DASHBOARD STATISTICS
 // ==============================================
-router.get('/dashboard', authenticateToken, async (req, res) => {
+router.get('/dashboard', authenticateSupabaseToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const client = getSupabaseClient();
