@@ -201,10 +201,26 @@ router.get('/addresses', authenticateSupabaseToken, async (req, res) => {
 
     if (error) throw error;
 
+    // Transform the data to match frontend expectations
+    const transformedAddresses = (addresses || []).map(addr => ({
+      id: addr.id,
+      type: addr.type,
+      name: `${addr.first_name || ''} ${addr.last_name || ''}`.trim(),
+      street: addr.address_line_1,
+      city: addr.city,
+      state: addr.state,
+      zipCode: addr.postal_code,
+      country: addr.country,
+      phone: addr.phone,
+      isDefault: addr.is_default,
+      createdAt: addr.created_at,
+      updatedAt: addr.updated_at
+    }));
+
     res.status(200).json({
       success: true,
       message: 'Addresses retrieved successfully',
-      data: addresses || []
+      data: transformedAddresses
     });
 
   } catch (error) {
