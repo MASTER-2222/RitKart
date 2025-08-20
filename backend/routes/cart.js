@@ -75,8 +75,6 @@ async function authenticateSupabaseToken(req, res, next) {
   }
 }
 
-const router = express.Router();
-
 // ==============================================
 // 💰 HELPER FUNCTION: CONVERT CART PRICES
 // ==============================================
