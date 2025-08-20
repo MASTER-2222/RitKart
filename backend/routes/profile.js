@@ -249,11 +249,6 @@ router.post('/addresses', authenticateSupabaseToken, async (req, res) => {
       isDefault
     } = req.body;
 
-    // Extract first_name and last_name from combined name
-    const nameParts = (name || '').trim().split(' ');
-    const first_name = nameParts[0] || '';
-    const last_name = nameParts.slice(1).join(' ') || '';
-
     const client = getSupabaseClient();
 
     // If this address is set as default, remove default from other addresses
@@ -268,15 +263,12 @@ router.post('/addresses', authenticateSupabaseToken, async (req, res) => {
       id: uuidv4(),
       user_id: userId,
       type: type || 'home',
-      first_name,
-      last_name,
-      company: null,
-      address_line_1: street,
-      address_line_2: null,
+      name,
+      street,
       city,
       state,
-      postal_code: zipCode,
-      country: country || 'US',
+      zip_code: zipCode,
+      country: country || 'United States',
       phone: phone || null,
       is_default: isDefault || false
     };
