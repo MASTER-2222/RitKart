@@ -74,11 +74,16 @@ class ApiClient {
 
     try {
       console.log(`🌐 API Request: ${url}`);
+      console.log(`🔑 Headers:`, config.headers);
       
       const response = await fetch(url, config);
       
+      console.log(`📊 Response Status: ${response.status}`);
+      
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error(`❌ API Error (${response.status}):`, errorText);
+        throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
       }
       
       const data = await response.json();
@@ -88,6 +93,7 @@ class ApiClient {
         console.log(`💰 Response currency: ${data.currency}`);
       }
       
+      console.log(`✅ API Success:`, data);
       return data;
     } catch (error) {
       console.error('API request failed:', error);
