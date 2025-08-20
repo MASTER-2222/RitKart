@@ -1,17 +1,25 @@
 #!/usr/bin/env python3
 """
-RitZone Profile Page API Diagnosis
-==================================
-Critical profile page API testing for production RitZone application.
+RitZone Profile Page API Testing
+================================
+Focused testing of profile page API endpoints for user authentication issue fix.
 
-ISSUE CONTEXT: User experiencing multiple profile page errors:
-- "Failed to add address. Please try again."
-- "Error Loading Wishlist"  
-- "Error Loading Orders"
-- "Error Loading Profile" 
-- "Error Loading Dashboard"
+REVIEW REQUEST CONTEXT: 
+User reported that profile page shows "TypeError: e.data is undefined" errors in console 
+for Personal Info, My Orders, Wishlist, Address Book, and Payment Methods sections. 
+The Dashboard section works perfectly. Frontend response handling has been fixed to match 
+the working Dashboard pattern.
 
-Focus: Test all profile-related API endpoints with Supabase authentication.
+SPECIFIC TESTS REQUIRED:
+1. Test user authentication with b@b.com / Abcd@1234 credentials
+2. Test GET /api/profile/dashboard endpoint (should work - this one was working)
+3. Test GET /api/auth/profile endpoint (Personal Info section)
+4. Test GET /api/orders endpoint (My Orders section)  
+5. Test GET /api/profile/wishlist endpoint (Wishlist section)
+6. Test GET /api/profile/addresses endpoint (Address Book section)
+7. Test GET /api/profile/payment-methods endpoint (Payment Methods section)
+
+Focus: Verify all API endpoints return proper response structure and work with Supabase authentication tokens.
 """
 
 import requests
@@ -20,7 +28,7 @@ import time
 import sys
 from typing import Dict, Any, Optional
 
-# Configuration - Using production backend URL
+# Configuration - Using production backend URL from .env
 BACKEND_URL = "https://ritkart-backend-ujnt.onrender.com/api"
 TEST_USER_EMAIL = "b@b.com"
 TEST_USER_PASSWORD = "Abcd@1234"
