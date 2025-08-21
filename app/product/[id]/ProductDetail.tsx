@@ -242,6 +242,11 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
   const [user, setUser] = useState<any>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [relatedLoading, setRelatedLoading] = useState(true);
+  
+  // Wishlist functionality states
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+  const [checkingWishlist, setCheckingWishlist] = useState(true);
 
   // Fetch product data from API
   useEffect(() => {
