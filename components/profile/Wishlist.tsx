@@ -158,7 +158,7 @@ export default function Wishlist() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {wishlistItems.map((item) => (
             <div key={item.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-              <Link href={`/product/${item.product.slug || item.product.id}`}>
+              <Link href={`/product/${item.product.id}`}>
                 <div className="relative mb-3">
                   <img
                     src={(Array.isArray(item.product.images) && item.product.images.length > 0) 
@@ -176,7 +176,7 @@ export default function Wishlist() {
               </Link>
 
               <div className="space-y-2">
-                <Link href={`/product/${item.product.slug || item.product.id}`}>
+                <Link href={`/product/${item.product.id}`}>
                   <h3 className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
                     {item.product.name}
                   </h3>
