@@ -278,7 +278,7 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
       const response = await apiClient.getWishlist();
       
       if (response.success && response.data) {
-        const isProductInWishlist = response.data.some((item: any) => item.productId === productId);
+        const isProductInWishlist = response.data.some((item: any) => item.product.id === productId);
         setIsInWishlist(isProductInWishlist);
       }
     } catch (error) {
