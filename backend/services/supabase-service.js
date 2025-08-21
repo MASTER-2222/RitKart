@@ -199,7 +199,7 @@ const userService = {
   // Get user profile
   getProfile: async (userId) => {
     try {
-      const client = getSupabaseClient();
+      const client = getAdminSupabaseClient();
       const { data, error } = await client
         .from('users')
         .select('*')
