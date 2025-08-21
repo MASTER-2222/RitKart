@@ -390,7 +390,7 @@ backend:
     file: "/app/backend/routes/profile.js"
     stuck_count: 1
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: false
         agent: "testing"
@@ -404,6 +404,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "🎯 COMPREHENSIVE WISHLIST FUNCTIONALITY TESTING COMPLETED: Executed extensive testing of wishlist functionality on individual product pages with EXCELLENT RESULTS: 12/12 tests passed (100% success rate). ✅ BACKEND API TESTING VERIFIED: 1) GET /api/profile/wishlist endpoint working perfectly - retrieves user wishlist with complete product details (id, name, price, images, brand, ratings) ✓, 2) POST /api/profile/wishlist endpoint working perfectly - adds products to wishlist with proper validation and duplicate prevention ✓, 3) DELETE /api/profile/wishlist/:productId endpoint working perfectly - removes products from wishlist successfully ✓, 4) Authentication protection working - all endpoints properly require valid Supabase access tokens (401 Unauthorized without token) ✓, 5) Product validation working - invalid product IDs correctly rejected with 404 errors ✓, 6) Duplicate prevention working - attempting to add same product twice correctly rejected with 409 conflict ✓. ✅ DATA PERSISTENCE & SYNCHRONIZATION VERIFIED: Wishlist operations persist correctly in database, product details are properly joined and transformed, wishlist state synchronizes perfectly between operations. ✅ FRONTEND INTEGRATION FIXES APPLIED: Fixed API client mismatch (productId → product_id), corrected wishlist status checking logic (item.productId → item.product.id). ✅ AUTHENTICATION FLOW VERIFIED: User authentication with b@b.com/Abcd@1234 working perfectly, Supabase access tokens properly obtained and used for API calls. FINAL STATUS: Wishlist functionality on individual product pages is 100% functional and production-ready for both backend APIs and frontend integration!"
+      - working: false
+        agent: "main"
+        comment: "🚨 PROFILE PAGE WISHLIST SECTION CRITICAL ISSUE: User specifically reported wishlist problems on profile page (/profile) sidebar. While individual product pages work perfectly (100% confirmed), profile page wishlist section shows: 1) Wrong/different product pictures ❌, 2) Products incorrectly marked as 'UNAVAILABLE' ❌, 3) Product links not opening when clicked ❌. ROOT CAUSE IDENTIFIED: Data structure mismatch between backend API response and frontend Wishlist component. Backend returns structured data (added_at, original_price, images array, stock, isActive) but frontend expected different structure (dateAdded, originalPrice, image single, inStock). SOLUTION IMPLEMENTED: 1) Updated WishlistItem interface in /app/utils/api.ts to match backend response ✓, 2) Fixed Wishlist.tsx component to handle correct data fields (added_at, original_price, images array) ✓, 3) Fixed image display logic to handle both string and array image formats ✓, 4) Fixed stock status logic to use isActive and stock fields properly ✓, 5) Fixed product links to use slug or id correctly ✓, 6) Fixed remove functionality to use product.id instead of productId ✓. NEED TESTING: Profile page wishlist section specifically."
 
   - task: "Implement Profile Update API endpoint"
     implemented: true
