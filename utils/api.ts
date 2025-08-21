@@ -407,7 +407,7 @@ class ApiClient {
   async addToWishlist(productId: string) {
     return this.makeRequest('/profile/wishlist', {
       method: 'POST',
-      body: JSON.stringify({ productId }),
+      body: JSON.stringify({ product_id: productId }),
     });
   }
 
