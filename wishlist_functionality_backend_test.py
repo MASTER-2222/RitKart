@@ -61,23 +61,26 @@ class WishlistFunctionalityTester:
             
             if login_response.status_code == 200:
                 login_data = login_response.json()
-                if login_data.get('success') and 'access_token' in login_data.get('data', {}):
-                    self.auth_token = login_data['data']['access_token']
-                    self.log_test(
-                        "User Authentication",
-                        True,
-                        f"Successfully authenticated user {self.test_credentials['email']}",
-                        f"Token length: {len(self.auth_token)} chars"
-                    )
-                    return True
-                else:
-                    self.log_test(
-                        "User Authentication",
-                        False,
-                        "Login successful but no access token received",
-                        login_data
-                    )
-                    return False
+                if login_data.get('success'):
+                    # Check for both 'access_token' and 'token' fields
+                    token = login_data.get('data', {}).get('access_token') or login_data.get('token')
+                    if token:
+                        self.auth_token = token
+                        self.log_test(
+                            "User Authentication",
+                            True,
+                            f"Successfully authenticated user {self.test_credentials['email']}",
+                            f"Token length: {len(self.auth_token)} chars"
+                        )
+                        return True
+                    else:
+                        self.log_test(
+                            "User Authentication",
+                            False,
+                            "Login successful but no access token received",
+                            login_data
+                        )
+                        return False
             else:
                 self.log_test(
                     "User Authentication",
