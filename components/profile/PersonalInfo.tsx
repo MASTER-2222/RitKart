@@ -77,6 +77,33 @@ export default function PersonalInfo() {
             dateOfBirth: formData.dateOfBirth
           });
         }
+        
+        // Update Supabase auth metadata for header synchronization
+        try {
+          const { createClient } = await import('../../utils/supabase/client');
+          const supabase = createClient();
+          await supabase.auth.updateUser({
+            data: {
+              full_name: formData.fullName,
+              phone: formData.phone,
+              date_of_birth: formData.dateOfBirth
+            }
+          });
+          console.log('✅ Supabase auth metadata updated');
+        } catch (authError) {
+          console.warn('⚠️ Failed to update Supabase auth metadata:', authError);
+          // Don't fail the whole operation if auth metadata update fails
+        }
+        
+        // Notify other components to refresh user data
+        window.dispatchEvent(new CustomEvent('profile-updated', { 
+          detail: { 
+            fullName: formData.fullName,
+            phone: formData.phone,
+            dateOfBirth: formData.dateOfBirth
+          } 
+        }));
+        
         setIsEditing(false);
       } else {
         setError(response.message || 'Failed to update profile');
