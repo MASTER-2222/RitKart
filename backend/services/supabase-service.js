@@ -217,7 +217,7 @@ const userService = {
   // Update user profile
   updateProfile: async (userId, profileData) => {
     try {
-      const client = getSupabaseClient();
+      const client = getAdminSupabaseClient();
       
       // Prepare update data
       const updateData = {
