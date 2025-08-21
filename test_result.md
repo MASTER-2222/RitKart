@@ -225,6 +225,18 @@ backend:
         comment: "✅ COMPREHENSIVE SERVICE VERIFICATION: Full code review of userReviewService confirms complete implementation. FEATURES VERIFIED: 1) getReviewsByProduct() with pagination and user data joining ✓, 2) createReview() with duplicate prevention and validation ✓, 3) updateReview() with ownership verification and image management ✓, 4) getUserReviews() with product information ✓, 5) deleteReview() with ownership verification ✓, 6) getReviewStats() with rating distribution calculation ✓. STATISTICS: Calculates average rating, total reviews, rating distribution (1-5 stars). SECURITY: Proper user ownership verification, RLS policy support. All endpoints return consistent JSON responses with proper error handling. Ready to function immediately after user_reviews table creation."
 
 frontend:
+  - task: "Fix Wishlist Component Data Structure Mismatch on Profile Page"
+    implemented: true
+    working: false
+    file: "/app/components/profile/Wishlist.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🚨 CRITICAL PROFILE PAGE WISHLIST ISSUE IDENTIFIED: User specifically reported wishlist section on profile page (/profile) shows: 1) Wrong/different product pictures ❌, 2) Products marked as 'UNAVAILABLE' incorrectly ❌, 3) Product links not opening when clicked ❌. ROOT CAUSE: Data structure mismatch between backend API response and frontend component. Backend API returns: {id, added_at, product: {id, name, slug, price, original_price, images: [...], brand, rating, reviewCount, stock, isActive, category}} but frontend WishlistItem interface expected: {id, productId, dateAdded, product: {image: string, originalPrice, inStock}}. SOLUTION IMPLEMENTED: 1) Updated WishlistItem interface to match backend structure ✓, 2) Fixed Wishlist.tsx component to use correct field names (added_at, original_price, images array) ✓, 3) Fixed image handling to support both string and array formats ✓, 4) Fixed stock status logic using isActive and stock fields ✓, 5) Fixed product links using slug or id ✓, 6) Fixed remove operations using product.id ✓. STATUS: Code changes complete, needs testing."
+
   - task: "Implement dynamic 'You might also like' section in Cart page"
     implemented: true
     working: true
