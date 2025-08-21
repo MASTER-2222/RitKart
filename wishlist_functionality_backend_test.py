@@ -113,7 +113,15 @@ class WishlistFunctionalityTester:
             if response.status_code == 200:
                 data = response.json()
                 if data.get('success') and 'data' in data:
-                    products = data['data'].get('products', [])
+                    # Handle both array and object response formats
+                    products_data = data['data']
+                    if isinstance(products_data, list):
+                        products = products_data
+                    elif isinstance(products_data, dict) and 'products' in products_data:
+                        products = products_data['products']
+                    else:
+                        products = []
+                    
                     if products:
                         self.test_product_ids = [product['id'] for product in products[:3]]
                         self.log_test(
