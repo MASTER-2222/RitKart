@@ -34,6 +34,16 @@ export default function UserProfileSidebar({ activeSection, onSectionChange }: U
 
     fetchUserInfo();
 
+    // Listen for profile updates from PersonalInfo component
+    const handleProfileUpdate = (event: any) => {
+      if (event.detail && event.detail.fullName) {
+        setUserInfo(prev => prev ? {
+          ...prev,
+          fullName: event.detail.fullName
+        } : null);
+      }
+    };
+
     // Listen for navigation events from other components
     const handleNavigateToSection = (event: any) => {
       if (event.detail) {
@@ -41,9 +51,11 @@ export default function UserProfileSidebar({ activeSection, onSectionChange }: U
       }
     };
 
+    window.addEventListener('profile-updated', handleProfileUpdate);
     window.addEventListener('navigate-to-section', handleNavigateToSection);
     
     return () => {
+      window.removeEventListener('profile-updated', handleProfileUpdate);
       window.removeEventListener('navigate-to-section', handleNavigateToSection);
     };
   }, [onSectionChange]);
