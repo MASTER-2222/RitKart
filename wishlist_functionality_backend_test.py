@@ -757,6 +757,7 @@ class WishlistFunctionalityTester:
         test_sequence = [
             ("Authentication", self.authenticate_user),
             ("Get Test Products", self.get_test_products),
+            ("Wishlist Cleanup", self.cleanup_wishlist),
             ("GET Wishlist (Empty)", self.test_get_wishlist_empty),
             ("POST Wishlist (Add Product)", self.test_add_to_wishlist),
             ("GET Wishlist (With Items)", self.test_get_wishlist_with_items),
