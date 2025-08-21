@@ -158,28 +158,25 @@ export default function Wishlist() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {wishlistItems.map((item) => (
             <div key={item.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-              <Link href={`/product/${item.productId}`}>
+              <Link href={`/product/${item.product.slug || item.product.id}`}>
                 <div className="relative mb-3">
                   <img
-                    src={item.product.image || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300&h=300&fit=crop&crop=center'}
+                    src={(Array.isArray(item.product.images) && item.product.images.length > 0) 
+                      ? item.product.images[0] 
+                      : item.product.images || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300&h=300&fit=crop&crop=center'}
                     alt={item.product.name}
                     className="w-full h-48 object-cover rounded"
                   />
-                  {item.product.discount && (
+                  {item.product.original_price && item.product.price < item.product.original_price && (
                     <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 text-xs font-bold rounded">
-                      -{item.product.discount}%
-                    </div>
-                  )}
-                  {item.product.isPrime && (
-                    <div className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 text-xs font-bold rounded">
-                      Prime
+                      -{Math.round(((item.product.original_price - item.product.price) / item.product.original_price) * 100)}%
                     </div>
                   )}
                 </div>
               </Link>
 
               <div className="space-y-2">
-                <Link href={`/product/${item.productId}`}>
+                <Link href={`/product/${item.product.slug || item.product.id}`}>
                   <h3 className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
                     {item.product.name}
                   </h3>
@@ -191,27 +188,27 @@ export default function Wishlist() {
                       <i
                         key={star}
                         className={`w-4 h-4 flex items-center justify-center ${
-                          star <= Math.floor(item.product.rating)
+                          star <= Math.floor(item.product.rating || 0)
                             ? 'ri-star-fill text-yellow-400'
-                            : star - 0.5 <= item.product.rating
+                            : star - 0.5 <= (item.product.rating || 0)
                             ? 'ri-star-half-fill text-yellow-400'
                             : 'ri-star-line text-gray-300'
                         }`}
                       ></i>
                     ))}
                   </div>
-                  <span className="text-sm text-gray-600">({item.product.reviewCount})</span>
+                  <span className="text-sm text-gray-600">({item.product.reviewCount || 0})</span>
                 </div>
 
                 <div className="flex items-center space-x-2">
                   <span className="text-lg font-bold text-gray-900">₹{item.product.price}</span>
-                  {item.product.originalPrice && item.product.originalPrice > item.product.price && (
-                    <span className="text-sm text-gray-500 line-through">₹{item.product.originalPrice}</span>
+                  {item.product.original_price && item.product.original_price > item.product.price && (
+                    <span className="text-sm text-gray-500 line-through">₹{item.product.original_price}</span>
                   )}
                 </div>
 
                 <div className="text-xs text-gray-500">
-                  Added on {new Date(item.dateAdded).toLocaleDateString()}
+                  Added on {new Date(item.added_at).toLocaleDateString()}
                 </div>
 
                 {item.product.brand && (
@@ -220,40 +217,42 @@ export default function Wishlist() {
                   </div>
                 )}
 
-                {!item.product.inStock ? (
+                {item.product.category && (
+                  <div className="text-xs text-gray-600">
+                    Category: {item.product.category}
+                  </div>
+                )}
+
+                {(!item.product.isActive || item.product.stock <= 0) ? (
                   <div className="text-red-600 text-sm font-medium">
                     Currently unavailable
                   </div>
                 ) : (
-                  <>
-                    {item.product.isDeliveryTomorrow && (
-                      <div className="text-sm text-green-600">
-                        <i className="ri-truck-line w-4 h-4 inline-flex items-center justify-center mr-1"></i>
-                        FREE delivery tomorrow
-                      </div>
-                    )}
-                  </>
+                  <div className="text-green-600 text-sm">
+                    <i className="ri-check-line w-4 h-4 inline-flex items-center justify-center mr-1"></i>
+                    In Stock ({item.product.stock} available)
+                  </div>
                 )}
 
                 <div className="space-y-2 pt-2">
                   <button
-                    onClick={() => moveToCart(item.productId)}
-                    disabled={!item.product.inStock || removingItems.has(item.productId)}
+                    onClick={() => moveToCart(item.product.id)}
+                    disabled={(!item.product.isActive || item.product.stock <= 0) || removingItems.has(item.product.id)}
                     className="w-full bg-[#febd69] hover:bg-[#f3a847] text-black font-medium py-2 px-4 rounded disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed whitespace-nowrap"
                   >
-                    {!item.product.inStock 
+                    {(!item.product.isActive || item.product.stock <= 0)
                       ? 'Currently Unavailable' 
-                      : removingItems.has(item.productId) 
+                      : removingItems.has(item.product.id) 
                       ? 'Moving to Cart...' 
                       : 'Move to Cart'
                     }
                   </button>
                   <button
-                    onClick={() => removeFromWishlist(item.productId)}
-                    disabled={removingItems.has(item.productId)}
+                    onClick={() => removeFromWishlist(item.product.id)}
+                    disabled={removingItems.has(item.product.id)}
                     className="w-full text-red-600 hover:text-red-800 font-medium py-2 px-4 rounded border border-red-300 hover:border-red-400 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                   >
-                    {removingItems.has(item.productId) ? 'Removing...' : 'Remove from Wishlist'}
+                    {removingItems.has(item.product.id) ? 'Removing...' : 'Remove from Wishlist'}
                   </button>
                 </div>
               </div>
