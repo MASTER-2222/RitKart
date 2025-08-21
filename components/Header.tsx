@@ -49,7 +49,19 @@ export default function Header() {
       }
     );
 
-    return () => subscription.unsubscribe();
+    // Listen for profile updates to refresh user data
+    const handleProfileUpdate = async () => {
+      console.log('🔄 Profile updated, refreshing header user data...');
+      const { data: { user: updatedUser } } = await supabase.auth.getUser();
+      setUser(updatedUser);
+    };
+
+    window.addEventListener('profile-updated', handleProfileUpdate);
+
+    return () => {
+      subscription.unsubscribe();
+      window.removeEventListener('profile-updated', handleProfileUpdate);
+    };
   }, []);
 
   const loadCartCount = async () => {
