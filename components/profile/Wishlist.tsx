@@ -40,7 +40,7 @@ export default function Wishlist() {
       const response = await apiClient.removeFromWishlist(productId);
       
       if (response.success) {
-        setWishlistItems(prev => prev.filter(item => item.productId !== productId));
+        setWishlistItems(prev => prev.filter(item => item.product.id !== productId));
       } else {
         setError(response.message || 'Failed to remove item from wishlist');
       }
