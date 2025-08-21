@@ -261,6 +261,33 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
     }
   }, [product, selectedCurrency]);
 
+  // Check wishlist status when user and product are loaded
+  useEffect(() => {
+    if (user && product) {
+      checkWishlistStatus();
+    } else if (!user) {
+      setIsInWishlist(false);
+      setCheckingWishlist(false);
+    }
+  }, [user, product]);
+
+  // Check if product is in user's wishlist
+  const checkWishlistStatus = async () => {
+    try {
+      setCheckingWishlist(true);
+      const response = await apiClient.getWishlist();
+      
+      if (response.success && response.data) {
+        const isProductInWishlist = response.data.some((item: any) => item.productId === productId);
+        setIsInWishlist(isProductInWishlist);
+      }
+    } catch (error) {
+      console.error('Failed to check wishlist status:', error);
+    } finally {
+      setCheckingWishlist(false);
+    }
+  };
+
   // Check if user is authenticated
   const checkUserAuth = async () => {
     try {
