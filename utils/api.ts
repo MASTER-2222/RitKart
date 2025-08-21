@@ -689,21 +689,20 @@ export interface PaymentMethod {
 
 export interface WishlistItem {
   id: string;
-  productId: string;
-  dateAdded: string;
+  added_at: string;
   product: {
     id: string;
     name: string;
+    slug?: string;
     price: number;
-    originalPrice?: number;
-    image: string;
-    rating: number;
-    reviewCount: number;
-    isPrime?: boolean;
-    isDeliveryTomorrow?: boolean;
-    discount?: number;
-    inStock: boolean;
+    original_price?: number;
+    images: string | string[];
     brand?: string;
+    rating?: number;
+    reviewCount?: number;
+    stock?: number;
+    isActive?: boolean;
+    category?: string;
   };
 }
 
