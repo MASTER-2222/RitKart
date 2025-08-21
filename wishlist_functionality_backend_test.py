@@ -19,7 +19,7 @@ from datetime import datetime
 class WishlistFunctionalityTester:
     def __init__(self):
         # Use backend URL from environment (backend runs on port 10000)
-        self.base_url = "https://ritzone-frontend-s3ik.onrender.com:10000/api"
+        self.base_url = "http://localhost:10000/api"
         self.test_credentials = {
             "email": "b@b.com",
             "password": "Abcd@1234"
