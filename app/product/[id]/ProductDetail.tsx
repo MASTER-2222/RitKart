@@ -465,6 +465,58 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
     }
   };
 
+  // Handle wishlist toggle
+  const handleWishlistToggle = async () => {
+    // Check if user is authenticated
+    if (!user) {
+      // Redirect to login page with return URL
+      router.push(`/auth/login?redirect=product/${productId}`);
+      return;
+    }
+
+    if (!product) {
+      return;
+    }
+
+    setWishlistLoading(true);
+
+    try {
+      let response;
+      if (isInWishlist) {
+        // Remove from wishlist
+        console.log(`💔 Removing product ${productId} from wishlist`);
+        response = await apiClient.removeFromWishlist(productId);
+        
+        if (response.success) {
+          setIsInWishlist(false);
+          setCartMessage('💔 Removed from wishlist');
+        } else {
+          setCartMessage('❌ Failed to remove from wishlist: ' + (response.message || 'Unknown error'));
+        }
+      } else {
+        // Add to wishlist
+        console.log(`❤️ Adding product ${productId} to wishlist`);
+        response = await apiClient.addToWishlist(productId);
+        
+        if (response.success) {
+          setIsInWishlist(true);
+          setCartMessage('❤️ Added to wishlist');
+        } else {
+          setCartMessage('❌ Failed to add to wishlist: ' + (response.message || 'Unknown error'));
+        }
+      }
+
+      // Auto-hide message after 3 seconds
+      setTimeout(() => setCartMessage(null), 3000);
+    } catch (error) {
+      console.error('Wishlist toggle error:', error);
+      setCartMessage('❌ Failed to update wishlist. Please try again.');
+      setTimeout(() => setCartMessage(null), 3000);
+    } finally {
+      setWishlistLoading(false);
+    }
+  };
+
   // Calculate discount percentage
   const discount = product.original_price && product.original_price > product.price 
     ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
