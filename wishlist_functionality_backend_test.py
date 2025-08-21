@@ -163,6 +163,65 @@ class WishlistFunctionalityTester:
             )
             return False
 
+    def cleanup_wishlist(self):
+        """Clean up wishlist before testing"""
+        try:
+            print("🧹 Cleaning up wishlist...")
+            
+            headers = {"Authorization": f"Bearer {self.auth_token}"}
+            
+            # Get current wishlist items
+            response = requests.get(
+                f"{self.base_url}/profile/wishlist",
+                headers=headers,
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and data.get('data'):
+                    wishlist_items = data['data']
+                    
+                    # Remove each item
+                    for item in wishlist_items:
+                        product_id = item['product']['id']
+                        delete_response = requests.delete(
+                            f"{self.base_url}/profile/wishlist/{product_id}",
+                            headers=headers,
+                            timeout=30
+                        )
+                        if delete_response.status_code == 200:
+                            print(f"   Removed product {product_id}")
+                    
+                    self.log_test(
+                        "Wishlist Cleanup",
+                        True,
+                        f"Cleaned up {len(wishlist_items)} items from wishlist"
+                    )
+                    return True
+                else:
+                    self.log_test(
+                        "Wishlist Cleanup",
+                        True,
+                        "Wishlist was already empty"
+                    )
+                    return True
+            else:
+                self.log_test(
+                    "Wishlist Cleanup",
+                    False,
+                    f"Failed to get wishlist for cleanup: {response.status_code}"
+                )
+                return False
+                
+        except Exception as e:
+            self.log_test(
+                "Wishlist Cleanup",
+                False,
+                f"Cleanup error: {str(e)}"
+            )
+            return False
+
     def test_get_wishlist_empty(self):
         """Test GET /api/profile/wishlist endpoint (empty wishlist)"""
         try:
