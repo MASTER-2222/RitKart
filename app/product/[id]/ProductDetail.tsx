@@ -853,7 +853,7 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
                     onClick={handleBuyNow}
                     disabled={addingToCart || buyingNow || updatingQuantity || product.stock_quantity === 0}
                     className={`w-full font-bold py-3 px-6 rounded-lg text-lg transition-colors ${
-                      addingToCart || buyingNow || product.stock_quantity === 0
+                      addingToCart || buyingNow || updatingQuantity || product.stock_quantity === 0
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                         : 'bg-[#ff9f00] hover:bg-[#e88a00] text-black'
                     }`}
