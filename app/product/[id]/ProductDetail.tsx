@@ -622,12 +622,18 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
               <div className="space-y-2">
                 <div className="flex items-center space-x-3">
                   <span className="text-3xl font-bold text-gray-900">
-                    {product.formatted_price || `${selectedCurrency.symbol}${product.price}`}
+                    {product.formatted_price 
+                      ? `${selectedCurrency.symbol}${(parseFloat(product.formatted_price.replace(/[^\d.]/g, '')) * quantity).toFixed(2)}`
+                      : `${selectedCurrency.symbol}${(product.price * quantity).toFixed(2)}`
+                    }
                   </span>
                   {product.original_price && product.original_price > product.price && (
                     <>
                       <span className="text-lg text-gray-500 line-through">
-                        {product.formatted_original_price || `${selectedCurrency.symbol}${product.original_price}`}
+                        {product.formatted_original_price 
+                          ? `${selectedCurrency.symbol}${(parseFloat(product.formatted_original_price.replace(/[^\d.]/g, '')) * quantity).toFixed(2)}`
+                          : `${selectedCurrency.symbol}${(product.original_price * quantity).toFixed(2)}`
+                        }
                       </span>
                       <span className="bg-red-600 text-white px-2 py-1 text-sm font-bold rounded">
                         -{discount}% Off
@@ -635,6 +641,12 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
                     </>
                   )}
                 </div>
+                
+                {quantity > 1 && (
+                  <div className="text-sm text-gray-600">
+                    {product.formatted_price || `${selectedCurrency.symbol}${product.price.toFixed(2)}`} each
+                  </div>
+                )}
                 
                 <div className="flex items-center space-x-4 text-sm">
                   <div className="flex items-center text-blue-600">
