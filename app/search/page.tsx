@@ -158,39 +158,61 @@ function SearchResults() {
           </nav>
         </div>
 
-        {/* Results */}
-        {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        ) : (
+        {/* Loading State */}
+        {loading ? (
           <div className="text-center py-12">
-            <i className="ri-search-line w-16 h-16 flex items-center justify-center text-gray-400 text-6xl mx-auto mb-4"></i>
-            <h2 className="text-xl font-semibold text-gray-600 mb-2">No results found</h2>
-            <p className="text-gray-500 mb-6">
-              {query ? (
-                <>Sorry, we couldn't find any products matching "{query}"</>
-              ) : (
-                <>No products found in this category</>
-              )}
-            </p>
-            <div className="space-y-2 text-sm text-gray-600">
-              <p>Try:</p>
-              <ul className="list-disc list-inside space-y-1">
-                <li>Checking your spelling</li>
-                <li>Using different keywords</li>
-                <li>Searching in all categories</li>
-              </ul>
-            </div>
-            <Link 
-              href="/" 
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#febd69] mx-auto mb-4"></div>
+            <p className="text-gray-600">Searching for products...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <i className="ri-error-warning-line w-16 h-16 flex items-center justify-center text-red-400 text-6xl mx-auto mb-4"></i>
+            <h2 className="text-xl font-semibold text-gray-600 mb-2">Something went wrong</h2>
+            <p className="text-gray-500 mb-6">{error}</p>
+            <button 
+              onClick={() => window.location.reload()}
               className="inline-block mt-6 bg-[#febd69] hover:bg-[#f3a847] text-black px-6 py-2 rounded whitespace-nowrap"
             >
-              Browse All Products
-            </Link>
+              Try Again
+            </button>
           </div>
+        ) : (
+          <>
+            {/* Results */}
+            {filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredProducts.map(product => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <i className="ri-search-line w-16 h-16 flex items-center justify-center text-gray-400 text-6xl mx-auto mb-4"></i>
+                <h2 className="text-xl font-semibold text-gray-600 mb-2">No results found</h2>
+                <p className="text-gray-500 mb-6">
+                  {query ? (
+                    <>Sorry, we couldn't find any products matching "{query}"</>
+                  ) : (
+                    <>No products found in this category</>
+                  )}
+                </p>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <p>Try:</p>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Checking your spelling</li>
+                    <li>Using different keywords</li>
+                    <li>Searching in all categories</li>
+                  </ul>
+                </div>
+                <Link 
+                  href="/" 
+                  className="inline-block mt-6 bg-[#febd69] hover:bg-[#f3a847] text-black px-6 py-2 rounded whitespace-nowrap"
+                >
+                  Browse All Products
+                </Link>
+              </div>
+            )}
+          </>
         )}
 
         {/* Related Categories */}
