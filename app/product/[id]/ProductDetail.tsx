@@ -666,15 +666,68 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Quantity:</label>
-                  <select
-                    value={quantity}
-                    onChange={(e) => setQuantity(parseInt(e.target.value))}
-                    className="border rounded px-3 py-2 w-20"
-                  >
-                    {[...Array(Math.min(10, product.stock_quantity))].map((_, i) => (
-                      <option key={i + 1} value={i + 1}>{i + 1}</option>
+                  <div className="flex items-center space-x-2">
+                    <select
+                      value={quantity}
+                      onChange={(e) => {
+                        const newQuantity = parseInt(e.target.value);
+                        setUpdatingQuantity(true);
+                        
+                        // Add a small delay to show loading state for better UX
+                        setTimeout(() => {
+                          setQuantity(newQuantity);
+                          setUpdatingQuantity(false);
+                        }, 200);
+                      }}
+                      disabled={updatingQuantity}
+                      className="border rounded px-3 py-2 w-20 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {[...Array(Math.min(10, product.stock_quantity))].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>{i + 1}</option>
+                      ))}
+                    </select>
+                    
+                    {updatingQuantity && (
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-orange-500"></div>
+                    )}
+                    
+                    <div className="text-sm text-gray-600">
+                      {product.stock_quantity > 0 ? (
+                        <span className="text-green-600">
+                          {product.stock_quantity} available
+                        </span>
+                      ) : (
+                        <span className="text-red-600">
+                          Out of stock
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Quantity Buttons for easier selection */}
+                  <div className="flex items-center space-x-1 mt-2">
+                    <span className="text-sm text-gray-600">Quick select:</span>
+                    {[1, 2, 3, 4, 5].filter(num => num <= Math.min(10, product.stock_quantity)).map(num => (
+                      <button
+                        key={num}
+                        onClick={() => {
+                          setUpdatingQuantity(true);
+                          setTimeout(() => {
+                            setQuantity(num);
+                            setUpdatingQuantity(false);
+                          }, 200);
+                        }}
+                        disabled={updatingQuantity}
+                        className={`px-2 py-1 text-sm border rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                          quantity === num 
+                            ? 'bg-[#febd69] border-[#febd69] text-black font-medium' 
+                            : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+                        }`}
+                      >
+                        {num}
+                      </button>
                     ))}
-                  </select>
+                  </div>
                 </div>
 
                 <div className="space-y-3">
