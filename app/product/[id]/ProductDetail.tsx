@@ -232,6 +232,7 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
   
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [updatingQuantity, setUpdatingQuantity] = useState(false);
   const [selectedTab, setSelectedTab] = useState('description');
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
