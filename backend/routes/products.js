@@ -216,20 +216,60 @@ router.get('/search/:query', async (req, res) => {
     const searchQuery = req.params.query;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
+    const category = req.query.category;
+    const sortBy = req.query.sortBy;
+    const currency = req.query.currency || 'INR';
 
-    // This would need to be implemented in the productService
-    // For now, return a placeholder response
+    // Use the new search method from productService
+    const result = await productService.searchProducts(searchQuery, {
+      page,
+      limit,
+      category,
+      sortBy
+    });
+
+    if (!result.success) {
+      return res.status(500).json({
+        success: false,
+        message: 'Search failed',
+        error: environment.isDevelopment() ? result.error : undefined
+      });
+    }
+
+    // Apply currency conversion if needed
+    const convertedProducts = await Promise.all(
+      result.products.map(async (product) => {
+        try {
+          if (currency !== 'INR') {
+            const convertedPrice = await currencyService.convertPrice(product.price, 'INR', currency);
+            const convertedOriginalPrice = product.original_price 
+              ? await currencyService.convertPrice(product.original_price, 'INR', currency)
+              : null;
+
+            return {
+              ...product,
+              price: convertedPrice,
+              original_price: convertedOriginalPrice,
+              currency: currency
+            };
+          }
+          return { ...product, currency: 'INR' };
+        } catch (conversionError) {
+          console.warn(`⚠️ Currency conversion failed for product ${product.id}:`, conversionError.message);
+          return { ...product, currency: 'INR' };
+        }
+      })
+    );
+
     res.status(200).json({
       success: true,
-      message: `Search functionality coming soon for: "${searchQuery}"`,
-      data: [],
-      searchQuery: searchQuery,
-      pagination: {
-        currentPage: page,
-        totalPages: 0,
-        totalCount: 0,
-        limit: limit
-      }
+      data: convertedProducts,
+      searchQuery: result.searchQuery,
+      category: result.category,
+      sortBy: result.sortBy,
+      pagination: result.pagination,
+      totalCount: result.totalCount,
+      currency: currency
     });
 
   } catch (error) {
