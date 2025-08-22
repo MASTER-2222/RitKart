@@ -52,8 +52,16 @@ class RitZoneProductQuantityTester:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and data.get('data', {}).get('access_token'):
-                    self.access_token = data['data']['access_token']
+                # Check for both 'access_token' in data and 'token' field
+                access_token = None
+                if data.get('success'):
+                    if data.get('data', {}).get('access_token'):
+                        access_token = data['data']['access_token']
+                    elif data.get('token'):
+                        access_token = data['token']
+                
+                if access_token:
+                    self.access_token = access_token
                     self.log_test("User Authentication", True, f"Successfully authenticated user {TEST_USER_EMAIL}")
                     return True
                 else:
