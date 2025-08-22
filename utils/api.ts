@@ -231,6 +231,28 @@ class ApiClient {
     });
   }
 
+  // Search API
+  async searchProducts(query: string, params?: {
+    page?: number;
+    limit?: number;
+    category?: string;
+    sortBy?: string;
+    currency?: string;
+  }) {
+    const searchParams = new URLSearchParams();
+    
+    if (params?.page) searchParams.set('page', params.page.toString());
+    if (params?.limit) searchParams.set('limit', params.limit.toString());
+    if (params?.category && params.category !== 'All') searchParams.set('category', params.category);
+    if (params?.sortBy) searchParams.set('sortBy', params.sortBy);
+    
+    // Add currency parameter
+    this.addCurrencyToParams(searchParams, params?.currency);
+
+    const queryString = searchParams.toString();
+    return this.makeRequest(`/products/search/${encodeURIComponent(query)}${queryString ? `?${queryString}` : ''}`);
+  }
+
   // Cart API (requires authentication)
   async getCart(currency?: string) {
     const searchParams = new URLSearchParams();
