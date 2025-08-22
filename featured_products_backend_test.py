@@ -18,7 +18,7 @@ import time
 from typing import Dict, Any, List, Optional
 
 # Configuration
-BACKEND_URL = "https://app-deployment-19.preview.emergentagent.com"
+BACKEND_URL = "https://deploy-automation-2.preview.emergentagent.com"
 API_BASE = f"{BACKEND_URL}/api"
 
 class FeaturedProductsBackendTester:
