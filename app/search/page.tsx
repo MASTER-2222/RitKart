@@ -176,17 +176,15 @@ function SearchResults() {
                 {products.map(product => (
                   <ProductCard 
                     key={product.id} 
-                    product={{
-                      id: product.id,
-                      title: product.name,
-                      price: product.price,
-                      originalPrice: product.original_price,
-                      rating: product.rating_average || 0,
-                      reviewCount: product.total_reviews || 0,
-                      image: Array.isArray(product.images) ? product.images[0] : product.images,
-                      isPrime: product.is_featured,
-                      category: product.category_name
-                    }} 
+                    id={product.id}
+                    title={product.name}
+                    price={product.price}
+                    originalPrice={product.original_price}
+                    rating={product.rating_average || 0}
+                    reviewCount={product.total_reviews || 0}
+                    image={Array.isArray(product.images) ? product.images[0] : product.images}
+                    isPrime={product.is_featured}
+                    currency={product.currency}
                   />
                 ))}
               </div>
