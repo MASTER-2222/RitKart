@@ -103,47 +103,36 @@
 #====================================================================================================
 
 user_problem_statement: |
-  RitZone Profile Page Dynamic Enhancement:
+  RitZone Individual Product Page Quantity-Based Price Calculation Fix:
   
-  PREVIOUS COMPLETION STATE:
-  - ✅ Cart Page "You might also like" enhancement completed with dynamic related products
-  - ✅ Admin Panel (/admin/products) fully functional with CRUD operations for all 345 products
-  - ✅ Reviews field added and working in admin panel for admin-created reviews
-  - ✅ Backend API supports reviews field in all endpoints
-  - ✅ Frontend displays admin-created reviews on individual product pages
-  - ✅ Complete categorization system working with 10 categories (345 products total)
-  - ✅ User Review System partially implemented (backend ready, database schema issue resolved)
-  - ✅ Related Products API implemented and tested (GET /api/products/:id/related) - working perfectly
+  CURRENT ISSUE:
+  - Individual product pages show a price that doesn't update when quantity is changed
+  - When quantity is increased (2, 3, 4), the price remains the same (shows unit price only)
+  - Cart page (/cart) works correctly - price increases with quantity
   
-  NEW REQUIREMENTS - PROFILE PAGE DYNAMIC ENHANCEMENT:
-  1. ISSUE: Currently, the Profile Page (/profile) for registered users displays static/dummy/hardcoded data
-  2. SECTIONS TO MAKE DYNAMIC:
-     - Dashboard: Dynamic user statistics, recent orders, wishlist count, cart items
-     - Personal Info: Real user data from authentication/database with edit functionality
-     - My Orders: Real orders from database with proper status, tracking, actions
-     - Wishlist: Real wishlist items from database with product details
-     - Address Book: Real saved addresses from database with CRUD operations
-     - Payment Methods: Real payment methods from database with CRUD operations
-  3. FUNCTIONALITY:
-     - All sections must fetch data from Backend and Database (not hardcoded/static)
-     - User-specific data synchronized with authentication
-     - Full CRUD operations where applicable
-     - Dynamic statistics and counts
-  4. ADMIN PANEL SYNCHRONIZATION:
-     - Same data visible in Admin Panel under Users Section (/admin/users)
-     - Two-way synchronization: User Profile Page ↔ Backend/Database ↔ Admin Panel
-     - Profile Info section in admin must show same dynamic data
-  5. IMPLEMENTATION SCOPE:
-     - Create backend API endpoints for profile data operations
-     - Update frontend components to fetch and display real user data
-     - Implement proper authentication-based data fetching
-     - Ensure admin panel shows same synchronized data
-  6. CONSTRAINTS:
-     - Don't change environment variables for backend and frontend
-     - Use .env.local for development if necessary
-     - Frontend is in root folder, backend is in backend folder
+  SOLUTION IMPLEMENTED:
+  - Copied the working price calculation logic from cart page to individual product page
+  - Updated price display to multiply unit price by selected quantity
+  - Added "each" price display when quantity > 1 for clarity
+  - Applied same logic to both regular price and original_price (strikethrough)
   
-  GOAL: Convert static Profile Page into dynamic, database-driven interface with full synchronization between user profile and admin panel.
+  TECHNICAL DETAILS:
+  - Modified /app/app/product/[id]/ProductDetail.tsx price display section
+  - Price now calculates: (product.price * quantity) or (formatted_price * quantity)
+  - Original price also calculates: (product.original_price * quantity)
+  - Added unit price display ("X.XX each") when quantity > 1
+  - Handles both formatted and raw price values correctly
+  
+  EXPECTED BEHAVIOR:
+  - Quantity 1: Shows unit price (e.g., $10.00)
+  - Quantity 2: Shows total price (e.g., $20.00) with "each" indicator
+  - Quantity 3: Shows total price (e.g., $30.00) with "each" indicator
+  - Original price (strikethrough) also multiplies by quantity
+  
+  CONSTRAINTS:
+  - Don't change environment variables for backend and frontend
+  - Use existing quantity state management
+  - Frontend is in root folder, backend is in backend folder
 
 backend:
   - task: "Test RitZone individual product page quantity functionality improvements"
