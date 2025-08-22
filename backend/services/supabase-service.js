@@ -843,6 +843,65 @@ const productService = {
       console.error('❌ Get related products failed:', error.message);
       return { success: false, error: error.message };
     }
+  },
+
+  // Search products with filters
+  searchProducts: async ({ search, category, featured, page = 1, limit = 20 }) => {
+    try {
+      const client = getSupabaseClient();
+      const offset = (page - 1) * limit;
+      
+      let query = client
+        .from('products')
+        .select('*', { count: 'exact' })
+        .eq('is_active', true);
+
+      // Add search filter - search in name, description, brand
+      if (search && search.trim()) {
+        const searchTerm = search.trim().toLowerCase();
+        query = query.or(
+          `name.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%,brand.ilike.%${searchTerm}%,short_description.ilike.%${searchTerm}%`
+        );
+      }
+
+      // Add category filter
+      if (category && category.trim() && category.toLowerCase() !== 'all') {
+        const categoryTerm = category.trim().toLowerCase();
+        
+        // First try to get category by name/slug
+        const { data: categories } = await client
+          .from('categories')
+          .select('id, name, slug')
+          .or(`name.ilike.%${categoryTerm}%,slug.ilike.%${categoryTerm}%`);
+        
+        if (categories && categories.length > 0) {
+          const categoryIds = categories.map(cat => cat.id);
+          query = query.in('category_id', categoryIds);
+        }
+      }
+
+      // Add featured filter
+      if (featured === true) {
+        query = query.eq('is_featured', true);
+      }
+
+      const { data, error, count } = await query
+        .range(offset, offset + limit - 1)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      
+      return { 
+        success: true, 
+        products: data, 
+        totalCount: count,
+        currentPage: page,
+        totalPages: Math.ceil(count / limit)
+      };
+    } catch (error) {
+      console.error('❌ Search products failed:', error.message);
+      return { success: false, error: error.message };
+    }
   }
 };
 
