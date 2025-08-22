@@ -30,7 +30,17 @@ export default function LoginPage() {
       if (error) {
         setError(error.message);
       } else {
-        router.push('/');
+        // Check for redirect parameter
+        const redirect = searchParams.get('redirect');
+        if (redirect === 'cart') {
+          router.push('/cart');
+        } else if (redirect === 'checkout') {
+          router.push('/checkout');
+        } else if (redirect === 'wishlist') {
+          router.push('/wishlist');
+        } else {
+          router.push('/');
+        }
         router.refresh();
       }
     } catch (err: any) {
