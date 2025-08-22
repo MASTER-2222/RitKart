@@ -666,31 +666,54 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Quantity:</label>
-                  <div className="flex items-center space-x-2">
-                    <select
-                      value={quantity}
-                      onChange={(e) => {
-                        const newQuantity = parseInt(e.target.value);
-                        setUpdatingQuantity(true);
-                        
-                        // Add a small delay to show loading state for better UX
-                        setTimeout(() => {
-                          setQuantity(newQuantity);
-                          setUpdatingQuantity(false);
-                        }, 200);
-                      }}
-                      disabled={updatingQuantity}
-                      className="border rounded px-3 py-2 w-20 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {[...Array(Math.min(10, product.stock_quantity))].map((_, i) => (
-                        <option key={i + 1} value={i + 1}>{i + 1}</option>
-                      ))}
-                    </select>
+                  
+                  {/* Main Quantity Selector */}
+                  <div className="flex items-center space-x-4 mb-3">
+                    {/* Plus/Minus Controls */}
+                    <div className="flex items-center border border-gray-300 rounded-lg">
+                      <button
+                        onClick={() => {
+                          if (quantity > 1) {
+                            setUpdatingQuantity(true);
+                            setTimeout(() => {
+                              setQuantity(quantity - 1);
+                              setUpdatingQuantity(false);
+                            }, 200);
+                          }
+                        }}
+                        disabled={updatingQuantity || quantity <= 1}
+                        className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      >
+                        −
+                      </button>
+                      
+                      <div className="px-4 py-2 bg-gray-50 min-w-[60px] text-center font-medium">
+                        {quantity}
+                      </div>
+                      
+                      <button
+                        onClick={() => {
+                          if (quantity < Math.min(10, product.stock_quantity)) {
+                            setUpdatingQuantity(true);
+                            setTimeout(() => {
+                              setQuantity(quantity + 1);
+                              setUpdatingQuantity(false);
+                            }, 200);
+                          }
+                        }}
+                        disabled={updatingQuantity || quantity >= Math.min(10, product.stock_quantity)}
+                        className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      >
+                        +
+                      </button>
+                    </div>
                     
+                    {/* Loading Indicator */}
                     {updatingQuantity && (
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-orange-500"></div>
                     )}
                     
+                    {/* Stock Info */}
                     <div className="text-sm text-gray-600">
                       {product.stock_quantity > 0 ? (
                         <span className="text-green-600">
@@ -704,9 +727,32 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
                     </div>
                   </div>
                   
-                  {/* Quantity Buttons for easier selection */}
-                  <div className="flex items-center space-x-1 mt-2">
-                    <span className="text-sm text-gray-600">Quick select:</span>
+                  {/* Dropdown Selector */}
+                  <div className="flex items-center space-x-2 mb-3">
+                    <span className="text-sm text-gray-600">Or select:</span>
+                    <select
+                      value={quantity}
+                      onChange={(e) => {
+                        const newQuantity = parseInt(e.target.value);
+                        setUpdatingQuantity(true);
+                        
+                        setTimeout(() => {
+                          setQuantity(newQuantity);
+                          setUpdatingQuantity(false);
+                        }, 200);
+                      }}
+                      disabled={updatingQuantity}
+                      className="border rounded px-2 py-1 text-sm pr-8 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {[...Array(Math.min(10, product.stock_quantity))].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>{i + 1}</option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  {/* Quick Select Buttons */}
+                  <div className="flex items-center space-x-1">
+                    <span className="text-sm text-gray-600">Quick:</span>
                     {[1, 2, 3, 4, 5].filter(num => num <= Math.min(10, product.stock_quantity)).map(num => (
                       <button
                         key={num}
