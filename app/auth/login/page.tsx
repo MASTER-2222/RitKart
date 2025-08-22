@@ -38,6 +38,8 @@ function LoginForm() {
           router.push('/checkout');
         } else if (redirect === '/wishlist' || redirect === 'wishlist') {
           router.push('/wishlist');
+        } else if (redirect === '/orders' || redirect === 'orders') {
+          router.push('/orders');
         } else if (redirect && redirect.startsWith('/')) {
           // Handle any other valid redirect path
           router.push(redirect);
