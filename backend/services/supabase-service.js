@@ -843,6 +843,140 @@ const productService = {
       console.error('❌ Get related products failed:', error.message);
       return { success: false, error: error.message };
     }
+  },
+
+  // Search products by query
+  searchProducts: async (query, options = {}) => {
+    try {
+      const client = getSupabaseClient();
+      const { 
+        page = 1, 
+        limit = 20, 
+        category = null, 
+        sortBy = 'relevance' 
+      } = options;
+      
+      const offset = (page - 1) * limit;
+      
+      // Build the base query
+      let supabaseQuery = client
+        .from('products')
+        .select(`
+          id,
+          name,
+          description,
+          slug,
+          price,
+          original_price,
+          images,
+          brand,
+          stock_quantity,
+          rating_average,
+          total_reviews,
+          is_active,
+          is_featured,
+          created_at,
+          categories (
+            id,
+            name,
+            slug
+          )
+        `, { count: 'exact' })
+        .eq('is_active', true);
+
+      // Apply search filters
+      if (query && query.trim()) {
+        const searchTerm = query.trim();
+        supabaseQuery = supabaseQuery.or(
+          `name.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%,brand.ilike.%${searchTerm}%`
+        );
+      }
+
+      // Apply category filter
+      if (category && category !== 'All') {
+        // First get category ID
+        const { data: categoryData } = await client
+          .from('categories')
+          .select('id')
+          .ilike('name', category)
+          .single();
+          
+        if (categoryData) {
+          supabaseQuery = supabaseQuery.eq('category_id', categoryData.id);
+        }
+      }
+
+      // Apply sorting
+      switch (sortBy) {
+        case 'price-low':
+          supabaseQuery = supabaseQuery.order('price', { ascending: true });
+          break;
+        case 'price-high':
+          supabaseQuery = supabaseQuery.order('price', { ascending: false });
+          break;
+        case 'rating':
+          supabaseQuery = supabaseQuery.order('rating_average', { ascending: false });
+          break;
+        case 'newest':
+          supabaseQuery = supabaseQuery.order('created_at', { ascending: false });
+          break;
+        default: // relevance
+          // For relevance, prioritize exact name matches, then partial matches
+          if (query && query.trim()) {
+            supabaseQuery = supabaseQuery.order('name', { ascending: true });
+          } else {
+            supabaseQuery = supabaseQuery.order('created_at', { ascending: false });
+          }
+          break;
+      }
+
+      // Apply pagination
+      supabaseQuery = supabaseQuery.range(offset, offset + limit - 1);
+
+      const { data, error, count } = await supabaseQuery;
+
+      if (error) throw error;
+
+      // Transform the data to match expected format
+      const transformedProducts = data?.map(product => ({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        slug: product.slug,
+        price: product.price,
+        original_price: product.original_price,
+        images: product.images,
+        brand: product.brand,
+        category_name: product.categories?.name,
+        category_slug: product.categories?.slug,
+        stock_quantity: product.stock_quantity,
+        rating_average: product.rating_average || 0,
+        total_reviews: product.total_reviews || 0,
+        is_active: product.is_active,
+        is_featured: product.is_featured,
+        created_at: product.created_at
+      })) || [];
+
+      return { 
+        success: true, 
+        products: transformedProducts,
+        searchQuery: query || '',
+        category: category || 'All',
+        sortBy: sortBy || 'relevance',
+        totalCount: count || 0,
+        currentPage: page,
+        totalPages: Math.ceil((count || 0) / limit),
+        pagination: {
+          currentPage: page,
+          totalPages: Math.ceil((count || 0) / limit),
+          totalCount: count || 0,
+          limit: limit
+        }
+      };
+    } catch (error) {
+      console.error('❌ Search products failed:', error.message);
+      return { success: false, error: error.message };
+    }
   }
 };
 
