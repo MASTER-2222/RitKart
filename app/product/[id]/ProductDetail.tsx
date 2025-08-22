@@ -832,7 +832,7 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
                   
                   <button 
                     onClick={handleAddToCart}
-                    disabled={addingToCart || buyingNow || product.stock_quantity === 0}
+                    disabled={addingToCart || buyingNow || updatingQuantity || product.stock_quantity === 0}
                     className={`w-full font-bold py-3 px-6 rounded-lg text-lg transition-colors ${
                       addingToCart || buyingNow || product.stock_quantity === 0
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
