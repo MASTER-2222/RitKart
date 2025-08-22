@@ -866,7 +866,7 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
                         </svg>
                         Processing...
                       </span>
-                    ) : product.stock_quantity === 0 ? 'Out of Stock' : 'Buy Now'}
+                    ) : updatingQuantity ? 'Updating Quantity...' : product.stock_quantity === 0 ? 'Out of Stock' : 'Buy Now'}
                   </button>
                 </div>
               </div>
