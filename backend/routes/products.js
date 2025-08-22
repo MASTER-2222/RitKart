@@ -82,15 +82,31 @@ async function convertProductsPrices(products, targetCurrency = 'INR') {
 }
 
 // ==============================================
-// 📦 GET ALL PRODUCTS (WITH DYNAMIC CURRENCY)
+// 📦 GET ALL PRODUCTS WITH SEARCH & FILTERS (WITH DYNAMIC CURRENCY)
 // ==============================================
 router.get('/', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
-    const currency = req.query.currency || 'INR'; // NEW: Support currency parameter
+    const currency = req.query.currency || 'INR';
+    const search = req.query.search || '';
+    const category = req.query.category || '';
+    const featured = req.query.featured === 'true';
 
-    const result = await productService.getAllProducts(page, limit);
+    let result;
+    
+    // Handle different query types
+    if (search || category || featured) {
+      result = await productService.searchProducts({
+        search,
+        category,
+        featured,
+        page,
+        limit
+      });
+    } else {
+      result = await productService.getAllProducts(page, limit);
+    }
 
     if (!result.success) {
       return res.status(400).json({
@@ -106,7 +122,10 @@ router.get('/', async (req, res) => {
       success: true,
       message: `Products retrieved successfully${currency !== 'INR' ? ` with prices in ${currency}` : ''}`,
       data: convertedProducts,
-      currency: currency, // NEW: Include currency info
+      currency: currency,
+      search: search || null,
+      category: category || null,
+      featured: featured || null,
       pagination: {
         currentPage: result.currentPage,
         totalPages: result.totalPages,
