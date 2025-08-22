@@ -341,11 +341,8 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Frontend Profile Dashboard Component - Dynamic user statistics"
-    - "Frontend Personal Info Component - Real user data with edit functionality"
-    - "Frontend Wishlist Component - Real wishlist items with CRUD operations"
-    - "Frontend Address Book Component - Real addresses with CRUD operations"
-    - "Frontend Payment Methods Component - Real payment methods with CRUD operations"
+    - "Implement wishlist redirect functionality"
+    - "Fix Wishlist Component Data Structure Mismatch on Profile Page"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
