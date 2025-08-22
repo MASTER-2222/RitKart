@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import UserProfileSidebar from '../../components/profile/UserProfileSidebar';
@@ -12,6 +13,15 @@ import ProfileDashboard from '../../components/profile/ProfileDashboard';
 
 export default function ProfilePage() {
   const [activeSection, setActiveSection] = useState('dashboard');
+  const searchParams = useSearchParams();
+
+  // Check for section parameter and set active section accordingly
+  useEffect(() => {
+    const section = searchParams.get('section');
+    if (section && ['dashboard', 'personal-info', 'orders', 'wishlist', 'addresses', 'payments'].includes(section)) {
+      setActiveSection(section);
+    }
+  }, [searchParams]);
 
   const renderContent = () => {
     switch (activeSection) {
