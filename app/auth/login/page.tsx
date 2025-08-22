@@ -30,14 +30,17 @@ function LoginForm() {
       if (error) {
         setError(error.message);
       } else {
-        // Check for redirect parameter
-        const redirect = searchParams.get('redirect');
-        if (redirect === 'cart') {
+        // Check for redirect parameters (both 'redirect' and 'redirectTo' for compatibility)
+        const redirect = searchParams.get('redirect') || searchParams.get('redirectTo');
+        if (redirect === '/cart' || redirect === 'cart') {
           router.push('/cart');
-        } else if (redirect === 'checkout') {
+        } else if (redirect === '/checkout' || redirect === 'checkout') {
           router.push('/checkout');
-        } else if (redirect === 'wishlist') {
+        } else if (redirect === '/wishlist' || redirect === 'wishlist') {
           router.push('/wishlist');
+        } else if (redirect && redirect.startsWith('/')) {
+          // Handle any other valid redirect path
+          router.push(redirect);
         } else {
           router.push('/');
         }
