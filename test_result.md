@@ -226,6 +226,18 @@ backend:
         comment: "✅ COMPREHENSIVE SERVICE VERIFICATION: Full code review of userReviewService confirms complete implementation. FEATURES VERIFIED: 1) getReviewsByProduct() with pagination and user data joining ✓, 2) createReview() with duplicate prevention and validation ✓, 3) updateReview() with ownership verification and image management ✓, 4) getUserReviews() with product information ✓, 5) deleteReview() with ownership verification ✓, 6) getReviewStats() with rating distribution calculation ✓. STATISTICS: Calculates average rating, total reviews, rating distribution (1-5 stars). SECURITY: Proper user ownership verification, RLS policy support. All endpoints return consistent JSON responses with proper error handling. Ready to function immediately after user_reviews table creation."
 
 frontend:
+  - task: "Fix Individual Product Page Quantity-Based Price Calculation"
+    implemented: true
+    working: false
+    file: "/app/app/product/[id]/ProductDetail.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🎯 NEW TASK: Fixed quantity-based price calculation on individual product pages to match working logic from cart page. ISSUE: Price display was showing unit price regardless of quantity selected (e.g., quantity 3 still showed $10 instead of $30). SOLUTION: Updated price calculation to multiply unit price by selected quantity, just like cart page. Added 'each' price indicator when quantity > 1. Applied fix to both regular price and original_price (strikethrough). IMPLEMENTATION: Modified price display section in ProductDetail.tsx lines 624-638. Ready for testing to verify price updates correctly with quantity changes."
+
   - task: "Implement wishlist redirect functionality"
     implemented: true
     working: true
