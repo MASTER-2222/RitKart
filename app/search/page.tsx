@@ -6,101 +6,73 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ProductCard from '../../components/ProductCard';
 import Link from 'next/link';
+import { apiClient } from '../../utils/api';
+import { useCurrency } from '../../contexts/CurrencyContext';
 
 function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const category = searchParams.get('category') || 'All';
+  const { currency } = useCurrency();
   
-  const [products] = useState([
-    {
-      id: '1',
-      title: 'Apple iPhone 15 Pro Max 256GB',
-      price: 1199,
-      originalPrice: 1299,
-      rating: 4.8,
-      reviewCount: 2847,
-      image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop',
-      isPrime: true,
-      category: 'Electronics'
-    },
-    {
-      id: '2',
-      title: 'Samsung 55" QLED 4K Smart TV',
-      price: 899,
-      originalPrice: 1199,
-      rating: 4.6,
-      reviewCount: 1523,
-      image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=400&fit=crop',
-      isPrime: true,
-      category: 'Electronics'
-    },
-    {
-      id: '3',
-      title: 'Modern Sectional Sofa with Chaise',
-      price: 1299,
-      originalPrice: 1599,
-      rating: 4.4,
-      reviewCount: 892,
-      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop',
-      isPrime: false,
-      category: 'Home'
-    },
-    {
-      id: '4',
-      title: 'Nike Air Max 270 Running Shoes',
-      price: 129,
-      originalPrice: 150,
-      rating: 4.7,
-      reviewCount: 3421,
-      image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop',
-      isPrime: true,
-      category: 'Sports'
-    },
-    {
-      id: '5',
-      title: 'KitchenAid Stand Mixer Professional',
-      price: 399,
-      originalPrice: 499,
-      rating: 4.9,
-      reviewCount: 1876,
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop',
-      isPrime: true,
-      category: 'Home'
-    },
-    {
-      id: '6',
-      title: 'The Complete Works of Shakespeare',
-      price: 24,
-      originalPrice: 35,
-      rating: 4.5,
-      reviewCount: 667,
-      image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=400&fit=crop',
-      isPrime: false,
-      category: 'Books'
-    }
-  ]);
-
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [sortBy, setSortBy] = useState('relevance');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
+  // Fetch products from backend
   useEffect(() => {
-    let filtered = products;
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        
+        const params = {
+          search: query || undefined,
+          category: category !== 'All' ? category.toLowerCase() : undefined,
+          limit: 50, // Get more results for better search
+          currency: currency
+        };
 
-    // Filter by search query
-    if (query) {
-      filtered = filtered.filter(product => 
-        product.title.toLowerCase().includes(query.toLowerCase()) ||
-        product.category.toLowerCase().includes(query.toLowerCase())
-      );
-    }
+        const response = await apiClient.getProducts(params);
+        
+        if (response.success && response.data?.products) {
+          const productsData = response.data.products.map(product => ({
+            id: product.id,
+            title: product.name,
+            price: product.price,
+            originalPrice: product.original_price,
+            rating: product.rating_average || 0,
+            reviewCount: product.review_count || 0,
+            image: Array.isArray(product.images) ? product.images[0] : product.images || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=400&fit=crop',
+            isPrime: product.is_active,
+            category: product.category_name || product.category || 'General',
+            slug: product.slug,
+            brand: product.brand
+          }));
+          setProducts(productsData);
+        } else {
+          setProducts([]);
+          if (!response.success) {
+            setError(response.error || 'Failed to load products');
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching products:', err);
+        setError('Failed to load products. Please try again.');
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // Filter by category
-    if (category && category !== 'All') {
-      filtered = filtered.filter(product => 
-        product.category.toLowerCase() === category.toLowerCase()
-      );
-    }
+    fetchProducts();
+  }, [query, category, currency]);
+
+  // Sort and filter products
+  useEffect(() => {
+    let filtered = [...products];
 
     // Sort products
     switch (sortBy) {
@@ -122,7 +94,7 @@ function SearchResults() {
     }
 
     setFilteredProducts(filtered);
-  }, [query, category, sortBy, products]);
+  }, [products, sortBy]);
 
   return (
     <div className="min-h-screen bg-white">
