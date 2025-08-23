@@ -267,7 +267,7 @@ router.post('/cod/create-order', authenticateSupabaseToken, async (req, res) => 
       });
     }
 
-    // Create COD order
+    // Create COD order using the new cart-independent method
     const orderData = {
       shippingAddress,
       billingAddress,
@@ -277,7 +277,7 @@ router.post('/cod/create-order', authenticateSupabaseToken, async (req, res) => 
       discountAmount: discountAmount || 0
     };
 
-    const result = await orderService.createOrder(userId, orderData);
+    const result = await orderService.createCODOrder(userId, orderData);
 
     if (!result.success) {
       return res.status(400).json({
