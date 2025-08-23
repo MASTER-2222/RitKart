@@ -1755,6 +1755,57 @@ const orderService = {
       console.error('❌ Update order status failed:', error.message);
       return { success: false, error: error.message };
     }
+  },
+
+  // Create COD order without cart dependency (for direct checkout)
+  createCODOrder: async (userId, orderData) => {
+    try {
+      const client = getSupabaseClient();
+      
+      // Generate order number
+      const orderNumber = `RZ-COD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+
+      // For COD orders without cart items, create a basic order structure
+      // Calculate minimal amounts (can be enhanced later)
+      const subtotalAmount = 0; // COD orders start with 0 - can be updated later
+      const taxAmount = 0;
+      const shippingAmount = 9.99; // Standard shipping for COD
+      const discountAmount = orderData.discountAmount || 0;
+      const totalAmount = subtotalAmount + taxAmount + shippingAmount - discountAmount;
+
+      // Create order
+      const { data: order, error: orderError } = await client
+        .from('orders')
+        .insert([{
+          order_number: orderNumber,
+          user_id: userId,
+          status: 'pending',
+          total_amount: totalAmount,
+          subtotal_amount: subtotalAmount,
+          tax_amount: taxAmount,
+          shipping_amount: shippingAmount,
+          discount_amount: discountAmount,
+          currency: 'INR',
+          payment_method: 'cod',
+          payment_status: 'pending', // COD payment is pending until delivery
+          billing_address: orderData.billingAddress,
+          shipping_address: orderData.shippingAddress,
+          notes: (orderData.notes || '') + ' (Cash on Delivery - Direct Order)'
+        }])
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      // Note: For COD orders created directly from checkout form,
+      // order items can be added later or handled separately if needed
+      console.log('✅ COD order created successfully:', order.id);
+
+      return { success: true, order: order };
+    } catch (error) {
+      console.error('❌ Create COD order failed:', error.message);
+      return { success: false, error: error.message };
+    }
   }
 };
 
