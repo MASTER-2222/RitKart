@@ -103,36 +103,32 @@
 #====================================================================================================
 
 user_problem_statement: |
-  RitZone Individual Product Page Quantity-Based Price Calculation Fix:
+  RitZone Payment Integration and Order Management Enhancement:
   
-  CURRENT ISSUE:
-  - Individual product pages show a price that doesn't update when quantity is changed
-  - When quantity is increased (2, 3, 4), the price remains the same (shows unit price only)
-  - Cart page (/cart) works correctly - price increases with quantity
+  CURRENT REQUIREMENT:
+  - Integrate complete payment system on checkout page (/checkout) with 3 payment options:
+    1) Credit/Debit Card (via PayPal Account Integration)
+    2) PayPal (Direct PayPal Account Integration) 
+    3) Cash on Delivery (COD) - NEW OPTION TO ADD
+  - After successful payment through ANY method, products should be visible in "My Orders" section
+  - Use PayPal credentials from /backend/.env file ONLY (no hardcoding)
+  - Maintain existing environment variables, use .env.local for development if needed
+  - Respect existing RLS policies and auto-synchronization with Express.js, Node.js, and Supabase
   
-  SOLUTION IMPLEMENTED:
-  - Copied the working price calculation logic from cart page to individual product page
-  - Updated price display to multiply unit price by selected quantity
-  - Added "each" price display when quantity > 1 for clarity
-  - Applied same logic to both regular price and original_price (strikethrough)
-  
-  TECHNICAL DETAILS:
-  - Modified /app/app/product/[id]/ProductDetail.tsx price display section
-  - Price now calculates: (product.price * quantity) or (formatted_price * quantity)
-  - Original price also calculates: (product.original_price * quantity)
-  - Added unit price display ("X.XX each") when quantity > 1
-  - Handles both formatted and raw price values correctly
-  
-  EXPECTED BEHAVIOR:
-  - Quantity 1: Shows unit price (e.g., $10.00)
-  - Quantity 2: Shows total price (e.g., $20.00) with "each" indicator
-  - Quantity 3: Shows total price (e.g., $30.00) with "each" indicator
-  - Original price (strikethrough) also multiplies by quantity
+  TECHNICAL REQUIREMENTS:
+  - Frontend: Next.js checkout page enhancement with PayPal SDK integration
+  - Backend: Complete payment processing routes and order creation API
+  - Database: Orders table integration for storing completed transactions
+  - PayPal Integration: Use credentials from environment variables in /backend/.env
+  - Order Management: Ensure orders appear in user profile "My Orders" section after payment
   
   CONSTRAINTS:
+  - Always use PayPal credentials from /backend/.env file only
   - Don't change environment variables for backend and frontend
-  - Use existing quantity state management
+  - Use .env.local for development purpose if necessary
   - Frontend is in root folder, backend is in backend folder
+  - Respect existing RLS policies and auto-synchronization automation
+  - Use Supabase SERVICE ROLE API from app/.env.production file
 
 backend:
   - task: "Test RitZone individual product page quantity functionality improvements"
