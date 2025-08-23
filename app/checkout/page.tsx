@@ -285,12 +285,23 @@ export default function CheckoutPage() {
   const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
 
+  // PayPal configuration from environment
+  const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '';
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      <main className="max-w-7xl mx-auto px-6 py-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
+    <PayPalScriptProvider 
+      options={{
+        "client-id": paypalClientId,
+        currency: selectedCurrency.code,
+        intent: "capture",
+        "data-client-token": "sandbox",
+      }}
+    >
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        
+        <main className="max-w-7xl mx-auto px-6 py-6">
+          <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
