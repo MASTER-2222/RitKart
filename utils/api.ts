@@ -487,6 +487,46 @@ class ApiClient {
   async getReviewStats(productId: string) {
     return this.makeRequest(`/reviews/stats/${productId}`);
   }
+
+  // Payment Processing API
+  async createPayPalOrder(orderData: {
+    amount: number;
+    currency?: string;
+    items?: any[];
+    shippingAddress: any;
+    billingAddress: any;
+  }) {
+    return this.makeRequest('/payments/paypal/create-order', {
+      method: 'POST',
+      body: JSON.stringify(orderData),
+    });
+  }
+
+  async capturePayPalOrder(captureData: {
+    paypalOrderId: string;
+    internalOrderId: string;
+  }) {
+    return this.makeRequest('/payments/paypal/capture-order', {
+      method: 'POST',
+      body: JSON.stringify(captureData),
+    });
+  }
+
+  async createCODOrder(orderData: {
+    shippingAddress: any;
+    billingAddress: any;
+    notes?: string;
+    discountAmount?: number;
+  }) {
+    return this.makeRequest('/payments/cod/create-order', {
+      method: 'POST',
+      body: JSON.stringify(orderData),
+    });
+  }
+
+  async getPayPalOrderStatus(paypalOrderId: string) {
+    return this.makeRequest(`/payments/paypal/order/${paypalOrderId}`);
+  }
 }
 
 // Export singleton instance
