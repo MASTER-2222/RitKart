@@ -635,9 +635,10 @@ export default function CheckoutPage() {
             </div>
           </div>
         </div>
-      </main>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PayPalScriptProvider>
   );
 }
