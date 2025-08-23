@@ -50,8 +50,8 @@ class RitZonePaymentTester:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and data.get('data', {}).get('session', {}).get('access_token'):
-                    self.access_token = data['data']['session']['access_token']
+                if data.get('success') and data.get('token'):
+                    self.access_token = data['token']
                     self.session.headers.update({
                         'Authorization': f'Bearer {self.access_token}'
                     })
