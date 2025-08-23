@@ -80,8 +80,8 @@ class PayPalService {
           brand_name: 'RitZone',
           landing_page: 'BILLING',
           user_action: 'PAY_NOW',
-          return_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success`,
-          cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/cancel`
+          return_url: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/checkout/success`,
+          cancel_url: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/checkout/cancel`
         }
       });
 
