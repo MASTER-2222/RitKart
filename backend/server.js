@@ -29,6 +29,7 @@ const adminHomepageRoutes = require('./routes/admin-homepage');
 const autoSyncRoutes = require('./routes/auto-sync');
 const imageUploadRoutes = require('./routes/image-upload');
 const userReviewRoutes = require('./routes/user-reviews');
+const paymentRoutes = require('./routes/payments');
 
 // Import auto-sync middleware
 const AutoSyncMiddleware = require('./middleware/auto-sync-middleware');
