@@ -162,15 +162,35 @@ export default function CheckoutPage() {
     setError(null);
 
     try {
+      if (paymentMethod === 'cod') {
+        // Handle Cash on Delivery
+        await handleCODOrder();
+      } else if (paymentMethod === 'paypal' || paymentMethod === 'card') {
+        // PayPal payment will be handled by PayPal buttons
+        // This function is called when PayPal buttons are not shown yet
+        setError('Please use the PayPal payment button below to complete your order.');
+      } else {
+        setError('Please select a payment method.');
+      }
+    } catch (err: any) {
+      console.error('Order submission failed:', err);
+      setError(err.message || 'Failed to submit order. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleCODOrder = async () => {
+    try {
       const orderData = {
         shippingAddress,
         billingAddress: sameAsShipping ? shippingAddress : billingAddress,
-        paymentMethod,
+        paymentMethod: 'cod',
         notes: orderNotes,
         discountAmount: 0
       };
 
-      const response = await apiClient.createOrder(orderData);
+      const response = await apiClient.createCODOrder(orderData);
       
       if (response.success) {
         setSuccess(true);
@@ -179,14 +199,32 @@ export default function CheckoutPage() {
           router.push(`/orders/${response.data.id}`);
         }, 2000);
       } else {
-        throw new Error(response.message || 'Failed to create order');
+        throw new Error(response.message || 'Failed to create COD order');
       }
     } catch (err: any) {
-      console.error('Order creation failed:', err);
-      setError(err.message || 'Failed to create order. Please try again.');
-    } finally {
-      setSubmitting(false);
+      console.error('COD order creation failed:', err);
+      setError(err.message || 'Failed to create COD order. Please try again.');
     }
+  };
+
+  const handlePayPalSuccess = async (details: any, data: any) => {
+    try {
+      console.log('PayPal payment successful:', details, data);
+      setSuccess(true);
+      
+      // Redirect to success page or order details
+      setTimeout(() => {
+        router.push('/orders?success=true');
+      }, 2000);
+    } catch (err: any) {
+      console.error('PayPal success handler failed:', err);
+      setError('Payment completed but order processing failed. Please contact support.');
+    }
+  };
+
+  const handlePayPalError = (err: any) => {
+    console.error('PayPal payment error:', err);
+    setError('PayPal payment failed. Please try again or choose a different payment method.');
   };
 
   if (loading) {
