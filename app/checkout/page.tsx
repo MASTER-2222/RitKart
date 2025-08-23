@@ -427,30 +427,93 @@ export default function CheckoutPage() {
             {/* Payment Method */}
             <div className="bg-white rounded-lg shadow-sm border p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Payment Method</h2>
-              <div className="space-y-2">
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="card"
-                    checked={paymentMethod === 'card'}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="mr-2"
-                  />
-                  <span>Credit/Debit Card</span>
-                </label>
-                <label className="flex items-center">
+              <div className="space-y-3">
+                <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
                   <input
                     type="radio"
                     name="payment"
                     value="paypal"
                     checked={paymentMethod === 'paypal'}
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="mr-2"
+                    className="mr-3"
                   />
-                  <span>PayPal</span>
+                  <div className="flex items-center">
+                    <span className="font-medium">PayPal</span>
+                    <img 
+                      src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" 
+                      alt="PayPal" 
+                      className="h-6 ml-2"
+                    />
+                  </div>
+                </label>
+                
+                <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="card"
+                    checked={paymentMethod === 'card'}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="mr-3"
+                  />
+                  <div className="flex items-center">
+                    <span className="font-medium">Credit/Debit Card via PayPal</span>
+                    <div className="flex items-center ml-2 space-x-1">
+                      <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/cc-visa.jpg" alt="Visa" className="h-6"/>
+                      <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/cc-mastercard.jpg" alt="MasterCard" className="h-6"/>
+                      <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/cc-amex.jpg" alt="Amex" className="h-6"/>
+                    </div>
+                  </div>
+                </label>
+                
+                <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="cod"
+                    checked={paymentMethod === 'cod'}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="mr-3"
+                  />
+                  <div className="flex items-center">
+                    <span className="font-medium">Cash on Delivery (COD)</span>
+                    <i className="ri-truck-line text-green-600 ml-2 text-xl"></i>
+                  </div>
                 </label>
               </div>
+
+              {/* PayPal Payment Section */}
+              {(paymentMethod === 'paypal' || paymentMethod === 'card') && (
+                <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    {paymentMethod === 'paypal' ? 'Pay with PayPal' : 'Pay with Credit/Debit Card'}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {paymentMethod === 'paypal' 
+                      ? 'You will be redirected to PayPal to complete your payment securely.'
+                      : 'Use your credit or debit card via PayPal secure checkout.'
+                    }
+                  </p>
+                  
+                  {/* PayPal Buttons will appear here after form validation */}
+                  <div id="paypal-button-container" className="min-h-[50px]">
+                    {/* PayPal buttons will be rendered here */}
+                  </div>
+                </div>
+              )}
+
+              {/* COD Information */}
+              {paymentMethod === 'cod' && (
+                <div className="mt-6 p-4 bg-green-50 rounded-lg">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Cash on Delivery</h3>
+                  <div className="text-sm text-gray-600 space-y-2">
+                    <p>• Pay cash when your order is delivered to your doorstep</p>
+                    <p>• No advance payment required</p>
+                    <p>• Available for orders above {selectedCurrency.symbol}10</p>
+                    <p>• Delivery charges may apply based on location</p>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Order Notes */}
