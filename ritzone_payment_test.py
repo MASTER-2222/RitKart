@@ -334,7 +334,15 @@ class RitZonePaymentTester:
             if response.status_code == 200:
                 data = response.json()
                 if data.get('success'):
-                    orders = data.get('data', {}).get('orders', [])
+                    # Handle both possible response formats
+                    orders = data.get('data', [])
+                    if isinstance(orders, dict):
+                        orders = orders.get('orders', [])
+                    elif isinstance(orders, list):
+                        pass  # orders is already a list
+                    else:
+                        orders = []
+                    
                     self.log_test("Orders Endpoint", True, 
                                 f"Orders endpoint working - found {len(orders)} orders")
                 else:
