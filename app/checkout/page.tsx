@@ -546,7 +546,75 @@ export default function CheckoutPage() {
                   
                   {/* PayPal Buttons will appear here after form validation */}
                   <div id="paypal-button-container" className="min-h-[50px]">
-                    {/* PayPal buttons will be rendered here */}
+                    {validateForm() && (
+                      <PayPalButtons
+                        createOrder={async (data, actions) => {
+                          try {
+                            // Call backend to create PayPal order
+                            const orderData = {
+                              amount: total,
+                              currency: selectedCurrency.code,
+                              items: cart.cart_items.map(item => ({
+                                name: item.product.name,
+                                quantity: item.quantity,
+                                unit_amount: {
+                                  currency_code: selectedCurrency.code,
+                                  value: item.unit_price.toFixed(2)
+                                }
+                              })),
+                              shippingAddress,
+                              billingAddress: sameAsShipping ? shippingAddress : billingAddress
+                            };
+
+                            const response = await apiClient.createPayPalOrder(orderData);
+                            
+                            if (response.success) {
+                              return response.data.paypalOrderId;
+                            } else {
+                              throw new Error(response.message || 'Failed to create PayPal order');
+                            }
+                          } catch (error: any) {
+                            console.error('PayPal order creation failed:', error);
+                            setError(error.message || 'Failed to create PayPal order');
+                            throw error;
+                          }
+                        }}
+                        onApprove={async (data, actions) => {
+                          try {
+                            // Capture the payment
+                            const captureData = {
+                              paypalOrderId: data.orderID,
+                              internalOrderId: data.orderID // Use the same ID for simplicity
+                            };
+
+                            const response = await apiClient.capturePayPalOrder(captureData);
+                            
+                            if (response.success) {
+                              await handlePayPalSuccess(response.data, data);
+                            } else {
+                              throw new Error(response.message || 'Failed to capture payment');
+                            }
+                          } catch (error: any) {
+                            console.error('PayPal capture failed:', error);
+                            setError(error.message || 'Payment capture failed');
+                          }
+                        }}
+                        onError={(err) => {
+                          handlePayPalError(err);
+                        }}
+                        onCancel={(data) => {
+                          console.log('PayPal payment cancelled:', data);
+                          setError('Payment was cancelled. Please try again.');
+                        }}
+                        style={{
+                          layout: "vertical",
+                          color: "gold",
+                          shape: "rect",
+                          label: paymentMethod === 'card' ? 'pay' : 'paypal'
+                        }}
+                        forceReRender={[total, paymentMethod, selectedCurrency.code]}
+                      />
+                    )}
                   </div>
                 </div>
               )}
