@@ -363,6 +363,42 @@ frontend:
         agent: "main"
         comment: "🎯 NEW TASK: Add user review management section to admin panel. Admins should be able to view, approve, edit, and delete user-submitted reviews for each product."
 
+  - task: "Enhance checkout page PayPal integration with proper button rendering"
+    implemented: false
+    working: false
+    file: "/app/app/checkout/page.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🎯 NEW TASK: Complete PayPal integration enhancement in checkout page. CURRENT ANALYSIS: Checkout page has PayPal SDK imported and payment method selection UI, but PayPal buttons are not properly rendered in the paypal-button-container div. REQUIREMENTS: 1) Integrate PayPal buttons rendering when PayPal or Credit/Debit Card payment methods are selected, 2) Connect buttons to backend PayPal API endpoints (create-order, capture-order), 3) Handle payment success/error flows properly, 4) Ensure successful payments redirect to order confirmation and show in 'My Orders' section."
+
+  - task: "Add missing payment API methods to API client"
+    implemented: false
+    working: false
+    file: "/app/utils/api.ts"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🎯 NEW TASK: Add missing payment API methods to support complete checkout payment flow. MISSING METHODS: 1) createPayPalOrder() - for PayPal order creation, 2) capturePayPalOrder() - for PayPal payment capture, 3) createCODOrder() - for COD order creation (might exist but needs verification), 4) getOrderById() - for order confirmation display. These methods are required to connect frontend checkout page with backend payment routes."
+
+  - task: "Verify order confirmation and My Orders integration"
+    implemented: false
+    working: false
+    file: "/app/app/orders"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🎯 NEW TASK: Verify complete payment-to-orders flow integration. REQUIREMENTS: 1) After successful PayPal payment, user should be redirected to order confirmation page, 2) After successful COD order, user should see order confirmation, 3) All completed orders (PayPal, Credit Card via PayPal, COD) should appear in /profile 'My Orders' section, 4) Verify order confirmation page exists and displays proper order details, 5) Test complete end-to-end flow: cart → checkout → payment → confirmation → My Orders visibility."
+
 metadata:
   created_by: "main_agent"
   version: "1.1"
