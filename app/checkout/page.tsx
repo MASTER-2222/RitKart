@@ -6,6 +6,7 @@ import Footer from '../../components/Footer';
 import { apiClient } from '../../utils/api';
 import { createClient } from '../../utils/supabase/client';
 import { useCurrency } from '../../contexts/CurrencyContext';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 interface CartItem {
   id: string;
