@@ -20,6 +20,7 @@
   "author": "RitZone Development Team",
   "license": "MIT",
   "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.3",
     "@supabase/supabase-js": "^2.54.0",
     "axios": "^1.11.0",
     "bcryptjs": "^2.4.3",
