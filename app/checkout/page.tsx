@@ -594,7 +594,7 @@ export default function CheckoutPage() {
                                 quantity: item.quantity,
                                 unit_amount: {
                                   currency_code: selectedCurrency.code,
-                                  value: item.unit_price.toFixed(2)
+                                  value: Number(item.unit_price).toFixed(2)
                                 }
                               })),
                               shippingAddress,
