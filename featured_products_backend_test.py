@@ -18,7 +18,7 @@ import time
 from typing import Dict, Any, List, Optional
 
 # Configuration
-BACKEND_URL = "https://script-runner-17.preview.emergentagent.com"
+BACKEND_URL = "https://data-sync.preview.emergentagent.com"
 API_BASE = f"{BACKEND_URL}/api"
 
 class FeaturedProductsBackendTester:
