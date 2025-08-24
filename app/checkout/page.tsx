@@ -650,6 +650,7 @@ export default function CheckoutPage() {
             <div className="bg-white rounded-lg shadow-sm border p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Order Notes (Optional)</h2>
               <textarea
+                name="order_notes"
                 value={orderNotes}
                 onChange={(e) => setOrderNotes(e.target.value)}
                 rows={3}
