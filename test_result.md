@@ -400,7 +400,7 @@ frontend:
         agent: "main"
         comment: "🎯 NEW TASK: Add missing payment API methods to support complete checkout payment flow. MISSING METHODS: 1) createPayPalOrder() - for PayPal order creation, 2) capturePayPalOrder() - for PayPal payment capture, 3) createCODOrder() - for COD order creation (might exist but needs verification), 4) getOrderById() - for order confirmation display. These methods are required to connect frontend checkout page with backend payment routes."
 
-  - task: "Verify order confirmation and My Orders integration"
+  - task: "Add missing payment API methods to API client"
     implemented: false
     working: false
     file: "/app/app/orders"
