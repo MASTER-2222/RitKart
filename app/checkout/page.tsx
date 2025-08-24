@@ -289,10 +289,12 @@ export default function CheckoutPage() {
 
   // PayPal configuration from environment
   const [paypalClientId, setPaypalClientId] = useState('');
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     // Set PayPal client ID on client side to prevent hydration mismatch
     setPaypalClientId(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '');
+    setIsClient(true);
   }, []);
 
   return (
