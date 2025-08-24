@@ -129,6 +129,22 @@ class RitZoneCheckoutTester:
             order_data = {
                 "amount": "25.00",
                 "currency": "USD",
+                "shippingAddress": {
+                    "full_name": "Test User",
+                    "address_line1": "123 Test Street",
+                    "city": "Test City",
+                    "state": "Test State",
+                    "postal_code": "12345",
+                    "country": "US"
+                },
+                "billingAddress": {
+                    "full_name": "Test User",
+                    "address_line1": "123 Test Street",
+                    "city": "Test City",
+                    "state": "Test State",
+                    "postal_code": "12345",
+                    "country": "US"
+                },
                 "items": [
                     {
                         "name": "Test Product",
