@@ -429,10 +429,12 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Comprehensive PayPal payment integration testing on localhost"
-    - "Fix COD order creation cart integration issue"
-    - "Test complete end-to-end payment flow (PayPal + Credit/Debit Card + COD)"
-    - "Verify orders appear in My Orders section after payment"
+    - "Comprehensive PayPal payment integration testing on localhost development server"
+    - "Fix checkout form field naming selectors for complete payment flow testing"
+    - "Test PayPal Credit/Debit Card and Direct PayPal payment methods with test card completion"
+    - "Fix COD cart dependency issue in orderService.createOrder()"
+    - "Test complete end-to-end payment flow: checkout → payment → order confirmation → My Orders visibility"
+    - "Verify all payment methods integrate with PayPal credentials from /backend/.env file only"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
