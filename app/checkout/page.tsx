@@ -288,7 +288,12 @@ export default function CheckoutPage() {
   const total = subtotal + shipping + tax;
 
   // PayPal configuration from environment
-  const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '';
+  const [paypalClientId, setPaypalClientId] = useState('');
+
+  useEffect(() => {
+    // Set PayPal client ID on client side to prevent hydration mismatch
+    setPaypalClientId(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '');
+  }, []);
 
   return (
     <PayPalScriptProvider 
