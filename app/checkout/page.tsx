@@ -432,6 +432,7 @@ export default function CheckoutPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-1">Address Line 1 *</label>
                     <input
                       type="text"
+                      name="billing_address_line1"
                       value={billingAddress.address_line1}
                       onChange={(e) => setBillingAddress(prev => ({ ...prev, address_line1: e.target.value }))}
                       className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
