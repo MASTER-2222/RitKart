@@ -744,6 +744,17 @@ export default function CheckoutPage() {
         <Footer />
       </div>
     </PayPalScriptProvider>
+      ) : (
+        <div className="min-h-screen bg-gray-50">
+          <Header />
+          <div className="flex items-center justify-center min-h-[calc(100vh-160px)]">
+            <div className="text-center">
+              <div className="text-red-600 mb-4">⚠️ PayPal configuration not found</div>
+              <p className="text-gray-600">Please check PayPal environment variables</p>
+            </div>
+          </div>
+          <Footer />
+        </div>
       )}
     </>
   );
