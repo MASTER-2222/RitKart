@@ -310,7 +310,7 @@ export default function CheckoutPage() {
           </div>
           <Footer />
         </div>
-      ) : (
+      ) : paypalClientId ? (
         <PayPalScriptProvider 
           options={{
             "client-id": paypalClientId,
