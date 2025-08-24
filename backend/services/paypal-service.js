@@ -71,7 +71,7 @@ class PayPalService {
             name: item.name,
             unit_amount: {
               currency_code: currency,
-              value: item.price.toFixed(2)
+              value: Number(item.price).toFixed(2)
             },
             quantity: item.quantity.toString()
           }))
