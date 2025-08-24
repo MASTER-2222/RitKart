@@ -464,6 +464,7 @@ export default function CheckoutPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-1">State *</label>
                     <input
                       type="text"
+                      name="billing_state"
                       value={billingAddress.state}
                       onChange={(e) => setBillingAddress(prev => ({ ...prev, state: e.target.value }))}
                       className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
