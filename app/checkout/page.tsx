@@ -475,6 +475,7 @@ export default function CheckoutPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-1">Postal Code *</label>
                     <input
                       type="text"
+                      name="billing_postal_code"
                       value={billingAddress.postal_code}
                       onChange={(e) => setBillingAddress(prev => ({ ...prev, postal_code: e.target.value }))}
                       className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
