@@ -90,8 +90,8 @@ class CheckoutDataStructureTest:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and 'access_token' in data:
-                    self.access_token = data['access_token']
+                if data.get('success') and ('access_token' in data or 'token' in data):
+                    self.access_token = data.get('access_token') or data.get('token')
                     self.log_test("User Authentication", True, 
                                 f"Successfully authenticated user {TEST_USER_EMAIL}")
                     return True
