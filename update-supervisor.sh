@@ -53,5 +53,5 @@ sudo supervisorctl start backend_nodejs
 sudo supervisorctl start frontend_nextjs
 
 echo "Supervisor configuration updated successfully!"
-echo "Backend (Node.js) running on port 8001"
+echo "Backend (Node.js) running on port 10000"
 echo "Frontend (Next.js) running on port 3000"
