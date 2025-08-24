@@ -65,8 +65,9 @@ class RitZoneCheckoutTester:
             
             if response.status_code == 200:
                 data = response.json()
-                if 'access_token' in data:
-                    self.access_token = data['access_token']
+                # Backend returns 'token' instead of 'access_token'
+                if 'token' in data:
+                    self.access_token = data['token']
                     self.user_id = data.get('user', {}).get('id')
                     
                     # Set authorization header for future requests
@@ -78,7 +79,7 @@ class RitZoneCheckoutTester:
                     self.log_test("User Authentication", True, f"Successfully authenticated user {TEST_USER_EMAIL}")
                     return True
                 else:
-                    self.log_test("User Authentication", False, "No access token in response", data)
+                    self.log_test("User Authentication", False, "No token in response", data)
                     return False
             else:
                 self.log_test("User Authentication", False, f"Login failed with status {response.status_code}", response.text)
