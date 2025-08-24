@@ -570,7 +570,7 @@ export default function CheckoutPage() {
                               amount: total,
                               currency: selectedCurrency.code,
                               items: cart.cart_items.map(item => ({
-                                name: item.product.name,
+                                name: item.products.name,
                                 quantity: item.quantity,
                                 unit_amount: {
                                   currency_code: selectedCurrency.code,
