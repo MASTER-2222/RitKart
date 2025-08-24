@@ -186,25 +186,26 @@ class RitZoneCheckoutTester:
         try:
             cod_order_data = {
                 "payment_method": "cod",
-                "shipping_address": {
-                    "name": "Test User",
-                    "street": "123 Test Street",
+                "shippingAddress": {
+                    "full_name": "Test User",
+                    "address_line1": "123 Test Street",
                     "city": "Test City",
                     "state": "Test State",
-                    "zip_code": "12345",
+                    "postal_code": "12345",
                     "country": "US"
                 },
-                "items": [
-                    {
-                        "product_id": "f3ac5360-4971-4ade-a862-20462050041b",
-                        "quantity": 1,
-                        "price": "25.00"
-                    }
-                ],
-                "total_amount": "25.00"
+                "billingAddress": {
+                    "full_name": "Test User",
+                    "address_line1": "123 Test Street",
+                    "city": "Test City",
+                    "state": "Test State",
+                    "postal_code": "12345",
+                    "country": "US"
+                },
+                "notes": "Test COD order"
             }
             
-            response = self.session.post(f"{BACKEND_URL}/orders/create", json=cod_order_data, timeout=15)
+            response = self.session.post(f"{BACKEND_URL}/payments/cod/create-order", json=cod_order_data, timeout=15)
             
             if response.status_code in [200, 201]:
                 data = response.json()
