@@ -102,7 +102,7 @@ class RitZoneCheckoutTester:
                 # Test adding item to cart
                 test_product_id = "f3ac5360-4971-4ade-a862-20462050041b"  # Using a known product ID
                 add_item_data = {
-                    "product_id": test_product_id,
+                    "productId": test_product_id,
                     "quantity": 2
                 }
                 
