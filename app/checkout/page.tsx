@@ -282,7 +282,7 @@ export default function CheckoutPage() {
     );
   }
 
-  const subtotal = cart.cart_items.reduce((sum, item) => sum + item.total_price, 0);
+  const subtotal = cart.cart_items.reduce((sum, item) => sum + Number(item.total_price), 0);
   const shipping = subtotal > 35 ? 0 : 5.99;
   const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
