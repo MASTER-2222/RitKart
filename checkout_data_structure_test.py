@@ -32,8 +32,8 @@ import json
 import sys
 from datetime import datetime
 
-# Configuration
-BACKEND_URL = "https://ritkart-backend-ujnt.onrender.com/api"
+# Configuration - LOCALHOST DEVELOPMENT SERVER
+BACKEND_URL = "http://localhost:10000/api"
 TEST_USER_EMAIL = "b@b.com"
 TEST_USER_PASSWORD = "Abcd@1234"
 
