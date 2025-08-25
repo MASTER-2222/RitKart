@@ -25,9 +25,9 @@ from datetime import datetime
 
 class OrdersAPIDebugTester:
     def __init__(self):
-        # Use production backend URL as specified in the request
-        self.base_url = "https://ritkart-backend-ujnt.onrender.com/api"
-        self.backup_url = "http://localhost:10000/api"
+        # Use localhost backend URL since it's running locally
+        self.base_url = "http://localhost:10000/api"
+        self.backup_url = "https://ritkart-backend-ujnt.onrender.com/api"
         self.session = requests.Session()
         self.access_token = None
         self.user_id = None
