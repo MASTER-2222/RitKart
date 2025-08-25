@@ -588,7 +588,7 @@ export default function CheckoutPage() {
                   
                   {/* PayPal Buttons will appear here after form validation */}
                   <div id="paypal-button-container" className="min-h-[50px]">
-                    {isClient && validateForm() && (
+                    {mounted && validateForm() && (
                       <PayPalButtons
                         createOrder={async (data, actions) => {
                           try {
