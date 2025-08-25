@@ -458,6 +458,18 @@ agent_communication:
         agent: "main"
         comment: "🎯 NEW TASK: Verify complete payment-to-orders flow integration. REQUIREMENTS: 1) After successful PayPal payment, user should be redirected to order confirmation page, 2) After successful COD order, user should see order confirmation, 3) All completed orders (PayPal, Credit Card via PayPal, COD) should appear in /profile 'My Orders' section, 4) Verify order confirmation page exists and displays proper order details, 5) Test complete end-to-end flow: cart → checkout → payment → confirmation → My Orders visibility."
 
+  - task: "URGENT: Test React error #310 on production checkout page"
+    implemented: true
+    working: false
+    file: "/app/app/checkout/page.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "user"
+        comment: "🚨 URGENT USER REPORT: User confirms React error #310 STILL EXISTS on production checkout page https://ritzone-frontend-s3ik.onrender.com/checkout. User tested from ANOTHER BROWSER and error persists. EXACT ERROR: 'Application error: a client-side exception has occurred (see the browser console for more information)' and console shows 'Minified React error #310; visit https://react.dev/errors/310 for the full message or use the non-minified dev environment for full errors and additional helpful warnings'. REPRODUCTION STEPS: 1) Open fresh browser session, 2) Navigate to production URL, 3) Login with b@b.com/Abcd@1234, 4) Navigate to /checkout, 5) Check for error. Previous testing may have been incomplete - need comprehensive re-testing."
+
 metadata:
   created_by: "main_agent"
   version: "1.1"
