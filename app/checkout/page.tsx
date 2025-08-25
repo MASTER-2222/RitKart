@@ -154,6 +154,8 @@ export default function CheckoutPage() {
       }
     }
 
+    // Clear any previous errors if validation passes
+    setError(null);
     return true;
   };
 
