@@ -193,7 +193,7 @@ class PayPalIntegrationTester:
                 "payment_method": "cod",
                 "shippingAddress": {
                     "full_name": "Test User",
-                    "address_line_1": "123 Test Street", 
+                    "address_line1": "123 Test Street", 
                     "city": "Test City",
                     "state": "Test State",
                     "postal_code": "12345",
@@ -201,7 +201,7 @@ class PayPalIntegrationTester:
                 },
                 "billingAddress": {
                     "full_name": "Test User",
-                    "address_line_1": "123 Test Street",
+                    "address_line1": "123 Test Street",
                     "city": "Test City", 
                     "state": "Test State",
                     "postal_code": "12345",
