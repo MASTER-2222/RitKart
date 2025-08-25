@@ -147,7 +147,7 @@ export default function CheckoutPage() {
     if (sameAsShipping) {
       setBillingAddress(shippingAddress);
     }
-  }, [sameAsShipping, shippingAddress.full_name, shippingAddress.address_line1, shippingAddress.address_line2, shippingAddress.city, shippingAddress.state, shippingAddress.postal_code, shippingAddress.country, shippingAddress.phone]);
+  }, [sameAsShipping]);
 
   const validateForm = (): boolean => {
     // Check shipping address
