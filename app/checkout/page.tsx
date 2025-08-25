@@ -80,17 +80,24 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [orderNotes, setOrderNotes] = useState('');
 
+  // Fix hydration issue - initialize on mount only
   useEffect(() => {
-    checkAuthAndLoadCart();
+    setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      checkAuthAndLoadCart();
+    }
+  }, [mounted]);
 
   // Reload cart when currency changes
   useEffect(() => {
-    if (cart) { // Only reload if cart is already loaded
+    if (cart && mounted) { // Only reload if cart is already loaded and component is mounted
       console.log(`🔄 Currency changed to ${selectedCurrency.code}, reloading checkout cart...`);
       loadCart();
     }
-  }, [selectedCurrency.code]);
+  }, [selectedCurrency.code, mounted]);
 
   useEffect(() => {
     if (sameAsShipping) {
