@@ -247,6 +247,11 @@ export default function CheckoutPage() {
     setPaypalError(null);
     
     try {
+      // Add null safety check for cart
+      if (!cart || !cart.cart_items) {
+        throw new Error('Cart data not available for PayPal payment');
+      }
+      
       // Get order details from PayPal
       const order = await actions.order.get();
       console.log('PayPal payment approved:', order);
