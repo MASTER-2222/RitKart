@@ -135,6 +135,18 @@ user_problem_statement: |
   - Frontend is in root folder, backend is in backend folder
 
 backend:
+  - task: "Fix Orders API 'list' object has no attribute 'get' error"
+    implemented: false
+    working: false
+    file: "/app/backend/services/supabase-service.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🚨 CRITICAL API ERROR: User reports Orders API test failing with 'list' object has no attribute 'get' error. This indicates a data structure mismatch where code expects a dictionary/object but receives a list/array. ROOT CAUSE: Likely issue in backend orders processing where response data structure doesn't match expected format. INVESTIGATION NEEDED: 1) Check getUserOrders method in orderService for proper data transformation ✓, 2) Verify orders API response structure matches frontend expectations, 3) Look for any code trying to call .get() method on array data, 4) Test orders API endpoint functionality, 5) Ensure proper error handling in orders processing. STATUS: Need to identify exact location of list/dict mismatch and implement proper data structure handling."
+
   - task: "Test RitZone individual product page quantity functionality improvements"
     implemented: true
     working: true
