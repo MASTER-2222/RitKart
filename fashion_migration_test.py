@@ -11,7 +11,7 @@ import sys
 from datetime import datetime
 
 class FashionMigrationTester:
-    def __init__(self, base_url="https://react-error-301.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://checkout-debug-1.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
