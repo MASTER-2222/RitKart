@@ -188,23 +188,23 @@ class PayPalIntegrationTester:
                 self.log_test("COD Order Creation", False, "No authentication token available")
                 return False
             
-            # Create a test COD order with proper address format
+            # Create a test COD order with proper address format for Node.js backend
             order_data = {
                 "payment_method": "cod",
                 "shippingAddress": {
-                    "name": "Test User",
-                    "street": "123 Test Street",
+                    "full_name": "Test User",
+                    "address_line_1": "123 Test Street", 
                     "city": "Test City",
                     "state": "Test State",
-                    "zip_code": "12345",
+                    "postal_code": "12345",
                     "country": "US"
                 },
                 "billingAddress": {
-                    "name": "Test User", 
-                    "street": "123 Test Street",
-                    "city": "Test City",
+                    "full_name": "Test User",
+                    "address_line_1": "123 Test Street",
+                    "city": "Test City", 
                     "state": "Test State",
-                    "zip_code": "12345",
+                    "postal_code": "12345",
                     "country": "US"
                 },
                 "items": [
