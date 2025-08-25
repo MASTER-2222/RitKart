@@ -223,6 +223,12 @@ export default function CheckoutPage() {
 
   // PayPal payment functions
   const createPayPalOrder = (data: any, actions: any) => {
+    // Add null safety check for cart
+    if (!cart || !cart.cart_items) {
+      console.error('Cart is null or undefined in createPayPalOrder');
+      throw new Error('Cart data not available');
+    }
+    
     return actions.order.create({
       purchase_units: [
         {
