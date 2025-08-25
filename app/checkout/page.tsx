@@ -94,11 +94,11 @@ export default function CheckoutPage() {
 
   // Reload cart when currency changes
   useEffect(() => {
-    if (cart && mounted) { // Only reload if cart is already loaded and component is mounted
+    if (cartLoadedRef.current && mounted) { // Only reload if cart is already loaded and component is mounted
       console.log(`🔄 Currency changed to ${selectedCurrency.code}, reloading checkout cart...`);
       loadCart();
     }
-  }, [selectedCurrency.code, mounted, cart, loadCart]);
+  }, [selectedCurrency.code, mounted, loadCart]);
 
   useEffect(() => {
     if (sameAsShipping) {
