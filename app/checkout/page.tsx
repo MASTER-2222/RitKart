@@ -144,18 +144,22 @@ export default function CheckoutPage() {
     }
   }, [selectedCurrency.code, mounted, loadCart]);
 
+  // Update billing address when shipping address changes (only when "same as shipping" is checked)
+  const updateShippingAddress = (field: keyof Address, value: string) => {
+    const newShippingAddress = { ...shippingAddress, [field]: value };
+    setShippingAddress(newShippingAddress);
+    
+    // Automatically update billing address if "same as shipping" is checked
+    if (sameAsShipping) {
+      setBillingAddress(newShippingAddress);
+    }
+  };
+
   useEffect(() => {
     if (sameAsShipping) {
-      // Check if shippingAddress has actually changed
-      const hasChanged = !prevShippingAddressRef.current || 
-        JSON.stringify(prevShippingAddressRef.current) !== JSON.stringify(shippingAddress);
-      
-      if (hasChanged) {
-        setBillingAddress(shippingAddress);
-        prevShippingAddressRef.current = { ...shippingAddress };
-      }
+      setBillingAddress(shippingAddress);
     }
-  }, [sameAsShipping]);
+  }, [sameAsShipping]); // Only trigger when sameAsShipping checkbox changes, not shippingAddress
 
   const validateForm = (): boolean => {
     // Check shipping address
