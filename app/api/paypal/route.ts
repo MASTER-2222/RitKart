@@ -18,12 +18,21 @@ const PAYPAL_API_URL = process.env.NODE_ENV === 'production'
 
 async function getPayPalAccessToken() {
   try {
+    // Fetch PayPal credentials from environment variables
     const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
     const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
     
-    if (!clientId || !clientSecret) {
-      throw new Error('PayPal credentials not found');
+    if (!clientId) {
+      throw new Error('PayPal Client ID (NEXT_PUBLIC_PAYPAL_CLIENT_ID) not found in environment variables');
     }
+    
+    if (!clientSecret) {
+      throw new Error('PayPal Client Secret (PAYPAL_CLIENT_SECRET) not found in environment variables');
+    }
+
+    console.log('✅ PayPal credentials loaded from environment variables');
+    console.log(`🔑 Client ID: ${clientId.substring(0, 10)}...`);
+    console.log(`🔐 Client Secret: ${clientSecret.substring(0, 10)}...`);
 
     const auth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
     
