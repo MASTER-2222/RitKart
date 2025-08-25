@@ -317,18 +317,7 @@ export default function CheckoutPage() {
 
   return (
     <>
-      {!isClient ? (
-        <div className="min-h-screen bg-gray-50">
-          <Header />
-          <div className="flex items-center justify-center min-h-[calc(100vh-160px)]">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading checkout...</p>
-            </div>
-          </div>
-          <Footer />
-        </div>
-      ) : paypalClientId ? (
+      {paypalClientId ? (
         <PayPalScriptProvider 
           options={{
             "client-id": paypalClientId,
