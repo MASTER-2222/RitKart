@@ -87,6 +87,8 @@ class PayPalIntegrationTester:
                         token = data['access_token']
                     elif data.get('data', {}).get('token'):
                         token = data['data']['token']
+                    elif data.get('token'):  # Direct token field
+                        token = data['token']
                 
                 if token:
                     self.access_token = token
