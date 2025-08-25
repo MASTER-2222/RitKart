@@ -466,12 +466,11 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Comprehensive PayPal payment integration testing on localhost development server"
-    - "Fix checkout form field naming selectors for complete payment flow testing"
-    - "Test PayPal Credit/Debit Card and Direct PayPal payment methods with test card completion"
-    - "Fix COD cart dependency issue in orderService.createOrder()"
-    - "Test complete end-to-end payment flow: checkout → payment → order confirmation → My Orders visibility"
-    - "Verify all payment methods integrate with PayPal credentials from /backend/.env file only"
+    - "URGENT: Test React error #310 on production checkout page at https://ritzone-frontend-s3ik.onrender.com/checkout"
+    - "Verify user-reported React error #310 with exact reproduction steps"
+    - "Test with fresh browser session and exact credentials b@b.com/Abcd@1234"
+    - "Check browser console for minified React error #310 and client-side exceptions"
+    - "Test across multiple browsers to confirm error persistence"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
