@@ -146,7 +146,14 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (sameAsShipping) {
-      setBillingAddress(shippingAddress);
+      // Check if shippingAddress has actually changed
+      const hasChanged = !prevShippingAddressRef.current || 
+        JSON.stringify(prevShippingAddressRef.current) !== JSON.stringify(shippingAddress);
+      
+      if (hasChanged) {
+        setBillingAddress(shippingAddress);
+        prevShippingAddressRef.current = { ...shippingAddress };
+      }
     }
   }, [sameAsShipping]);
 
