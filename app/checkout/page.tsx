@@ -50,6 +50,18 @@ export default function CheckoutPage() {
   const supabase = createClient();
   const { selectedCurrency } = useCurrency(); // Add currency context
 
+  // Verify PayPal environment variables on component mount
+  useEffect(() => {
+    console.log('🔍 Checking PayPal Environment Variables...');
+    const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+    
+    if (paypalClientId) {
+      console.log('✅ NEXT_PUBLIC_PAYPAL_CLIENT_ID found:', paypalClientId.substring(0, 10) + '...');
+    } else {
+      console.error('❌ NEXT_PUBLIC_PAYPAL_CLIENT_ID not found in environment variables');
+    }
+  }, []);
+
   const [shippingAddress, setShippingAddress] = useState<Address>({
     full_name: '',
     address_line1: '',
