@@ -615,7 +615,7 @@ export default function CheckoutPage() {
                             setError(error.message || 'Failed to create PayPal order');
                             throw error;
                           }
-                        }}}
+                        }}
                         onApprove={async (data, actions) => {
                           try {
                             // Capture the payment
