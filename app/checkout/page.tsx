@@ -640,7 +640,9 @@ export default function CheckoutPage() {
                     options={{
                       clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
                       currency: selectedCurrency.code === 'INR' ? 'USD' : selectedCurrency.code,
-                      intent: 'capture'
+                      intent: 'capture',
+                      'data-client-token': undefined, // Use live environment - no sandbox
+                      'enable-funding': 'venmo,paylater'
                     }}
                     onError={(error) => {
                       console.error('PayPal Script Provider Error:', error);
