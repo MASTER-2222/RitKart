@@ -711,20 +711,28 @@ export default function CheckoutPage() {
 
               {/* Cart Items */}
               <div className="space-y-3 mb-6">
-                {cart?.cart_items?.map(item => (
-                  <div key={item.id} className="flex space-x-3">
-                    <img 
-                      src={item.product?.images?.[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=100&h=100&fit=crop&crop=center'}
-                      alt={item.product?.name || 'Product'}
-                      className="w-16 h-16 object-cover rounded"
-                    />
-                    <div className="flex-1">
-                      <h4 className="text-sm font-medium">{item.product?.name || 'Product'}</h4>
-                      <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
-                      <p className="text-sm font-semibold">{selectedCurrency.symbol}{item.total_price.toFixed(2)}</p>
+                {cart?.cart_items?.map(item => {
+                  // Add null safety check for item and item.product
+                  if (!item || !item.product) {
+                    console.warn('Cart item or product is undefined:', item);
+                    return null;
+                  }
+                  
+                  return (
+                    <div key={item.id} className="flex space-x-3">
+                      <img 
+                        src={item.product?.images?.[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=100&h=100&fit=crop&crop=center'}
+                        alt={item.product?.name || 'Product'}
+                        className="w-16 h-16 object-cover rounded"
+                      />
+                      <div className="flex-1">
+                        <h4 className="text-sm font-medium">{item.product?.name || 'Product'}</h4>
+                        <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                        <p className="text-sm font-semibold">{selectedCurrency.symbol}{item.total_price.toFixed(2)}</p>
+                      </div>
                     </div>
-                  </div>
-                )) || []}
+                  );
+                }).filter(Boolean) || []}
               </div>
 
               <hr className="mb-4" />
