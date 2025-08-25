@@ -538,30 +538,119 @@ export default function CheckoutPage() {
             {/* Payment Method */}
             <div className="bg-white rounded-lg shadow-sm border p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Payment Method</h2>
-              <div className="space-y-2">
-                <label className="flex items-center">
+              <div className="space-y-3">
+                <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
                   <input
                     type="radio"
                     name="payment"
                     value="card"
                     checked={paymentMethod === 'card'}
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="mr-2"
+                    className="mr-3"
                   />
-                  <span>Credit/Debit Card</span>
+                  <div className="flex items-center">
+                    <i className="ri-bank-card-line text-xl text-blue-600 mr-2"></i>
+                    <div>
+                      <span className="font-medium">Credit/Debit Card</span>
+                      <p className="text-sm text-gray-600">Pay securely with PayPal's card processing</p>
+                    </div>
+                  </div>
                 </label>
-                <label className="flex items-center">
+                
+                <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
                   <input
                     type="radio"
                     name="payment"
                     value="paypal"
                     checked={paymentMethod === 'paypal'}
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="mr-2"
+                    className="mr-3"
                   />
-                  <span>PayPal</span>
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center mr-2">
+                      <span className="text-white font-bold text-sm">PP</span>
+                    </div>
+                    <div>
+                      <span className="font-medium">PayPal</span>
+                      <p className="text-sm text-gray-600">Pay with your PayPal account</p>
+                    </div>
+                  </div>
+                </label>
+
+                <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="cod"
+                    checked={paymentMethod === 'cod'}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="mr-3"
+                  />
+                  <div className="flex items-center">
+                    <i className="ri-hand-coin-line text-xl text-green-600 mr-2"></i>
+                    <div>
+                      <span className="font-medium">Cash on Delivery (COD)</span>
+                      <p className="text-sm text-gray-600">Pay when your order is delivered</p>
+                    </div>
+                  </div>
                 </label>
               </div>
+
+              {/* PayPal Button Section */}
+              {(paymentMethod === 'card' || paymentMethod === 'paypal') && (
+                <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                  <h3 className="font-medium mb-3">
+                    {paymentMethod === 'card' ? 'Pay with Card via PayPal' : 'Pay with PayPal'}
+                  </h3>
+                  
+                  {paypalError && (
+                    <div className="mb-3 p-3 bg-red-100 text-red-700 rounded text-sm">
+                      {paypalError}
+                      <button 
+                        onClick={() => setPaypalError(null)}
+                        className="float-right text-red-700 hover:text-red-900"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  )}
+
+                  {paypalLoading && (
+                    <div className="mb-3 text-center">
+                      <div className="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-orange-500 mr-2"></div>
+                      <span>Processing payment...</span>
+                    </div>
+                  )}
+
+                  <PayPalScriptProvider
+                    options={{
+                      clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '',
+                      currency: selectedCurrency.code === 'INR' ? 'USD' : selectedCurrency.code,
+                      intent: 'capture'
+                    }}
+                  >
+                    <PayPalButtons
+                      createOrder={createPayPalOrder}
+                      onApprove={onPayPalApprove}
+                      onError={onPayPalError}
+                      style={{ 
+                        layout: "vertical",
+                        color: paymentMethod === 'card' ? "blue" : "gold",
+                        shape: "rect",
+                        label: paymentMethod === 'card' ? "pay" : "paypal"
+                      }}
+                      disabled={paypalLoading || !validateForm()}
+                    />
+                  </PayPalScriptProvider>
+                  
+                  <p className="text-xs text-gray-500 mt-2">
+                    {paymentMethod === 'card' 
+                      ? 'Your card details are processed securely by PayPal'
+                      : 'You will be redirected to PayPal to complete your payment'
+                    }
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Order Notes */}
