@@ -712,14 +712,26 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* Place Order Button */}
-              <button
-                onClick={handleSubmitOrder}
-                disabled={submitting}
-                className="w-full bg-[#febd69] hover:bg-[#f3a847] text-black font-semibold py-3 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {submitting ? 'Processing...' : `Place Order (${selectedCurrency.symbol}${total.toFixed(2)})`}
-              </button>
+              {/* Place Order Button - Only show for COD */}
+              {paymentMethod === 'cod' && (
+                <button
+                  onClick={handleSubmitOrder}
+                  disabled={submitting}
+                  className="w-full bg-[#febd69] hover:bg-[#f3a847] text-black font-semibold py-3 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {submitting ? 'Processing...' : `Place COD Order (${selectedCurrency.symbol}${total.toFixed(2)})`}
+                </button>
+              )}
+
+              {/* Payment Instructions for Card/PayPal */}
+              {(paymentMethod === 'card' || paymentMethod === 'paypal') && (
+                <div className="w-full p-4 bg-blue-50 border border-blue-200 rounded-lg text-center">
+                  <i className="ri-information-line text-blue-600 text-xl mb-2"></i>
+                  <p className="text-sm text-blue-800 font-medium">
+                    Please use the PayPal payment button in the Payment Method section above to complete your purchase.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
