@@ -118,6 +118,7 @@ export default function Footer() {
                 <select 
                   className="bg-[#37475a] border border-gray-500 text-white px-4 py-2 rounded hover:bg-[#485769] focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer min-w-[160px]"
                   value={selectedCurrency.country.toLowerCase().replace(' ', '')}
+                  onChange={() => {}}
                 >
                   {currencies.map((currency) => (
                     <option key={currency.code} value={currency.country.toLowerCase().replace(' ', '')}>
