@@ -122,7 +122,7 @@ export default function CheckoutPage() {
     }
   };
 
-  const loadCart = async () => {
+  const loadCart = useCallback(async () => {
     try {
       setLoading(true);
       console.log(`🔄 Loading checkout cart in ${selectedCurrency.code} currency...`);
@@ -143,7 +143,7 @@ export default function CheckoutPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedCurrency.code, router]);
 
   const validateForm = (): boolean => {
     // Check shipping address
