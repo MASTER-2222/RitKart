@@ -11,10 +11,8 @@ interface PaymentData {
   cart_items: any[];
 }
 
-// PayPal API URL - use sandbox for development, live for production
-const PAYPAL_API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://api-m.paypal.com' 
-  : 'https://api-m.sandbox.paypal.com';
+// PayPal API URL - using LIVE PayPal API since CLIENT_ID and CLIENT_SECRET are LIVE credentials
+const PAYPAL_API_URL = 'https://api-m.paypal.com';
 
 async function getPayPalAccessToken() {
   try {
