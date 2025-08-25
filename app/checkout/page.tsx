@@ -375,7 +375,7 @@ export default function CheckoutPage() {
                     type="text"
                     name="full_name"
                     value={shippingAddress.full_name}
-                    onChange={(e) => setShippingAddress(prev => ({ ...prev, full_name: e.target.value }))}
+                    onChange={(e) => updateShippingAddress('full_name', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
                     required
                   />
