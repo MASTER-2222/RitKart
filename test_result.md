@@ -304,6 +304,18 @@ frontend:
         agent: "main"
         comment: "✅ FRONTEND IMPLEMENTATION COMPLETE: Replaced static Related Products section with dynamic implementation. Added API method getRelatedProducts() to utils/api.ts with currency support. Updated ProductDetail component to fetch and display related products in responsive grid layout (2/3/5 columns). Features: product images, names, brands, ratings, prices with currency conversion, stock status, hover effects, and click-to-navigate functionality. Includes loading states and error handling. Ready for testing."
 
+  - task: "Integrate PayPal Payment System on Checkout Page"
+    implemented: false
+    working: false
+    file: "/app/app/checkout/page.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "🎯 NEW PAYPAL INTEGRATION TASK: User requested PayPal integration on checkout page (/checkout) based on GitHub repository 'jabartlett/paypalnext'. REQUIREMENTS: 1) Add 3 payment options: Credit/Debit Card (via PayPal), PayPal Button, Cash on Delivery (COD), 2) PayPal CLIENT_ID and CLIENT_SECRET already present in .env file, 3) Successful payments should appear in 'My Orders' section, 4) Don't modify existing environment variables, 5) For COD option, create order immediately. IMPLEMENTATION PLAN: Phase 1 - Frontend (PayPal React SDK, update checkout UI), Phase 2 - Backend (PayPal API endpoint, payment capture), Phase 3 - Order Integration (ensure orders appear in My Orders section). Starting implementation now."
+
   - task: "Test search functionality comprehensively"
     implemented: true
     working: true
