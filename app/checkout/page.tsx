@@ -111,6 +111,44 @@ export default function CheckoutPage() {
     }
   }, [selectedCurrency.code, router]);
 
+  const checkAuthAndLoadCart = useCallback(async () => {
+    if (!mounted) return; // Don't run if not mounted yet
+    
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.push('/auth/login?redirect=checkout');
+        return;
+      }
+      await loadCart();
+    } catch (err) {
+      console.error('Auth check failed:', err);
+      setError('Failed to check authentication');
+      setLoading(false);
+    }
+  }, [mounted, supabase.auth, router, loadCart]);
+
+  // UseEffect hooks
+  useEffect(() => {
+    if (mounted) {
+      checkAuthAndLoadCart();
+    }
+  }, [mounted, checkAuthAndLoadCart]);
+
+  // Reload cart when currency changes
+  useEffect(() => {
+    if (cartLoadedRef.current && mounted) { // Only reload if cart is already loaded and component is mounted
+      console.log(`🔄 Currency changed to ${selectedCurrency.code}, reloading checkout cart...`);
+      loadCart();
+    }
+  }, [selectedCurrency.code, mounted, loadCart]);
+
+  useEffect(() => {
+    if (sameAsShipping) {
+      setBillingAddress(shippingAddress);
+    }
+  }, [sameAsShipping, shippingAddress]);
+
   const validateForm = (): boolean => {
     // Check shipping address
     const requiredFields = ['full_name', 'address_line1', 'city', 'state', 'postal_code'];
