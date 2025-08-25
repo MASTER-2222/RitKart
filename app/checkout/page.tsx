@@ -293,8 +293,10 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     // Set PayPal client ID on client side to prevent hydration mismatch
-    setPaypalClientId(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '');
-    setIsClient(true);
+    if (typeof window !== 'undefined') {
+      setPaypalClientId(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '');
+      setIsClient(true);
+    }
   }, []);
 
   return (
