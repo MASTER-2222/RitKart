@@ -105,7 +105,7 @@ export default function CheckoutPage() {
     }
   }, [sameAsShipping, shippingAddress]);
 
-  const checkAuthAndLoadCart = async () => {
+  const checkAuthAndLoadCart = useCallback(async () => {
     if (!mounted) return; // Don't run if not mounted yet
     
     try {
@@ -120,7 +120,7 @@ export default function CheckoutPage() {
       setError('Failed to check authentication');
       setLoading(false);
     }
-  };
+  }, [mounted, supabase.auth, router, loadCart]);
 
   const loadCart = useCallback(async () => {
     try {
