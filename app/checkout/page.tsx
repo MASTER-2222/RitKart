@@ -255,8 +255,14 @@ export default function CheckoutPage() {
     
     try {
       // Add null safety check for cart
-      if (!cart || !cart.cart_items) {
+      if (!cart || !cart.cart_items || cart.cart_items.length === 0) {
         throw new Error('Cart data not available for PayPal payment');
+      }
+      
+      // Filter valid cart items
+      const validItems = cart.cart_items.filter(item => item && item.product);
+      if (validItems.length === 0) {
+        throw new Error('No valid products in cart for PayPal payment');
       }
       
       // Get order details from PayPal
@@ -275,7 +281,7 @@ export default function CheckoutPage() {
         orderID: data.orderID,
         shippingAddress,
         billingAddress: sameAsShipping ? shippingAddress : billingAddress,
-        cart_items: cart.cart_items
+        cart_items: validItems
       };
 
       const response = await fetch('/api/paypal', {
