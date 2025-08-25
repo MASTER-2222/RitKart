@@ -224,9 +224,16 @@ export default function CheckoutPage() {
   // PayPal payment functions
   const createPayPalOrder = (data: any, actions: any) => {
     // Add null safety check for cart
-    if (!cart || !cart.cart_items) {
-      console.error('Cart is null or undefined in createPayPalOrder');
+    if (!cart || !cart.cart_items || cart.cart_items.length === 0) {
+      console.error('Cart is null, undefined, or empty in createPayPalOrder');
       throw new Error('Cart data not available');
+    }
+    
+    // Additional check for cart items with valid products
+    const validItems = cart.cart_items.filter(item => item && item.product);
+    if (validItems.length === 0) {
+      console.error('No valid cart items with products found');
+      throw new Error('No valid products in cart');
     }
     
     return actions.order.create({
@@ -236,7 +243,7 @@ export default function CheckoutPage() {
             value: total.toFixed(2),
             currency_code: selectedCurrency.code === 'INR' ? 'USD' : selectedCurrency.code // PayPal may not support all currencies
           },
-          description: `RitZone Order - ${cart.cart_items.length} items`
+          description: `RitZone Order - ${validItems.length} items`
         }
       ]
     });
