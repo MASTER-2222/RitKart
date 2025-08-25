@@ -75,6 +75,8 @@ export default function CheckoutPage() {
   const [sameAsShipping, setSameAsShipping] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [orderNotes, setOrderNotes] = useState('');
+  const [paypalLoading, setPaypalLoading] = useState(false);
+  const [paypalError, setPaypalError] = useState<string | null>(null);
 
   useEffect(() => {
     checkAuthAndLoadCart();
