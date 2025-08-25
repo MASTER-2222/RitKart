@@ -12,8 +12,8 @@ import json
 import time
 from datetime import datetime
 
-# Configuration
-BACKEND_URL = "http://localhost:10000/api"
+# Configuration - Use production URLs as specified in review request
+BACKEND_URL = "https://ritkart-backend-ujnt.onrender.com/api"
 FRONTEND_URL = "http://localhost:3000"
 TEST_USER_EMAIL = "b@b.com"
 TEST_USER_PASSWORD = "Abcd@1234"
