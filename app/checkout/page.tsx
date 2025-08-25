@@ -106,6 +106,8 @@ export default function CheckoutPage() {
   }, [sameAsShipping, shippingAddress]);
 
   const checkAuthAndLoadCart = async () => {
+    if (!mounted) return; // Don't run if not mounted yet
+    
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
