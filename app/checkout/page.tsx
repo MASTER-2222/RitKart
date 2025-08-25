@@ -89,7 +89,7 @@ export default function CheckoutPage() {
     if (mounted) {
       checkAuthAndLoadCart();
     }
-  }, [mounted]);
+  }, [mounted, checkAuthAndLoadCart]);
 
   // Reload cart when currency changes
   useEffect(() => {
