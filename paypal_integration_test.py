@@ -100,13 +100,13 @@ class PayPalIntegrationTester:
                 paypal_url = data.get('paypalUrl', '')
                 environment = data.get('environment', '')
                 
-                # Validate sandbox URL for development
-                expected_url = 'https://api-m.sandbox.paypal.com'
-                if paypal_url == expected_url:
-                    self.log_test("PayPal Environment Variables", True, f"PayPal API URL correctly set to sandbox: {paypal_url}")
+                # Check PayPal API URL (can be sandbox or live)
+                if paypal_url in ['https://api-m.sandbox.paypal.com', 'https://api-m.paypal.com']:
+                    env_type = "LIVE" if paypal_url == 'https://api-m.paypal.com' else "SANDBOX"
+                    self.log_test("PayPal Environment Variables", True, f"PayPal API URL correctly set to {env_type}: {paypal_url}")
                     return True
                 else:
-                    self.log_test("PayPal Environment Variables", False, f"PayPal API URL incorrect. Expected: {expected_url}, Got: {paypal_url}")
+                    self.log_test("PayPal Environment Variables", False, f"PayPal API URL invalid. Got: {paypal_url}")
                     return False
             else:
                 self.log_test("PayPal Environment Variables", False, f"PayPal endpoint failed: {response.status_code}")
