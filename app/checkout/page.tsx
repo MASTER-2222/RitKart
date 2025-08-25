@@ -583,7 +583,7 @@ export default function CheckoutPage() {
                   
                   {/* PayPal Buttons will appear here after form validation */}
                   <div id="paypal-button-container" className="min-h-[50px]">
-                    {(typeof window !== 'undefined' && validateForm()) && (
+                    {isClient && validateForm() && (
                       <PayPalButtons
                         createOrder={async (data, actions) => {
                           try {
@@ -615,7 +615,7 @@ export default function CheckoutPage() {
                             setError(error.message || 'Failed to create PayPal order');
                             throw error;
                           }
-                        }}
+                        }}}
                         onApprove={async (data, actions) => {
                           try {
                             // Capture the payment
