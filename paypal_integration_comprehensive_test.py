@@ -78,8 +78,18 @@ class PayPalIntegrationTester:
             
             if response.status_code == 200:
                 data = response.json()
-                if data.get('success') and data.get('data', {}).get('access_token'):
-                    self.access_token = data['data']['access_token']
+                # Check for both possible token locations
+                token = None
+                if data.get('success'):
+                    if data.get('data', {}).get('access_token'):
+                        token = data['data']['access_token']
+                    elif data.get('access_token'):
+                        token = data['access_token']
+                    elif data.get('data', {}).get('token'):
+                        token = data['data']['token']
+                
+                if token:
+                    self.access_token = token
                     self.session.headers.update({
                         'Authorization': f'Bearer {self.access_token}'
                     })
@@ -91,7 +101,7 @@ class PayPalIntegrationTester:
                     )
                     return True
                 else:
-                    self.log_test("User Authentication", False, "No access token in response")
+                    self.log_test("User Authentication", False, f"No access token in response: {data}")
                     return False
             else:
                 self.log_test("User Authentication", False, f"HTTP {response.status_code}")
