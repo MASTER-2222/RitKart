@@ -630,19 +630,30 @@ export default function CheckoutPage() {
                       currency: selectedCurrency.code === 'INR' ? 'USD' : selectedCurrency.code,
                       intent: 'capture'
                     }}
+                    onError={(error) => {
+                      console.error('PayPal Script Provider Error:', error);
+                      setPaypalError('PayPal initialization failed. Please check PayPal configuration.');
+                    }}
                   >
-                    <PayPalButtons
-                      createOrder={createPayPalOrder}
-                      onApprove={onPayPalApprove}
-                      onError={onPayPalError}
-                      style={{ 
-                        layout: "vertical",
-                        color: paymentMethod === 'card' ? "blue" : "gold",
-                        shape: "rect",
-                        label: paymentMethod === 'card' ? "pay" : "paypal"
-                      }}
-                      disabled={paypalLoading || !validateForm()}
-                    />
+                    {process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ? (
+                      <PayPalButtons
+                        createOrder={createPayPalOrder}
+                        onApprove={onPayPalApprove}
+                        onError={onPayPalError}
+                        style={{ 
+                          layout: "vertical",
+                          color: paymentMethod === 'card' ? "blue" : "gold",
+                          shape: "rect",
+                          label: paymentMethod === 'card' ? "pay" : "paypal"
+                        }}
+                        disabled={paypalLoading || !validateForm()}
+                      />
+                    ) : (
+                      <div className="p-4 bg-red-50 text-red-700 rounded">
+                        <i className="ri-error-warning-line mr-2"></i>
+                        PayPal Client ID not configured in environment variables. Please contact support.
+                      </div>
+                    )}
                   </PayPalScriptProvider>
                   
                   <p className="text-xs text-gray-500 mt-2">
