@@ -160,6 +160,20 @@ export default function CheckoutPage() {
   const handleSubmitOrder = async () => {
     if (!validateForm()) return;
 
+    // Handle Cash on Delivery orders directly
+    if (paymentMethod === 'cod') {
+      await handleCODOrder();
+      return;
+    }
+
+    // For card and paypal, show error as they should be handled by PayPal buttons
+    if (paymentMethod === 'card' || paymentMethod === 'paypal') {
+      setError('Please use the PayPal payment button below to complete your purchase.');
+      return;
+    }
+  };
+
+  const handleCODOrder = async () => {
     setSubmitting(true);
     setError(null);
 
@@ -167,9 +181,11 @@ export default function CheckoutPage() {
       const orderData = {
         shippingAddress,
         billingAddress: sameAsShipping ? shippingAddress : billingAddress,
-        paymentMethod,
+        paymentMethod: 'cod',
         notes: orderNotes,
-        discountAmount: 0
+        discountAmount: 0,
+        paymentStatus: 'pending', // COD orders are pending until delivery
+        transactionId: `COD_${Date.now()}` // Generate COD reference
       };
 
       const response = await apiClient.createOrder(orderData);
@@ -181,14 +197,107 @@ export default function CheckoutPage() {
           router.push(`/orders/${response.data.id}`);
         }, 2000);
       } else {
-        throw new Error(response.message || 'Failed to create order');
+        throw new Error(response.message || 'Failed to create COD order');
       }
     } catch (err: any) {
-      console.error('Order creation failed:', err);
+      console.error('COD order creation failed:', err);
       setError(err.message || 'Failed to create order. Please try again.');
     } finally {
       setSubmitting(false);
     }
+  };
+
+  // PayPal payment functions
+  const createPayPalOrder = (data: any, actions: any) => {
+    return actions.order.create({
+      purchase_units: [
+        {
+          amount: {
+            value: total.toFixed(2),
+            currency_code: selectedCurrency.code === 'INR' ? 'USD' : selectedCurrency.code // PayPal may not support all currencies
+          },
+          description: `RitZone Order - ${cart.cart_items.length} items`
+        }
+      ]
+    });
+  };
+
+  const onPayPalApprove = async (data: any, actions: any) => {
+    setPaypalLoading(true);
+    setPaypalError(null);
+    
+    try {
+      // Get order details from PayPal
+      const order = await actions.order.get();
+      console.log('PayPal payment approved:', order);
+
+      // Extract payer information
+      const payerName = order.payer?.name?.given_name || '';
+      const payerEmail = order.payer?.email_address || '';
+
+      // Send to our PayPal API for capture
+      const paymentData = {
+        name: payerName,
+        email: payerEmail,
+        amount: total.toFixed(2),
+        orderID: data.orderID,
+        shippingAddress,
+        billingAddress: sameAsShipping ? shippingAddress : billingAddress,
+        cart_items: cart.cart_items
+      };
+
+      const response = await fetch('/api/paypal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(paymentData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'PayPal payment processing failed');
+      }
+
+      const result = await response.json();
+      console.log('PayPal capture successful:', result);
+
+      // Now create the order in our system
+      const orderData = {
+        shippingAddress,
+        billingAddress: sameAsShipping ? shippingAddress : billingAddress,
+        paymentMethod: 'paypal',
+        notes: orderNotes,
+        discountAmount: 0,
+        paymentStatus: 'completed',
+        transactionId: result.data.transactionId,
+        paypalOrderId: data.orderID,
+        paypalCaptureId: result.data.captureID
+      };
+
+      const orderResponse = await apiClient.createOrder(orderData);
+      
+      if (orderResponse.success) {
+        setSuccess(true);
+        // Redirect to order confirmation after 2 seconds
+        setTimeout(() => {
+          router.push(`/orders/${orderResponse.data.id}`);
+        }, 2000);
+      } else {
+        throw new Error(orderResponse.message || 'Failed to create order record');
+      }
+
+    } catch (error: any) {
+      console.error('PayPal payment failed:', error);
+      setPaypalError(error.message || 'PayPal payment failed. Please try again.');
+    } finally {
+      setPaypalLoading(false);
+    }
+  };
+
+  const onPayPalError = (err: any) => {
+    console.error('PayPal error:', err);
+    setPaypalError('An error occurred with PayPal. Please try again or choose a different payment method.');
   };
 
   if (loading) {
