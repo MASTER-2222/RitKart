@@ -97,7 +97,7 @@ export default function CheckoutPage() {
       console.log(`🔄 Currency changed to ${selectedCurrency.code}, reloading checkout cart...`);
       loadCart();
     }
-  }, [selectedCurrency.code, mounted, cart]);
+  }, [selectedCurrency.code, mounted]);
 
   useEffect(() => {
     if (sameAsShipping) {
