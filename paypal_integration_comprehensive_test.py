@@ -13,9 +13,9 @@ from datetime import datetime
 
 class PayPalIntegrationTester:
     def __init__(self):
-        # Use production URLs as specified in review request
-        self.backend_url = "https://ritkart-backend-ujnt.onrender.com/api"
-        self.frontend_url = "https://ritzone-frontend-s3ik.onrender.com"
+        # Use localhost URLs as specified in review request
+        self.backend_url = "http://localhost:10000/api"
+        self.frontend_url = "http://localhost:3000"
         
         # Test credentials from review request
         self.test_email = "b@b.com"
