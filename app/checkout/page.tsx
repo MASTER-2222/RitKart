@@ -291,22 +291,29 @@ export default function CheckoutPage() {
     );
   }
 
-  const subtotal = cart.cart_items.reduce((sum, item) => sum + Number(item.total_price), 0);
+  const subtotal = cart?.cart_items.reduce((sum, item) => sum + Number(item.total_price), 0) || 0;
   const shipping = subtotal > 35 ? 0 : 5.99;
   const tax = subtotal * 0.08;
   const total = subtotal + shipping + tax;
 
-  // PayPal configuration from environment
-  const [paypalClientId, setPaypalClientId] = useState('');
-  const [isClient, setIsClient] = useState(false);
+  // PayPal configuration - initialize safely to prevent hydration issues
+  const paypalClientId = typeof window !== 'undefined' ? process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '' : '';
 
-  useEffect(() => {
-    // Set PayPal client ID on client side to prevent hydration mismatch
-    if (typeof window !== 'undefined') {
-      setPaypalClientId(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '');
-      setIsClient(true);
-    }
-  }, []);
+  // Show loading state while mounting to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex items-center justify-center min-h-[calc(100vh-160px)]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading checkout...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <>
